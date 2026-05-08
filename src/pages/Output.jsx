@@ -22,13 +22,21 @@ const FUNCTION_CHIPS = [
   { id: `procurement`, label: `Procurement` },
 ]
 
+// Engine returns controlsByFunction as array of {function, controls}
+// Convert to plain object for chip counts and filtering
+function toFunctionMap(controlsByFunction) {
+  const map = {}
+  ;(controlsByFunction || []).forEach(group => {
+    map[group.function] = group.controls || []
+  })
+  return map
+}
+
 export default function Output() {
   const [searchParams] = useSearchParams()
-  const [activeTab, setActiveTab] = useState(() => {
-    return searchParams.get(`tab`) || `risks`
-  })
+  const [activeTab, setActiveTab] = useState(() => searchParams.get(`tab`) || `risks`)
   const [activeFunction, setActiveFunction] = useState(`all`)
-  const [copyState, setCopyState] = useState(`idle`) // idle | copied
+  const [copyState, setCopyState] = useState(`idle`)
 
   const config = useMemo(() => decodeConfig(searchParams), [searchParams])
   const partial = useMemo(() => !config || isPartialConfig(config), [config])
@@ -38,31 +46,27 @@ export default function Output() {
     return buildOutput(config, new Date())
   }, [config])
 
+  const functionMap = useMemo(() => toFunctionMap(output?.controlsByFunction), [output])
+
   useEffect(() => {
     trackEvent(events.TAB_VIEWED, { tab: activeTab })
   }, [activeTab])
 
-  // No config at all → redirect prompt
   if (!config) {
     return (
       <div className={styles.empty}>
         <div className={styles.emptyInner}>
           <p className={styles.emptyEyebrow}>— NO CONFIGURATION</p>
           <h1 className={styles.emptyTitle}>No configuration yet</h1>
-          <p className={styles.emptyText}>
-            Answer five questions to get your governance baseline.
-          </p>
-          <Link to={`/configure`} className={styles.btnPrimary}>
-            Start profiling →
-          </Link>
+          <p className={styles.emptyText}>Answer five questions to get your governance baseline.</p>
+          <Link to={`/configure`} className={styles.btnPrimary}>Start profiling →</Link>
         </div>
       </div>
     )
   }
 
   function handleCopyUrl() {
-    const url = window.location.href
-    navigator.clipboard.writeText(url).then(() => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
       setCopyState(`copied`)
       trackEvent(events.URL_COPIED)
       setTimeout(() => setCopyState(`idle`), 2000)
@@ -89,20 +93,15 @@ export default function Output() {
     <div className={styles.page}>
       <div className={styles.inner}>
 
-        {/* Partial config banner */}
         {partial && (
           <div className={styles.partialBanner}>
             <span>Some answers were unspecified — output is broader than it could be.</span>
-            <Link to={`/configure?${editParams.toString()}`} className={styles.partialLink}>
-              Refine →
-            </Link>
+            <Link to={`/configure?${editParams.toString()}`} className={styles.partialLink}>Refine →</Link>
           </div>
         )}
 
-        {/* Config summary card */}
         <ConfigSummary config={config} editParams={editParams} />
 
-        {/* Tab bar */}
         <div className={styles.tabBar} role="tablist">
           {TABS.map(tab => (
             <button
@@ -126,51 +125,30 @@ export default function Output() {
           ))}
         </div>
 
-        {/* Tab content */}
         <div className={styles.tabContent} role="tabpanel">
-          {activeTab === `risks` && (
-            <RisksTab output={output} />
-          )}
-          {activeTab === `regulatory` && (
-            <RegulatoryTab output={output} />
-          )}
-          {activeTab === `controls` && (
+          {activeTab === `risks`      && <RisksTab output={output} />}
+          {activeTab === `regulatory` && <RegulatoryTab output={output} />}
+          {activeTab === `controls`   && (
             <ControlsTab
               output={output}
+              functionMap={functionMap}
               activeFunction={activeFunction}
               setActiveFunction={setActiveFunction}
             />
           )}
-          {activeTab === `actions` && (
-            <ActionsTab output={output} />
-          )}
-          {activeTab === `platform` && (
-            <PlatformTab config={config} />
-          )}
+          {activeTab === `actions`    && <ActionsTab output={output} />}
+          {activeTab === `platform`   && <PlatformTab config={config} />}
         </div>
 
-        {/* Export bar */}
         <div className={styles.exportBar}>
-          <button
-            className={styles.exportBtn}
-            onClick={handleCopyUrl}
-          >
+          <button className={styles.exportBtn} onClick={handleCopyUrl}>
             {copyState === `copied` ? `✓ URL copied` : `Copy URL`}
           </button>
-          <button
-            className={styles.exportBtn}
-            onClick={handleCopyMarkdown}
-          >
+          <button className={styles.exportBtn} onClick={handleCopyMarkdown}>
             {copyState === `md` ? `✓ Copied` : `Copy Markdown`}
           </button>
-          <button
-            className={styles.exportBtn}
-            onClick={handlePrint}
-          >
-            Print / PDF
-          </button>
+          <button className={styles.exportBtn} onClick={handlePrint}>Print / PDF</button>
         </div>
-
       </div>
     </div>
   )
@@ -188,18 +166,13 @@ function ConfigSummary({ config, editParams }) {
   if (config.data?.data_type?.length) chips.push({ label: `Data`, value: config.data.data_type.join(`, `) })
   if (config.data?.data_scale) chips.push({ label: `Scale`, value: config.data.data_scale })
   if (config.jurisdiction?.length) chips.push({ label: `Jurisdiction`, value: config.jurisdiction.join(`, `) })
-  if (config.platform) chips.push({ label: `Platform`, value: config.platform })
+  if (config.platform && config.platform !== `skip`) chips.push({ label: `Platform`, value: config.platform })
 
   return (
     <div className={styles.configCard}>
       <div className={styles.configHeader}>
         <p className={styles.configEyebrow}>— YOUR CONFIGURATION</p>
-        <Link
-          to={`/configure?${editParams.toString()}`}
-          className={styles.editLink}
-        >
-          Edit →
-        </Link>
+        <Link to={`/configure?${editParams.toString()}`} className={styles.editLink}>Edit →</Link>
       </div>
       <div className={styles.configChips}>
         {chips.map((chip, i) => (
@@ -208,15 +181,14 @@ function ConfigSummary({ config, editParams }) {
             <span className={styles.chipValue}>{chip.value}</span>
           </span>
         ))}
-        {chips.length === 0 && (
-          <span className={styles.configChipEmpty}>No configuration specified</span>
-        )}
+        {chips.length === 0 && <span className={styles.configChipEmpty}>No configuration specified</span>}
       </div>
     </div>
   )
 }
 
 // ─── Risks Tab ────────────────────────────────────────────────────────────────
+// Fields: kb_id, kb_url, title, domain, training_scenario_id, relevance_reason (attached by engine)
 
 function RisksTab({ output }) {
   const risks = output?.risks || []
@@ -236,32 +208,25 @@ function RisksTab({ output }) {
         Each links to the Knowledge Base for detailed analysis and mitigation guidance.
       </p>
       {risks.map((risk, i) => (
-        <div key={risk.id} className={styles.riskItem}>
+        <div key={risk.kb_id || i} className={styles.riskItem}>
           <div className={styles.riskRank}>{i + 1}</div>
           <div className={styles.riskBody}>
             <div className={styles.riskHeader}>
               <h3 className={styles.riskTitle}>{risk.title}</h3>
-              <span className={`${styles.domainTag} ${styles[`domain_${risk.domain}`]}`}>
-                {risk.domain}
-              </span>
+              <span className={styles.domainTag}>{risk.domain}</span>
             </div>
-            {risk.description && (
-              <p className={styles.riskDesc}>{risk.description}</p>
+            {risk.relevance_reason && (
+              <p className={styles.riskDesc}>{risk.relevance_reason}</p>
             )}
             <div className={styles.riskLinks}>
-              {risk.kb_ref && (
-                <a
-                  href={`https://b-gowland.github.io/ai-risk-kb/docs/${risk.kb_ref}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.kbLink}
-                >
+              {risk.kb_url && (
+                <a href={risk.kb_url} target="_blank" rel="noopener noreferrer" className={styles.kbLink}>
                   Knowledge Base ↗
                 </a>
               )}
-              {risk.scenario_ref && (
+              {risk.training_scenario_id && (
                 <a
-                  href={`https://b-gowland.github.io/ai-risk-training/?scenario=${risk.scenario_ref}`}
+                  href={`https://b-gowland.github.io/ai-risk-training/?scenario=${risk.training_scenario_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.kbLink}
@@ -278,12 +243,14 @@ function RisksTab({ output }) {
 }
 
 // ─── Regulatory Tab ───────────────────────────────────────────────────────────
+// Engine returns regulatoryByFramework as array of {framework: {id,name,...}, items: [...]}
+// Item fields: id, citation, title, summary, mandatory, obligation_type, effective_from,
+//              _source_note, source_url — plus annotateWithDateState adds effective_label, is_urgent
 
 function RegulatoryTab({ output }) {
-  const byFramework = output?.regulatoryByFramework || {}
-  const frameworkKeys = Object.keys(byFramework)
+  const groups = output?.regulatoryByFramework || []
 
-  if (!frameworkKeys.length) {
+  if (!groups.length) {
     return (
       <div className={styles.emptyTab}>
         <p>No regulatory frameworks matched this configuration. <Link to={`/configure`}>Refine your answers →</Link></p>
@@ -297,42 +264,43 @@ function RegulatoryTab({ output }) {
         Applicable regulatory frameworks and article-level requirements for this configuration.
         Every citation links to the primary source.
       </p>
-      {frameworkKeys.map(fw => {
-        const items = byFramework[fw]
-        if (!items?.length) return null
-        const frameworkName = items[0]?.framework_name || fw
+      {groups.map(group => {
+        const fw = group.framework || {}
+        const items = group.items || []
+        if (!items.length) return null
         return (
-          <div key={fw} className={styles.frameworkGroup}>
-            <h3 className={styles.frameworkName}>{frameworkName}</h3>
-            {items.map((item, i) => (
-              <div key={i} className={styles.regItem}>
-                <div className={styles.regItemHeader}>
-                  <span className={styles.articleRef}>{item.article_ref}</span>
-                  <span className={`${styles.obligationBadge} ${styles[`badge_${item.obligation_level}`]}`}>
-                    {item.obligation_level}
-                  </span>
-                  {item.effective_label && (
-                    <span className={`${styles.dateBadge} ${item.is_urgent ? styles.dateUrgent : styles.dateUpcoming}`}>
-                      {item.effective_label}
+          <div key={fw.id} className={styles.frameworkGroup}>
+            <h3 className={styles.frameworkName}>{fw.name || fw.id}</h3>
+            {items.map((item, i) => {
+              const obligationLevel = item.mandatory ? `mandatory` : (item.obligation_type || `recommended`)
+              return (
+                <div key={item.id || i} className={styles.regItem}>
+                  <div className={styles.regItemHeader}>
+                    <span className={styles.articleRef}>{item.citation}</span>
+                    <span className={`${styles.obligationBadge} ${styles[`badge_${obligationLevel}`]}`}>
+                      {obligationLevel}
                     </span>
+                    {item.effective_label && (
+                      <span className={`${styles.dateBadge} ${item.is_urgent ? styles.dateUrgent : styles.dateUpcoming}`}>
+                        {item.effective_label}
+                      </span>
+                    )}
+                  </div>
+                  <p className={styles.regRequirement}>{item.title}</p>
+                  {item.summary && item.summary !== item.title && (
+                    <p className={styles.sourceNote}>{item.summary}</p>
+                  )}
+                  {item._source_note && (
+                    <p className={styles.sourceNote}>{item._source_note}</p>
+                  )}
+                  {item.source_url && (
+                    <a href={item.source_url} target="_blank" rel="noopener noreferrer" className={styles.sourceLink}>
+                      Primary source ↗
+                    </a>
                   )}
                 </div>
-                <p className={styles.regRequirement}>{item.requirement}</p>
-                {item._source_note && (
-                  <p className={styles.sourceNote}>{item._source_note}</p>
-                )}
-                {item.source_url && (
-                  <a
-                    href={item.source_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.sourceLink}
-                  >
-                    Primary source ↗
-                  </a>
-                )}
-              </div>
-            ))}
+              )
+            })}
           </div>
         )
       })}
@@ -341,15 +309,15 @@ function RegulatoryTab({ output }) {
 }
 
 // ─── Controls Tab ─────────────────────────────────────────────────────────────
+// Control fields: id, name, summary, effort, owners (array), frameworks, kb_refs, applies_when
 
-function ControlsTab({ output, activeFunction, setActiveFunction }) {
-  const byFunction = output?.controlsByFunction || {}
+function ControlsTab({ output, functionMap, activeFunction, setActiveFunction }) {
   const allControls = output?.controls || []
 
   const displayControls = useMemo(() => {
     if (activeFunction === `all`) return allControls
-    return byFunction[activeFunction] || []
-  }, [activeFunction, allControls, byFunction])
+    return functionMap[activeFunction] || []
+  }, [activeFunction, allControls, functionMap])
 
   if (!allControls.length) {
     return (
@@ -365,8 +333,6 @@ function ControlsTab({ output, activeFunction, setActiveFunction }) {
         Controls mapped to your configuration, filtered by function.
         Each shows owner, effort, and applicable frameworks.
       </p>
-
-      {/* Function filter chips */}
       <div className={styles.functionChips}>
         {FUNCTION_CHIPS.map(chip => (
           <button
@@ -375,42 +341,36 @@ function ControlsTab({ output, activeFunction, setActiveFunction }) {
             onClick={() => setActiveFunction(chip.id)}
           >
             {chip.label}
-            {chip.id !== `all` && byFunction[chip.id]?.length ? (
-              <span className={styles.chipCount}>{byFunction[chip.id].length}</span>
+            {chip.id !== `all` && functionMap[chip.id]?.length ? (
+              <span className={styles.chipCount}>{functionMap[chip.id].length}</span>
             ) : null}
           </button>
         ))}
       </div>
 
       {displayControls.length === 0 ? (
-        <div className={styles.emptyTab}>
-          <p>No controls for this function. Try a different filter.</p>
-        </div>
+        <div className={styles.emptyTab}><p>No controls for this function. Try a different filter.</p></div>
       ) : (
         <div className={styles.controlList}>
           {displayControls.map((ctrl, i) => (
             <div key={ctrl.id || i} className={styles.controlItem}>
               <div className={styles.controlHeader}>
-                <h3 className={styles.controlTitle}>{ctrl.title}</h3>
+                <h3 className={styles.controlTitle}>{ctrl.name}</h3>
                 <div className={styles.controlMeta}>
                   {ctrl.effort && (
                     <span className={`${styles.effortBadge} ${styles[`effort_${ctrl.effort?.toLowerCase()}`]}`}>
                       {ctrl.effort}
                     </span>
                   )}
-                  {ctrl.owner && (
-                    <span className={styles.ownerTag}>{ctrl.owner}</span>
+                  {ctrl.owners?.length > 0 && (
+                    <span className={styles.ownerTag}>{ctrl.owners.join(` + `)}</span>
                   )}
                 </div>
               </div>
-              {ctrl.description && (
-                <p className={styles.controlDesc}>{ctrl.description}</p>
-              )}
+              {ctrl.summary && <p className={styles.controlDesc}>{ctrl.summary}</p>}
               {ctrl.frameworks?.length > 0 && (
                 <div className={styles.controlFrameworks}>
-                  {ctrl.frameworks.map(fw => (
-                    <span key={fw} className={styles.fwTag}>{fw}</span>
-                  ))}
+                  {ctrl.frameworks.map(fw => <span key={fw} className={styles.fwTag}>{fw}</span>)}
                 </div>
               )}
               {ctrl.kb_refs?.length > 0 && (
@@ -437,6 +397,7 @@ function ControlsTab({ output, activeFunction, setActiveFunction }) {
 }
 
 // ─── Actions Tab ──────────────────────────────────────────────────────────────
+// Action fields: rank, name, owner, effort, why, control_id, frameworks
 
 function ActionsTab({ output }) {
   const actions = output?.actions || []
@@ -459,26 +420,20 @@ function ActionsTab({ output }) {
           <div className={styles.actionNum}>{i + 1}</div>
           <div className={styles.actionBody}>
             <div className={styles.actionHeader}>
-              <h3 className={styles.actionTitle}>{action.title}</h3>
+              <h3 className={styles.actionTitle}>{action.name}</h3>
               <div className={styles.actionMeta}>
                 {action.effort && (
                   <span className={`${styles.effortBadge} ${styles[`effort_${action.effort?.toLowerCase()}`]}`}>
                     {action.effort}
                   </span>
                 )}
-                {action.owner && (
-                  <span className={styles.ownerTag}>{action.owner}</span>
-                )}
+                {action.owner && <span className={styles.ownerTag}>{action.owner}</span>}
               </div>
             </div>
-            {action.description && (
-              <p className={styles.actionDesc}>{action.description}</p>
-            )}
+            {action.why && <p className={styles.actionDesc}>{action.why}</p>}
             {action.frameworks?.length > 0 && (
               <div className={styles.controlFrameworks}>
-                {action.frameworks.map(fw => (
-                  <span key={fw} className={styles.fwTag}>{fw}</span>
-                ))}
+                {action.frameworks.map(fw => <span key={fw} className={styles.fwTag}>{fw}</span>)}
               </div>
             )}
           </div>
@@ -488,11 +443,10 @@ function ActionsTab({ output }) {
   )
 }
 
-// ─── Platform Tab (Phase 2 placeholder) ──────────────────────────────────────
+// ─── Platform Tab ─────────────────────────────────────────────────────────────
 
 function PlatformTab({ config }) {
   const platform = config?.platform
-
   return (
     <div className={styles.platformPlaceholder}>
       <p className={styles.platformEyebrow}>— COMING IN PHASE 2</p>
@@ -508,12 +462,7 @@ function PlatformTab({ config }) {
           Controls for this platform will appear here when Phase 2 ships.
         </p>
       )}
-      <a
-        href="https://github.com/b-gowland/ai-risk-baseline"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.platformLink}
-      >
+      <a href="https://github.com/b-gowland/ai-risk-baseline" target="_blank" rel="noopener noreferrer" className={styles.platformLink}>
         Watch the repo for Phase 2 updates ↗
       </a>
     </div>
