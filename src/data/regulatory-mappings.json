@@ -1,0 +1,536 @@
+{
+  "version": "1.0",
+  "_note": "Every entry must have a _source_note documenting the primary source verified, the article text consulted, and the date verified. No TODO entries may ship. effective_from dates in ISO 8601.",
+  "frameworks": [
+    {
+      "id": "eu_ai_act",
+      "name": "EU AI Act",
+      "long_name": "Regulation (EU) 2024/1689",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Verified against EUR-Lex OJ publication 2024/1689 and consolidated text. Entry into force 1 August 2024. Phased application: Art. 5 + Art. 4 from 2 Feb 2025; high-risk obligations (Art. 6–17, 26) from 2 Aug 2026."
+    },
+    {
+      "id": "eu_gdpr",
+      "name": "GDPR",
+      "long_name": "Regulation (EU) 2016/679",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "_source_note": "Verified against EUR-Lex OJ publication. In force since May 2018. Article 22 is the primary interaction point with AI automated-decision systems."
+    },
+    {
+      "id": "nist_ai_rmf",
+      "name": "NIST AI RMF",
+      "long_name": "NIST AI Risk Management Framework 1.0",
+      "source_url": "https://airc.nist.gov/RMF/1",
+      "_source_note": "NIST AI RMF 1.0 published January 2023. Non-regulatory — voluntary framework. Core functions: GOVERN, MAP, MEASURE, MANAGE."
+    },
+    {
+      "id": "iso_42001",
+      "name": "ISO/IEC 42001",
+      "long_name": "ISO/IEC 42001:2023 — AI management system",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "_source_note": "ISO/IEC 42001:2023 published December 2023. International standard for AI management systems. Voluntary but increasingly referenced by regulators."
+    },
+    {
+      "id": "owasp_llm",
+      "name": "OWASP LLM Top 10",
+      "long_name": "OWASP LLM Top 10 for Large Language Model Applications",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "_source_note": "OWASP LLM Top 10 v1.1 (2023) and v2.0 draft (2025). Non-regulatory — security community best practice. Primary relevance: systems using LLMs."
+    },
+    {
+      "id": "au_privacy_act",
+      "name": "AU Privacy Act",
+      "long_name": "Privacy Act 1988 (Cth) including Privacy and Other Legislation Amendment Act 2024",
+      "source_url": "https://www.legislation.gov.au/Details/C2024A00070",
+      "_source_note": "Privacy Act 1988 as amended. The Privacy and Other Legislation Amendment Act 2024 (Royal Assent 10 Dec 2024) introduces automated-decision-making transparency requirements. Specific commencement dates for new provisions vary — checked against OAIC guidance as at May 2026."
+    },
+    {
+      "id": "apra_cps230",
+      "name": "APRA CPS 230",
+      "long_name": "APRA Prudential Standard CPS 230 — Operational Risk Management",
+      "source_url": "https://www.apra.gov.au/sites/default/files/2023-07/Prudential%20Standard%20CPS%20230%20Operational%20Risk%20Management.pdf",
+      "_source_note": "CPS 230 effective 1 July 2025 for most APRA-regulated entities (ADIs, insurers, RSE licensees, private health). Requires impact tolerances, business continuity plans, and material service provider management. Verified against APRA published standard July 2023."
+    },
+    {
+      "id": "au_voluntary_ai",
+      "name": "AU Voluntary AI Safety Standard",
+      "long_name": "Australian Government Voluntary AI Safety Standard",
+      "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard",
+      "_source_note": "Published by DISR (now DITRDCA) 2024. Ten voluntary guardrails aligned to NIST AI RMF. Voluntary — no enforcement mechanism as at May 2026 following government decision to not proceed with mandatory guardrails."
+    },
+    {
+      "id": "uk_dua",
+      "name": "UK Data Use and Access Act",
+      "long_name": "Data Use and Access Act 2025",
+      "source_url": "https://www.legislation.gov.uk/ukpga/2025/1",
+      "_source_note": "Data Use and Access Act 2025 received Royal Assent 19 June 2025. Amends UK GDPR, updates automated-decision-making rights framework (Art. 22 UK GDPR equivalent). ICO guidance on AI applications updated accordingly."
+    },
+    {
+      "id": "uk_ico_ai",
+      "name": "UK ICO AI Guidance",
+      "long_name": "ICO Guidance on AI and Data Protection",
+      "source_url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+      "_source_note": "ICO AI guidance portal. Updated periodically — last verified May 2026. Covers explaining AI decisions, fairness, accuracy, security. Non-binding guidance with regulatory expectation weight."
+    }
+  ],
+  "mappings": [
+    {
+      "id": "eu_ai_act_annex_iii_5b",
+      "framework": "eu_ai_act",
+      "citation": "Annex III §5(b)",
+      "title": "High-risk classification — credit scoring of natural persons",
+      "summary": "AI systems used for creditworthiness assessment or credit scoring of natural persons (excluding fraud detection in financial services) are high-risk. This triggers the full set of high-risk obligations in Articles 9–15 and 26.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 5(b): 'AI systems intended to be used for creditworthiness assessment or credit scoring of natural persons, with the exception of AI systems put into service by small scale providers for their own use.' Verified against EUR-Lex text May 2026.",
+      "applies_when": {
+        "all": [
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services"] },
+          { "context.who": ["customer_facing"] },
+          { "jurisdiction": ["eu"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_annex_iii_4",
+      "framework": "eu_ai_act",
+      "citation": "Annex III §4",
+      "title": "High-risk classification — employment and workers management",
+      "summary": "AI systems used for recruitment, selection, promotion, task allocation, monitoring, or evaluation of persons in employment relationships are high-risk.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 4: employment, workers management and access to self-employment. Verified against EUR-Lex text May 2026.",
+      "applies_when": {
+        "all": [
+          { "context.domain": ["hr_employment"] },
+          { "jurisdiction": ["eu"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_annex_iii_5a",
+      "framework": "eu_ai_act",
+      "citation": "Annex III §5(a)",
+      "title": "High-risk classification — healthcare safety components",
+      "summary": "AI systems intended to be used as safety components in medical devices, or as medical devices themselves (within the scope of EU medical device legislation), are high-risk.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 5(a): AI systems in medical devices or as safety components. Verified against EUR-Lex text May 2026.",
+      "applies_when": {
+        "all": [
+          { "context.domain": ["healthcare"] },
+          { "context.who": ["clinician_facing", "customer_facing"] },
+          { "jurisdiction": ["eu"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_4",
+      "framework": "eu_ai_act",
+      "citation": "Article 4 — AI literacy",
+      "title": "AI literacy obligation",
+      "summary": "Providers and deployers of AI systems must take measures to ensure a sufficient level of AI literacy among their staff and others who operate or use AI systems on their behalf. Applies to all AI systems — not only high-risk.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2025-02-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 4. Application date: 2 February 2025 per Article 113(1). Note: often cited as '2 August 2026' in press coverage but Art. 4 applies from 2 Feb 2025, not August 2026. August 2026 is when high-risk obligations apply. Verified against EUR-Lex and Commission FAQ May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_9",
+      "framework": "eu_ai_act",
+      "citation": "Article 9 — Risk management system",
+      "title": "Risk management system for high-risk AI",
+      "summary": "Providers must establish, implement, document, and maintain a risk management system covering the entire lifecycle of the high-risk AI system. The system must identify foreseeable risks, estimate and evaluate them, adopt appropriate measures, and provide for post-market monitoring.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 9. Applies to high-risk AI systems (Annex III). Verified against EUR-Lex text May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "any": [
+            { "system_type": ["predictive", "generative", "automated_decision", "recommendation", "scoring", "multimodal", "other"] },
+            {
+              "all": [
+                { "system_type": ["predictive", "automated_decision"] },
+                { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+              ]
+            }
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_9_any_high_risk",
+      "framework": "eu_ai_act",
+      "citation": "Article 9 — Risk management system",
+      "title": "Risk management system for high-risk AI",
+      "summary": "Providers must establish, implement, document, and maintain a risk management system covering the entire lifecycle of the high-risk AI system. Covers identification of foreseeable risks, evaluation, mitigation, and residual risk acceptance, with ongoing post-market monitoring.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 9. High-risk system trigger: Annex III categories. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_10",
+      "framework": "eu_ai_act",
+      "citation": "Article 10 — Data and data governance",
+      "title": "Training, validation and testing data requirements",
+      "summary": "Training, validation and testing datasets must meet quality criteria: relevance, representativeness, freedom from errors where possible, and appropriateness of statistical properties relevant to the persons on which the system is to be used.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 10. High-risk system requirement. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] },
+          { "context.build_path": ["in_house", "combination"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_13",
+      "framework": "eu_ai_act",
+      "citation": "Article 13 — Transparency and provision of information to deployers",
+      "title": "Instructions for use — transparency to deployers",
+      "summary": "Providers must supply deployers with instructions for use covering: intended purpose, performance characteristics, foreseeable misuse, circumstances that may affect accuracy, human oversight requirements, and technical measures available to the deployer.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 13. Applies to all high-risk AI systems. For vendor-procured systems, the deployer must obtain and rely on these instructions. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_14",
+      "framework": "eu_ai_act",
+      "citation": "Article 14 — Human oversight",
+      "title": "Human oversight measures",
+      "summary": "High-risk AI systems must be designed and developed to be effectively overseen by natural persons during their use. Deployers must be able to intervene, halt, or override the system. Note: fully automated decisions with no human review create tension with this obligation.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 14. Requires designated natural persons with competence and authority to exercise oversight. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_15",
+      "framework": "eu_ai_act",
+      "citation": "Article 15 — Accuracy, robustness and cybersecurity",
+      "title": "Accuracy, robustness and cybersecurity requirements",
+      "summary": "High-risk AI systems must be designed to achieve appropriate levels of accuracy, robustness, and cybersecurity. Resilience to errors, faults, and inconsistencies (including adversarial inputs) must be considered.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 15. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_26",
+      "framework": "eu_ai_act",
+      "citation": "Article 26 — Obligations of deployers of high-risk AI systems",
+      "title": "Deployer obligations",
+      "summary": "Deployers must: use the system in accordance with instructions; assign human oversight to natural persons with appropriate competence; ensure input data is relevant and representative; inform affected workers; monitor operation; keep logs for at least six months.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 26. Applies where you are a deployer (not just provider) of a high-risk system. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_27",
+      "framework": "eu_ai_act",
+      "citation": "Article 27 — Fundamental rights impact assessment",
+      "title": "Fundamental rights impact assessment (FRIA)",
+      "summary": "Deployers that are public bodies, or private entities providing public services or processing personal data at scale, must conduct a fundamental rights impact assessment before first use. Covers affected categories of persons, foreseeable harms, governance arrangements, and oversight measures.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 27. Applies to public-body deployers and private entities providing services to the public at scale. Financial services customer-facing systems are in scope. Notification to market surveillance authority required. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.who": ["customer_facing"] },
+          { "any": [
+            { "context.domain": ["financial_services", "public_sector", "healthcare"] }
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_art_86",
+      "framework": "eu_ai_act",
+      "citation": "Article 86 — Right to explanation of individual decision-making",
+      "title": "Right to explanation for AI-assisted decisions",
+      "summary": "Any person subject to a decision based on a high-risk AI system that produces legal or significant effects may request an explanation of the AI's role and the main elements of the decision. Deployers must provide meaningful explanations.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Article 86. Applies to natural persons subject to decisions by high-risk AI systems. Interacts with GDPR Article 22 right to explanation. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["predictive", "automated_decision"] },
+          { "context.who": ["customer_facing"] },
+          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_ai_act_general_purpose",
+      "framework": "eu_ai_act",
+      "citation": "Articles 51–56 — General-purpose AI model obligations",
+      "title": "General-purpose AI model obligations (if using a GPAI API)",
+      "summary": "Organisations integrating general-purpose AI models (e.g. via OpenAI, Anthropic, or Google APIs) must comply with the GPAI obligations. Model providers must supply technical documentation; deployers must implement downstream governance requirements.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Articles 51–56. Applies to organisations using GPAI models via API (OpenAI, Anthropic, Gemini, etc.) integrated into downstream products. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "system_type": ["llm_chatbot", "agentic"] }
+        ]
+      }
+    },
+    {
+      "id": "eu_gdpr_art_22",
+      "framework": "eu_gdpr",
+      "citation": "Article 22 — Automated individual decision-making",
+      "title": "Right not to be subject to solely automated decisions",
+      "summary": "Data subjects have the right not to be subject to solely automated decisions that produce legal or similarly significant effects, unless based on explicit consent, contractual necessity, or authorised by Member State law. Where such decisions are made, individuals must have the right to human intervention, to express their point of view, and to contest the decision.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2018-05-25",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "_source_note": "Regulation (EU) 2016/679 Article 22. In force since May 2018. Credit decisions are explicitly within scope ('legal or similarly significant effect'). Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["eu"] },
+          { "context.decision_mode": ["automated_decision"] },
+          { "context.who": ["customer_facing"] }
+        ]
+      }
+    },
+    {
+      "id": "au_privacy_act_aaim",
+      "framework": "au_privacy_act",
+      "citation": "Automated decision-making transparency provisions",
+      "title": "Privacy Act 1988 — automated decision-making notice requirements",
+      "summary": "The Privacy and Other Legislation Amendment Act 2024 introduces transparency requirements for automated decision-making about individuals using personal information. Organisations must include information about automated decisions in their privacy policies.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-12-10",
+      "source_url": "https://www.legislation.gov.au/Details/C2024A00070",
+      "_source_note": "Privacy and Other Legislation Amendment Act 2024. Royal Assent 10 December 2024. Automated decision-making transparency provisions in Schedule 1. Some provisions delayed 24 months from Royal Assent — estimated Dec 2026 for full effect. Verified against OAIC FAQ and legislation May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["au"] },
+          { "context.decision_mode": ["automated_decision"] },
+          { "any": [
+            { "context.data_type": ["personal_basic", "personal_financial", "personal_health", "personal_hr", "special_category"] }
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "au_privacy_act_apps",
+      "framework": "au_privacy_act",
+      "citation": "Australian Privacy Principles (APPs)",
+      "title": "Privacy Act — Australian Privacy Principles",
+      "summary": "Any AI system processing personal information of Australian individuals must comply with the APPs. Relevant principles: APP 1 (privacy policy), APP 3 (collection), APP 6 (use and disclosure), APP 11 (security). The 2024 amendments strengthen notification and consent requirements.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2001-12-21",
+      "source_url": "https://www.oaic.gov.au/privacy/the-privacy-act/rights-and-responsibilities",
+      "_source_note": "Privacy Act 1988 Australian Privacy Principles. Applies to organisations with >$3M annual turnover (and some others). Verified against OAIC guidance May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["au"] },
+          { "any": [
+            { "context.data_type": ["personal_basic", "personal_financial", "personal_health", "personal_hr", "special_category", "biometric_data", "children_data"] }
+          ]}
+        ]
+      }
+    },
+    {
+      "id": "apra_cps230",
+      "framework": "apra_cps230",
+      "citation": "CPS 230 — Operational Risk Management",
+      "title": "APRA CPS 230 — operational risk and AI systems",
+      "summary": "APRA-regulated entities (ADIs, insurers, RSE licensees) must manage operational risks including those from AI systems used in critical operations. Requires impact tolerances, business continuity planning, and material service provider arrangements. Credit decisioning would typically qualify as a critical operation.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2025-07-01",
+      "source_url": "https://www.apra.gov.au/sites/default/files/2023-07/Prudential%20Standard%20CPS%20230%20Operational%20Risk%20Management.pdf",
+      "_source_note": "APRA CPS 230 effective 1 July 2025. Applies to APRA-regulated entities. AI systems used in critical operations must be included in operational risk management frameworks. Verified against APRA published standard and information papers May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["au"] },
+          { "context.domain": ["financial_services"] }
+        ]
+      }
+    },
+    {
+      "id": "au_voluntary_ai",
+      "framework": "au_voluntary_ai",
+      "citation": "10 Voluntary Guardrails",
+      "title": "AU Voluntary AI Safety Standard — 10 guardrails",
+      "summary": "The Australian Government's Voluntary AI Safety Standard sets out 10 guardrails covering: accountability, risk management, transparency, fairness, privacy, security, reliability, governance, and oversight. Voluntary but increasingly referenced in procurement and regulatory context.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2024-09-05",
+      "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard",
+      "_source_note": "Voluntary AI Safety Standard published September 2024 by Department of Industry, Science and Resources. Voluntary. Australian government agencies expected to apply. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["au"] }
+        ]
+      }
+    },
+    {
+      "id": "nist_ai_rmf_govern",
+      "framework": "nist_ai_rmf",
+      "citation": "GOVERN function",
+      "title": "NIST AI RMF — GOVERN: policies, accountability, culture",
+      "summary": "Organisational policies, accountability structures, roles and responsibilities, and culture for trustworthy AI are established. Includes AI risk tolerance definition, and clear ownership of AI governance. Recommended baseline for any AI governance programme.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2023-01-26",
+      "source_url": "https://airc.nist.gov/RMF/1",
+      "_source_note": "NIST AI RMF 1.0, GOVERN function. Published January 2023. Cross-referenced by AU Voluntary AI Safety Standard and ISO 42001. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "context.decision_mode": ["automated_decision", "decision_support"] }
+        ]
+      }
+    },
+    {
+      "id": "iso_42001_aimc",
+      "framework": "iso_42001",
+      "citation": "ISO/IEC 42001:2023",
+      "title": "ISO/IEC 42001 — AI Management System",
+      "summary": "ISO/IEC 42001 specifies requirements for establishing, implementing, maintaining, and continually improving an AI management system. Particularly relevant for organisations seeking third-party certification of their AI governance practices.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2023-12-18",
+      "source_url": "https://www.iso.org/standard/81230.html",
+      "_source_note": "ISO/IEC 42001:2023 published 18 December 2023. Voluntary international standard. Increasingly referenced in enterprise procurement requirements and regulatory guidance. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "system_type": ["predictive", "automated_decision", "llm_chatbot", "agentic"] }
+        ]
+      }
+    },
+    {
+      "id": "owasp_llm_top10",
+      "framework": "owasp_llm",
+      "citation": "LLM01–LLM10",
+      "title": "OWASP LLM Top 10 — security risks for LLM applications",
+      "summary": "The OWASP LLM Top 10 covers the most critical security risks in LLM applications: prompt injection (LLM01), sensitive data disclosure (LLM02), supply chain vulnerabilities (LLM03), data poisoning (LLM04), improper output handling (LLM05), excessive agency (LLM06), system prompt leakage (LLM07), and others.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2023-10-16",
+      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "_source_note": "OWASP LLM Top 10 v1.1 (October 2023). Voluntary security community standard. Relevant for any system using LLMs. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "system_type": ["llm_chatbot", "agentic", "generative_content"] }
+        ]
+      }
+    },
+    {
+      "id": "uk_dua_automated_decisions",
+      "framework": "uk_dua",
+      "citation": "Data Use and Access Act 2025 — automated decision-making",
+      "title": "UK DUA Act — automated decision-making rights",
+      "summary": "The Data Use and Access Act 2025 updates UK GDPR Article 22 equivalents, providing rights not to be subject to solely automated decisions with significant effects. Requires transparency about automated processing and the right to human review.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2025-06-19",
+      "source_url": "https://www.legislation.gov.uk/ukpga/2025/1",
+      "_source_note": "Data Use and Access Act 2025, Royal Assent 19 June 2025. Updates automated decision-making rights framework. Commencement regulations specify phased implementation. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["uk"] },
+          { "context.decision_mode": ["automated_decision"] },
+          { "context.who": ["customer_facing"] }
+        ]
+      }
+    },
+    {
+      "id": "uk_ico_ai_fairness",
+      "framework": "uk_ico_ai",
+      "citation": "ICO AI Guidance — fairness and bias",
+      "title": "ICO AI Guidance — fairness, accuracy, and bias management",
+      "summary": "The ICO expects organisations using AI to process personal data to actively address fairness risks. This includes bias testing, documentation of training data characteristics, and ongoing monitoring for discriminatory outcomes.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2023-03-15",
+      "source_url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+      "_source_note": "ICO AI Guidance portal — fairness section. Updated periodically. Reflects ICO regulatory expectations under UK GDPR. Verified May 2026.",
+      "applies_when": {
+        "all": [
+          { "jurisdiction": ["uk"] },
+          { "system_type": ["predictive", "automated_decision"] }
+        ]
+      }
+    }
+  ]
+}

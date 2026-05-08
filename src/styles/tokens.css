@@ -1,0 +1,75 @@
+/* tokens.css — AI Risk Practice design system tokens
+ * Source: DESIGN.md v1.0 (authoritative register)
+ * Do not edit without updating DESIGN.md first.
+ */
+
+:root {
+  /* ── Brand colour — appears in both registers identically ── */
+  --color-amber:        #D97706;
+  --color-amber-light:  #FEF3C7;
+  --color-amber-dark:   #92400E;
+
+  /* ── Authoritative register colours ── */
+  --auth-bg:            #FFFFFF;
+  --auth-bg-subtle:     #FAFAFA;
+  --auth-text-primary:  #0F0F0F;
+  --auth-text-muted:    #555555;
+  --auth-text-faint:    #999999;
+  --auth-border:        #EBEBEB;
+  --auth-border-strong: #CCCCCC;
+  --auth-accent:        var(--color-amber);
+  --auth-accent-bg:     var(--color-amber-light);
+
+  /* ── Spacing scale ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Border radius ── */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* ── Type scale ── */
+  --text-xs:   11px;
+  --text-sm:   12px;
+  --text-base: 14px;
+  --text-md:   15px;
+  --text-lg:   17px;
+  --text-xl:   24px;
+  --text-2xl:  32px;
+
+  /* ── Typography ── */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
+
+  /* ── Semantic colours ── */
+  --color-mandatory-bg:     #FEF2F2;
+  --color-mandatory-border: #FECACA;
+  --color-mandatory-text:   #991B1B;
+  --color-recommended-bg:   #F0FDF4;
+  --color-recommended-border: #BBF7D0;
+  --color-recommended-text: #166534;
+  --color-upcoming-bg:      #FFFBEB;
+  --color-upcoming-border:  #FDE68A;
+  --color-upcoming-text:    #92400E;
+
+  /* ── Effort colours ── */
+  --color-effort-high-bg:   #FEF2F2;
+  --color-effort-high-text: #991B1B;
+  --color-effort-med-bg:    #FFFBEB;
+  --color-effort-med-text:  #92400E;
+  --color-effort-low-bg:    #F0FDF4;
+  --color-effort-low-text:  #166534;
+
+  /* ── Navigation ── */
+  --nav-height: 52px;
+}

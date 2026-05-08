@@ -1,0 +1,27 @@
+.banner {
+  border-left: 3px solid var(--auth-accent);
+  background: var(--auth-accent-bg);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--auth-text-muted);
+}
+
+.label {
+  font-weight: 500;
+  color: var(--auth-text-primary);
+}
+
+.text {
+  color: var(--auth-text-muted);
+}
+
+.readmore {
+  color: var(--color-amber-dark);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.readmore:hover {
+  text-decoration: underline;
+}

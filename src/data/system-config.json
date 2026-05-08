@@ -1,0 +1,247 @@
+{
+  "version": "1.0",
+  "_note": "Source of truth for configuration question schema, valid options, and help text. All options and help text are authoritative — do not modify without updating CONTRIBUTING.md.",
+  "questions": [
+    {
+      "id": "system_type",
+      "param": "st",
+      "label": "What type of AI system is this?",
+      "help_intro": "Select the category that best describes how the system generates its output.",
+      "type": "single",
+      "required": true,
+      "options": [
+        {
+          "value": "predictive",
+          "label": "Predictive / scoring",
+          "help_short": "Outputs a score, probability, or class given structured inputs.",
+          "help_long": "Examples: credit scoring, fraud detection, insurance risk rating, employee churn prediction. The system takes tabular or structured data in and returns a number, score, or category. The model does not generate free text."
+        },
+        {
+          "value": "llm_chatbot",
+          "label": "LLM / chatbot",
+          "help_short": "A generative model used in conversational or question-answering form.",
+          "help_long": "Examples: internal support chatbot, document Q&A, RAG-based assistant, copilot. Includes any system where the model generates natural-language responses. If the system uses an LLM as a component but the output is a score or structured decision, choose 'Predictive / scoring' instead."
+        },
+        {
+          "value": "automated_decision",
+          "label": "Automated decision system",
+          "help_short": "Takes a decision that has legal or significant effect on a person, without human review of each case.",
+          "help_long": "Examples: automated loan approval/rejection, automated benefits eligibility, automated sanctions screening with no case-by-case review. Key marker: a natural person does not review individual decisions before they are enacted. If a human reviews and approves each decision, choose 'Predictive / scoring' or 'Decision support'."
+        },
+        {
+          "value": "agentic",
+          "label": "Agentic / autonomous system",
+          "help_short": "Takes multi-step actions in the world, interacting with tools, APIs, or systems autonomously.",
+          "help_long": "Examples: AI agent that books meetings, sends emails, executes code, or calls external APIs without step-by-step human approval of each action. Key marker: the system can take sequences of actions with limited human intervention between steps."
+        },
+        {
+          "value": "generative_content",
+          "label": "Generative content (image / video / audio / text)",
+          "help_short": "Creates or modifies media content — images, video, audio, or long-form text.",
+          "help_long": "Examples: AI image generator, synthetic voice tool, automated report writer, marketing copy generator. Key marker: the primary output is creative or representational content, not a decision or score."
+        },
+        {
+          "value": "biometric",
+          "label": "Biometric identification / emotion recognition",
+          "help_short": "Processes facial, voice, biometric, or physiological data to identify or categorise people.",
+          "help_long": "Examples: facial recognition, speaker identification, emotion detection from video, gait analysis. Biometric systems face the most restrictive treatment under the EU AI Act (several uses are prohibited outright). Choose this category even if biometric processing is a component of a larger system."
+        },
+        {
+          "value": "unknown",
+          "label": "Don't know yet",
+          "help_short": "Output will be broader — applies the widest applicable mappings for your other answers.",
+          "help_long": "Select this if you are in early evaluation and the system type is not yet determined. The tool will apply the broadest relevant mapping given your other answers, and display a banner explaining the breadth. You can refine later."
+        }
+      ]
+    },
+    {
+      "id": "context",
+      "param": "ctx",
+      "label": "How is this system used?",
+      "help_intro": "Describe the operational context. This drives which obligations and controls apply.",
+      "type": "multi_part",
+      "required": true,
+      "parts": [
+        {
+          "id": "who",
+          "param_key": "who",
+          "label": "Who does it affect or interact with?",
+          "type": "single",
+          "required": true,
+          "options": [
+            {
+              "value": "customer_facing",
+              "label": "Customers / members of the public",
+              "help_short": "The system makes decisions about, or interacts with, external customers.",
+              "help_long": "Examples: a bank's loan decisioning system, a retailer's recommendation engine, an insurer's claims triage tool. 'Customer-facing' triggers the highest-density regulatory obligations under the EU AI Act and consumer protection frameworks."
+            },
+            {
+              "value": "employee_facing",
+              "label": "Employees / internal users",
+              "help_short": "The system is used by or makes decisions about staff within the organisation.",
+              "help_long": "Examples: HR screening tool, internal AI assistant, employee performance analytics. EU AI Act Annex III §4 covers employment-related AI. Internal LLM tools used only by employees generally carry lower regulatory burden than customer-facing systems."
+            },
+            {
+              "value": "clinician_facing",
+              "label": "Clinicians / healthcare professionals",
+              "help_short": "The system supports clinical decision-making by healthcare staff.",
+              "help_long": "Examples: radiology triage tool, clinical decision support system, medication interaction checker. Healthcare professionals are the operators; patients are the affected persons. EU AI Act Annex III §5(a) covers healthcare AI."
+            },
+            {
+              "value": "internal_only",
+              "label": "Internal / back-office (no direct user contact)",
+              "help_short": "The system operates on data internally — no external person interacts with it directly.",
+              "help_long": "Examples: internal fraud detection on transaction data, data quality classification, internal document processing. Lower direct regulatory exposure but data protection obligations still apply."
+            }
+          ]
+        },
+        {
+          "id": "domain",
+          "param_key": "domain",
+          "label": "What domain does it operate in?",
+          "type": "single",
+          "required": true,
+          "options": [
+            { "value": "financial_services", "label": "Financial services", "help_short": "Banking, insurance, credit, investment, payments." },
+            { "value": "healthcare", "label": "Healthcare / medical", "help_short": "Clinical care, diagnostics, medical devices, pharmaceuticals." },
+            { "value": "hr_employment", "label": "HR / employment", "help_short": "Recruitment, performance management, workforce analytics." },
+            { "value": "public_sector", "label": "Public sector / government", "help_short": "Benefits, eligibility, law enforcement, public administration." },
+            { "value": "education", "label": "Education", "help_short": "Student assessment, learning platforms, admissions." },
+            { "value": "retail_commercial", "label": "Retail / commercial", "help_short": "E-commerce, recommendation, marketing, customer service." },
+            { "value": "other", "label": "Other / mixed", "help_short": "Domain not listed above or crosses multiple sectors." }
+          ]
+        },
+        {
+          "id": "decision_mode",
+          "param_key": "dm",
+          "label": "How are decisions made?",
+          "type": "single",
+          "required": true,
+          "options": [
+            {
+              "value": "automated_decision",
+              "label": "Automated — no human reviews individual decisions",
+              "help_short": "Decisions are enacted without a human reviewing each case.",
+              "help_long": "A human may have set the thresholds or approved the model, but does not review individual decisions before they are enacted. This triggers the highest level of EU AI Act high-risk obligations and GDPR Article 22 rights."
+            },
+            {
+              "value": "decision_support",
+              "label": "Decision support — human makes the final call",
+              "help_short": "The system provides a score, recommendation, or analysis; a human approves each decision.",
+              "help_long": "Examples: the model flags a loan as 'likely default'; a credit officer reviews and decides. The human is in the loop on individual decisions. This is a lower-risk posture than automated decision but human oversight obligations still apply."
+            },
+            {
+              "value": "recommendation_only",
+              "label": "Recommendation / content only — low stakes",
+              "help_short": "The system suggests content or options; the output does not produce legal or significant effects.",
+              "help_long": "Examples: product recommendations, content ranking, internal search. No significant decision about a person is made. The lowest regulatory exposure category, but data protection and transparency obligations still apply."
+            }
+          ]
+        },
+        {
+          "id": "build_path",
+          "param_key": "bp",
+          "label": "Are you building or procuring this system?",
+          "type": "single",
+          "required": false,
+          "options": [
+            {
+              "value": "in_house",
+              "label": "Building in-house",
+              "help_short": "Your organisation develops and deploys the model.",
+              "help_long": "Your team owns the training data, model architecture, and deployment. You are the 'provider' under the EU AI Act and bear the full provider obligation set."
+            },
+            {
+              "value": "vendor",
+              "label": "Procuring from a vendor",
+              "help_short": "You are deploying a third-party AI system.",
+              "help_long": "You are the 'deployer' under the EU AI Act. Provider obligations sit with the vendor; your deployer obligations (Art. 26) focus on governance, monitoring, and contractual provisions. Controls shift from 'build' to 'due-diligence and contract'."
+            },
+            {
+              "value": "combination",
+              "label": "Combination — vendor model, in-house integration",
+              "help_short": "You use a foundation or API model and build on top of it.",
+              "help_long": "Examples: OpenAI API + in-house RAG layer, Azure OpenAI + custom fine-tuning. You are both deployer (to the foundation model provider) and provider (of the end system to your users). Both obligation sets apply."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "param": "data",
+      "label": "What data does the system process?",
+      "help_intro": "Select all data types processed. Scale affects risk weighting.",
+      "type": "multi_part",
+      "required": true,
+      "parts": [
+        {
+          "id": "data_type",
+          "param_key": "dt",
+          "label": "What types of personal or sensitive data are processed?",
+          "type": "multi",
+          "required": true,
+          "options": [
+            { "value": "no_personal", "label": "No personal data", "help_short": "Entirely anonymised or synthetic data only." },
+            { "value": "personal_basic", "label": "Basic personal data", "help_short": "Name, address, contact details, identifiers." },
+            { "value": "personal_financial", "label": "Financial data", "help_short": "Income, debt, credit history, transaction data." },
+            { "value": "personal_health", "label": "Health / medical data", "help_short": "Clinical records, diagnoses, prescriptions, medical imaging." },
+            { "value": "personal_hr", "label": "Employment / HR data", "help_short": "CVs, performance records, salary, employment history." },
+            { "value": "special_category", "label": "Special category (GDPR Art. 9)", "help_short": "Race, ethnicity, political opinions, religious beliefs, sexual orientation, etc." },
+            { "value": "biometric_data", "label": "Biometric data", "help_short": "Facial images, fingerprints, voice patterns processed for ID purposes." },
+            { "value": "children_data", "label": "Children's data", "help_short": "Data about persons under 18." }
+          ]
+        },
+        {
+          "id": "data_scale",
+          "param_key": "ds",
+          "label": "Approximate number of people whose data is processed per year",
+          "type": "single",
+          "required": true,
+          "options": [
+            { "value": "under_1k", "label": "Under 1,000" },
+            { "value": "1k_10k", "label": "1,000 – 10,000" },
+            { "value": "10k_100k", "label": "10,000 – 100,000" },
+            { "value": "100k_plus", "label": "100,000+" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jurisdiction",
+      "param": "juris",
+      "label": "Which jurisdictions apply?",
+      "help_intro": "Select all jurisdictions where the system is deployed, or where affected persons are located. Multi-select.",
+      "type": "multi",
+      "required": true,
+      "options": [
+        { "value": "eu", "label": "European Union", "help_short": "EU AI Act, GDPR, and Member State implementations apply." },
+        { "value": "au", "label": "Australia", "help_short": "Privacy Act 1988 (inc. 2024 amendments), APRA CPS 230, AU Voluntary AI Safety Standard." },
+        { "value": "uk", "label": "United Kingdom", "help_short": "UK GDPR, Data Use and Access Act 2025, ICO AI guidance." },
+        { "value": "us", "label": "United States", "help_short": "Federal and state-level laws (EEOC, NYC AEDT Local Law 144, sector-specific regulators). No single federal AI Act." },
+        { "value": "sg", "label": "Singapore", "help_short": "PDPA, MAS FEAT principles, IMDA AI Verify / Model AI Governance Framework. Phase 2." },
+        { "value": "jp", "label": "Japan", "help_short": "AI Promotion Act, METI/MIC guidelines. Phase 2." },
+        { "value": "global_other", "label": "Global / other", "help_short": "Applies broadest cross-jurisdictional mappings; add specific jurisdictions for precise output." }
+      ]
+    },
+    {
+      "id": "platform",
+      "param": "plat",
+      "label": "What platform or infrastructure does it run on?",
+      "help_intro": "This will drive platform-native control recommendations in Phase 2. Select your primary AI platform.",
+      "type": "single",
+      "required": false,
+      "phase2_note": "Platform-specific controls are coming in Phase 2. Your selection is saved in the shareable URL.",
+      "options": [
+        { "value": "azure_ai_foundry", "label": "Azure AI Foundry / Azure OpenAI" },
+        { "value": "aws_bedrock", "label": "AWS Bedrock" },
+        { "value": "google_vertex", "label": "Google Vertex AI / Gemini API" },
+        { "value": "openai_api", "label": "OpenAI API (direct)" },
+        { "value": "anthropic_api", "label": "Anthropic API" },
+        { "value": "other_mixed", "label": "Other / mixed cloud" },
+        { "value": "on_premise", "label": "On-premise / self-hosted" },
+        { "value": "skip", "label": "Skip — not applicable or unknown" }
+      ]
+    }
+  ]
+}

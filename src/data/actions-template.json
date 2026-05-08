@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "_note": "Actions are generated from controls and regulatory items. Algorithm: (1) take High-effort mandatory-framework controls first, (2) add deadline-driven items within 18 months, (3) fill to 5 from Medium-effort mandatory controls. See src/engine/baseline.js buildActions().",
+  "priority_rules": [
+    {
+      "id": "high_effort_mandatory",
+      "label": "High-effort, mandatory framework requirement",
+      "priority": 1,
+      "filter": {
+        "effort": ["High"],
+        "frameworks_contain_mandatory": true
+      }
+    },
+    {
+      "id": "deadline_driven",
+      "label": "Regulatory deadline within 18 months",
+      "priority": 2,
+      "filter": {
+        "has_upcoming_deadline_months": 18
+      }
+    },
+    {
+      "id": "medium_mandatory",
+      "label": "Medium-effort, mandatory framework requirement",
+      "priority": 3,
+      "filter": {
+        "effort": ["Medium"],
+        "frameworks_contain_mandatory": true
+      }
+    },
+    {
+      "id": "low_mandatory",
+      "label": "Low-effort, mandatory framework requirement",
+      "priority": 4,
+      "filter": {
+        "effort": ["Low"],
+        "frameworks_contain_mandatory": true
+      }
+    }
+  ],
+  "target_count": 5,
+  "max_count": 7,
+  "action_template": {
+    "name_from": "control.name",
+    "owner_from": "control.owners",
+    "effort_from": "control.effort",
+    "why_from": "control.frameworks[0].citation + ': ' + control.summary_short"
+  },
+  "worked_example_overrides": {
+    "credit_decisioning": {
+      "config": "st=predictive&ctx=customer_facing.financial_services.automated_decision&data=personal_financial.10k_100k&juris=eu,au&plat=skip",
+      "actions": [
+        {
+          "name": "Run a fundamental rights impact assessment (Art. 27)",
+          "owner": "Risk + Legal",
+          "effort_weeks": "1–2 weeks",
+          "why": "Regulatory pre-condition for deployment. Blocks first use of the system and surfaces other governance gaps. Required before first deployment to EU customers."
+        },
+        {
+          "name": "Confirm conformity assessment route and complete documentation (Art. 9, 10, 13, 15, 43)",
+          "owner": "Risk + Model team",
+          "effort_weeks": "2–4 weeks",
+          "why": "The longest-lead-time high-risk obligation. Blocks deployment. Documentation debt is expensive to retrofit after launch."
+        },
+        {
+          "name": "Implement bias testing and document methodology, thresholds and review cadence",
+          "owner": "Risk + ML team",
+          "effort_weeks": "1–2 weeks initial",
+          "why": "Addresses the highest-ranked risk (Algorithmic Bias E1). Directly required by Article 10 data governance obligations. Prerequisite for ongoing operational compliance."
+        },
+        {
+          "name": "Update privacy notices and customer communications for Article 22 / Article 86",
+          "owner": "Legal + Privacy + Customer Comms",
+          "effort_weeks": "1 week",
+          "why": "Customer-visible. Low effort relative to compliance value. Interacts with GDPR Article 22 and AU Privacy Act automated decision requirements simultaneously."
+        },
+        {
+          "name": "Schedule and deliver Article 4 AI literacy training to operating teams",
+          "owner": "Risk + L&D",
+          "effort_weeks": "2–3 weeks setup",
+          "why": "Article 4 applies from 2 February 2025. Regulatory deadline already passed — exposure exists now. Training directly supports Fork scenario practice and Article 14 human oversight obligations."
+        }
+      ]
+    }
+  }
+}

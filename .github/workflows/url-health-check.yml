@@ -1,0 +1,87 @@
+name: URL Health Check
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"  # First of every month at 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  url-health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Check URLs in regulatory-mappings.json
+        id: check
+        run: |
+          node -e "
+          const fs = require('fs');
+          const https = require('https');
+          const http = require('http');
+
+          const reg = JSON.parse(fs.readFileSync('src/data/regulatory-mappings.json', 'utf8'));
+          const urls = [];
+
+          // Collect framework source URLs
+          reg.frameworks.forEach(f => f.source_url && urls.push({ url: f.source_url, context: f.id }));
+          // Collect mapping source URLs
+          reg.mappings.forEach(m => m.source_url && urls.push({ url: m.source_url, context: m.id }));
+
+          let broken = [];
+          let checked = 0;
+
+          function checkUrl({ url, context }) {
+            return new Promise((resolve) => {
+              const client = url.startsWith('https') ? https : http;
+              const req = client.get(url, { timeout: 10000 }, (res) => {
+                if (res.statusCode >= 400) {
+                  broken.push({ url, context, status: res.statusCode });
+                }
+                resolve();
+              });
+              req.on('error', () => {
+                broken.push({ url, context, status: 'ERROR' });
+                resolve();
+              });
+              req.on('timeout', () => {
+                req.destroy();
+                broken.push({ url, context, status: 'TIMEOUT' });
+                resolve();
+              });
+            });
+          }
+
+          async function run() {
+            for (const u of urls) {
+              await checkUrl(u);
+              checked++;
+            }
+            console.log('Checked: ' + checked + ', Broken: ' + broken.length);
+            if (broken.length > 0) {
+              console.log('BROKEN_URLS=' + JSON.stringify(broken));
+              process.exit(1);
+            }
+          }
+
+          run();
+          "
+        continue-on-error: true
+
+      - name: Open issue for broken URLs
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'URL Health Check: broken links detected (' + new Date().toISOString().split('T')[0] + ')',
+              body: 'The monthly URL health check found broken source links in regulatory-mappings.json. Please review and update.\n\nRun the workflow manually to see details.',
+              labels: ['maintenance', 'broken-link']
+            });
