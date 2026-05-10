@@ -25,7 +25,7 @@ No login. No signup. No data collected. Computes entirely in the browser.
 | Tool | URL | Purpose |
 |---|---|---|
 | Knowledge base | [library.airiskpractice.org](https://library.airiskpractice.org) | 32 AI risk entries, four depth layers each |
-| Training (Fork) | [app.airiskpractice.org](https://app.airiskpractice.org) | Interactive branching scenarios, 26 practitioner cases |
+| Training (Fork) | [app.airiskpractice.org](https://app.airiskpractice.org) | Interactive branching scenarios, 32 practitioner cases |
 | **Baseline** (this) | [airiskpractice.org/baseline](https://airiskpractice.org/baseline) | Tailored governance profile for your system |
 
 ---

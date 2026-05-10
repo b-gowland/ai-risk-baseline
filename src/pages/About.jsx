@@ -141,7 +141,7 @@ export default function About() {
               className={styles.suiteItem}
             >
               <span className={styles.suiteName}>Training Scenarios ↗</span>
-              <span className={styles.suiteDesc}>26 branching scenarios across 4 personas, ~5 hours of content</span>
+              <span className={styles.suiteDesc}>32 branching scenarios across 4 personas, ~6 hours of content</span>
             </a>
           </div>
         </section>
