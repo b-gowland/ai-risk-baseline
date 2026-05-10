@@ -90,6 +90,7 @@ if (controls) {
 
   const validFunctions = new Set([`risk`, `legal`, `tech`, `procurement`])
   const validEffort = new Set([`Low`, `Medium`, `High`])
+  const validPhases = new Set([`design`, `deploy`, `operate`, `ongoing`])
 
   items.forEach((ctrl, i) => {
     const id = ctrl.id || `?`
@@ -104,6 +105,18 @@ if (controls) {
     }
     if (!ctrl.effort) fail(`controls-index.json`, `Control ${id} missing 'effort'`)
     else if (!validEffort.has(ctrl.effort)) fail(`controls-index.json`, `Control ${id} has invalid effort '${ctrl.effort}' (must be: Low / Medium / High)`)
+    // lifecycle_phases — required, non-empty array, values from closed vocabulary
+    if (!ctrl.lifecycle_phases) {
+      fail(`controls-index.json`, `Control ${id} missing 'lifecycle_phases'`)
+    } else if (!Array.isArray(ctrl.lifecycle_phases) || ctrl.lifecycle_phases.length === 0) {
+      fail(`controls-index.json`, `Control ${id} has empty or non-array 'lifecycle_phases'`)
+    } else {
+      ctrl.lifecycle_phases.forEach(phase => {
+        if (!validPhases.has(phase)) {
+          fail(`controls-index.json`, `Control ${id} has invalid lifecycle phase '${phase}' (must be: design, deploy, operate, ongoing)`)
+        }
+      })
+    }
   })
 
   if (!errors) pass(`controls-index.json`, `${items.length} controls valid`)

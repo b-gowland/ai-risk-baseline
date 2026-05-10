@@ -7,403 +7,983 @@
       "name": "Risk management system documentation",
       "summary": "Establish and maintain a documented, iterative risk management system covering the model lifecycle: identification of foreseeable risks, estimation and evaluation, mitigation measures, residual risk acceptance, and post-market monitoring. NIST AI RMF MAP and MANAGE functions provide a workable structure.",
       "effort": "High",
-      "owners": ["risk"],
-      "frameworks": ["eu_ai_act_art_9", "nist_ai_rmf_govern", "iso_42001_aimc"],
-      "kb_refs": ["b1", "b2"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_9",
+        "nist_ai_rmf_govern",
+        "iso_42001_aimc"
+      ],
+      "kb_refs": [
+        "b1",
+        "b2"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu"] },
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "hr_employment",
+              "public_sector"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_fria",
       "name": "Fundamental rights impact assessment (FRIA)",
       "summary": "Document categories of persons affected, foreseeable harms (financial, dignitary, equality), governance arrangements, and oversight measures. Notify the relevant national market surveillance authority. Re-run when material changes occur to the system or its deployment context.",
       "effort": "Medium",
-      "owners": ["risk", "legal"],
-      "frameworks": ["eu_ai_act_art_27"],
-      "kb_refs": ["b1", "e1"],
+      "owners": [
+        "risk",
+        "legal"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_27"
+      ],
+      "kb_refs": [
+        "b1",
+        "e1"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu"] },
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.who": ["customer_facing"] },
-          { "context.domain": ["financial_services", "public_sector", "healthcare"] }
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "public_sector",
+              "healthcare"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_bias_testing",
       "name": "Bias testing and reporting cadence",
       "summary": "Establish quarterly subgroup performance evaluation across protected and protected-attribute-adjacent features. Document thresholds for acceptable disparity. Define action triggers and escalation path when thresholds are breached. Produce written bias test reports for governance review.",
       "effort": "Medium",
-      "owners": ["risk", "tech"],
-      "frameworks": ["eu_ai_act_art_10", "eu_ai_act_art_9", "au_voluntary_ai"],
-      "kb_refs": ["e1", "e2", "d1"],
+      "owners": [
+        "risk",
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_10",
+        "eu_ai_act_art_9",
+        "au_voluntary_ai"
+      ],
+      "kb_refs": [
+        "e1",
+        "e2",
+        "d1"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "hr_employment",
+              "public_sector"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_drift_monitoring",
       "name": "Drift monitoring and threshold response plan",
       "summary": "Implement production monitoring for performance drift (accuracy, distribution shift, prediction confidence) and population drift. Define named thresholds and escalation paths including model freeze, rollback triggers, and mandatory re-validation cadence.",
       "effort": "Medium",
-      "owners": ["tech", "risk"],
-      "frameworks": ["eu_ai_act_art_26", "nist_ai_rmf_govern", "au_voluntary_ai"],
-      "kb_refs": ["a2", "a3"],
+      "owners": [
+        "tech",
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26",
+        "nist_ai_rmf_govern",
+        "au_voluntary_ai"
+      ],
+      "kb_refs": [
+        "a2",
+        "a3"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate",
+        "ongoing"
+      ]
     },
     {
       "id": "c_incident_reporting",
       "name": "Incident reporting and serious-incident notification process",
       "summary": "Establish an internal AI incident reporting pathway for staff. Map to EU AI Act Article 73 serious-incident notification obligations: reporting periods to national market surveillance authority. Define what constitutes a serious incident (health/safety harm, fundamental rights violation, infrastructure risk).",
       "effort": "Low",
-      "owners": ["risk"],
-      "frameworks": ["eu_ai_act_art_26"],
-      "kb_refs": ["f4"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26"
+      ],
+      "kb_refs": [
+        "f4"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu"] },
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "hr_employment",
+              "public_sector"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate",
+        "ongoing"
+      ]
     },
     {
       "id": "c_risk_register",
       "name": "AI risk register entry",
       "summary": "Add the AI system to the operational risk register with documented risk appetite, key risk indicators, and review cadence. Map to APRA CPS 230 critical operations framework if applicable to your entity type. Assign named risk owner.",
       "effort": "Low",
-      "owners": ["risk"],
-      "frameworks": ["apra_cps230", "nist_ai_rmf_govern"],
-      "kb_refs": ["b1"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "apra_cps230",
+        "nist_ai_rmf_govern"
+      ],
+      "kb_refs": [
+        "b1"
+      ],
       "applies_when": {
         "any": [
-          { "jurisdiction": ["au"] },
-          { "context.domain": ["financial_services"] }
+          {
+            "jurisdiction": [
+              "au"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_annual_review",
       "name": "Annual governance review and re-baseline",
       "summary": "Annual end-to-end review of all governance controls, regulatory mapping, and risk register for the AI system. Trigger condition: any material model retraining, significant change in deployment scope, or regulatory update. Document outcomes and actions.",
       "effort": "Low",
-      "owners": ["risk"],
-      "frameworks": ["eu_ai_act_art_26", "iso_42001_aimc"],
-      "kb_refs": ["b1", "b2"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26",
+        "iso_42001_aimc"
+      ],
+      "kb_refs": [
+        "b1",
+        "b2"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision", "llm_chatbot"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision",
+              "llm_chatbot"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "ongoing"
+      ]
     },
     {
       "id": "c_gdpr_art22_notices",
       "name": "Article 22 automated-decision-making notices",
       "summary": "Update privacy notices and at-decision communications to include: meaningful information about the logic, significance and envisaged consequences of the AI decision; right to human intervention; right to express a point of view; right to contest the decision. Align with GDPR Article 22 and any applicable national implementation.",
       "effort": "Medium",
-      "owners": ["legal"],
-      "frameworks": ["eu_gdpr_art_22", "uk_dua_automated_decisions"],
-      "kb_refs": ["a4", "b1"],
+      "owners": [
+        "legal"
+      ],
+      "frameworks": [
+        "eu_gdpr_art_22",
+        "uk_dua_automated_decisions"
+      ],
+      "kb_refs": [
+        "a4",
+        "b1"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu", "uk"] },
-          { "context.decision_mode": ["automated_decision"] },
-          { "context.who": ["customer_facing"] }
+          {
+            "jurisdiction": [
+              "eu",
+              "uk"
+            ]
+          },
+          {
+            "context.decision_mode": [
+              "automated_decision"
+            ]
+          },
+          {
+            "context.who": [
+              "customer_facing"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "deploy",
+        "ongoing"
+      ]
     },
     {
       "id": "c_art86_explanation_process",
       "name": "Article 86 right-to-explanation process",
       "summary": "Establish a customer-facing process for explanation requests under Article 86. Define internal process for producing technical explainability artefacts (SHAP values, counterfactuals, or equivalent). Set response time target. Ensure process is accessible and not unduly burdensome for requestors.",
       "effort": "Medium",
-      "owners": ["legal"],
-      "frameworks": ["eu_ai_act_art_86"],
-      "kb_refs": ["a4"],
+      "owners": [
+        "legal"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_86"
+      ],
+      "kb_refs": [
+        "a4"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu"] },
-          { "context.decision_mode": ["automated_decision"] },
-          { "context.who": ["customer_facing"] },
-          { "context.domain": ["financial_services", "hr_employment", "public_sector", "healthcare"] }
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "context.decision_mode": [
+              "automated_decision"
+            ]
+          },
+          {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "hr_employment",
+              "public_sector",
+              "healthcare"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_conformity_assessment",
       "name": "Conformity assessment evidence (Art. 43 + 47)",
       "summary": "If procuring a third-party model, obtain CE marking evidence and the declaration of conformity. Retain. If self-developed, conduct internal conformity assessment or engage a notified body depending on the high-risk category. Document the conformity assessment process and outcomes.",
       "effort": "Medium",
-      "owners": ["legal", "risk"],
-      "frameworks": ["eu_ai_act_art_9"],
-      "kb_refs": ["b2"],
+      "owners": [
+        "legal",
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_9"
+      ],
+      "kb_refs": [
+        "b2"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu"] },
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.domain": ["financial_services", "healthcare", "hr_employment", "public_sector"] }
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "hr_employment",
+              "public_sector"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ]
     },
     {
       "id": "c_vendor_contracts",
       "name": "Vendor and data processor contractual provisions",
       "summary": "Update DPAs and AI vendor contracts to include: Article 25 value chain provisions; model provider obligations to supply information needed by the deployer to comply; model card delivery obligations; audit rights; security standards; incident notification timelines; and data-portability and exit terms.",
       "effort": "Medium",
-      "owners": ["legal", "procurement"],
-      "frameworks": ["eu_ai_act_art_13", "eu_ai_act_art_26", "apra_cps230"],
-      "kb_refs": ["f3", "b4"],
+      "owners": [
+        "legal",
+        "procurement"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_13",
+        "eu_ai_act_art_26",
+        "apra_cps230"
+      ],
+      "kb_refs": [
+        "f3",
+        "b4"
+      ],
       "applies_when": {
         "all": [
-          { "context.build_path": ["vendor", "combination"] }
+          {
+            "context.build_path": [
+              "vendor",
+              "combination"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design"
+      ]
     },
     {
       "id": "c_dispute_pathway",
       "name": "Customer dispute and complaint pathway",
       "summary": "Document a customer-facing pathway for AI-related disputes and complaints, aligned with EU consumer law, AU Privacy Act complaint provisions, and relevant sector-specific dispute resolution standards (e.g. ASIC RG 271 for financial services). Ensure pathway is accessible and response times are defined.",
       "effort": "Low",
-      "owners": ["legal"],
-      "frameworks": ["eu_gdpr_art_22", "au_privacy_act_apps"],
-      "kb_refs": ["b1", "a4"],
+      "owners": [
+        "legal"
+      ],
+      "frameworks": [
+        "eu_gdpr_art_22",
+        "au_privacy_act_apps"
+      ],
+      "kb_refs": [
+        "b1",
+        "a4"
+      ],
       "applies_when": {
         "all": [
-          { "context.who": ["customer_facing"] },
-          { "context.decision_mode": ["automated_decision", "decision_support"] }
+          {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          {
+            "context.decision_mode": [
+              "automated_decision",
+              "decision_support"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_logging",
-      "name": "Decision logging — Article 26 obligation",
+      "name": "Decision logging \u2014 Article 26 obligation",
       "summary": "Implement automatic logging of: input data (or hash), output decisions, model version and configuration, and timestamp. Minimum retention 6 months; longer if required by national law or sector regulation. Logs must be accessible for audit without requiring system downtime.",
       "effort": "Medium",
-      "owners": ["tech"],
-      "frameworks": ["eu_ai_act_art_26", "apra_cps230"],
-      "kb_refs": ["b2", "f4"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26",
+        "apra_cps230"
+      ],
+      "kb_refs": [
+        "b2",
+        "f4"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] },
-          { "jurisdiction": ["eu"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_explainability_tooling",
       "name": "Explainability tooling in production",
       "summary": "Deploy production explanation generation per decision using SHAP, LIME, counterfactual explanations, or model-class-appropriate technique. Output must be usable for both customer-facing communications and internal audit review. Test explanation quality against a sample of real decisions.",
       "effort": "High",
-      "owners": ["tech"],
-      "frameworks": ["eu_ai_act_art_86", "eu_gdpr_art_22"],
-      "kb_refs": ["a4"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_86",
+        "eu_gdpr_art_22"
+      ],
+      "kb_refs": [
+        "a4"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.who": ["customer_facing"] },
-          { "context.domain": ["financial_services", "hr_employment", "public_sector", "healthcare"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services",
+              "hr_employment",
+              "public_sector",
+              "healthcare"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_model_card",
       "name": "Model card / system card",
       "summary": "Document: training data provenance and characteristics, performance metrics by subgroup, known limitations and failure modes, intended use, foreseeable misuse, and version history. Update on each material model change. Make available to deployers as per Article 13 instructions-for-use obligation.",
       "effort": "Low",
-      "owners": ["tech"],
-      "frameworks": ["eu_ai_act_art_13", "eu_ai_act_art_10"],
-      "kb_refs": ["b2", "d1"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_13",
+        "eu_ai_act_art_10"
+      ],
+      "kb_refs": [
+        "b2",
+        "d1"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] },
-          { "context.build_path": ["in_house", "combination"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          },
+          {
+            "context.build_path": [
+              "in_house",
+              "combination"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_production_monitoring",
       "name": "Production monitoring stack",
       "summary": "Deploy dashboards and alerting covering: accuracy metrics, input-distribution drift, output-distribution drift, subgroup performance, and latency. Define thresholds tied to the drift response plan. Ensure monitoring covers the full deployed population, not just sampled batches.",
       "effort": "High",
-      "owners": ["tech", "risk"],
-      "frameworks": ["eu_ai_act_art_26", "nist_ai_rmf_govern"],
-      "kb_refs": ["a2", "a3"],
+      "owners": [
+        "tech",
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26",
+        "nist_ai_rmf_govern"
+      ],
+      "kb_refs": [
+        "a2",
+        "a3"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_model_versioning",
       "name": "Model versioning and rollback capability",
       "summary": "Ensure reproducible model builds with version-controlled artefacts (model weights, feature engineering code, training pipeline). Implement documented rollback procedure with tested recovery time. Rollback should be executable within one business day for critical operations.",
       "effort": "Medium",
-      "owners": ["tech"],
-      "frameworks": ["eu_ai_act_art_15", "apra_cps230"],
-      "kb_refs": ["b3", "f4"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_15",
+        "apra_cps230"
+      ],
+      "kb_refs": [
+        "b3",
+        "f4"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_access_controls",
       "name": "Access controls and audit trail",
       "summary": "Implement role-based access controls covering: who can deploy, retrain, configure thresholds, view decision logs, and access raw training data. Maintain an audit trail of all configuration changes. Review access rights quarterly.",
       "effort": "Low",
-      "owners": ["tech"],
-      "frameworks": ["eu_ai_act_art_15", "eu_ai_act_art_26"],
-      "kb_refs": ["b1", "c1"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_15",
+        "eu_ai_act_art_26"
+      ],
+      "kb_refs": [
+        "b1",
+        "c1"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["predictive", "automated_decision", "llm_chatbot"] }
+          {
+            "system_type": [
+              "predictive",
+              "automated_decision",
+              "llm_chatbot"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_ai_literacy_training",
-      "name": "AI literacy training — Article 4 obligation",
+      "name": "AI literacy training \u2014 Article 4 obligation",
       "summary": "Deliver AI literacy training to all staff who interact with, operate, or make decisions based on the AI system. Content must cover: how the model works at a sufficient level, known failure modes, how to recognise when to override or escalate, and their rights and obligations. Article 4 is enforceable from 2 February 2025.",
       "effort": "Low",
-      "owners": ["risk"],
-      "frameworks": ["eu_ai_act_art_4", "au_voluntary_ai"],
-      "kb_refs": ["a1"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_4",
+        "au_voluntary_ai"
+      ],
+      "kb_refs": [
+        "a1"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["eu", "au"] }
+          {
+            "jurisdiction": [
+              "eu",
+              "au"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_overreliance_training",
       "name": "Role-specific overreliance training",
       "summary": "For human reviewers in the decision loop, deliver role-specific training on the model's known failure modes and the conditions under which independent judgement must override the model. Include worked examples of cases where the model is known to perform poorly.",
       "effort": "Low",
-      "owners": ["risk"],
-      "frameworks": ["eu_ai_act_art_14", "au_voluntary_ai"],
-      "kb_refs": ["a1", "a4"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_14",
+        "au_voluntary_ai"
+      ],
+      "kb_refs": [
+        "a1",
+        "a4"
+      ],
       "applies_when": {
         "all": [
-          { "context.decision_mode": ["decision_support"] }
+          {
+            "context.decision_mode": [
+              "decision_support"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     },
     {
       "id": "c_vendor_due_diligence",
       "name": "Vendor AI due diligence checklist",
       "summary": "Apply an AI-specific due diligence checklist to any vendor AI procurement: model documentation and model card, bias and fairness test results, conformity evidence, data processing terms, audit rights, security standards, incident notification provisions, and exit and data-portability terms.",
       "effort": "Medium",
-      "owners": ["procurement"],
-      "frameworks": ["eu_ai_act_art_13", "eu_ai_act_art_26", "apra_cps230"],
-      "kb_refs": ["b4", "f3"],
+      "owners": [
+        "procurement"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_13",
+        "eu_ai_act_art_26",
+        "apra_cps230"
+      ],
+      "kb_refs": [
+        "b4",
+        "f3"
+      ],
       "applies_when": {
         "all": [
-          { "context.build_path": ["vendor", "combination"] }
+          {
+            "context.build_path": [
+              "vendor",
+              "combination"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design"
+      ]
     },
     {
       "id": "c_vendor_incident_flow",
       "name": "Vendor incident notification flow-through",
       "summary": "Require in vendor contracts that the vendor notifies you of serious incidents within defined timeframes. Map vendor notification to your own Art. 73 reporting obligations. Test the flow-through process annually.",
       "effort": "Low",
-      "owners": ["procurement", "risk"],
-      "frameworks": ["eu_ai_act_art_26"],
-      "kb_refs": ["f4", "f3"],
+      "owners": [
+        "procurement",
+        "risk"
+      ],
+      "frameworks": [
+        "eu_ai_act_art_26"
+      ],
+      "kb_refs": [
+        "f4",
+        "f3"
+      ],
       "applies_when": {
         "all": [
-          { "context.build_path": ["vendor", "combination"] },
-          { "jurisdiction": ["eu"] }
+          {
+            "context.build_path": [
+              "vendor",
+              "combination"
+            ]
+          },
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_input_sanitisation",
       "name": "Input sanitisation and prompt protection",
       "summary": "Implement input validation and prompt sanitisation to defend against prompt injection attacks (OWASP LLM01). Separate system instructions from user input. Implement prompt shields or equivalent protection where the platform provides it. Document the threat model.",
       "effort": "Medium",
-      "owners": ["tech"],
-      "frameworks": ["owasp_llm_top10", "eu_ai_act_art_15"],
-      "kb_refs": ["c2"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "owasp_llm_top10",
+        "eu_ai_act_art_15"
+      ],
+      "kb_refs": [
+        "c2"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["llm_chatbot", "agentic"] }
+          {
+            "system_type": [
+              "llm_chatbot",
+              "agentic"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_output_filtering",
       "name": "Output filtering and PII detection",
       "summary": "Implement output review to detect and filter: personally identifiable information in model responses, harmful or inappropriate content, and hallucinated references. Log filtering events. OWASP LLM02 (sensitive information disclosure) is the primary risk addressed.",
       "effort": "Medium",
-      "owners": ["tech"],
-      "frameworks": ["owasp_llm_top10", "eu_gdpr_art_22"],
-      "kb_refs": ["d2", "c2"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "owasp_llm_top10",
+        "eu_gdpr_art_22"
+      ],
+      "kb_refs": [
+        "d2",
+        "c2"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["llm_chatbot", "agentic"] },
-          { "context.data_type": ["personal_basic", "personal_financial", "personal_health", "personal_hr"] }
+          {
+            "system_type": [
+              "llm_chatbot",
+              "agentic"
+            ]
+          },
+          {
+            "context.data_type": [
+              "personal_basic",
+              "personal_financial",
+              "personal_health",
+              "personal_hr"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ]
     },
     {
       "id": "c_system_prompt_protection",
       "name": "System prompt protection and separation",
       "summary": "Implement protection against system prompt leakage (OWASP LLM07). Ensure system instructions cannot be extracted by users. Apply separation between privileged and unprivileged instruction sources. Regularly test for prompt leakage vulnerabilities.",
       "effort": "Low",
-      "owners": ["tech"],
-      "frameworks": ["owasp_llm_top10"],
-      "kb_refs": ["c2"],
+      "owners": [
+        "tech"
+      ],
+      "frameworks": [
+        "owasp_llm_top10"
+      ],
+      "kb_refs": [
+        "c2"
+      ],
       "applies_when": {
         "all": [
-          { "system_type": ["llm_chatbot", "agentic"] }
+          {
+            "system_type": [
+              "llm_chatbot",
+              "agentic"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ]
     },
     {
       "id": "c_au_privacy_notice",
       "name": "Privacy notice update for AI processing",
       "summary": "Update the organisation's privacy policy and collection notices to reflect AI processing of personal information. Include: purpose of AI processing, automated-decision-making transparency statements, rights under the Privacy Act, and how to make a privacy complaint. Required under AU Privacy Act APP 1 and 2024 amendment transparency provisions.",
       "effort": "Low",
-      "owners": ["legal"],
-      "frameworks": ["au_privacy_act_apps", "au_privacy_act_aaim"],
-      "kb_refs": ["b2"],
+      "owners": [
+        "legal"
+      ],
+      "frameworks": [
+        "au_privacy_act_apps",
+        "au_privacy_act_aaim"
+      ],
+      "kb_refs": [
+        "b2"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["au"] },
-          { "context.data_type": ["personal_basic", "personal_financial", "personal_health", "personal_hr", "special_category"] }
+          {
+            "jurisdiction": [
+              "au"
+            ]
+          },
+          {
+            "context.data_type": [
+              "personal_basic",
+              "personal_financial",
+              "personal_health",
+              "personal_hr",
+              "special_category"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ]
     },
     {
       "id": "c_apra_bcp",
       "name": "Business continuity plan for AI critical operations",
       "summary": "Include the AI system in the organisation's business continuity planning under APRA CPS 230. Define impact tolerance (maximum tolerable disruption to the AI-dependent process), tested recovery time objective, and manual fallback procedures if the AI system is unavailable.",
       "effort": "Medium",
-      "owners": ["risk"],
-      "frameworks": ["apra_cps230"],
-      "kb_refs": ["b3", "f4"],
+      "owners": [
+        "risk"
+      ],
+      "frameworks": [
+        "apra_cps230"
+      ],
+      "kb_refs": [
+        "b3",
+        "f4"
+      ],
       "applies_when": {
         "all": [
-          { "jurisdiction": ["au"] },
-          { "context.domain": ["financial_services"] }
+          {
+            "jurisdiction": [
+              "au"
+            ]
+          },
+          {
+            "context.domain": [
+              "financial_services"
+            ]
+          }
         ]
-      }
+      },
+      "lifecycle_phases": [
+        "design",
+        "ongoing"
+      ]
     }
   ]
 }
