@@ -12,16 +12,18 @@ export default function Landing() {
         <div className={styles.heroInner}>
           <p className={styles.eyebrow}>——— AI RISK PRACTICE · BASELINE</p>
           <h1 className={styles.heroTitle}>
-            Describe your AI system.<br />
-            <em>Get your governance baseline.</em>
+            Starting an AI project?<br />
+            <em>Get the room aligned first.</em>
           </h1>
           <p className={styles.heroSub}>
-            Five questions. Free. No signup. Output is a shareable artefact — risk profile, regulatory
-            citations, and controls mapped to your system and jurisdiction.
+            Five questions about your AI system. Instant output: the risks that apply,
+            the controls your team needs, and the regulatory obligations by jurisdiction.
+            Bring it to the kickoff. Share the link with Legal and Cyber.
+            Free. No signup.
           </p>
           <div className={styles.heroCtas}>
             <Link to="/configure" className={styles.btnPrimary}>
-              Start profiling →
+              Profile your system →
             </Link>
             <Link to={EXAMPLE_URL} className={styles.btnSecondary}>
               See a worked example
@@ -37,12 +39,12 @@ export default function Landing() {
       <section className={styles.how}>
         <div className={styles.howInner}>
           <p className={styles.sectionEyebrow}>——— HOW IT WORKS</p>
-          <h2 className={styles.sectionTitle}>Three steps to a governance baseline</h2>
+          <h2 className={styles.sectionTitle}>From system description to team-ready output</h2>
 
           <div className={styles.steps}>
             <div className={styles.step}>
               <div className={styles.stepNum}>01</div>
-              <h3 className={styles.stepTitle}>Configure your system</h3>
+              <h3 className={styles.stepTitle}>Describe your system</h3>
               <p className={styles.stepText}>
                 Answer five questions: system type, how it's used, what data it processes,
                 which jurisdictions apply, and which platform it runs on.
@@ -60,10 +62,10 @@ export default function Landing() {
             </div>
             <div className={styles.step}>
               <div className={styles.stepNum}>03</div>
-              <h3 className={styles.stepTitle}>Share with your team</h3>
+              <h3 className={styles.stepTitle}>Bring it to the room</h3>
               <p className={styles.stepText}>
                 Every configuration encodes into the URL. Share the link with Legal, Cyber,
-                or your board. Export as Markdown for Confluence or Notion.
+                or your project team before the kickoff. Export as Markdown for Confluence or Notion.
                 Download as PDF for your governance file.
               </p>
             </div>
@@ -137,17 +139,19 @@ export default function Landing() {
         <div className={styles.whyInner}>
           <p className={styles.sectionEyebrow}>——— WHY THIS EXISTS</p>
           <div className={styles.whyContent}>
-            <h2 className={styles.whyTitle}>Free, open, and practitioner-built</h2>
+            <h2 className={styles.whyTitle}>Built for the kickoff, not the board paper</h2>
             <p className={styles.whyText}>
-              Most AI governance tools are either expensive enterprise products or generic
-              checklists that don't account for your system type, jurisdiction, or function.
-              The Baseline is a free, open-source tool built by an AI risk practitioner
-              for practitioners — with every mapping auditable in the public repository.
+              Most AI governance tools are designed for after the fact — audits, compliance
+              reviews, formal risk assessments. The Baseline is for the inception phase:
+              the moment a cross-functional team is deciding whether and how to build or deploy
+              an AI system, and needs a shared understanding of what applies before the first
+              sprint starts.
             </p>
             <p className={styles.whyText}>
-              It's a starting point, not a compliance certification. Every claim links to a
-              primary source. Every output comes with a disclaimer. The goal is to save
-              your team two weeks of pre-meeting work — not to replace your advisors.
+              It's a free, open-source tool built by an AI risk practitioner for practitioners.
+              Every mapping is auditable in the public repository. It's a starting point,
+              not a compliance certification — the goal is to surface the right questions
+              for the right functions before decisions get made, not to replace your advisors.
             </p>
             <div className={styles.whyLinks}>
               <Link to="/about" className={styles.btnSecondary}>How the mappings are made →</Link>
@@ -168,9 +172,9 @@ export default function Landing() {
       <section className={styles.bottomCta}>
         <div className={styles.bottomCtaInner}>
           <h2 className={styles.bottomCtaTitle}>Ready to profile your system?</h2>
-          <p className={styles.bottomCtaSub}>4 minutes. Free. No signup required.</p>
+          <p className={styles.bottomCtaSub}>4 minutes. Free. No signup. Share the link with your team.</p>
           <Link to="/configure" className={styles.btnPrimary}>
-            Start profiling →
+            Profile your system →
           </Link>
         </div>
       </section>

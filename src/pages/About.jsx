@@ -11,15 +11,17 @@ export default function About() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>What it is</h2>
           <p className={styles.text}>
-            The AI Governance Baseline is a free, browser-based governance profiler.
-            It takes five configuration questions describing your AI system and returns
-            a tailored output: regulatory citations, risk profile, controls by function,
-            and prioritised actions.
+            The AI Governance Baseline is a free, browser-based inception tool for
+            cross-functional AI project teams. It takes five configuration questions
+            describing your AI system and returns a tailored output: regulatory obligations,
+            risk profile, controls by function, and prioritised actions — ready to share
+            with Legal, Cyber, Risk, and the project team before the first sprint starts.
           </p>
           <p className={styles.text}>
-            It's a starting point — not a compliance certification. The goal is to save
-            a cross-functional team two weeks of initial research, not to replace legal
-            advisors or formal risk assessments.
+            It's designed for the moment a team is deciding whether and how to build or
+            deploy an AI system — not for after-the-fact audits or board reporting.
+            The goal is to surface the right questions for the right functions at the
+            right time, not to replace formal risk assessments or legal advisors.
           </p>
         </section>
 

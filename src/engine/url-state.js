@@ -112,5 +112,5 @@ export function isPartialConfig(config) {
 export function buildShareUrl(config, baseUrl = window.location.origin) {
   const params = encodeConfig(config);
   const base = baseUrl.replace(/\/$/, '');
-  return `${base}/ai-risk-baseline/output?${params.toString()}`;
+  return `${base}/output?${params.toString()}`;
 }

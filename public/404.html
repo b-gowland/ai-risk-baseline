@@ -8,11 +8,9 @@
       // GitHub Pages SPA fallback — redirect to index with path encoded
       // so BrowserRouter can handle the route client-side
       const path = window.location.pathname;
-      const base = '/ai-risk-baseline';
-      const rest = path.startsWith(base) ? path.slice(base.length) : path;
       const search = window.location.search;
       const hash = window.location.hash;
-      const redirectUrl = base + '/?redirect=' + encodeURIComponent(rest + search + hash);
+      const redirectUrl = '/?redirect=' + encodeURIComponent(path + search + hash);
       window.location.replace(redirectUrl);
     </script>
   </head>

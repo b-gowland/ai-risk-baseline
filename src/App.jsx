@@ -19,7 +19,7 @@ function RedirectHandler() {
       // Clean up the redirect param and navigate to the actual route
       params.delete('redirect');
       const newUrl = redirect + (params.toString() ? '?' + params.toString() : '');
-      window.history.replaceState(null, '', '/ai-risk-baseline' + newUrl);
+      window.history.replaceState(null, '', newUrl);
       window.location.reload();
     }
   }, []);
@@ -28,7 +28,7 @@ function RedirectHandler() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/ai-risk-baseline">
+    <BrowserRouter basename="/">
       <RedirectHandler />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Nav />

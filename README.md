@@ -4,7 +4,7 @@
 
 The AI Governance Baseline is a free, browser-based governance profiler. Describe your AI system in five questions; get a tailored risk and control profile mapped to applicable regulatory frameworks.
 
-**Live:** [airiskpractice.org/baseline](https://airiskpractice.org/baseline)
+**Live:** [baseline.airiskpractice.org](https://baseline.airiskpractice.org)
 
 ---
 
@@ -26,7 +26,7 @@ No login. No signup. No data collected. Computes entirely in the browser.
 |---|---|---|
 | Knowledge base | [library.airiskpractice.org](https://library.airiskpractice.org) | 32 AI risk entries, four depth layers each |
 | Training (Fork) | [app.airiskpractice.org](https://app.airiskpractice.org) | Interactive branching scenarios, 32 practitioner cases |
-| **Baseline** (this) | [airiskpractice.org/baseline](https://airiskpractice.org/baseline) | Tailored governance profile for your system |
+| **Baseline** (this) | [baseline.airiskpractice.org](https://baseline.airiskpractice.org) | Tailored governance profile for your system |
 
 ---
 
