@@ -29,7 +29,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -73,7 +74,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -119,7 +121,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -160,7 +163,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           }
         ]
@@ -195,7 +199,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -270,7 +275,8 @@
             "system_type": [
               "predictive",
               "automated_decision",
-              "llm_chatbot"
+              "llm_chatbot",
+              "agentic"
             ]
           }
         ]
@@ -391,7 +397,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -498,7 +505,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -533,7 +541,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -577,7 +586,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           },
           {
@@ -615,7 +625,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           }
         ]
@@ -646,7 +657,8 @@
           {
             "system_type": [
               "predictive",
-              "automated_decision"
+              "automated_decision",
+              "agentic"
             ]
           }
         ]
@@ -678,7 +690,8 @@
             "system_type": [
               "predictive",
               "automated_decision",
-              "llm_chatbot"
+              "llm_chatbot",
+              "agentic"
             ]
           }
         ]

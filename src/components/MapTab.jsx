@@ -257,18 +257,28 @@ function RoadmapCell({ fn, phase, controls, output, navigate }) {
 function ControlCard({ ctrl, output, navigate }) {
   const [inlineOpen, setInlineOpen] = useState(false)
 
-  // Determine mandatory status: any framework ref that is mandatory in current output
   const isMandatory = isMandatoryControl(ctrl, output)
 
-  // FR-62: truncate name at 40 chars
   const displayName = ctrl.name?.length > 40
     ? ctrl.name.slice(0, 40) + `…`
     : ctrl.name
 
-  // Primary framework ref
   const primaryFw = ctrl.frameworks?.[0] || ``
 
-  // FR-66: deep-link to controls tab (shift-click or double-click)
+  // Ghost card — control spans multiple phases; this is a non-primary instance
+  // Show compact reference pointing back to primary phase
+  if (ctrl._isRepeat) {
+    return (
+      <div
+        className={styles.cardGhost}
+        title={`This control also applies here. Primary reference: ${ctrl._primaryPhase}`}
+      >
+        <span className={styles.ghostName}>{displayName}</span>
+        <span className={styles.ghostHint}>↑ also in {PHASES.find(p => p.id === ctrl._primaryPhase)?.label || ctrl._primaryPhase}</span>
+      </div>
+    )
+  }
+
   function handleDeepLink(e) {
     if (e.shiftKey || e.detail === 2) {
       trackEvent(events.MAP_CONTROL_CLICKED, { control_id: ctrl.id })
@@ -282,6 +292,9 @@ function ControlCard({ ctrl, output, navigate }) {
     if (e.key === `Enter`) setInlineOpen(o => !o)
     if (e.key === `Escape`) setInlineOpen(false)
   }
+
+  // Phase pills — show when control spans more than one phase
+  const showPhasePills = ctrl._allPhases?.length > 1
 
   return (
     <div
@@ -299,6 +312,20 @@ function ControlCard({ ctrl, output, navigate }) {
       </div>
       {primaryFw && (
         <span className={styles.cardFw}>{formatFrameworkRef(primaryFw)}</span>
+      )}
+
+      {/* Phase span pills — clarifies multi-phase placement */}
+      {showPhasePills && (
+        <div className={styles.phasePills}>
+          {ctrl._allPhases.map(ph => (
+            <span
+              key={ph}
+              className={`${styles.phasePill} ${ph === ctrl._primaryPhase ? styles.phasePillPrimary : styles.phasePillOther}`}
+            >
+              {PHASES.find(p => p.id === ph)?.label || ph}
+            </span>
+          ))}
+        </div>
       )}
 
       {/* FR-72: date-aware pill */}
@@ -349,9 +376,21 @@ function DateAwarePill({ ctrl, output }) {
 
 /**
  * Build function → phase → controls matrix from flat controls array.
- * A control can appear in multiple phases (multi-phase assignment is intentional).
+ *
+ * Deduplication strategy (Option 2 from persona workflow):
+ * A control with lifecycle_phases ["design", "operate"] appears in BOTH
+ * columns for the same function. This is architecturally correct but visually
+ * reads as an error. We resolve it by:
+ * 1. Still placing the card in each applicable phase column (correct semantics)
+ * 2. Adding an `_allPhases` annotation so the card can show phase pills
+ * 3. Marking non-primary instances as `_isRepeat: true` so they render as a
+ *    compact ghost card (just the name + "→ see Design" hint) rather than full card
+ *
+ * "Primary" = earliest phase in the PHASES order for that function.
  */
 function buildMatrix(controls) {
+  const phaseOrder = { design: 0, deploy: 1, operate: 2, ongoing: 3 }
+
   const matrix = {}
   Object.keys(FUNCTION_LABELS).forEach(fn => {
     matrix[fn] = { design: [], deploy: [], operate: [], ongoing: [] }
@@ -363,12 +402,24 @@ function buildMatrix(controls) {
 
     owners.forEach(owner => {
       if (!matrix[owner]) return
+
+      // Sort phases by canonical order to determine the primary (earliest) phase
+      const sortedPhases = [...phases].sort((a, b) => (phaseOrder[a] ?? 3) - (phaseOrder[b] ?? 3))
+      const primaryPhase = sortedPhases[0]
+
       phases.forEach(phase => {
         if (!matrix[owner][phase]) return
         // Avoid duplicates in same cell
-        if (!matrix[owner][phase].find(c => c.id === ctrl.id)) {
-          matrix[owner][phase].push(ctrl)
-        }
+        if (matrix[owner][phase].find(c => c.id === ctrl.id)) return
+
+        const isRepeat = phase !== primaryPhase
+
+        matrix[owner][phase].push({
+          ...ctrl,
+          _allPhases: phases,              // all phases this control spans
+          _primaryPhase: primaryPhase,     // earliest phase
+          _isRepeat: isRepeat,             // true = compact ghost card
+        })
       })
     })
   })

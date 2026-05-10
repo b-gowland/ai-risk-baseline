@@ -8,11 +8,11 @@ import MapTab from '../components/MapTab.jsx'
 import styles from './Output.module.css'
 
 const TABS = [
+  { id: `map`,        label: `Map` },
   { id: `risks`,      label: `Risks` },
   { id: `regulatory`, label: `Regulatory` },
   { id: `controls`,   label: `Controls` },
   { id: `actions`,    label: `Actions` },
-  { id: `map`,        label: `Map` },
   { id: `platform`,   label: `Platform` },
 ]
 
@@ -36,7 +36,7 @@ function toFunctionMap(controlsByFunction) {
 
 export default function Output() {
   const [searchParams] = useSearchParams()
-  const [activeTab, setActiveTab] = useState(() => searchParams.get(`tab`) || `risks`)
+  const [activeTab, setActiveTab] = useState(() => searchParams.get(`tab`) || `map`)
   const [activeFunction, setActiveFunction] = useState(`all`)
   const [copyState, setCopyState] = useState(`idle`)
 
