@@ -132,7 +132,7 @@ export default function About() {
               className={styles.suiteItem}
             >
               <span className={styles.suiteName}>Knowledge Base ↗</span>
-              <span className={styles.suiteDesc}>26 AI risk entries with four depth layers, mapped to frameworks</span>
+              <span className={styles.suiteDesc}>32 AI risk entries with four depth layers, mapped to frameworks</span>
             </a>
             <a
               href="https://b-gowland.github.io/ai-risk-training/"
