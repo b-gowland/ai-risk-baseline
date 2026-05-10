@@ -4,6 +4,7 @@ import { buildOutput } from '../engine/baseline.js'
 import { decodeConfig, encodeConfig, isPartialConfig } from '../engine/url-state.js'
 import { buildMarkdownExport } from '../utils/markdown-export.js'
 import { trackEvent, events } from '../utils/analytics.js'
+import MapTab from '../components/MapTab.jsx'
 import styles from './Output.module.css'
 
 const TABS = [
@@ -11,6 +12,7 @@ const TABS = [
   { id: `regulatory`, label: `Regulatory` },
   { id: `controls`,   label: `Controls` },
   { id: `actions`,    label: `Actions` },
+  { id: `map`,        label: `Map` },
   { id: `platform`,   label: `Platform` },
 ]
 
@@ -137,6 +139,13 @@ export default function Output() {
             />
           )}
           {activeTab === `actions`    && <ActionsTab output={output} />}
+          {activeTab === `map`        && (
+            <MapTab
+              output={output}
+              config={config}
+              editParams={editParams}
+            />
+          )}
           {activeTab === `platform`   && <PlatformTab config={config} />}
         </div>
 

@@ -10,11 +10,13 @@ export function trackEvent(name, props) {
 }
 
 export const events = {
-  BASELINE_STARTED:   `baseline_started`,
-  BASELINE_COMPLETED: `baseline_completed`,
-  EXAMPLE_VIEWED:     `example_viewed`,
-  URL_COPIED:         `url_copied`,
-  MARKDOWN_COPIED:    `markdown_copied`,
-  PDF_PRINTED:        `pdf_printed`,
-  TAB_VIEWED:         `tab_viewed`,
+  BASELINE_STARTED:    `baseline_started`,
+  BASELINE_COMPLETED:  `baseline_completed`,
+  EXAMPLE_VIEWED:      `example_viewed`,
+  URL_COPIED:          `url_copied`,
+  MARKDOWN_COPIED:     `markdown_copied`,
+  PDF_PRINTED:         `pdf_printed`,
+  TAB_VIEWED:          `tab_viewed`,
+  MAP_CONTROL_CLICKED: `map_control_clicked`,
+  MAP_EXPORT:          `map_export`,
 }
