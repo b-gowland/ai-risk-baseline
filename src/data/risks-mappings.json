@@ -1,13 +1,13 @@
 {
-  "version": "1.1",
-  "_note": "Each risk's score = sum of matched weights. Ranking = descending score. Top 7 shown by default. kb_url paths follow library.airiskpractice.org/docs/ structure.",
+  "version": "1.2",
+  "_note": "Cross-tool alignment audit May 2026: fixed all kb_urls to canonical slugs, fixed training_scenario_ids to full IDs, removed phantom a5 (merged into a1), removed f4b duplicate (merged into f4), added missing c5 and g4 entries.",
   "risks": [
     {
       "kb_id": "a1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-a-performance/a1-overreliance",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-a-technical/a1-hallucination",
       "title": "Confident and Wrong (Overreliance)",
       "domain": "A",
-      "training_scenario_id": "a1",
+      "training_scenario_id": "a1-hallucination",
       "weights": [
         {
           "when": {
@@ -49,6 +49,15 @@
             ]
           },
           "weight": 15
+        },
+        {
+          "when": {
+            "system_type": [
+              "llm_chatbot",
+              "generative_content"
+            ]
+          },
+          "weight": 60
         }
       ],
       "relevance_template": {
@@ -60,10 +69,10 @@
     },
     {
       "kb_id": "a2",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-a-performance/a2-drift",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-a-technical/a2-model-drift",
       "title": "Silent Drift",
       "domain": "A",
-      "training_scenario_id": "a2",
+      "training_scenario_id": "a2-model-drift",
       "weights": [
         {
           "when": {
@@ -108,7 +117,7 @@
     },
     {
       "kb_id": "a3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-a-performance/a3-evaluation",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-a-technical/a3-robustness",
       "title": "Evaluation Illusion",
       "domain": "A",
       "weights": [
@@ -142,14 +151,15 @@
       "relevance_template": {
         "default": "Metrics that look good on test sets can hide real-world failure modes; evaluation methodology needs independent scrutiny.",
         "financial_services": "Model evaluation on historical approved loans systematically understates performance on the full applicant population."
-      }
+      },
+      "training_scenario_id": null
     },
     {
       "kb_id": "a4",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-a-performance/a4-black-box",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-a-technical/a4-explainability",
       "title": "Black Box / Explainability",
       "domain": "A",
-      "training_scenario_id": "a4",
+      "training_scenario_id": "a4-explainability",
       "weights": [
         {
           "when": {
@@ -205,7 +215,7 @@
       "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b1-accountability",
       "title": "Accountability Gaps (Nobody's Problem)",
       "domain": "B",
-      "training_scenario_id": "b1",
+      "training_scenario_id": "b1-accountability",
       "weights": [
         {
           "when": {
@@ -258,7 +268,7 @@
     },
     {
       "kb_id": "b2",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b2-documentation",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b2-regulatory-compliance",
       "title": "Documentation Debt",
       "domain": "B",
       "weights": [
@@ -301,11 +311,12 @@
       "relevance_template": {
         "default": "Missing model documentation creates audit gaps and hampers incident response.",
         "financial_services": "EU AI Act technical documentation requirements for high-risk systems are substantial; retrofit is expensive."
-      }
+      },
+      "training_scenario_id": null
     },
     {
       "kb_id": "b3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b3-legacy",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b3-lifecycle-governance",
       "title": "Still Running (Legacy Systems)",
       "domain": "B",
       "weights": [
@@ -339,11 +350,100 @@
       "relevance_template": {
         "default": "Once deployed, retiring or replacing an AI system is operationally hard; lock-in is a foreseeable risk from day one.",
         "financial_services": "Credit models embed in downstream systems and processes; technical debt accumulates quickly."
-      }
+      },
+      "training_scenario_id": null
+    },
+    {
+      "kb_id": "b4",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b4-supply-chain",
+      "title": "Procurement Governance Gaps",
+      "domain": "B",
+      "weights": [
+        {
+          "when": {
+            "context.build_path": [
+              "vendor",
+              "combination"
+            ]
+          },
+          "weight": 45
+        },
+        {
+          "when": {
+            "context.domain": [
+              "healthcare",
+              "financial_services"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          "weight": 10
+        }
+      ],
+      "relevance_template": {
+        "default": "Vendor AI systems acquired without AI-specific due diligence import risks the organisation cannot see.",
+        "healthcare": "Procured clinical AI without model documentation, validation data, and bias testing creates safety and regulatory exposure.",
+        "financial_services": "EU AI Act Article 25 and APRA CPS 230 both require deployers to manage vendor AI as part of their own governance."
+      },
+      "training_scenario_id": null
+    },
+    {
+      "kb_id": "b5",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b5-agentic-logging",
+      "title": "Agentic Logging & Auditability Gaps",
+      "domain": "B",
+      "weights": [
+        {
+          "when": {
+            "system_type": [
+              "agentic"
+            ]
+          },
+          "weight": 80
+        },
+        {
+          "when": {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          "weight": 25
+        },
+        {
+          "when": {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "public_sector"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "context.decision_mode": [
+              "automated_decision"
+            ]
+          },
+          "weight": 15
+        }
+      ],
+      "relevance_template": {
+        "default": "Conventional application logs don't capture the reasoning chains and inter-agent message flows needed to audit agentic decisions. EU AI Act Art. 12 logging requirements apply; standard APM tooling is insufficient.",
+        "financial_services": "Regulators require the ability to reconstruct AI-assisted compliance or credit decisions. Agentic systems without chain-level audit logging cannot satisfy this requirement.",
+        "healthcare": "Clinical AI agents must produce audit trails sufficient to support investigation of adverse outcomes; standard logs won't capture why an agent took a specific clinical action."
+      },
+      "training_scenario_id": "b5-agentic-logging"
     },
     {
       "kb_id": "c1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c1-adversarial",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c1-data-poisoning",
       "title": "Adversarial Attacks",
       "domain": "C",
       "weights": [
@@ -375,14 +475,15 @@
       "relevance_template": {
         "default": "Adversarial inputs can systematically manipulate model outputs; robustness testing is required.",
         "financial_services": "Credit scoring models are targets for applicant gaming \u2014 adversarial robustness testing is part of Article 15 obligations."
-      }
+      },
+      "training_scenario_id": "c1-data-poisoning"
     },
     {
       "kb_id": "c2",
       "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c2-prompt-injection",
       "title": "Prompt Injection",
       "domain": "C",
-      "training_scenario_id": "c2",
+      "training_scenario_id": "c2-prompt-injection",
       "weights": [
         {
           "when": {
@@ -420,7 +521,7 @@
     },
     {
       "kb_id": "c3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c3-data-poisoning",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c3-model-theft",
       "title": "Data Poisoning",
       "domain": "C",
       "weights": [
@@ -454,14 +555,222 @@
       "relevance_template": {
         "default": "Training data contamination can systematically corrupt model outputs; data pipeline integrity controls are required.",
         "financial_services": "Training data for credit models sourced from historical decisions can encode past discriminatory practices."
+      },
+      "training_scenario_id": "c3-model-theft"
+    },
+    {
+      "kb_id": "c4",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c4-deepfakes",
+      "title": "Model Theft / Extraction",
+      "domain": "C",
+      "weights": [
+        {
+          "when": {
+            "context.build_path": [
+              "in_house"
+            ]
+          },
+          "weight": 15
+        },
+        {
+          "when": {
+            "context.domain": [
+              "financial_services"
+            ]
+          },
+          "weight": 10
+        },
+        {
+          "when": {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          "weight": 10
+        }
+      ],
+      "relevance_template": {
+        "default": "Proprietary models can be extracted through systematic querying; IP and security controls are required.",
+        "financial_services": "A credit scoring model is a proprietary competitive asset; model extraction exposes the scoring logic to gaming."
+      },
+      "training_scenario_id": "c4-deepfakes"
+    },
+    {
+      "kb_id": "c5",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c5-ai-cyber-attacks",
+      "title": "AI-Enabled Cyber Attacks",
+      "domain": "C",
+      "training_scenario_id": "c5-ai-cyber-attacks",
+      "weights": [
+        {
+          "when": {
+            "context.domain": [
+              "financial_services",
+              "healthcare",
+              "public_sector"
+            ]
+          },
+          "weight": 45
+        },
+        {
+          "when": {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          "weight": 35
+        },
+        {
+          "when": {
+            "system_type": [
+              "llm_chatbot",
+              "generative_content"
+            ]
+          },
+          "weight": 30
+        },
+        {
+          "when": {
+            "context.decision_mode": [
+              "automated_decision"
+            ]
+          },
+          "weight": 20
+        }
+      ],
+      "relevance_template": {
+        "default": "AI tools lower the cost and skill required for phishing, business email compromise, and social engineering at scale. Organisations with AI-facing attack surfaces face a new threat tier.",
+        "financial_services": "AI-generated business email compromise targeting payment processes is a documented, active threat. FBI IC3 2023 reported BEC losses exceeding $2.9B; AI-enhanced campaigns are now confirmed by ACSC and FBI advisories.",
+        "healthcare": "AI-assisted social engineering targeting clinical staff and patient data systems is an emerging attack vector requiring specific staff training and process controls."
       }
     },
     {
+      "kb_id": "c6",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c6-mcp-attack-surface",
+      "title": "MCP Attack Surface",
+      "domain": "C",
+      "weights": [
+        {
+          "when": {
+            "system_type": [
+              "agentic"
+            ]
+          },
+          "weight": 90
+        },
+        {
+          "when": {
+            "context.build_path": [
+              "vendor",
+              "combination"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "context.data_type": [
+              "personal_basic",
+              "personal_financial",
+              "personal_health",
+              "personal_hr"
+            ]
+          },
+          "weight": 20
+        }
+      ],
+      "relevance_template": {
+        "default": "Every MCP server an agent connects to is a potential attack surface for injection, exfiltration, and supply chain compromise. Allowlisting and response sandboxing are required before deployment.",
+        "financial_services": "Agentic systems connecting to financial data sources via MCP are high-value targets; a compromised MCP server can exfiltrate customer data or initiate unauthorised transactions."
+      },
+      "training_scenario_id": "c6-mcp-attack"
+    },
+    {
+      "kb_id": "c7",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c7-multi-agent-trust",
+      "title": "Multi-Agent Trust & Prompt Injection Chains",
+      "domain": "C",
+      "weights": [
+        {
+          "when": {
+            "system_type": [
+              "agentic"
+            ]
+          },
+          "weight": 85
+        },
+        {
+          "when": {
+            "context.data_type": [
+              "personal_financial",
+              "personal_health",
+              "personal_hr",
+              "special_category"
+            ]
+          },
+          "weight": 25
+        },
+        {
+          "when": {
+            "context.domain": [
+              "financial_services",
+              "healthcare"
+            ]
+          },
+          "weight": 15
+        }
+      ],
+      "relevance_template": {
+        "default": "In multi-agent pipelines, a successful injection at any agent propagates through inter-agent trust relationships to agents with broader permissions. Zero-trust between agents and chain-level audit logging are required.",
+        "financial_services": "Multi-agent financial workflows (intake \u2192 analysis \u2192 action) create injection chain risk where a low-privilege agent can direct a high-privilege agent to initiate transactions or exfiltrate data."
+      },
+      "training_scenario_id": "c7-multi-agent-trust"
+    },
+    {
+      "kb_id": "c8",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c8-computer-use-hijacking",
+      "title": "Computer-Use Agent Hijacking",
+      "domain": "C",
+      "weights": [
+        {
+          "when": {
+            "system_type": [
+              "agentic"
+            ]
+          },
+          "weight": 75
+        },
+        {
+          "when": {
+            "context.who": [
+              "employee_facing"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "context.data_type": [
+              "personal_financial",
+              "personal_hr",
+              "personal_health"
+            ]
+          },
+          "weight": 20
+        }
+      ],
+      "relevance_template": {
+        "default": "Computer-use agents operating browsers can be hijacked by any webpage they visit via visual prompt injection. Sandboxed execution, domain allowlists, and human approval gates for irreversible actions are required.",
+        "financial_services": "Browser-operating agents with access to financial systems or customer data are high-value hijacking targets; a single compromised webpage can redirect the agent to exfiltrate data or submit unauthorised forms."
+      },
+      "training_scenario_id": "c8-computer-use-hijacking"
+    },
+    {
       "kb_id": "d1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d1-training-data",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d1-training-data-quality",
       "title": "Training Data Quality / Blind Spots",
       "domain": "D",
-      "training_scenario_id": "d1",
+      "training_scenario_id": "d1-data-quality",
       "weights": [
         {
           "when": {
@@ -509,10 +818,10 @@
     },
     {
       "kb_id": "d2",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d2-data-leakage",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d2-privacy",
       "title": "Sensitive Data Disclosure",
       "domain": "D",
-      "training_scenario_id": "d2",
+      "training_scenario_id": "d2-privacy",
       "weights": [
         {
           "when": {
@@ -550,7 +859,7 @@
     },
     {
       "kb_id": "d3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d3-consent",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-d-data/d3-intellectual-property",
       "title": "Consent and Data Reuse",
       "domain": "D",
       "weights": [
@@ -588,14 +897,15 @@
       "relevance_template": {
         "default": "Using personal data for AI training or decisioning may exceed the original consent basis; legal basis must be established.",
         "financial_services": "Using customer transaction data for credit model training requires clear legal basis under GDPR and Privacy Act."
-      }
+      },
+      "training_scenario_id": "d3-ip"
     },
     {
       "kb_id": "e1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e1-bias",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e1-algorithmic-bias",
       "title": "Algorithmic Bias / Discrimination",
       "domain": "E",
-      "training_scenario_id": "e1",
+      "training_scenario_id": "e1-bias",
       "weights": [
         {
           "when": {
@@ -652,7 +962,7 @@
     },
     {
       "kb_id": "e2",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e2-protected-attributes",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e2-harmful-content",
       "title": "Protected Attribute Leakage",
       "domain": "E",
       "weights": [
@@ -686,11 +996,42 @@
       "relevance_template": {
         "default": "Proxy variables can carry protected attribute information even when direct attributes are excluded.",
         "financial_services": "Postcode, spending patterns, and social network data can all carry race or socioeconomic proxies in credit models."
-      }
+      },
+      "training_scenario_id": "e2-harmful-content"
+    },
+    {
+      "kb_id": "e3",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e3-misinformation",
+      "title": "Accessibility and Digital Exclusion",
+      "domain": "E",
+      "weights": [
+        {
+          "when": {
+            "context.who": [
+              "customer_facing"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "context.domain": [
+              "public_sector",
+              "financial_services"
+            ]
+          },
+          "weight": 15
+        }
+      ],
+      "relevance_template": {
+        "default": "AI systems that only work well for digitally literate users exclude vulnerable populations.",
+        "public_sector": "Government AI that requires digital access or literacy creates exclusion for populations most dependent on public services."
+      },
+      "training_scenario_id": "e3-misinformation"
     },
     {
       "kb_id": "f1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f1-scope-creep",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f1-automation-bias",
       "title": "Scope Creep / Deployment Drift",
       "domain": "F",
       "weights": [
@@ -723,14 +1064,15 @@
       "relevance_template": {
         "default": "Systems deployed for one purpose gradually expand to adjacent uses without re-evaluation.",
         "financial_services": "Credit scoring models are often repurposed for fraud detection, marketing, or collections \u2014 each a different regulatory context."
-      }
+      },
+      "training_scenario_id": "f1-automation-bias"
     },
     {
       "kb_id": "f2",
       "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f2-shadow-ai",
       "title": "Shadow AI",
       "domain": "F",
-      "training_scenario_id": "f2",
+      "training_scenario_id": "f2-shadow-ai",
       "weights": [
         {
           "when": {
@@ -767,7 +1109,7 @@
     },
     {
       "kb_id": "f3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f3-vendor-dependency",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f3-scope-creep",
       "title": "Vendor Dependency / Lock-in",
       "domain": "F",
       "weights": [
@@ -802,11 +1144,59 @@
       "relevance_template": {
         "default": "Over-reliance on a single vendor creates continuity, pricing, and contractual governance risks.",
         "financial_services": "APRA CPS 230 material service provider obligations require documented exit plans and concentration risk management."
-      }
+      },
+      "training_scenario_id": "f3-scope-creep"
+    },
+    {
+      "kb_id": "f4",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f4-irreversibility-scope-creep",
+      "title": "Incident Response & Irreversibility Gap",
+      "domain": "F",
+      "weights": [
+        {
+          "when": {
+            "context.decision_mode": [
+              "automated_decision"
+            ]
+          },
+          "weight": 20
+        },
+        {
+          "when": {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          "weight": 15
+        },
+        {
+          "when": {
+            "context.domain": [
+              "financial_services",
+              "healthcare"
+            ]
+          },
+          "weight": 15
+        },
+        {
+          "when": {
+            "system_type": [
+              "agentic"
+            ]
+          },
+          "weight": 85
+        }
+      ],
+      "relevance_template": {
+        "default": "AI incidents require specialist response capabilities that most incident response plans do not currently address.",
+        "financial_services": "EU AI Act Article 73 requires serious incident reporting within prescribed periods; without an AI-specific incident response plan, notification deadlines will be missed.",
+        "healthcare": "An agent with access to clinical records or communication systems can take actions affecting patient care that cannot be undone; strict scope controls are essential."
+      },
+      "training_scenario_id": "f4-irreversibility"
     },
     {
       "kb_id": "g1",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g1-market-concentration",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g1-concentration-risk",
       "title": "Market Concentration / Correlated Failure",
       "domain": "G",
       "weights": [
@@ -838,11 +1228,12 @@
       "relevance_template": {
         "default": "Sector-wide use of similar AI models creates correlated failure risk; systemic exposure is a macro-prudential concern.",
         "financial_services": "Multiple banks using similar credit scoring models from shared vendors creates correlated credit allocation that can amplify economic cycles."
-      }
+      },
+      "training_scenario_id": "g1-concentration-risk"
     },
     {
       "kb_id": "g2",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g2-feedback-loops",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g2-environmental-impact",
       "title": "Feedback Loops",
       "domain": "G",
       "weights": [
@@ -875,193 +1266,12 @@
       "relevance_template": {
         "default": "AI decisions create the training data for future AI decisions; feedback loops amplify initial biases.",
         "financial_services": "Credit denials create thin files; thin files cause future denials; the cycle entrenches exclusion."
-      }
-    },
-    {
-      "kb_id": "a5",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-a-performance/a5-hallucination",
-      "title": "Hallucination / Confabulation",
-      "domain": "A",
-      "training_scenario_id": "a5",
-      "weights": [
-        {
-          "when": {
-            "system_type": [
-              "llm_chatbot",
-              "agentic",
-              "generative_content"
-            ]
-          },
-          "weight": 70
-        },
-        {
-          "when": {
-            "context.domain": [
-              "financial_services",
-              "healthcare"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "context.who": [
-              "customer_facing"
-            ]
-          },
-          "weight": 15
-        }
-      ],
-      "relevance_template": {
-        "default": "LLMs generate plausible-sounding but factually incorrect content; hallucination risk must be mitigated before deployment.",
-        "financial_services": "A financial advice or support chatbot hallucinating regulatory requirements or product terms creates direct legal and customer harm.",
-        "healthcare": "Hallucinated clinical information from a medical AI is a patient safety issue."
-      }
-    },
-    {
-      "kb_id": "c4",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c4-model-theft",
-      "title": "Model Theft / Extraction",
-      "domain": "C",
-      "weights": [
-        {
-          "when": {
-            "context.build_path": [
-              "in_house"
-            ]
-          },
-          "weight": 15
-        },
-        {
-          "when": {
-            "context.domain": [
-              "financial_services"
-            ]
-          },
-          "weight": 10
-        },
-        {
-          "when": {
-            "context.who": [
-              "customer_facing"
-            ]
-          },
-          "weight": 10
-        }
-      ],
-      "relevance_template": {
-        "default": "Proprietary models can be extracted through systematic querying; IP and security controls are required.",
-        "financial_services": "A credit scoring model is a proprietary competitive asset; model extraction exposes the scoring logic to gaming."
-      }
-    },
-    {
-      "kb_id": "e3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-e-fairness/e3-accessibility",
-      "title": "Accessibility and Digital Exclusion",
-      "domain": "E",
-      "weights": [
-        {
-          "when": {
-            "context.who": [
-              "customer_facing"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "context.domain": [
-              "public_sector",
-              "financial_services"
-            ]
-          },
-          "weight": 15
-        }
-      ],
-      "relevance_template": {
-        "default": "AI systems that only work well for digitally literate users exclude vulnerable populations.",
-        "public_sector": "Government AI that requires digital access or literacy creates exclusion for populations most dependent on public services."
-      }
-    },
-    {
-      "kb_id": "b4",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b4-procurement",
-      "title": "Procurement Governance Gaps",
-      "domain": "B",
-      "weights": [
-        {
-          "when": {
-            "context.build_path": [
-              "vendor",
-              "combination"
-            ]
-          },
-          "weight": 45
-        },
-        {
-          "when": {
-            "context.domain": [
-              "healthcare",
-              "financial_services"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "jurisdiction": [
-              "eu"
-            ]
-          },
-          "weight": 10
-        }
-      ],
-      "relevance_template": {
-        "default": "Vendor AI systems acquired without AI-specific due diligence import risks the organisation cannot see.",
-        "healthcare": "Procured clinical AI without model documentation, validation data, and bias testing creates safety and regulatory exposure.",
-        "financial_services": "EU AI Act Article 25 and APRA CPS 230 both require deployers to manage vendor AI as part of their own governance."
-      }
-    },
-    {
-      "kb_id": "f4",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f4-incident-response",
-      "title": "Incident Response Gap",
-      "domain": "F",
-      "weights": [
-        {
-          "when": {
-            "context.decision_mode": [
-              "automated_decision"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "jurisdiction": [
-              "eu"
-            ]
-          },
-          "weight": 15
-        },
-        {
-          "when": {
-            "context.domain": [
-              "financial_services",
-              "healthcare"
-            ]
-          },
-          "weight": 15
-        }
-      ],
-      "relevance_template": {
-        "default": "AI incidents require specialist response capabilities that most incident response plans do not currently address.",
-        "financial_services": "EU AI Act Article 73 requires serious incident reporting within prescribed periods; without an AI-specific incident response plan, notification deadlines will be missed."
-      }
+      },
+      "training_scenario_id": "g2-environmental-impact"
     },
     {
       "kb_id": "g3",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g3-misuse",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g3-workforce-displacement",
       "title": "Misuse and Dual-Use",
       "domain": "G",
       "weights": [
@@ -1086,13 +1296,15 @@
       "relevance_template": {
         "default": "AI systems designed for legitimate purposes can be redirected for harmful uses.",
         "generative_content": "Generative AI systems can be misused to create disinformation, fraud material, or harmful synthetic content."
-      }
+      },
+      "training_scenario_id": "g3-workforce-displacement"
     },
     {
-      "kb_id": "c6",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c6-mcp-attack-surface",
-      "title": "MCP Attack Surface",
-      "domain": "C",
+      "kb_id": "g4",
+      "kb_url": "https://library.airiskpractice.org/docs/domain-g-systemic/g4-ai-safety",
+      "title": "Agentic AI Safety & Autonomous Action Risk",
+      "domain": "G",
+      "training_scenario_id": "g4-ai-safety",
       "weights": [
         {
           "when": {
@@ -1104,129 +1316,11 @@
         },
         {
           "when": {
-            "context.build_path": [
-              "vendor",
-              "combination"
+            "context.decision_mode": [
+              "automated_decision"
             ]
           },
-          "weight": 20
-        },
-        {
-          "when": {
-            "context.data_type": [
-              "personal_basic",
-              "personal_financial",
-              "personal_health",
-              "personal_hr"
-            ]
-          },
-          "weight": 20
-        }
-      ],
-      "relevance_template": {
-        "default": "Every MCP server an agent connects to is a potential attack surface for injection, exfiltration, and supply chain compromise. Allowlisting and response sandboxing are required before deployment.",
-        "financial_services": "Agentic systems connecting to financial data sources via MCP are high-value targets; a compromised MCP server can exfiltrate customer data or initiate unauthorised transactions."
-      }
-    },
-    {
-      "kb_id": "c7",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c7-multi-agent-trust",
-      "title": "Multi-Agent Trust & Prompt Injection Chains",
-      "domain": "C",
-      "weights": [
-        {
-          "when": {
-            "system_type": [
-              "agentic"
-            ]
-          },
-          "weight": 85
-        },
-        {
-          "when": {
-            "context.data_type": [
-              "personal_financial",
-              "personal_health",
-              "personal_hr",
-              "special_category"
-            ]
-          },
-          "weight": 25
-        },
-        {
-          "when": {
-            "context.domain": [
-              "financial_services",
-              "healthcare"
-            ]
-          },
-          "weight": 15
-        }
-      ],
-      "relevance_template": {
-        "default": "In multi-agent pipelines, a successful injection at any agent propagates through inter-agent trust relationships to agents with broader permissions. Zero-trust between agents and chain-level audit logging are required.",
-        "financial_services": "Multi-agent financial workflows (intake \u2192 analysis \u2192 action) create injection chain risk where a low-privilege agent can direct a high-privilege agent to initiate transactions or exfiltrate data."
-      }
-    },
-    {
-      "kb_id": "c8",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-c-security/c8-computer-use-hijacking",
-      "title": "Computer-Use Agent Hijacking",
-      "domain": "C",
-      "weights": [
-        {
-          "when": {
-            "system_type": [
-              "agentic"
-            ]
-          },
-          "weight": 75
-        },
-        {
-          "when": {
-            "context.who": [
-              "employee_facing"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "context.data_type": [
-              "personal_financial",
-              "personal_hr",
-              "personal_health"
-            ]
-          },
-          "weight": 20
-        }
-      ],
-      "relevance_template": {
-        "default": "Computer-use agents operating browsers can be hijacked by any webpage they visit via visual prompt injection. Sandboxed execution, domain allowlists, and human approval gates for irreversible actions are required.",
-        "financial_services": "Browser-operating agents with access to financial systems or customer data are high-value hijacking targets; a single compromised webpage can redirect the agent to exfiltrate data or submit unauthorised forms."
-      }
-    },
-    {
-      "kb_id": "b5",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-b-governance/b5-agentic-logging",
-      "title": "Agentic Logging & Auditability Gaps",
-      "domain": "B",
-      "weights": [
-        {
-          "when": {
-            "system_type": [
-              "agentic"
-            ]
-          },
-          "weight": 80
-        },
-        {
-          "when": {
-            "jurisdiction": [
-              "eu"
-            ]
-          },
-          "weight": 25
+          "weight": 40
         },
         {
           "when": {
@@ -1234,72 +1328,25 @@
               "financial_services",
               "healthcare",
               "public_sector"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
-            "context.decision_mode": [
-              "automated_decision"
-            ]
-          },
-          "weight": 15
-        }
-      ],
-      "relevance_template": {
-        "default": "Conventional application logs don't capture the reasoning chains and inter-agent message flows needed to audit agentic decisions. EU AI Act Art. 12 logging requirements apply; standard APM tooling is insufficient.",
-        "financial_services": "Regulators require the ability to reconstruct AI-assisted compliance or credit decisions. Agentic systems without chain-level audit logging cannot satisfy this requirement.",
-        "healthcare": "Clinical AI agents must produce audit trails sufficient to support investigation of adverse outcomes; standard logs won't capture why an agent took a specific clinical action."
-      }
-    },
-    {
-      "kb_id": "f4b",
-      "kb_url": "https://library.airiskpractice.org/docs/domain-f-deployment/f4-irreversibility-scope-creep",
-      "title": "Irreversibility & Scope Creep in Autonomous Systems",
-      "domain": "F",
-      "weights": [
-        {
-          "when": {
-            "system_type": [
-              "agentic"
-            ]
-          },
-          "weight": 85
-        },
-        {
-          "when": {
-            "context.decision_mode": [
-              "automated_decision"
             ]
           },
           "weight": 30
         },
         {
           "when": {
-            "context.domain": [
-              "financial_services",
-              "healthcare",
-              "public_sector"
-            ]
-          },
-          "weight": 20
-        },
-        {
-          "when": {
             "context.data_type": [
               "personal_financial",
               "personal_health",
               "personal_hr"
             ]
           },
-          "weight": 15
+          "weight": 20
         }
       ],
       "relevance_template": {
-        "default": "Agentic systems can take irreversible actions (send, delete, pay, post) and accumulate scope beyond their intended boundaries. Human approval gates for irreversible actions and least-privilege permissions are required before deployment.",
-        "financial_services": "An agent with payment or data access capabilities can initiate financial transactions or disclose data outside its intended scope; these actions may be unrecoverable. OWASP LLM06 Excessive Agency.",
-        "healthcare": "An agent with access to clinical records or communication systems can take actions affecting patient care that cannot be undone; strict scope controls are essential."
+        "default": "Autonomous AI systems can take consequential, irreversible actions without human oversight. Objective misspecification, missing approval gates, and excessive permissions are the primary failure modes.",
+        "financial_services": "An agent with payment or trading access can execute transactions outside intended scope; OWASP LLM08 Excessive Agency applies. Irreversible financial actions require mandatory human approval gates.",
+        "healthcare": "Autonomous clinical AI acting without human-in-the-loop approval on patient care decisions creates patient safety and liability exposure."
       }
     },
     {
@@ -1348,8 +1395,9 @@
         "default": "Without an enterprise-wide policy governing autonomous AI action, individual agent deployments accumulate capabilities that collectively exceed what governance controls can manage. OWASP LLM06. An AI agent registry and action classification policy are required.",
         "financial_services": "Agents deployed across business units with heterogeneous permission sets create action chain risks \u2014 sequences of individually permitted actions that together produce prohibited outcomes such as data exfiltration or unauthorised payments.",
         "public_sector": "Government AI agents with broad administrative access and minimal oversight create accountability and legality risks when they take actions outside their defined mandate."
-      }
+      },
+      "training_scenario_id": "g5-excessive-agency"
     }
   ],
-  "_updated": "2026-05-10"
+  "_updated": "2026-05-11"
 }

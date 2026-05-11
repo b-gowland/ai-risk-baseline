@@ -16,8 +16,8 @@
         "iso_42001_aimc"
       ],
       "kb_refs": [
-        "b1",
-        "b2"
+        "domain-b-governance/b1-accountability",
+        "domain-b-governance/b2-regulatory-compliance"
       ],
       "applies_when": {
         "all": [
@@ -61,8 +61,8 @@
         "eu_ai_act_art_27"
       ],
       "kb_refs": [
-        "b1",
-        "e1"
+        "domain-b-governance/b1-accountability",
+        "domain-e-fairness/e1-algorithmic-bias"
       ],
       "applies_when": {
         "all": [
@@ -112,9 +112,9 @@
         "au_voluntary_ai"
       ],
       "kb_refs": [
-        "e1",
-        "e2",
-        "d1"
+        "domain-e-fairness/e1-algorithmic-bias",
+        "domain-e-fairness/e2-harmful-content",
+        "domain-d-data/d1-training-data-quality"
       ],
       "applies_when": {
         "all": [
@@ -155,8 +155,8 @@
         "au_voluntary_ai"
       ],
       "kb_refs": [
-        "a2",
-        "a3"
+        "domain-a-technical/a2-model-drift",
+        "domain-a-technical/a3-robustness"
       ],
       "applies_when": {
         "all": [
@@ -187,7 +187,7 @@
         "eu_ai_act_art_26"
       ],
       "kb_refs": [
-        "f4"
+        "domain-f-deployment/f4-irreversibility-scope-creep"
       ],
       "applies_when": {
         "all": [
@@ -232,7 +232,7 @@
         "nist_ai_rmf_govern"
       ],
       "kb_refs": [
-        "b1"
+        "domain-b-governance/b1-accountability"
       ],
       "applies_when": {
         "any": [
@@ -266,8 +266,8 @@
         "iso_42001_aimc"
       ],
       "kb_refs": [
-        "b1",
-        "b2"
+        "domain-b-governance/b1-accountability",
+        "domain-b-governance/b2-regulatory-compliance"
       ],
       "applies_when": {
         "all": [
@@ -298,8 +298,8 @@
         "uk_dua_automated_decisions"
       ],
       "kb_refs": [
-        "a4",
-        "b1"
+        "domain-a-technical/a4-explainability",
+        "domain-b-governance/b1-accountability"
       ],
       "applies_when": {
         "all": [
@@ -338,7 +338,7 @@
         "eu_ai_act_art_86"
       ],
       "kb_refs": [
-        "a4"
+        "domain-a-technical/a4-explainability"
       ],
       "applies_when": {
         "all": [
@@ -385,7 +385,7 @@
         "eu_ai_act_art_9"
       ],
       "kb_refs": [
-        "b2"
+        "domain-b-governance/b2-regulatory-compliance"
       ],
       "applies_when": {
         "all": [
@@ -431,8 +431,8 @@
         "apra_cps230"
       ],
       "kb_refs": [
-        "f3",
-        "b4"
+        "domain-f-deployment/f3-scope-creep",
+        "domain-b-governance/b4-supply-chain"
       ],
       "applies_when": {
         "all": [
@@ -461,8 +461,8 @@
         "au_privacy_act_apps"
       ],
       "kb_refs": [
-        "b1",
-        "a4"
+        "domain-b-governance/b1-accountability",
+        "domain-a-technical/a4-explainability"
       ],
       "applies_when": {
         "all": [
@@ -497,8 +497,8 @@
         "apra_cps230"
       ],
       "kb_refs": [
-        "b2",
-        "f4"
+        "domain-b-governance/b2-regulatory-compliance",
+        "domain-f-deployment/f4-irreversibility-scope-creep"
       ],
       "applies_when": {
         "all": [
@@ -534,7 +534,7 @@
         "eu_gdpr_art_22"
       ],
       "kb_refs": [
-        "a4"
+        "domain-a-technical/a4-explainability"
       ],
       "applies_when": {
         "all": [
@@ -578,8 +578,8 @@
         "eu_ai_act_art_10"
       ],
       "kb_refs": [
-        "b2",
-        "d1"
+        "domain-b-governance/b2-regulatory-compliance",
+        "domain-d-data/d1-training-data-quality"
       ],
       "applies_when": {
         "all": [
@@ -617,8 +617,8 @@
         "nist_ai_rmf_govern"
       ],
       "kb_refs": [
-        "a2",
-        "a3"
+        "domain-a-technical/a2-model-drift",
+        "domain-a-technical/a3-robustness"
       ],
       "applies_when": {
         "all": [
@@ -649,8 +649,8 @@
         "apra_cps230"
       ],
       "kb_refs": [
-        "b3",
-        "f4"
+        "domain-b-governance/b3-lifecycle-governance",
+        "domain-f-deployment/f4-irreversibility-scope-creep"
       ],
       "applies_when": {
         "all": [
@@ -681,8 +681,8 @@
         "eu_ai_act_art_26"
       ],
       "kb_refs": [
-        "b1",
-        "c1"
+        "domain-b-governance/b1-accountability",
+        "domain-c-security/c1-data-poisoning"
       ],
       "applies_when": {
         "all": [
@@ -714,7 +714,7 @@
         "au_voluntary_ai"
       ],
       "kb_refs": [
-        "a1"
+        "domain-a-technical/a1-hallucination"
       ],
       "applies_when": {
         "all": [
@@ -744,8 +744,8 @@
         "au_voluntary_ai"
       ],
       "kb_refs": [
-        "a1",
-        "a4"
+        "domain-a-technical/a1-hallucination",
+        "domain-a-technical/a4-explainability"
       ],
       "applies_when": {
         "all": [
@@ -775,8 +775,8 @@
         "apra_cps230"
       ],
       "kb_refs": [
-        "b4",
-        "f3"
+        "domain-b-governance/b4-supply-chain",
+        "domain-f-deployment/f3-scope-creep"
       ],
       "applies_when": {
         "all": [
@@ -805,8 +805,8 @@
         "eu_ai_act_art_26"
       ],
       "kb_refs": [
-        "f4",
-        "f3"
+        "domain-f-deployment/f4-irreversibility-scope-creep",
+        "domain-f-deployment/f3-scope-creep"
       ],
       "applies_when": {
         "all": [
@@ -841,7 +841,7 @@
         "eu_ai_act_art_15"
       ],
       "kb_refs": [
-        "c2"
+        "domain-c-security/c2-prompt-injection"
       ],
       "applies_when": {
         "all": [
@@ -871,8 +871,8 @@
         "eu_gdpr_art_22"
       ],
       "kb_refs": [
-        "d2",
-        "c2"
+        "domain-d-data/d2-privacy",
+        "domain-c-security/c2-prompt-injection"
       ],
       "applies_when": {
         "all": [
@@ -909,7 +909,7 @@
         "owasp_llm_top10"
       ],
       "kb_refs": [
-        "c2"
+        "domain-c-security/c2-prompt-injection"
       ],
       "applies_when": {
         "all": [
@@ -939,7 +939,7 @@
         "au_privacy_act_aaim"
       ],
       "kb_refs": [
-        "b2"
+        "domain-b-governance/b2-regulatory-compliance"
       ],
       "applies_when": {
         "all": [
@@ -976,8 +976,8 @@
         "apra_cps230"
       ],
       "kb_refs": [
-        "b3",
-        "f4"
+        "domain-b-governance/b3-lifecycle-governance",
+        "domain-f-deployment/f4-irreversibility-scope-creep"
       ],
       "applies_when": {
         "all": [
