@@ -10,6 +10,10 @@
       "training_scenario_id": "a1-hallucination",
       "weights": [
         {
+          "when": null,
+          "weight": 10
+        },
+        {
           "when": {
             "context.decision_mode": [
               "automated_decision"
@@ -218,6 +222,10 @@
       "training_scenario_id": "b1-accountability",
       "weights": [
         {
+          "when": null,
+          "weight": 10
+        },
+        {
           "when": {
             "context.decision_mode": [
               "automated_decision"
@@ -272,6 +280,10 @@
       "title": "Documentation Debt",
       "domain": "B",
       "weights": [
+        {
+          "when": null,
+          "weight": 10
+        },
         {
           "when": {
             "system_type": [
@@ -824,6 +836,10 @@
       "training_scenario_id": "d2-privacy",
       "weights": [
         {
+          "when": null,
+          "weight": 10
+        },
+        {
           "when": {
             "system_type": [
               "llm_chatbot",
@@ -908,6 +924,10 @@
       "training_scenario_id": "e1-bias",
       "weights": [
         {
+          "when": null,
+          "weight": 10
+        },
+        {
           "when": {
             "system_type": [
               "predictive",
@@ -991,6 +1011,15 @@
             ]
           },
           "weight": 20
+        },
+        {
+          "when": {
+            "system_type": [
+              "generative_content",
+              "llm_chatbot"
+            ]
+          },
+          "weight": 50
         }
       ],
       "relevance_template": {
@@ -1059,6 +1088,24 @@
             ]
           },
           "weight": 10
+        },
+        {
+          "when": {
+            "system_type": [
+              "llm_chatbot",
+              "agentic"
+            ]
+          },
+          "weight": 40
+        },
+        {
+          "when": {
+            "context.domain": [
+              "healthcare",
+              "public_sector"
+            ]
+          },
+          "weight": 25
         }
       ],
       "relevance_template": {
@@ -1389,6 +1436,14 @@
             ]
           },
           "weight": 15
+        },
+        {
+          "when": {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          "weight": 20
         }
       ],
       "relevance_template": {

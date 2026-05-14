@@ -49,7 +49,7 @@
       ]
     },
     {
-      "id": "c_fria",
+      "id": "c_fundamental_rights_iaa",
       "name": "Fundamental rights impact assessment (FRIA)",
       "summary": "Document categories of persons affected, foreseeable harms (financial, dignitary, equality), governance arrangements, and oversight measures. Notify the relevant national market surveillance authority. Re-run when material changes occur to the system or its deployment context.",
       "effort": "Medium",
@@ -234,20 +234,7 @@
       "kb_refs": [
         "domain-b-governance/b1-accountability"
       ],
-      "applies_when": {
-        "any": [
-          {
-            "jurisdiction": [
-              "au"
-            ]
-          },
-          {
-            "context.domain": [
-              "financial_services"
-            ]
-          }
-        ]
-      },
+      "applies_when": null,
       "lifecycle_phases": [
         "design",
         "ongoing"
@@ -716,16 +703,7 @@
       "kb_refs": [
         "domain-a-technical/a1-hallucination"
       ],
-      "applies_when": {
-        "all": [
-          {
-            "jurisdiction": [
-              "eu",
-              "au"
-            ]
-          }
-        ]
-      },
+      "applies_when": null,
       "lifecycle_phases": [
         "design",
         "ongoing"
@@ -997,6 +975,149 @@
         "design",
         "ongoing"
       ]
+    },
+    {
+      "id": "c_human_in_loop",
+      "name": "Human-in-the-loop checkpoints for agentic actions",
+      "summary": "Define explicit checkpoints where a human must review and approve before the agent executes consequential actions (financial transactions, external communications, data deletion). Document approval thresholds and escalation paths. Review checkpoints quarterly as system capabilities change.",
+      "effort": "Medium",
+      "owners": [
+        "risk",
+        "tech"
+      ],
+      "frameworks": [
+        "nist_ai_rmf_govern",
+        "iso_42001_aimc",
+        "au_voluntary_ai"
+      ],
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ],
+      "kb_refs": [
+        "domain-g-agentic/g5-excessive-agency",
+        "domain-b-governance/b1-accountability",
+        "domain-f-human/f1-automation-bias"
+      ],
+      "applies_when": {
+        "system_type": [
+          "agentic"
+        ]
+      }
+    },
+    {
+      "id": "c_agentic_audit_log",
+      "name": "Agentic action audit log and decision trail",
+      "summary": "Implement immutable, structured logging of all agent decisions, tool calls, and actions taken. Each log entry must capture: timestamp, agent state/plan, tool invoked, parameters, outcome, and approving human identity (if applicable). Logs must be queryable for post-incident review and retained per your records management policy.",
+      "effort": "Medium",
+      "owners": [
+        "tech",
+        "risk"
+      ],
+      "frameworks": [
+        "nist_ai_rmf_govern",
+        "iso_42001_aimc",
+        "eu_ai_act_art_12"
+      ],
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ],
+      "kb_refs": [
+        "domain-b-governance/b5-agentic-logging",
+        "domain-g-agentic/g4-agentic-safety",
+        "domain-g-agentic/g5-excessive-agency"
+      ],
+      "applies_when": {
+        "system_type": [
+          "agentic"
+        ]
+      }
+    },
+    {
+      "id": "c_agentic_scope_limit",
+      "name": "Scope limitation and tool restriction policy",
+      "summary": "Define and enforce a minimal-capability policy: each agent has access only to the tools, APIs, and data required for its specific task. Maintain an explicit allow-list of permitted tools. Block access to write or delete operations unless explicitly required. Review and shrink the allow-list at each quarterly governance review.",
+      "effort": "Low",
+      "owners": [
+        "tech",
+        "risk"
+      ],
+      "frameworks": [
+        "nist_ai_rmf_govern",
+        "iso_42001_aimc",
+        "au_voluntary_ai"
+      ],
+      "lifecycle_phases": [
+        "design",
+        "operate"
+      ],
+      "kb_refs": [
+        "domain-g-agentic/g5-excessive-agency",
+        "domain-g-agentic/g4-agentic-safety",
+        "domain-c-security/c6-mcp-attack-surface"
+      ],
+      "applies_when": {
+        "system_type": [
+          "agentic"
+        ]
+      }
+    },
+    {
+      "id": "c_content_policy",
+      "name": "Generative AI content policy and acceptable use",
+      "summary": "Define and publish an acceptable use policy for generative AI outputs: prohibited content categories (harmful, discriminatory, false), required human review thresholds, and correction/takedown procedures. Ensure employees and end-users are aware of the policy before deployment.",
+      "effort": "Low",
+      "owners": [
+        "risk",
+        "legal"
+      ],
+      "frameworks": [
+        "nist_ai_rmf_govern",
+        "iso_42001_aimc",
+        "au_voluntary_ai"
+      ],
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ],
+      "kb_refs": [
+        "domain-e-fairness/e2-harmful-content",
+        "domain-a-technical/a1-hallucination"
+      ],
+      "applies_when": {
+        "system_type": [
+          "generative_content",
+          "llm_chatbot"
+        ]
+      }
+    },
+    {
+      "id": "c_ip_copyright_review",
+      "name": "IP and copyright risk review for AI-generated content",
+      "summary": "Before deployment, assess the risk of AI outputs infringing third-party IP or reproducing copyrighted material. Review training data provenance with the vendor. Establish a process to respond to copyright claims arising from AI outputs. Include IP indemnity clauses in vendor contracts.",
+      "effort": "Medium",
+      "owners": [
+        "legal",
+        "procurement"
+      ],
+      "frameworks": [
+        "iso_42001_aimc",
+        "au_voluntary_ai"
+      ],
+      "lifecycle_phases": [
+        "design",
+        "deploy"
+      ],
+      "kb_refs": [
+        "domain-d-data/d3-ip-copyright-risk"
+      ],
+      "applies_when": {
+        "system_type": [
+          "generative_content",
+          "llm_chatbot"
+        ]
+      }
     }
   ]
 }

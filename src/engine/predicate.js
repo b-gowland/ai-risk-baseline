@@ -66,7 +66,10 @@ function getField(config, fieldPath) {
  * Returns true if the predicate matches, false otherwise.
  */
 export function evaluatePredicate(predicate, config) {
-  if (!predicate || !config) return false;
+  // null/missing predicate = universal match (applies to all configs).
+  // This implements NFR-07: empty/partial configs return broadest applicable output.
+  if (!predicate) return true;
+  if (!config) return false;
 
   // AND: all sub-predicates must match
   if (predicate.all) {

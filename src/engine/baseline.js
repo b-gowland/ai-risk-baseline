@@ -1,22 +1,77 @@
 /**
  * baseline.js — core output computation engine
  *
- * buildOutput(config) → { regulatory, risks, controls, actions, platform, isBroad }
+ * buildOutput(config) → { regulatory, risks, controls, actions, platform, isBroad, riskControlLinks }
  *
  * All computation is deterministic and client-side.
  * No network requests. Runs in under 50ms for any valid config.
+ *
+ * Exports:
+ *   buildOutput(config, today)       — main entry point
+ *   buildActions(controls, reg, cfg) — used by Actions tab
+ *   kbIdFromRef(ref)                 — normaliser for kb_refs → kb_id (also used by QA script)
+ *   getRiskControlLinks(risks, ctrls)— bipartite link map for Risks+Controls panel
  */
 
 import { evaluatePredicate, scoreRisk } from './predicate.js';
 import { annotateWithDateState } from './date-aware.js';
-import REG_MAPPINGS from '../data/regulatory-mappings.json';
-import RISKS_MAPPINGS from '../data/risks-mappings.json';
-import CONTROLS_INDEX from '../data/controls-index.json';
+import REG_MAPPINGS from '../data/regulatory-mappings.json' with { type: 'json' };
+import RISKS_MAPPINGS from '../data/risks-mappings.json' with { type: 'json' };
+import CONTROLS_INDEX from '../data/controls-index.json' with { type: 'json' };
 
 // Mandatory framework IDs (used for action prioritisation)
 const MANDATORY_FRAMEWORK_IDS = new Set(
   REG_MAPPINGS.frameworks.filter(() => true).map(f => f.id)
 );
+
+/**
+ * Normalises a kb_refs value (full path OR short id) to short kb_id.
+ *
+ * "domain-e-quality-and-integrity/e1-algorithmic-bias" → "e1"
+ * "e1" → "e1"
+ * Returns "" for null/undefined/empty input.
+ *
+ * Idempotent on already-short IDs. Exported for QA script (scripts/validate-engine.js).
+ *
+ * Spec: BASELINE_REFERENCE.md Part 12.6
+ */
+export function kbIdFromRef(ref) {
+  if (!ref || typeof ref !== 'string') return '';
+  const segment = ref.includes('/') ? ref.split('/').pop() : ref;
+  return (segment || '').split('-')[0].toLowerCase();
+}
+
+/**
+ * Build bipartite risk ↔ control link maps for the Risks+Controls panel.
+ *
+ * Returns:
+ *   riskToControls: { [riskKbId]: [controlId, ...] }
+ *   controlToRisks: { [controlId]: [riskKbId, ...] }
+ *
+ * Only builds edges where the risk kb_id exists in the current risks array
+ * (scoped to this config's output, not all risks globally).
+ *
+ * Spec: BASELINE_REFERENCE.md Part 12.6
+ */
+export function getRiskControlLinks(risks, controls) {
+  const riskToControls = {};
+  const controlToRisks = {};
+
+  for (const risk of risks) {
+    riskToControls[risk.kb_id] = [];
+  }
+  for (const control of controls) {
+    controlToRisks[control.id] = [];
+    for (const ref of (control.kb_refs || [])) {
+      const kbId = kbIdFromRef(ref);
+      if (riskToControls[kbId] !== undefined) {
+        riskToControls[kbId].push(control.id);
+        controlToRisks[control.id].push(kbId);
+      }
+    }
+  }
+  return { riskToControls, controlToRisks };
+}
 
 /**
  * Build the full output for a given config.
@@ -60,6 +115,9 @@ export function buildOutput(config, today = new Date()) {
     ? { id: config.platform, phase: 2 }
     : null;
 
+  // 6. Risk ↔ Control link map for Risks+Controls panel (Map tab Panel 3)
+  const riskControlLinks = getRiskControlLinks(risks, controls);
+
   return {
     regulatory,
     regulatoryByFramework,
@@ -70,6 +128,7 @@ export function buildOutput(config, today = new Date()) {
     platform,
     isBroad,
     frameworksIndex: REG_MAPPINGS.frameworks,
+    riskControlLinks,
   };
 }
 

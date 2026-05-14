@@ -1,18 +1,19 @@
 /**
  * MapTab.jsx — Phase 2 Visual Map
  *
- * Two-panel layout:
+ * Three-panel layout:
  *   1. ProfileSnapshot — compact config summary chips
  *   2. RoadmapGrid — function × lifecycle-phase matrix of applicable controls
+ *   3. RisksControlsPanel — unified risks + controls map (click-to-pin)
  *
- * Spec: BASELINE_REFERENCE.md Part 11
- * FR-58 to FR-72
+ * Spec: BASELINE_REFERENCE.md Part 11 (FR-58–FR-72) + Part 12 (FR-73–FR-81)
  */
 
 import { useState, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { trackEvent, events } from '../utils/analytics.js'
 import styles from './MapTab.module.css'
+import RisksControlsPanel from './RisksControlsPanel.jsx'
 
 // Phase vocabulary — closed set, order is canonical
 const PHASES = [
@@ -143,6 +144,13 @@ export default function MapTab({ output, config, editParams }) {
           Framework citations link to primary sources — verify applicability for your jurisdiction.
         </p>
       </section>
+
+      {/* Panel 3: Risks + Controls Map (FR-73–FR-81) */}
+      <RisksControlsPanel
+        risks={output?.risks || []}
+        controls={output?.controls || []}
+        links={output?.riskControlLinks || { riskToControls: {}, controlToRisks: {} }}
+      />
 
       {/* Export bar — FR-69 */}
       <div className={styles.exportBar}>
