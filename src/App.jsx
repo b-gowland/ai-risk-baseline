@@ -6,6 +6,7 @@ import DisclaimerBanner from './components/DisclaimerBanner.jsx'
 import Landing from './pages/Landing.jsx'
 import Configure from './pages/Configure.jsx'
 import Output from './pages/Output.jsx'
+import DrillPage from './pages/DrillPage.jsx'
 import Example from './pages/Example.jsx'
 import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
@@ -16,7 +17,6 @@ function RedirectHandler() {
     const params = new URLSearchParams(window.location.search);
     const redirect = params.get('redirect');
     if (redirect) {
-      // Clean up the redirect param and navigate to the actual route
       params.delete('redirect');
       const newUrl = redirect + (params.toString() ? '?' + params.toString() : '');
       window.history.replaceState(null, '', newUrl);
@@ -38,6 +38,8 @@ export default function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/configure" element={<Configure />} />
             <Route path="/output" element={<Output />} />
+            {/* Mobile full-screen drill route (Pattern B, <768px) */}
+            <Route path="/output/drill/:name" element={<DrillPage />} />
             <Route path="/example" element={<Example />} />
             <Route path="/about" element={<About />} />
             <Route path="/disclaimer" element={<Disclaimer />} />

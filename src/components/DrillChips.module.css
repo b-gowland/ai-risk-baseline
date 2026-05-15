@@ -1,0 +1,79 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--auth-text-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 14px;
+  border: 1px solid var(--auth-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--auth-bg);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--auth-text-muted);
+  cursor: pointer;
+  transition: border-color 0.1s, color 0.1s, background 0.1s;
+}
+
+.chip:hover {
+  border-color: var(--auth-text-muted);
+  color: var(--auth-text-primary);
+}
+
+.chipActive {
+  border-color: var(--auth-text-primary);
+  color: var(--auth-text-primary);
+  background: var(--auth-bg-subtle);
+}
+
+.chipPlaceholder {
+  opacity: 0.6;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--auth-border-strong);
+  color: var(--auth-text-faint);
+  border-radius: 8px;
+  padding: 1px 5px;
+}
+
+.countActive {
+  background: var(--auth-text-primary);
+  color: #ffffff;
+}
+
+/* Muted dot for Platform placeholder state */
+.placeholderDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--auth-border-strong);
+  flex-shrink: 0;
+}

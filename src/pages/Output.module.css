@@ -688,6 +688,51 @@
   text-decoration: underline;
 }
 
+/* ─── Pattern B canvas layout ─── */
+
+/* When rail is open, shift canvas content left to make visual room.
+ * Rail is fixed-position so it doesn't affect document flow,
+ * but adding right padding prevents content disappearing under the rail. */
+.pageWithRail {
+  padding-right: calc(300px + var(--space-6));
+  transition: padding-right 240ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pageWithRail {
+    transition: none;
+  }
+}
+
+/* On mobile, rail is hidden; no canvas shift */
+@media (max-width: 767px) {
+  .pageWithRail {
+    padding-right: var(--space-4);
+  }
+}
+
+.canvas {
+  /* Canvas is the primary visual; no additional chrome */
+}
+
+/* "Include open drill in PDF" label in export bar */
+.includeRailLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--auth-text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.includeRailCheck {
+  accent-color: var(--auth-text-primary);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
 /* Export bar */
 .exportBar {
   display: flex;
