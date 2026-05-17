@@ -78,7 +78,7 @@ function weightLabel(score) {
  *   links    — { riskToControls, controlToRisks } from getRiskControlLinks()
  *   isStatic — true when rendering for SVG export/print (suppress interaction)
  */
-export default function RisksControlsPanel({ risks, controls, links, isStatic = false }) {
+export default function RisksControlsPanel({ risks, controls, links, isStatic = false, onControlDrillOpen }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const isTouch = useIsTouch()
 
@@ -413,9 +413,9 @@ export default function RisksControlsPanel({ risks, controls, links, isStatic = 
                   onMouseEnter={() => !isTouch && !pinnedRiskId && !pinnedControlId && setHoveredControlId(control.id)}
                   onMouseLeave={() => !isTouch && setHoveredControlId(null)}
                   onDoubleClick={e => {
-                    // Shift-click or double-click → deep-link to Controls tab (FR-77)
+                    // Double-click → open Controls drill focused on this control (FR-95)
                     e.stopPropagation()
-                    // Navigate to Controls tab — implemented by parent via URL
+                    if (onControlDrillOpen) onControlDrillOpen(control.id)
                   }}
                 >
                   {isPinned && !isStatic && (

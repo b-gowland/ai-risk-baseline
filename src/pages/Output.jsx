@@ -146,11 +146,12 @@ export default function Output() {
             onToggle={handleDrillToggle}
           />
 
-          <div className={styles.canvas} role="main" aria-label="Governance baseline canvas">
+          <div className={styles.canvas} aria-label="Governance baseline canvas">
             <MapTab
               output={output}
               config={config}
               editParams={editParams}
+              onControlDrillOpen={(controlId) => openDrill(`controls`, controlId)}
             />
           </div>
 

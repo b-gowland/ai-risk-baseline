@@ -34,7 +34,7 @@ const FUNCTION_LABELS = {
 // Max controls shown per cell before overflow
 const CELL_CAP = 4
 
-export default function MapTab({ output, config, editParams }) {
+export default function MapTab({ output, config, editParams, onControlDrillOpen }) {
   const navigate = useNavigate()
   const gridRef = useRef(null)
 
@@ -150,6 +150,7 @@ export default function MapTab({ output, config, editParams }) {
         risks={output?.risks || []}
         controls={output?.controls || []}
         links={output?.riskControlLinks || { riskToControls: {}, controlToRisks: {} }}
+        onControlDrillOpen={onControlDrillOpen}
       />
 
       {/* Export bar — FR-69 */}
