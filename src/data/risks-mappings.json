@@ -69,7 +69,9 @@
         "financial_services": "Credit officers or decisioning systems may systematically defer to model outputs without independent review, especially when performance looks good.",
         "healthcare": "Clinicians face known automation bias with AI diagnostic tools \u2014 the model's confidence can override clinical judgement.",
         "hr_employment": "HR staff relying on AI screening scores without independent evaluation risk perpetuating systematic errors."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry A1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "a2",
@@ -117,7 +119,9 @@
         "default": "Model performance degrades silently as the world changes; monitoring cadence and drift thresholds are essential.",
         "financial_services": "Credit conditions, applicant populations, and macroeconomic state all shift. A model accurate at deployment may not be accurate 18 months later.",
         "healthcare": "Patient populations and clinical practice evolve; models trained on historical cohorts may silently diverge."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry A2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "a3",
@@ -156,7 +160,9 @@
         "default": "Metrics that look good on test sets can hide real-world failure modes; evaluation methodology needs independent scrutiny.",
         "financial_services": "Model evaluation on historical approved loans systematically understates performance on the full applicant population."
       },
-      "training_scenario_id": null
+      "training_scenario_id": null,
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry A3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "a4",
@@ -212,7 +218,9 @@
         "financial_services": "Article 86 (EU AI Act) right to explanation and GDPR Article 22 require meaningful explanations for credit decisions. Customer disputes are guaranteed without this capability.",
         "healthcare": "Clinician trust requires understanding why a model flagged a case; opaque outputs undermine adoption and safety.",
         "hr_employment": "Unexplainable hiring or promotion decisions face legal challenge and erode employee trust."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry A4 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "b1",
@@ -272,7 +280,9 @@
         "default": "Cross-functional AI systems split accountability between teams; explicit ownership must be assigned.",
         "financial_services": "Credit decisioning crosses risk, legal, model-ops, and business lines. Article 26 deployer obligations require named ownership \u2014 fragmented accountability is a direct regulatory exposure.",
         "public_sector": "Government AI systems face particularly severe accountability gaps \u2014 Robodebt-style outcomes arise when no single accountable owner exists."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry B1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "b2",
@@ -324,7 +334,9 @@
         "default": "Missing model documentation creates audit gaps and hampers incident response.",
         "financial_services": "EU AI Act technical documentation requirements for high-risk systems are substantial; retrofit is expensive."
       },
-      "training_scenario_id": null
+      "training_scenario_id": null,
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry B2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "b3",
@@ -363,7 +375,9 @@
         "default": "Once deployed, retiring or replacing an AI system is operationally hard; lock-in is a foreseeable risk from day one.",
         "financial_services": "Credit models embed in downstream systems and processes; technical debt accumulates quickly."
       },
-      "training_scenario_id": null
+      "training_scenario_id": null,
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry B3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "b4",
@@ -403,7 +417,9 @@
         "healthcare": "Procured clinical AI without model documentation, validation data, and bias testing creates safety and regulatory exposure.",
         "financial_services": "EU AI Act Article 25 and APRA CPS 230 both require deployers to manage vendor AI as part of their own governance."
       },
-      "training_scenario_id": null
+      "training_scenario_id": null,
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry B4 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "b5",
@@ -451,7 +467,9 @@
         "financial_services": "Regulators require the ability to reconstruct AI-assisted compliance or credit decisions. Agentic systems without chain-level audit logging cannot satisfy this requirement.",
         "healthcare": "Clinical AI agents must produce audit trails sufficient to support investigation of adverse outcomes; standard logs won't capture why an agent took a specific clinical action."
       },
-      "training_scenario_id": "b5-agentic-logging"
+      "training_scenario_id": "b5-agentic-logging",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry B5 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c1",
@@ -488,7 +506,9 @@
         "default": "Adversarial inputs can systematically manipulate model outputs; robustness testing is required.",
         "financial_services": "Credit scoring models are targets for applicant gaming \u2014 adversarial robustness testing is part of Article 15 obligations."
       },
-      "training_scenario_id": "c1-data-poisoning"
+      "training_scenario_id": "c1-data-poisoning",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c2",
@@ -529,7 +549,9 @@
       "relevance_template": {
         "default": "Prompt injection is the highest-priority security risk for LLM systems; OWASP LLM01.",
         "financial_services": "Customer-facing LLMs processing financial data are high-value targets for prompt injection attacks designed to exfiltrate data or trigger unauthorised actions."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c3",
@@ -568,7 +590,9 @@
         "default": "Training data contamination can systematically corrupt model outputs; data pipeline integrity controls are required.",
         "financial_services": "Training data for credit models sourced from historical decisions can encode past discriminatory practices."
       },
-      "training_scenario_id": "c3-model-theft"
+      "training_scenario_id": "c3-model-theft",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c4",
@@ -605,7 +629,9 @@
         "default": "Proprietary models can be extracted through systematic querying; IP and security controls are required.",
         "financial_services": "A credit scoring model is a proprietary competitive asset; model extraction exposes the scoring logic to gaming."
       },
-      "training_scenario_id": "c4-deepfakes"
+      "training_scenario_id": "c4-deepfakes",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C4 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c5",
@@ -654,7 +680,9 @@
         "default": "AI tools lower the cost and skill required for phishing, business email compromise, and social engineering at scale. Organisations with AI-facing attack surfaces face a new threat tier.",
         "financial_services": "AI-generated business email compromise targeting payment processes is a documented, active threat. FBI IC3 2023 reported BEC losses exceeding $2.9B; AI-enhanced campaigns are now confirmed by ACSC and FBI advisories.",
         "healthcare": "AI-assisted social engineering targeting clinical staff and patient data systems is an emerging attack vector requiring specific staff training and process controls."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C5 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c6",
@@ -695,7 +723,9 @@
         "default": "Every MCP server an agent connects to is a potential attack surface for injection, exfiltration, and supply chain compromise. Allowlisting and response sandboxing are required before deployment.",
         "financial_services": "Agentic systems connecting to financial data sources via MCP are high-value targets; a compromised MCP server can exfiltrate customer data or initiate unauthorised transactions."
       },
-      "training_scenario_id": "c6-mcp-attack"
+      "training_scenario_id": "c6-mcp-attack",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C6 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c7",
@@ -736,7 +766,9 @@
         "default": "In multi-agent pipelines, a successful injection at any agent propagates through inter-agent trust relationships to agents with broader permissions. Zero-trust between agents and chain-level audit logging are required.",
         "financial_services": "Multi-agent financial workflows (intake \u2192 analysis \u2192 action) create injection chain risk where a low-privilege agent can direct a high-privilege agent to initiate transactions or exfiltrate data."
       },
-      "training_scenario_id": "c7-multi-agent-trust"
+      "training_scenario_id": "c7-multi-agent-trust",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C7 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "c8",
@@ -775,7 +807,9 @@
         "default": "Computer-use agents operating browsers can be hijacked by any webpage they visit via visual prompt injection. Sandboxed execution, domain allowlists, and human approval gates for irreversible actions are required.",
         "financial_services": "Browser-operating agents with access to financial systems or customer data are high-value hijacking targets; a single compromised webpage can redirect the agent to exfiltrate data or submit unauthorised forms."
       },
-      "training_scenario_id": "c8-computer-use-hijacking"
+      "training_scenario_id": "c8-computer-use-hijacking",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry C8 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "d1",
@@ -826,7 +860,9 @@
         "financial_services": "If the training set under-represents thin-file applicants, low-income suburbs, or recent migrants, performance disparities follow. Article 10 data governance obligation.",
         "healthcare": "Clinical training datasets often under-represent minority populations, women, and rare conditions.",
         "hr_employment": "Historical hiring data encodes past biases; models trained on it learn to replicate them."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry D1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "d2",
@@ -871,7 +907,9 @@
       "relevance_template": {
         "default": "LLM systems can leak training data or contextual PII in responses; OWASP LLM02.",
         "financial_services": "Customer correspondence and financial data in LLM context windows are high-value disclosure targets."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry D2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "d3",
@@ -914,7 +952,9 @@
         "default": "Using personal data for AI training or decisioning may exceed the original consent basis; legal basis must be established.",
         "financial_services": "Using customer transaction data for credit model training requires clear legal basis under GDPR and Privacy Act."
       },
-      "training_scenario_id": "d3-ip"
+      "training_scenario_id": "d3-ip",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry D3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "e1",
@@ -978,7 +1018,9 @@
         "financial_services": "Credit scoring on protected-attribute-adjacent feature spaces (postcode as race proxy) is well-documented to encode disparate impact. Highest-priority risk for this configuration.",
         "hr_employment": "Hiring and promotion decisions are a heavily-litigated bias surface; EU AI Act Annex III \u00a74 and US EEOC guidance both apply.",
         "public_sector": "Government AI decisions on benefits or eligibility directly harm vulnerable populations if biased."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry E1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "e2",
@@ -1026,7 +1068,9 @@
         "default": "Proxy variables can carry protected attribute information even when direct attributes are excluded.",
         "financial_services": "Postcode, spending patterns, and social network data can all carry race or socioeconomic proxies in credit models."
       },
-      "training_scenario_id": "e2-harmful-content"
+      "training_scenario_id": "e2-harmful-content",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry E2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "e3",
@@ -1056,7 +1100,9 @@
         "default": "AI systems that only work well for digitally literate users exclude vulnerable populations.",
         "public_sector": "Government AI that requires digital access or literacy creates exclusion for populations most dependent on public services."
       },
-      "training_scenario_id": "e3-misinformation"
+      "training_scenario_id": "e3-misinformation",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry E3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "f1",
@@ -1112,7 +1158,9 @@
         "default": "Systems deployed for one purpose gradually expand to adjacent uses without re-evaluation.",
         "financial_services": "Credit scoring models are often repurposed for fraud detection, marketing, or collections \u2014 each a different regulatory context."
       },
-      "training_scenario_id": "f1-automation-bias"
+      "training_scenario_id": "f1-automation-bias",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry F1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "f2",
@@ -1152,7 +1200,9 @@
       "relevance_template": {
         "default": "Employees use unauthorised AI tools alongside sanctioned ones, creating data governance and liability gaps.",
         "financial_services": "Customer data uploaded to consumer AI tools by staff is a growing privacy and regulatory exposure."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry F2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "f3",
@@ -1192,7 +1242,9 @@
         "default": "Over-reliance on a single vendor creates continuity, pricing, and contractual governance risks.",
         "financial_services": "APRA CPS 230 material service provider obligations require documented exit plans and concentration risk management."
       },
-      "training_scenario_id": "f3-scope-creep"
+      "training_scenario_id": "f3-scope-creep",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry F3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "f4",
@@ -1239,7 +1291,9 @@
         "financial_services": "EU AI Act Article 73 requires serious incident reporting within prescribed periods; without an AI-specific incident response plan, notification deadlines will be missed.",
         "healthcare": "An agent with access to clinical records or communication systems can take actions affecting patient care that cannot be undone; strict scope controls are essential."
       },
-      "training_scenario_id": "f4-irreversibility"
+      "training_scenario_id": "f4-irreversibility",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry F4 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "g1",
@@ -1276,7 +1330,9 @@
         "default": "Sector-wide use of similar AI models creates correlated failure risk; systemic exposure is a macro-prudential concern.",
         "financial_services": "Multiple banks using similar credit scoring models from shared vendors creates correlated credit allocation that can amplify economic cycles."
       },
-      "training_scenario_id": "g1-concentration-risk"
+      "training_scenario_id": "g1-concentration-risk",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry G1 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "g2",
@@ -1314,7 +1370,9 @@
         "default": "AI decisions create the training data for future AI decisions; feedback loops amplify initial biases.",
         "financial_services": "Credit denials create thin files; thin files cause future denials; the cycle entrenches exclusion."
       },
-      "training_scenario_id": "g2-environmental-impact"
+      "training_scenario_id": "g2-environmental-impact",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry G2 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "g3",
@@ -1344,7 +1402,9 @@
         "default": "AI systems designed for legitimate purposes can be redirected for harmful uses.",
         "generative_content": "Generative AI systems can be misused to create disinformation, fraud material, or harmful synthetic content."
       },
-      "training_scenario_id": "g3-workforce-displacement"
+      "training_scenario_id": "g3-workforce-displacement",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry G3 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "g4",
@@ -1394,7 +1454,9 @@
         "default": "Autonomous AI systems can take consequential, irreversible actions without human oversight. Objective misspecification, missing approval gates, and excessive permissions are the primary failure modes.",
         "financial_services": "An agent with payment or trading access can execute transactions outside intended scope; OWASP LLM08 Excessive Agency applies. Irreversible financial actions require mandatory human approval gates.",
         "healthcare": "Autonomous clinical AI acting without human-in-the-loop approval on patient care decisions creates patient safety and liability exposure."
-      }
+      },
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry G4 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     },
     {
       "kb_id": "g5",
@@ -1451,7 +1513,9 @@
         "financial_services": "Agents deployed across business units with heterogeneous permission sets create action chain risks \u2014 sequences of individually permitted actions that together produce prohibited outcomes such as data exfiltration or unauthorised payments.",
         "public_sector": "Government AI agents with broad administrative access and minimal oversight create accountability and legality risks when they take actions outside their defined mandate."
       },
-      "training_scenario_id": "g5-excessive-agency"
+      "training_scenario_id": "g5-excessive-agency",
+      "last_verified": "2026-05-22",
+      "_source_note": "Mapped from AI Risk Practice KB entry G5 at library.airiskpractice.org. Relevance weights calibrated against EU AI Act Annex III and NIST AI RMF risk categories. Verified May 2026."
     }
   ],
   "_updated": "2026-05-11"

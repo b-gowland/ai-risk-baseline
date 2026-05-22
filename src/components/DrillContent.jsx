@@ -2,12 +2,16 @@
  * DrillContent.jsx
  * Shared content renderers for all five drill types.
  * Used by: DetailRail (desktop) and DrillPage (mobile <768px).
- * These are the same components previously inlined in Output.jsx,
- * extracted here to avoid duplication.
+ *
+ * FR-96: SourceCite wired into RegulatoryContent, ControlsContent, RisksContent.
+ * FR-97: Framework version footer added per framework group in RegulatoryContent.
+ * Updated: May 22, 2026 — Trust & Freshness Layer
  */
 
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import SourceCite from './SourceCite.jsx'
+import { trackEvent } from '../utils/analytics.js'
 import styles from './DrillContent.module.css'
 
 const FUNCTION_CHIPS = [
@@ -53,7 +57,16 @@ export function RisksContent({ output }) {
               <span className={styles.domainTag}>{risk.domain}</span>
             </div>
             {risk.relevance_reason && (
-              <p className={styles.riskDesc}>{risk.relevance_reason}</p>
+              <p className={styles.riskDesc}>
+                {risk.relevance_reason}
+                <SourceCite
+                  sourceNote={risk._source_note}
+                  lastVerified={risk.last_verified}
+                  claimText={risk.relevance_reason}
+                  itemId={risk.kb_id}
+                  onOpen={() => trackEvent(`source_cite_opened`, { item_type: `risk` })}
+                />
+              </p>
             )}
             <div className={styles.riskLinks}>
               {risk.kb_url && (
@@ -63,7 +76,7 @@ export function RisksContent({ output }) {
               )}
               {risk.training_scenario_id && (
                 <a
-                  href={`https://b-gowland.github.io/ai-risk-training/?scenario=${risk.training_scenario_id}`}
+                  href={`https://app.airiskpractice.org/?scenario=${risk.training_scenario_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.extLink}
@@ -100,6 +113,7 @@ export function RegulatoryContent({ output }) {
       {groups.map(group => {
         const fw = group.framework || {}
         const items = group.items || []
+        const fwVersion = fw.framework_version || null
         if (!items.length) return null
         return (
           <div key={fw.id} className={styles.frameworkGroup}>
@@ -119,12 +133,18 @@ export function RegulatoryContent({ output }) {
                       </span>
                     )}
                   </div>
-                  <p className={styles.regRequirement}>{item.title}</p>
+                  <p className={styles.regRequirement}>
+                    {item.title}
+                    <SourceCite
+                      sourceNote={item._source_note}
+                      lastVerified={item.last_verified}
+                      claimText={item.title}
+                      itemId={item.id}
+                      onOpen={() => trackEvent(`source_cite_opened`, { item_type: `regulatory` })}
+                    />
+                  </p>
                   {item.summary && item.summary !== item.title && (
-                    <p className={styles.sourceNote}>{item.summary}</p>
-                  )}
-                  {item._source_note && (
-                    <p className={styles.sourceNote}>{item._source_note}</p>
+                    <p className={styles.regSummary}>{item.summary}</p>
                   )}
                   {item.source_url && (
                     <a href={item.source_url} target="_blank" rel="noopener noreferrer" className={styles.extLink}>
@@ -134,6 +154,12 @@ export function RegulatoryContent({ output }) {
                 </div>
               )
             })}
+            {/* FR-97: Framework version footer */}
+            {fwVersion && (
+              <p className={styles.frameworkVersion}>
+                <em>Framework version: {fwVersion.citation}{fwVersion.note ? ` — ${fwVersion.note}` : ``}</em>
+              </p>
+            )}
           </div>
         )
       })}
@@ -197,7 +223,18 @@ export function ControlsContent({ output }) {
                   )}
                 </div>
               </div>
-              {ctrl.summary && <p className={styles.controlDesc}>{ctrl.summary}</p>}
+              {ctrl.summary && (
+                <p className={styles.controlDesc}>
+                  {ctrl.summary}
+                  <SourceCite
+                    sourceNote={ctrl._source_note}
+                    lastVerified={ctrl.last_verified}
+                    claimText={ctrl.summary}
+                    itemId={ctrl.id}
+                    onOpen={() => trackEvent(`source_cite_opened`, { item_type: `control` })}
+                  />
+                </p>
+              )}
               {ctrl.frameworks?.length > 0 && (
                 <div className={styles.fwTags}>
                   {ctrl.frameworks.map(fw => <span key={fw} className={styles.fwTag}>{fw}</span>)}
@@ -208,7 +245,7 @@ export function ControlsContent({ output }) {
                   {ctrl.kb_refs.map((ref, j) => (
                     <a
                       key={j}
-                      href={`https://b-gowland.github.io/ai-risk-kb/docs/${ref}`}
+                      href={`https://library.airiskpractice.org/docs/${ref}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.extLink}

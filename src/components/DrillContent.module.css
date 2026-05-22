@@ -485,3 +485,25 @@
   margin-bottom: var(--space-4);
   text-align: left;
 }
+
+/* ─── Trust & Freshness Layer additions (FR-96, FR-97) ─────────────────────── */
+
+/* Framework version footer — FR-97 */
+.frameworkVersion {
+  font-size: 12px;
+  color: var(--auth-text-muted, #888);
+  margin-top: var(--space-2, 8px);
+  margin-bottom: var(--space-2, 8px);
+  padding-top: var(--space-2, 8px);
+  border-top: 0.5px solid var(--auth-border, #e0ddd8);
+  line-height: 1.5;
+}
+
+/* Regulatory summary (was sourceNote — now separate from SourceCite) */
+.regSummary {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+  line-height: 1.6;
+  margin-top: var(--space-1, 4px);
+  margin-bottom: var(--space-2, 8px);
+}

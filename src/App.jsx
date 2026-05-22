@@ -10,6 +10,7 @@ import DrillPage from './pages/DrillPage.jsx'
 import Example from './pages/Example.jsx'
 import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
+import Changelog from './pages/Changelog.jsx'
 
 // Handle 404.html redirect for GitHub Pages BrowserRouter
 function RedirectHandler() {
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/example" element={<Example />} />
             <Route path="/about" element={<About />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/changelog" element={<Changelog />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

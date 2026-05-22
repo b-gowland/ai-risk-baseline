@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "entries": [
+    {
+      "date": "2026-05-22",
+      "type": "feature",
+      "title": "Provenance icons, framework version footers, and changelog shipped",
+      "detail": "Every regulatory item, control, and risk now surfaces its source note and last-verified date via a (?) icon. Framework versions are explicit in the Regulatory drill. Changelog route added at /changelog."
+    }
+  ]
+}

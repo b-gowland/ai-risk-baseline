@@ -156,6 +156,89 @@ if (actions) {
   }
 }
 
+// ─── validate changelog.json (FR-100) ────────────────────────────────────────
+
+const changelog = loadJSON(`changelog.json`)
+if (changelog) {
+  if (!Array.isArray(changelog.entries)) {
+    fail(`changelog.json`, `Missing or non-array 'entries' field`)
+  } else {
+    pass(`changelog.json`, `${changelog.entries.length} changelog entries valid`)
+  }
+}
+
+// ─── validate site-version.json (FR-98) ──────────────────────────────────────
+
+const siteVer = loadJSON(`site-version.json`)
+if (siteVer) {
+  if (!siteVer.version) fail(`site-version.json`, `Missing 'version' field`)
+  if (!siteVer.verified_month) fail(`site-version.json`, `Missing 'verified_month' field`)
+  if (!siteVer.verified_date) fail(`site-version.json`, `Missing 'verified_date' field`)
+  if (!errors) pass(`site-version.json`, `Site version valid (v${siteVer.version}, ${siteVer.verified_month})`)
+}
+
+// ─── last_verified and framework_version checks (FR-100) ─────────────────────
+
+// Warn (not fail) if last_verified > 365 days old
+const TWELVE_MONTHS_MS = 365 * 24 * 60 * 60 * 1000
+const now = Date.now()
+
+function checkLastVerified(file, items, idField) {
+  let missing = 0
+  let stale = 0
+  items.forEach((item, i) => {
+    const id = item[idField] || item.id || `?`
+    if (!item.last_verified) {
+      missing++
+    } else {
+      try {
+        const verifiedMs = new Date(item.last_verified).getTime()
+        if ((now - verifiedMs) > TWELVE_MONTHS_MS) {
+          console.warn(`⚠️  [${file}] Item ${id}: last_verified is over 12 months old (${item.last_verified})`)
+          stale++
+        }
+      } catch {
+        fail(file, `Item ${id} has invalid last_verified date: ${item.last_verified}`)
+      }
+    }
+  })
+  if (missing > 0) fail(file, `${missing} items missing 'last_verified' field`)
+  if (stale > 0) console.warn(`⚠️  [${file}] ${stale} item(s) have last_verified > 12 months — review for freshness`)
+}
+
+// Check regulatory mappings
+if (reg) {
+  const regItems = Array.isArray(reg) ? reg : reg.mappings || []
+  checkLastVerified(`regulatory-mappings.json`, regItems, `id`)
+
+  // Check framework_version on each framework
+  const frameworks = reg.frameworks || []
+  let missingFwVersion = 0
+  frameworks.forEach(fw => {
+    if (!fw.framework_version) {
+      missingFwVersion++
+      fail(`regulatory-mappings.json`, `Framework '${fw.id}' missing 'framework_version' block`)
+    } else {
+      const fv = fw.framework_version
+      if (!fv.citation) fail(`regulatory-mappings.json`, `Framework '${fw.id}' framework_version missing 'citation'`)
+      if (!fv.as_of) fail(`regulatory-mappings.json`, `Framework '${fw.id}' framework_version missing 'as_of'`)
+    }
+  })
+  if (missingFwVersion === 0) pass(`regulatory-mappings.json`, `All ${frameworks.length} frameworks have framework_version`)
+}
+
+// Check controls
+if (controls) {
+  const ctrlItems = Array.isArray(controls) ? controls : controls.controls || []
+  checkLastVerified(`controls-index.json`, ctrlItems, `id`)
+}
+
+// Check risks
+if (risks) {
+  const riskItems = Array.isArray(risks) ? risks : risks.risks || []
+  checkLastVerified(`risks-mappings.json`, riskItems, `kb_id`)
+}
+
 // ─── Summary ─────────────────────────────────────────────────────────────────
 
 console.log(``)

@@ -103,6 +103,32 @@
   text-decoration: underline;
 }
 
+/* FR-98: Freshness pill in config summary header */
+.configHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+}
+
+.freshnessPill {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--auth-text-muted, #888);
+  background: var(--auth-bg-subtle, #f5f3ef);
+  border: 0.5px solid var(--auth-border, #e0ddd8);
+  border-radius: 999px;
+  padding: 3px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.1s ease;
+  line-height: 1.4;
+}
+
+.freshnessPill:hover {
+  background: var(--auth-bg-hover, #ece9e3);
+  color: var(--auth-text, #2c2a27);
+}
+
 .configChips {
   display: flex;
   flex-wrap: wrap;

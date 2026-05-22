@@ -23,6 +23,7 @@ export default function Footer() {
         </div>
 
         <nav className={styles.links} aria-label="Footer navigation">
+          <Link to="/changelog" className={styles.link}>Changelog</Link>
           <Link to="/disclaimer" className={styles.link}>Disclaimer</Link>
           <Link to="/about" className={styles.link}>About</Link>
           <a

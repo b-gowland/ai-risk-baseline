@@ -1,0 +1,173 @@
+/* Changelog.module.css
+ * Content update log page for AI Governance Baseline.
+ * FR-99
+ */
+
+.page {
+  min-height: 60vh;
+  padding: var(--space-8, 32px) var(--space-4, 16px);
+}
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-8, 32px);
+  padding-bottom: var(--space-6, 24px);
+  border-bottom: 1px solid var(--auth-border, #e0ddd8);
+}
+
+.eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--auth-text-faint, #aaa);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.title {
+  font-family: var(--font-display, serif);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--auth-text, #2c2a27);
+  margin-bottom: var(--space-3, 12px);
+}
+
+.subtitle {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+  line-height: 1.65;
+  margin-bottom: var(--space-2, 8px);
+}
+
+.versionNote {
+  font-size: 12px;
+  font-family: var(--font-mono, monospace);
+  color: var(--auth-text-faint, #aaa);
+}
+
+.extLink {
+  color: var(--auth-accent, #7c6a50);
+  text-decoration: none;
+}
+
+.extLink:hover {
+  text-decoration: underline;
+}
+
+/* Log */
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 32px);
+}
+
+.monthGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+}
+
+.monthHeading {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--auth-text-faint, #aaa);
+  text-transform: uppercase;
+  padding-bottom: var(--space-2, 8px);
+  border-bottom: 0.5px solid var(--auth-border, #e0ddd8);
+}
+
+.entryList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+.entry {
+  padding: var(--space-4, 16px);
+  background: var(--auth-bg-subtle, #f9f7f4);
+  border: 0.5px solid var(--auth-border, #e0ddd8);
+  border-radius: var(--radius-md, 6px);
+}
+
+.entryMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 12px);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.typeBadge {
+  font-size: 10px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.typeFeature {
+  background: #e8f4e8;
+  color: #2d6a2d;
+  border: 0.5px solid #b2d9b2;
+}
+
+.typeUpdate {
+  background: #e8eef8;
+  color: #2d4a8a;
+  border: 0.5px solid #b2c4e8;
+}
+
+.typeFix {
+  background: #fff8e8;
+  color: #7a5500;
+  border: 0.5px solid #f0d8a0;
+}
+
+.typeRemoved {
+  background: #f8e8e8;
+  color: #8a2d2d;
+  border: 0.5px solid #e8b2b2;
+}
+
+.entryDate {
+  font-size: 12px;
+  color: var(--auth-text-muted, #888);
+}
+
+.entryTitle {
+  font-size: var(--text-base, 15px);
+  font-weight: 600;
+  color: var(--auth-text, #2c2a27);
+  margin-bottom: var(--space-1, 4px);
+}
+
+.entryDetail {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+  line-height: 1.65;
+}
+
+/* Empty state */
+.empty {
+  padding: var(--space-8, 32px) var(--space-4, 16px);
+  text-align: center;
+  color: var(--auth-text-muted, #888);
+  font-size: var(--text-sm, 13px);
+}
+
+/* Footer */
+.footer {
+  margin-top: var(--space-10, 40px);
+  padding-top: var(--space-6, 24px);
+  border-top: 0.5px solid var(--auth-border, #e0ddd8);
+}
+
+.footerNote {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+}

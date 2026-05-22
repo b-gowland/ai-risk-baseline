@@ -46,7 +46,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_fundamental_rights_iaa",
@@ -95,7 +96,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_bias_testing",
@@ -138,7 +140,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_drift_monitoring",
@@ -173,7 +176,8 @@
         "design",
         "operate",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_incident_reporting",
@@ -217,7 +221,8 @@
         "design",
         "operate",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_risk_register",
@@ -238,7 +243,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_annual_review",
@@ -270,7 +276,8 @@
       },
       "lifecycle_phases": [
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_gdpr_art22_notices",
@@ -311,7 +318,8 @@
       "lifecycle_phases": [
         "deploy",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_art86_explanation_process",
@@ -357,7 +365,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_conformity_assessment",
@@ -401,7 +410,8 @@
       "lifecycle_phases": [
         "design",
         "deploy"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_vendor_contracts",
@@ -433,7 +443,8 @@
       },
       "lifecycle_phases": [
         "design"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_dispute_pathway",
@@ -469,7 +480,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_logging",
@@ -506,7 +518,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_explainability_tooling",
@@ -550,7 +563,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_model_card",
@@ -588,7 +602,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_production_monitoring",
@@ -621,7 +636,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_model_versioning",
@@ -653,7 +669,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_access_controls",
@@ -686,7 +703,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_ai_literacy_training",
@@ -707,7 +725,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_overreliance_training",
@@ -737,7 +756,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_vendor_due_diligence",
@@ -768,7 +788,8 @@
       },
       "lifecycle_phases": [
         "design"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_vendor_incident_flow",
@@ -804,7 +825,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_input_sanitisation",
@@ -834,7 +856,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_output_filtering",
@@ -873,7 +896,8 @@
       "lifecycle_phases": [
         "design",
         "operate"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_system_prompt_protection",
@@ -902,7 +926,8 @@
       "lifecycle_phases": [
         "design",
         "deploy"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_au_privacy_notice",
@@ -940,7 +965,8 @@
       "lifecycle_phases": [
         "design",
         "deploy"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_apra_bcp",
@@ -974,7 +1000,8 @@
       "lifecycle_phases": [
         "design",
         "ongoing"
-      ]
+      ],
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_human_in_loop",
@@ -1003,7 +1030,8 @@
         "system_type": [
           "agentic"
         ]
-      }
+      },
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_agentic_audit_log",
@@ -1032,7 +1060,8 @@
         "system_type": [
           "agentic"
         ]
-      }
+      },
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_agentic_scope_limit",
@@ -1061,7 +1090,8 @@
         "system_type": [
           "agentic"
         ]
-      }
+      },
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_content_policy",
@@ -1090,7 +1120,8 @@
           "generative_content",
           "llm_chatbot"
         ]
-      }
+      },
+      "last_verified": "2026-05-22"
     },
     {
       "id": "c_ip_copyright_review",
@@ -1117,7 +1148,8 @@
           "generative_content",
           "llm_chatbot"
         ]
-      }
+      },
+      "last_verified": "2026-05-22"
     }
   ]
 }
