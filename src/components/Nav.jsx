@@ -20,10 +20,10 @@ export default function Nav() {
             Profile your system
           </NavLink>
           <NavLink
-            to="/example"
+            to="/examples"
             className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
           >
-            See an example
+            Examples
           </NavLink>
           <NavLink
             to="/about"

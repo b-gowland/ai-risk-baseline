@@ -1,0 +1,177 @@
+/* Examples.module.css
+ * Worked examples gallery page.
+ */
+
+.page {
+  min-height: 60vh;
+  padding: var(--space-8, 32px) var(--space-4, 16px);
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  margin-bottom: var(--space-8, 32px);
+  padding-bottom: var(--space-6, 24px);
+  border-bottom: 1px solid var(--auth-border, #e0ddd8);
+}
+
+.eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--auth-text-faint, #aaa);
+  margin-bottom: var(--space-2, 8px);
+}
+
+.title {
+  font-family: var(--font-display, serif);
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--auth-text, #2c2a27);
+  margin-bottom: var(--space-3, 12px);
+}
+
+.subtitle {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+  line-height: 1.65;
+  max-width: 640px;
+}
+
+/* Grid */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 20px);
+}
+
+/* Card */
+.card {
+  background: var(--auth-bg-subtle, #f9f7f4);
+  border: 1px solid var(--auth-border, #e0ddd8);
+  border-radius: var(--radius-lg, 8px);
+  padding: var(--space-5, 20px) var(--space-6, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 16px);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--auth-accent, #7c6a50);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 8px);
+}
+
+.cardEyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--auth-text-faint, #aaa);
+  text-transform: uppercase;
+}
+
+.cardTitle {
+  font-size: var(--text-lg, 17px);
+  font-weight: 700;
+  color: var(--auth-text, #2c2a27);
+  font-family: var(--font-display, serif);
+}
+
+.cardDesc {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+  line-height: 1.65;
+}
+
+.cardBottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 12px);
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2, 8px);
+}
+
+.tag {
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  color: var(--auth-text-muted, #888);
+  background: var(--auth-bg, #fff);
+  border: 0.5px solid var(--auth-border, #e0ddd8);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* Card footer */
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3, 12px);
+  padding-top: var(--space-3, 12px);
+  border-top: 0.5px solid var(--auth-border, #e0ddd8);
+}
+
+.persona {
+  font-size: 12px;
+  color: var(--auth-text-faint, #aaa);
+  font-style: italic;
+}
+
+.viewBtn {
+  font-size: var(--text-sm, 13px);
+  font-weight: 600;
+  color: var(--auth-accent, #7c6a50);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.1s ease;
+}
+
+.viewBtn:hover {
+  color: var(--auth-text, #2c2a27);
+}
+
+/* Page footer */
+.footer {
+  margin-top: var(--space-10, 40px);
+  padding-top: var(--space-6, 24px);
+  border-top: 0.5px solid var(--auth-border, #e0ddd8);
+  text-align: center;
+}
+
+.footerNote {
+  font-size: var(--text-sm, 13px);
+  color: var(--auth-text-muted, #888);
+}
+
+.footerLink {
+  color: var(--auth-accent, #7c6a50);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import styles from './Landing.module.css'
 
-// Credit decisioning worked example URL (Sarah's case)
-const EXAMPLE_URL = `/example`
+// Worked examples gallery URL
+const EXAMPLE_URL = `/examples`
 
 export default function Landing() {
   return (

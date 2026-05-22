@@ -39,4 +39,7 @@ export const events = {
   INACCURACY_REPORT_CLICKED: `inaccuracy_report_clicked`, // props: item_type, item_id
   CHANGELOG_VIEWED:          `changelog_viewed`,
   FRESHNESS_PILL_CLICKED:    `freshness_pill_clicked`,
+  // Worked examples gallery
+  EXAMPLES_GALLERY_VIEWED:   `examples_gallery_viewed`,
+  EXAMPLE_VIEWED:            `example_viewed`,            // props: example_id
 }

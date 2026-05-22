@@ -11,6 +11,7 @@ import Example from './pages/Example.jsx'
 import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
 import Changelog from './pages/Changelog.jsx'
+import Examples from './pages/Examples.jsx'
 
 // Handle 404.html redirect for GitHub Pages BrowserRouter
 function RedirectHandler() {
@@ -42,6 +43,7 @@ export default function App() {
             {/* Mobile full-screen drill route (Pattern B, <768px) */}
             <Route path="/output/drill/:name" element={<DrillPage />} />
             <Route path="/example" element={<Example />} />
+            <Route path="/examples" element={<Examples />} />
             <Route path="/about" element={<About />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/changelog" element={<Changelog />} />
