@@ -3,15 +3,13 @@
  * Shared content renderers for all five drill types.
  * Used by: DetailRail (desktop) and DrillPage (mobile <768px).
  *
- * FR-96: SourceCite wired into RegulatoryContent, ControlsContent, RisksContent.
- * FR-97: Framework version footer added per framework group in RegulatoryContent.
- * Updated: May 22, 2026 — Trust & Freshness Layer
+ * FR-97: Framework version footer retained per framework group in RegulatoryContent.
+ * FR-96 (SourceCite per-item icons): removed — content currency statement on About page instead.
+ * Updated: May 22, 2026
  */
 
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import SourceCite from './SourceCite.jsx'
-import { trackEvent } from '../utils/analytics.js'
 import styles from './DrillContent.module.css'
 
 const FUNCTION_CHIPS = [
@@ -57,16 +55,7 @@ export function RisksContent({ output }) {
               <span className={styles.domainTag}>{risk.domain}</span>
             </div>
             {risk.relevance_reason && (
-              <p className={styles.riskDesc}>
-                {risk.relevance_reason}
-                <SourceCite
-                  sourceNote={risk._source_note}
-                  lastVerified={risk.last_verified}
-                  claimText={risk.relevance_reason}
-                  itemId={risk.kb_id}
-                  onOpen={() => trackEvent(`source_cite_opened`, { item_type: `risk` })}
-                />
-              </p>
+              <p className={styles.riskDesc}>{risk.relevance_reason}</p>
             )}
             <div className={styles.riskLinks}>
               {risk.kb_url && (
@@ -133,16 +122,7 @@ export function RegulatoryContent({ output }) {
                       </span>
                     )}
                   </div>
-                  <p className={styles.regRequirement}>
-                    {item.title}
-                    <SourceCite
-                      sourceNote={item._source_note}
-                      lastVerified={item.last_verified}
-                      claimText={item.title}
-                      itemId={item.id}
-                      onOpen={() => trackEvent(`source_cite_opened`, { item_type: `regulatory` })}
-                    />
-                  </p>
+                  <p className={styles.regRequirement}>{item.title}</p>
                   {item.summary && item.summary !== item.title && (
                     <p className={styles.regSummary}>{item.summary}</p>
                   )}
@@ -224,16 +204,7 @@ export function ControlsContent({ output }) {
                 </div>
               </div>
               {ctrl.summary && (
-                <p className={styles.controlDesc}>
-                  {ctrl.summary}
-                  <SourceCite
-                    sourceNote={ctrl._source_note}
-                    lastVerified={ctrl.last_verified}
-                    claimText={ctrl.summary}
-                    itemId={ctrl.id}
-                    onOpen={() => trackEvent(`source_cite_opened`, { item_type: `control` })}
-                  />
-                </p>
+                <p className={styles.controlDesc}>{ctrl.summary}</p>
               )}
               {ctrl.frameworks?.length > 0 && (
                 <div className={styles.fwTags}>

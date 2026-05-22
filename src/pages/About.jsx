@@ -58,6 +58,34 @@ export default function About() {
           </p>
         </section>
 
+        <section className={styles.section} id="methodology">
+          <h2 className={styles.sectionTitle}>Content currency</h2>
+          <p className={styles.text}>
+            All regulatory mappings, controls, and risk entries were authored against
+            primary sources in early 2026. The framework versions mapped are noted
+            in the Regulatory drill for each applicable framework — for example,
+            the EU AI Act mapping reflects the Digital Omnibus political agreement
+            of May 7, 2026.
+          </p>
+          <p className={styles.text}>
+            Source URLs are checked automatically each month to confirm they are
+            still live. <strong>Content accuracy has not been independently audited</strong> —
+            each mapping should be verified against the cited primary source before
+            use in a formal governance document. Found something wrong?{` `}
+            <a
+              href="https://github.com/b-gowland/ai-risk-baseline/issues/new?title=Content+inaccuracy&body=Describe+the+issue+and+cite+the+correct+source:"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              Report it on GitHub ↗
+            </a>
+          </p>
+          <p className={styles.text}>
+            <strong>Source URLs last checked: May 2026.</strong>
+          </p>
+        </section>
+
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Limitations</h2>
           <ul className={styles.list}>

@@ -15,7 +15,6 @@ import {
   PlatformContent,
 } from '../components/DrillContent.jsx'
 import { useDrillState } from '../hooks/useDrillState.js'
-import siteVersion from '../data/site-version.json'
 import styles from './Output.module.css'
 
 // Legacy ?tab= → ?drill= rewrite map (FR-95)
@@ -207,26 +206,11 @@ function ConfigSummary({ config, editParams }) {
   if (config.jurisdiction?.length) chips.push({ label: `Jurisdiction`, value: config.jurisdiction.join(`, `) })
   if (config.platform && config.platform !== `skip`) chips.push({ label: `Platform`, value: config.platform })
 
-  function handlePillClick() {
-    trackEvent(`freshness_pill_clicked`)
-    window.open(`/about#methodology`, `_blank`, `noopener,noreferrer`)
-  }
-
   return (
     <div className={styles.configCard}>
       <div className={styles.configHeader}>
         <p className={styles.configEyebrow}>— YOUR CONFIGURATION</p>
-        <div className={styles.configHeaderRight}>
-          <button
-            className={styles.freshnessPill}
-            onClick={handlePillClick}
-            title="About our methodology and verification process"
-            type="button"
-          >
-            Verified {siteVersion.verified_month} · v{siteVersion.version}
-          </button>
-          <Link to={`/configure?${editParams.toString()}`} className={styles.editLink}>Edit →</Link>
-        </div>
+        <Link to={`/configure?${editParams.toString()}`} className={styles.editLink}>Edit →</Link>
       </div>
       <div className={styles.configChips}>
         {chips.map((chip, i) => (
