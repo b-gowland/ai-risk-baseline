@@ -5,7 +5,7 @@ const DRILLS = [
   { id: `risks`,      label: `Risks`,      getCount: (output) => output?.risks?.length || 0 },
   { id: `controls`,   label: `Controls`,   getCount: (output) => output?.controls?.length || 0 },
   { id: `actions`,    label: `Actions`,    getCount: (output) => output?.actions?.length || 0 },
-  { id: `platform`,   label: `Platform`,   getCount: () => 0, placeholder: true },
+  { id: `platform`,   label: `Platform`,   getCount: () => 0 },
 ]
 
 /**
@@ -34,7 +34,6 @@ export default function DrillChips({ output, activeDrill, onToggle }) {
                   {count}
                 </span>
               )}
-              {drill.placeholder && <span className={styles.placeholderDot} title="Coming in Phase 2" />}
             </button>
           )
         })}

@@ -94,13 +94,13 @@ export default function Examples() {
                 </div>
                 <div className={styles.cardFooter}>
                   <span className={styles.persona}>{ex.persona}</span>
-                  <a
-                    href={ex.url}
+                  <Link
+                    to={ex.url}
                     className={styles.viewBtn}
                     onClick={() => trackEvent(`example_viewed`, { example_id: ex.id })}
                   >
                     View example →
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
