@@ -280,31 +280,151 @@ export function ActionsContent({ output }) {
 
 // ─── Platform ─────────────────────────────────────────────────────────────────
 
-export function PlatformContent({ config }) {
-  const platform = config?.platform
+const PLATFORM_DATA = {
+  azure_ai_foundry: {
+    label: `Azure AI Foundry / Azure OpenAI`,
+    summary: `Microsoft's unified platform for building, deploying, and governing enterprise AI — includes content filtering, prompt shields, and Azure AI Studio.`,
+    checked: `May 2026`,
+    links: [
+      { text: `Azure AI Foundry documentation`, href: `https://learn.microsoft.com/en-us/azure/ai-foundry/` },
+      { text: `Content filtering and safety`, href: `https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/content-filter` },
+      { text: `Prompt Shields (jailbreak + indirect attack)`, href: `https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection` },
+      { text: `AI governance with Azure Policy`, href: `https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/governance` },
+    ],
+  },
+  aws_bedrock: {
+    label: `AWS Bedrock`,
+    summary: `Amazon's fully managed service for foundation models — includes Guardrails for content filtering, model invocation logging, and IAM-based access control.`,
+    checked: `May 2026`,
+    links: [
+      { text: `Amazon Bedrock documentation`, href: `https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html` },
+      { text: `Guardrails for Amazon Bedrock`, href: `https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html` },
+      { text: `Model invocation logging`, href: `https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html` },
+      { text: `Security and compliance overview`, href: `https://docs.aws.amazon.com/bedrock/latest/userguide/security.html` },
+    ],
+  },
+  google_vertex: {
+    label: `Google Vertex AI / Gemini API`,
+    summary: `Google Cloud's AI platform with Gemini models, Model Armor for safety filtering, and built-in audit logging via Cloud Audit Logs.`,
+    checked: `May 2026`,
+    links: [
+      { text: `Vertex AI documentation`, href: `https://cloud.google.com/vertex-ai/docs` },
+      { text: `Model Armor (safety filters)`, href: `https://cloud.google.com/vertex-ai/generative-ai/docs/model-armor/overview` },
+      { text: `Responsible AI practices`, href: `https://cloud.google.com/responsible-ai` },
+      { text: `Audit logging for Vertex AI`, href: `https://cloud.google.com/vertex-ai/docs/general/audit-logging` },
+    ],
+  },
+  openai_api: {
+    label: `OpenAI API (direct)`,
+    summary: `OpenAI's direct API access — moderation endpoint, usage policies, and enterprise controls via the OpenAI Platform dashboard.`,
+    checked: `May 2026`,
+    links: [
+      { text: `OpenAI API documentation`, href: `https://platform.openai.com/docs` },
+      { text: `Moderation endpoint`, href: `https://platform.openai.com/docs/guides/moderation` },
+      { text: `Usage policies`, href: `https://openai.com/policies/usage-policies` },
+      { text: `Enterprise privacy and security`, href: `https://openai.com/enterprise-privacy` },
+    ],
+  },
+  anthropic_api: {
+    label: `Anthropic API`,
+    summary: `Anthropic's API for Claude models — includes usage policies, trust and safety guidance, and model safety research documentation.`,
+    checked: `May 2026`,
+    links: [
+      { text: `Anthropic API documentation`, href: `https://docs.anthropic.com` },
+      { text: `Usage policy`, href: `https://www.anthropic.com/legal/aup` },
+      { text: `Model safety and responsible scaling`, href: `https://www.anthropic.com/responsible-scaling-policy` },
+      { text: `Claude constitutional AI overview`, href: `https://www.anthropic.com/research/constitutional-ai-harmlessness-from-ai-feedback` },
+    ],
+  },
+  on_premise: {
+    label: `On-premise / self-hosted`,
+    summary: `Self-hosted models (open weights or licensed) — governance relies entirely on your own infrastructure, access controls, and monitoring tooling.`,
+    checked: `May 2026`,
+    links: [
+      { text: `NIST AI RMF — govern function`, href: `https://airc.nist.gov/Docs/1` },
+      { text: `OWASP LLM Top 10`, href: `https://owasp.org/www-project-top-10-for-large-language-model-applications/` },
+      { text: `ISO/IEC 42001 implementation guide`, href: `https://www.iso.org/standard/81230.html` },
+      { text: `Hugging Face model cards and safetensors`, href: `https://huggingface.co/docs/hub/model-cards` },
+    ],
+  },
+  other_mixed: {
+    label: `Other / mixed cloud`,
+    summary: `Multi-provider or mixed-cloud deployments — governance typically spans each provider's native controls plus a unified policy layer.`,
+    checked: `May 2026`,
+    links: [
+      { text: `NIST AI RMF — manage function`, href: `https://airc.nist.gov/Docs/1` },
+      { text: `ISO/IEC 42001 (AI management system)`, href: `https://www.iso.org/standard/81230.html` },
+      { text: `OWASP LLM Top 10`, href: `https://owasp.org/www-project-top-10-for-large-language-model-applications/` },
+      { text: `AI governance multi-cloud patterns — CSA`, href: `https://cloudsecurityalliance.org/research/topics/artificial-intelligence` },
+    ],
+  },
+}
+
+function PlatformCard({ data, highlight }) {
   return (
-    <div className={styles.platformPlaceholder}>
-      <p className={styles.platformEyebrow}>— COMING IN PHASE 2</p>
-      <h3 className={styles.platformTitle}>Platform-native controls</h3>
-      <p className={styles.platformText}>
-        Phase 2 will map platform-native AI governance controls for AWS, Azure, Google Cloud,
-        and other providers — showing exactly which built-in guardrails, logging, and
-        monitoring tools apply to your configuration.
+    <div className={highlight ? styles.platformCardHighlight : styles.platformCard}>
+      <div className={styles.platformCardHeader}>
+        <span className={styles.platformCardName}>{data.label}</span>
+        <span className={styles.platformCardChecked}>Links checked {data.checked}</span>
+      </div>
+      <p className={styles.platformCardSummary}>{data.summary}</p>
+      <ul className={styles.platformLinks}>
+        {data.links.map((lnk, i) => (
+          <li key={i}>
+            <a
+              href={lnk.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.extLink}
+            >
+              {lnk.text} ↗
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function PlatformContent({ config }) {
+  const selected = config?.platform
+  const hasSelection = selected && selected !== `skip`
+  const selectedData = hasSelection ? PLATFORM_DATA[selected] : null
+  const otherPlatforms = Object.entries(PLATFORM_DATA).filter(([k]) => k !== selected)
+
+  return (
+    <div className={styles.platformWrap}>
+      <p className={styles.intro}>
+        Documentation links for each AI platform. No content is reproduced here — links go
+        directly to vendor and standards documentation. Check last-verified dates before acting.
       </p>
-      {platform && platform !== `skip` && (
-        <p className={styles.platformNote}>
-          Your selected platform: <strong>{platform}</strong>.
-          Controls for this platform will appear here when Phase 2 ships.
+
+      {hasSelection && selectedData && (
+        <div className={styles.platformSection}>
+          <p className={styles.platformSectionLabel}>Your selected platform</p>
+          <PlatformCard data={selectedData} highlight />
+        </div>
+      )}
+
+      {(!hasSelection || otherPlatforms.length > 0) && (
+        <div className={styles.platformSection}>
+          <p className={styles.platformSectionLabel}>
+            {hasSelection ? `Other platforms` : `All platforms`}
+          </p>
+          <div className={styles.platformGrid}>
+            {otherPlatforms.map(([key, data]) => (
+              <PlatformCard key={key} data={data} highlight={false} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!hasSelection && (
+        <p className={styles.platformSkipNote}>
+          No platform selected — showing all options. Return to{` `}
+          <a href="/" className={styles.extLink}>Configure</a> to scope to your platform.
         </p>
       )}
-      <a
-        href="https://github.com/b-gowland/ai-risk-baseline"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.extLink}
-      >
-        Watch the repo for Phase 2 updates ↗
-      </a>
     </div>
   )
 }
