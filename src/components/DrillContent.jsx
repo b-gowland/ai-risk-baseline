@@ -422,7 +422,7 @@ export function PlatformContent({ config }) {
       {!hasSelection && (
         <p className={styles.platformSkipNote}>
           No platform selected — showing all options. Return to{` `}
-          <a href="/" className={styles.extLink}>Configure</a> to scope to your platform.
+          <Link to="/configure" className={styles.extLink}>Configure</Link> to scope to your platform.
         </p>
       )}
     </div>

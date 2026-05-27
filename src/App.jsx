@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 import DisclaimerBanner from './components/DisclaimerBanner.jsx'
@@ -14,17 +14,37 @@ import Changelog from './pages/Changelog.jsx'
 import Examples from './pages/Examples.jsx'
 
 // Handle 404.html redirect for GitHub Pages BrowserRouter
+//
+// Sequence on a direct URL hit to a non-root path (e.g. /about):
+//   1. GitHub Pages has no file at /about → serves public/404.html
+//   2. 404.html does window.location.replace('/?redirect=%2Fabout')
+//   3. Browser loads / → React mounts → this handler fires
+//   4. We navigate client-side to the requested path. NO window.location.reload()
+//      — that would re-fetch the path from the server, get 404.html again, and
+//      loop. navigate() updates the URL via the History API and lets <Routes>
+//      pick the correct page in the same tick.
+//
+// Redirect param is validated to start with a single '/' (same-origin only).
+// Rejects: absolute URLs (https://evil.com), protocol-relative (//evil.com),
+// javascript: URIs, and anything else that could be used as an open-redirect.
 function RedirectHandler() {
+  const navigate = useNavigate();
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const redirect = params.get('redirect');
-    if (redirect) {
-      params.delete('redirect');
-      const newUrl = redirect + (params.toString() ? '?' + params.toString() : '');
-      window.history.replaceState(null, '', newUrl);
-      window.location.reload();
+    if (!redirect) return;
+    // Same-origin path only: must start with single '/' and not '//'.
+    const safe = redirect.startsWith('/') && !redirect.startsWith('//');
+    if (!safe) {
+      // Drop the redirect param and stay on /. Don't honour adversarial input.
+      navigate('/', { replace: true });
+      return;
     }
-  }, []);
+    params.delete('redirect');
+    const query = params.toString();
+    const target = redirect + (query ? (redirect.includes('?') ? '&' : '?') + query : '');
+    navigate(target, { replace: true });
+  }, [navigate]);
   return null;
 }
 

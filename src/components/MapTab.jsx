@@ -10,7 +10,7 @@
  */
 
 import { useState, useCallback, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { trackEvent, events } from '../utils/analytics.js'
 import styles from './MapTab.module.css'
 import RisksControlsPanel from './RisksControlsPanel.jsx'
@@ -68,9 +68,9 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
       {isBroadConfig && (
         <div className={styles.broadBanner}>
           <span>System type unspecified — Map shows broadest applicable controls.</span>
-          <a href={`/configure?${editParams?.toString() || ``}`} className={styles.broadLink}>
+          <Link to={`/configure?${editParams?.toString() || ``}`} className={styles.broadLink}>
             Refine →
-          </a>
+          </Link>
         </div>
       )}
 
@@ -100,7 +100,7 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
 
         {activeFunctions.length === 0 ? (
           <div className={styles.emptyMap}>
-            <p>No controls matched this configuration. <a href={`/configure?${editParams?.toString() || ``}`}>Refine your answers →</a></p>
+            <p>No controls matched this configuration. <Link to={`/configure?${editParams?.toString() || ``}`}>Refine your answers →</Link></p>
           </div>
         ) : (
           /* Accessible grid */
