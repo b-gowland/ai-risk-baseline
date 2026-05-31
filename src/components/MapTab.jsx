@@ -9,7 +9,7 @@
  * Spec: BASELINE_REFERENCE.md Part 11 (FR-58–FR-72) + Part 12 (FR-73–FR-81)
  */
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { trackEvent, events } from '../utils/analytics.js'
 import styles from './MapTab.module.css'
@@ -36,7 +36,6 @@ const CELL_CAP = 4
 
 export default function MapTab({ output, config, editParams, onControlDrillOpen }) {
   const navigate = useNavigate()
-  const gridRef = useRef(null)
 
   // Build the function → phase → controls matrix
   const matrix = buildMatrix(output?.controls || [])
@@ -47,20 +46,6 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
   )
 
   const isBroadConfig = !config?.system_type || config.system_type === `unknown`
-
-  function handleExportSvg() {
-    trackEvent(events.MAP_EXPORT, { format: `svg` })
-    exportSvg(gridRef)
-  }
-
-  function handlePrint() {
-    trackEvent(events.MAP_EXPORT, { format: `pdf` })
-    window.print()
-  }
-
-  function handleCopyLink() {
-    navigator.clipboard.writeText(window.location.href)
-  }
 
   return (
     <div className={styles.mapRoot}>
@@ -78,7 +63,7 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
       <ProfileSnapshot config={config} controls={output?.controls || []} />
 
       {/* Panel 2: Governance Roadmap */}
-      <section className={styles.roadmapSection} ref={gridRef}>
+      <section className={styles.roadmapSection}>
         <div className={styles.roadmapHeader}>
           <h2 className={styles.roadmapTitle}>Governance Roadmap</h2>
           <p className={styles.roadmapLead}>
@@ -153,12 +138,7 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
         onControlDrillOpen={onControlDrillOpen}
       />
 
-      {/* Export bar — FR-69 */}
-      <div className={styles.exportBar}>
-        <button className={styles.exportBtn} onClick={handleCopyLink}>Copy link</button>
-        <button className={styles.exportBtn} onClick={handleExportSvg}>Export SVG</button>
-        <button className={styles.exportBtn} onClick={handlePrint}>Print / PDF</button>
-      </div>
+      {/* Export bar removed — canonical export bar lives in Output.jsx (Pattern B, FR-69) */}
     </div>
   )
 }
@@ -482,57 +462,4 @@ function formatFrameworkRef(fw) {
     gdpr:               `GDPR`,
   }
   return map[fw] || fw.replace(/_/g, ` `)
-}
-
-/**
- * SVG export — FR-70.
- * Serialises the roadmap grid section to a self-contained SVG-wrapped HTML blob.
- * Uses foreignObject to embed the actual rendered HTML; falls back cleanly.
- */
-function exportSvg(gridRef) {
-  if (!gridRef.current) return
-
-  const el = gridRef.current
-  const { width, height } = el.getBoundingClientRect()
-
-  // Clone the node so we can inline styles for portability
-  const clone = el.cloneNode(true)
-
-  // Add disclaimer footer into clone
-  const footer = document.createElement(`p`)
-  footer.style.cssText = `font-family: Georgia, serif; font-size: 11px; color: #555; margin-top: 16px; padding: 0 8px;`
-  footer.textContent = `AI Risk Practice — airiskpractice.org — Governance starting point only, not legal advice.`
-  clone.appendChild(footer)
-
-  const svgNS = `http://www.w3.org/2000/svg`
-  const svg = document.createElementNS(svgNS, `svg`)
-  svg.setAttribute(`xmlns`, svgNS)
-  svg.setAttribute(`xmlns:xhtml`, `http://www.w3.org/1999/xhtml`)
-  svg.setAttribute(`width`, Math.ceil(width))
-  svg.setAttribute(`height`, Math.ceil(height) + 60)
-  svg.setAttribute(`viewBox`, `0 0 ${Math.ceil(width)} ${Math.ceil(height) + 60}`)
-
-  // White background rect
-  const rect = document.createElementNS(svgNS, `rect`)
-  rect.setAttribute(`width`, `100%`)
-  rect.setAttribute(`height`, `100%`)
-  rect.setAttribute(`fill`, `white`)
-  svg.appendChild(rect)
-
-  const fo = document.createElementNS(svgNS, `foreignObject`)
-  fo.setAttribute(`width`, `100%`)
-  fo.setAttribute(`height`, `100%`)
-  fo.appendChild(clone)
-  svg.appendChild(fo)
-
-  const serialiser = new XMLSerializer()
-  const svgStr = serialiser.serializeToString(svg)
-  const blob = new Blob([svgStr], { type: `image/svg+xml` })
-  const url = URL.createObjectURL(blob)
-
-  const a = document.createElement(`a`)
-  a.href = url
-  a.download = `governance-map.svg`
-  a.click()
-  URL.revokeObjectURL(url)
 }

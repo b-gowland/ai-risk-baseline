@@ -289,7 +289,7 @@ const PLATFORM_DATA = {
       { text: `Azure AI Foundry documentation`, href: `https://learn.microsoft.com/en-us/azure/ai-foundry/` },
       { text: `Content filtering and safety`, href: `https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/content-filter` },
       { text: `Prompt Shields (jailbreak + indirect attack)`, href: `https://learn.microsoft.com/en-us/azure/ai-services/content-safety/concepts/jailbreak-detection` },
-      { text: `AI governance with Azure Policy`, href: `https://learn.microsoft.com/en-us/azure/ai-foundry/concepts/governance` },
+      { text: `AI governance with Azure Policy`, href: `https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/azure-policy` },
     ],
   },
   aws_bedrock: {
