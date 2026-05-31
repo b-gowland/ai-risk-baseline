@@ -40,56 +40,56 @@ function assertExcludes(label, arr, id) {
 
 const TC_A = {  // Predictive · FS · EU+AU · personal+financial · customer-facing
   system_type: ['predictive', 'automated_decision'],
-  context: { domain: 'financial_services', who: 'customer_facing', decision_mode: 'automated' },
+  context: { domain: ['financial_services'], who: ['customer_facing'], decision_mode: ['automated'] },
   jurisdiction: ['eu', 'au'],
   data: { data_type: ['personal_basic', 'personal_financial'], data_scale: '10k_100k' },
 };
 
 const TC_B = {  // Agentic · FS · AU · personal+financial · customer-facing
   system_type: 'agentic',
-  context: { domain: 'financial_services', who: 'customer_facing' },
+  context: { domain: ['financial_services'], who: ['customer_facing'] },
   jurisdiction: ['au'],
   data: { data_type: ['personal_basic', 'personal_financial'], data_scale: '10k_100k' },
 };
 
 const TC_C = {  // LLM chatbot · healthcare · AU · health data · customer-facing
   system_type: 'llm_chatbot',
-  context: { domain: 'healthcare', who: 'customer_facing' },
+  context: { domain: ['healthcare'], who: ['customer_facing'] },
   jurisdiction: ['au'],
   data: { data_type: ['personal_health'], data_scale: '1k_10k' },
 };
 
 const TC_D = {  // Automated decision · HR · EU · personal · internal-facing
   system_type: 'automated_decision',
-  context: { domain: 'hr_employment', who: 'internal_facing' },
+  context: { domain: ['hr_employment'], who: ['internal_facing'] },
   jurisdiction: ['eu'],
   data: { data_type: ['personal_basic'], data_scale: '1k_10k' },
 };
 
 const TC_E = {  // Generative content · general · AU · no personal data · internal
   system_type: 'generative_content',
-  context: { domain: 'general', who: 'internal_facing' },
+  context: { domain: ['general'], who: ['internal_facing'] },
   jurisdiction: ['au'],
   data: { data_type: ['no_personal'], data_scale: 'under_1k' },
 };
 
 const TC_F = {  // Minimal / don't know
   system_type: '',
-  context: { domain: 'general', who: '' },
+  context: { domain: [], who: [] },
   jurisdiction: [],
   data: { data_type: [], data_scale: 'unknown' },
 };
 
 const TC_G = {  // AU only, low-risk
   system_type: 'predictive',
-  context: { domain: 'general', who: 'internal_facing' },
+  context: { domain: ['general'], who: ['internal_facing'] },
   jurisdiction: ['au'],
   data: { data_type: ['no_personal'], data_scale: 'under_1k' },
 };
 
-const TC_H = {  // EU only, high-risk, agentic
+const TC_H = {  // EU only, high-risk, agentic — multi-select test for who + domain
   system_type: ['agentic', 'automated_decision'],
-  context: { domain: 'financial_services', who: 'customer_facing' },
+  context: { domain: ['financial_services'], who: ['customer_facing', 'employee_facing'] },
   jurisdiction: ['eu'],
   data: { data_type: ['personal_basic', 'personal_financial'], data_scale: '100k_plus' },
 };

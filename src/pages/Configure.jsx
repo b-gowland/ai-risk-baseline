@@ -10,7 +10,7 @@ function buildInitialConfig(searchParams) {
   if (decoded) return decoded
   return {
     system_type: null,
-    context: { who: null, domain: null, decision_mode: null, build_path: null },
+    context: { who: [], domain: [], decision_mode: [], build_path: null },
     data: { data_type: [], data_scale: null },
     jurisdiction: [],
     platform: null,
@@ -47,7 +47,18 @@ export default function Configure() {
   }
 
   function setContextField(field, value) {
-    setConfig(c => ({ ...c, context: { ...c.context, [field]: value } }))
+    // build_path is single-select; who/domain/decision_mode are multi-select arrays
+    if (field === 'build_path') {
+      setConfig(c => ({ ...c, context: { ...c.context, [field]: value } }))
+    } else {
+      setConfig(c => {
+        const current = c.context[field] || []
+        const next = current.includes(value)
+          ? current.filter(v => v !== value)
+          : [...current, value]
+        return { ...c, context: { ...c.context, [field]: next } }
+      })
+    }
   }
 
   function setDataType(value) {
@@ -81,7 +92,7 @@ export default function Configure() {
   function canAdvance() {
     switch (step) {
       case 0: return !!config.system_type
-      case 1: return !!(config.context.who && config.context.domain && config.context.decision_mode)
+      case 1: return !!(config.context.who?.length && config.context.domain?.length && config.context.decision_mode?.length)
       case 2: return !!(config.data.data_type?.length && config.data.data_scale)
       case 3: return config.jurisdiction?.length > 0
       case 4: return true // platform is optional
@@ -162,6 +173,7 @@ export default function Configure() {
                   expandedHelp={expandedHelp}
                   onToggleHelp={toggleHelp}
                   singleSelect={part.type === 'single'}
+                  multiSelect={part.type === 'multi'}
                 />
               ))}
             </div>

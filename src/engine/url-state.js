@@ -22,9 +22,9 @@ export function encodeConfig(config) {
   params.set('v', SCHEMA_VERSION);
 
   if (config.system_type) params.set('st', config.system_type);
-  if (config.context?.who) params.set('who', config.context.who);
-  if (config.context?.domain) params.set('dom', config.context.domain);
-  if (config.context?.decision_mode) params.set('dm', config.context.decision_mode);
+  if (config.context?.who?.length)           params.set('who', config.context.who.join(','));
+  if (config.context?.domain?.length)        params.set('dom', config.context.domain.join(','));
+  if (config.context?.decision_mode?.length) params.set('dm', config.context.decision_mode.join(','));
   if (config.context?.build_path) params.set('bp', config.context.build_path);
 
   if (config.data?.data_type?.length) {
@@ -65,12 +65,20 @@ export function decodeConfig(params) {
   const dt = params.get('dt');
   const juris = params.get('juris');
 
+  // who/dom/dm are now multi-select arrays. Legacy URLs may carry a single string
+  // value (no comma) — wrap in array for backward compatibility.
+  const splitParam = (key) => {
+    const raw = params.get(key);
+    if (!raw) return [];
+    return raw.split(',').filter(Boolean);
+  };
+
   return {
     system_type: st,
     context: {
-      who: params.get('who') || null,
-      domain: params.get('dom') || null,
-      decision_mode: params.get('dm') || null,
+      who: splitParam('who'),
+      domain: splitParam('dom'),
+      decision_mode: splitParam('dm'),
       build_path: params.get('bp') || null,
     },
     data: {
@@ -90,9 +98,9 @@ export function getMissingFields(config) {
   if (!config) return ['system_type'];
   const missing = [];
   if (!config.system_type) missing.push('system_type');
-  if (!config.context?.who) missing.push('context.who');
-  if (!config.context?.domain) missing.push('context.domain');
-  if (!config.context?.decision_mode) missing.push('context.decision_mode');
+  if (!config.context?.who?.length) missing.push('context.who');
+  if (!config.context?.domain?.length) missing.push('context.domain');
+  if (!config.context?.decision_mode?.length) missing.push('context.decision_mode');
   if (!config.data?.data_type?.length) missing.push('data.data_type');
   if (!config.data?.data_scale) missing.push('data.data_scale');
   if (!config.jurisdiction?.length) missing.push('jurisdiction');

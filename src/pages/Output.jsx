@@ -197,9 +197,9 @@ export default function Output() {
 function ConfigSummary({ config, editParams }) {
   const chips = []
   if (config.system_type) chips.push({ label: `System`, value: config.system_type })
-  if (config.context?.domain) chips.push({ label: `Domain`, value: config.context.domain })
-  if (config.context?.who) chips.push({ label: `Users`, value: config.context.who })
-  if (config.context?.decision_mode) chips.push({ label: `Decisions`, value: config.context.decision_mode })
+  if (config.context?.domain?.length) chips.push({ label: `Domain`, value: config.context.domain.join(`, `) })
+  if (config.context?.who?.length) chips.push({ label: `Users`, value: config.context.who.join(`, `) })
+  if (config.context?.decision_mode?.length) chips.push({ label: `Decisions`, value: config.context.decision_mode.join(`, `) })
   if (config.context?.build_path) chips.push({ label: `Build`, value: config.context.build_path })
   if (config.data?.data_type?.length) chips.push({ label: `Data`, value: config.data.data_type.join(`, `) })
   if (config.data?.data_scale) chips.push({ label: `Scale`, value: config.data.data_scale })

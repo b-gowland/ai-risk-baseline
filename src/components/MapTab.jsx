@@ -170,9 +170,9 @@ function ProfileSnapshot({ config, controls }) {
 
   const chips = []
   if (config.system_type && config.system_type !== `unknown`) chips.push({ label: `Type`, value: config.system_type })
-  if (config.context?.domain)         chips.push({ label: `Domain`, value: config.context.domain })
-  if (config.context?.who)            chips.push({ label: `Users`, value: config.context.who })
-  if (config.context?.decision_mode)  chips.push({ label: `Decisions`, value: config.context.decision_mode })
+  if (config.context?.domain?.length)         chips.push({ label: `Domain`, value: config.context.domain.join(` + `) })
+  if (config.context?.who?.length)            chips.push({ label: `Users`, value: config.context.who.join(` + `) })
+  if (config.context?.decision_mode?.length)  chips.push({ label: `Decisions`, value: config.context.decision_mode.join(` + `) })
   if (config.jurisdiction?.length)    chips.push({ label: `Jurisdiction`, value: config.jurisdiction.join(` + `) })
   chips.push({ label: `Controls`, value: controls.length })
 

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "_note": "Source of truth for configuration question schema, valid options, and help text. All options and help text are authoritative \u2014 do not modify without updating CONTRIBUTING.md.",
+  "_note": "Source of truth for configuration question schema, valid options, and help text. All options and help text are authoritative — do not modify without updating CONTRIBUTING.md.",
   "questions": [
     {
       "id": "system_type",
@@ -37,7 +37,7 @@
         {
           "value": "generative_content",
           "label": "Generative content (image / video / audio / text)",
-          "help_short": "Creates or modifies media content \u2014 images, video, audio, or long-form text.",
+          "help_short": "Creates or modifies media content — images, video, audio, or long-form text.",
           "help_long": "Examples: AI image generator, synthetic voice tool, automated report writer, marketing copy generator. Key marker: the primary output is creative or representational content, not a decision or score."
         },
         {
@@ -49,7 +49,7 @@
         {
           "value": "unknown",
           "label": "Don't know yet",
-          "help_short": "Output will be broader \u2014 applies the widest applicable mappings for your other answers.",
+          "help_short": "Output will be broader — applies the widest applicable mappings for your other answers.",
           "help_long": "Select this if you are in early evaluation and the system type is not yet determined. The tool will apply the broadest relevant mapping given your other answers, and display a banner explaining the breadth. You can refine later."
         }
       ]
@@ -66,7 +66,7 @@
           "id": "who",
           "param_key": "who",
           "label": "Who does it affect or interact with?",
-          "type": "single",
+          "type": "multi",
           "required": true,
           "options": [
             {
@@ -79,18 +79,18 @@
               "value": "employee_facing",
               "label": "Employees / internal users",
               "help_short": "The system is used by or makes decisions about staff within the organisation.",
-              "help_long": "Examples: HR screening tool, internal AI assistant, employee performance analytics. EU AI Act Annex III \u00a74 covers employment-related AI. Internal LLM tools used only by employees generally carry lower regulatory burden than customer-facing systems."
+              "help_long": "Examples: HR screening tool, internal AI assistant, employee performance analytics. EU AI Act Annex III §4 covers employment-related AI. Internal LLM tools used only by employees generally carry lower regulatory burden than customer-facing systems."
             },
             {
               "value": "clinician_facing",
               "label": "Clinicians / healthcare professionals",
               "help_short": "The system supports clinical decision-making by healthcare staff.",
-              "help_long": "Examples: radiology triage tool, clinical decision support system, medication interaction checker. Healthcare professionals are the operators; patients are the affected persons. EU AI Act Annex III \u00a75(a) covers healthcare AI."
+              "help_long": "Examples: radiology triage tool, clinical decision support system, medication interaction checker. Healthcare professionals are the operators; patients are the affected persons. EU AI Act Annex III §5(a) covers healthcare AI."
             },
             {
               "value": "internal_only",
               "label": "Internal / back-office (no direct user contact)",
-              "help_short": "The system operates on data internally \u2014 no external person interacts with it directly.",
+              "help_short": "The system operates on data internally — no external person interacts with it directly.",
               "help_long": "Examples: internal fraud detection on transaction data, data quality classification, internal document processing. Lower direct regulatory exposure but data protection obligations still apply."
             }
           ]
@@ -99,7 +99,7 @@
           "id": "domain",
           "param_key": "domain",
           "label": "What domain does it operate in?",
-          "type": "single",
+          "type": "multi",
           "required": true,
           "options": [
             {
@@ -143,24 +143,24 @@
           "id": "decision_mode",
           "param_key": "dm",
           "label": "How are decisions made?",
-          "type": "single",
+          "type": "multi",
           "required": true,
           "options": [
             {
               "value": "automated_decision",
-              "label": "Automated \u2014 no human reviews individual decisions",
+              "label": "Automated — no human reviews individual decisions",
               "help_short": "Decisions are enacted without a human reviewing each case.",
               "help_long": "A human may have set the thresholds or approved the model, but does not review individual decisions before they are enacted. This triggers the highest level of EU AI Act high-risk obligations and GDPR Article 22 rights."
             },
             {
               "value": "decision_support",
-              "label": "Decision support \u2014 human makes the final call",
+              "label": "Decision support — human makes the final call",
               "help_short": "The system provides a score, recommendation, or analysis; a human approves each decision.",
               "help_long": "Examples: the model flags a loan as 'likely default'; a credit officer reviews and decides. The human is in the loop on individual decisions. This is a lower-risk posture than automated decision but human oversight obligations still apply."
             },
             {
               "value": "recommendation_only",
-              "label": "Recommendation / content only \u2014 low stakes",
+              "label": "Recommendation / content only — low stakes",
               "help_short": "The system suggests content or options; the output does not produce legal or significant effects.",
               "help_long": "Examples: product recommendations, content ranking, internal search. No significant decision about a person is made. The lowest regulatory exposure category, but data protection and transparency obligations still apply."
             }
@@ -187,7 +187,7 @@
             },
             {
               "value": "combination",
-              "label": "Combination \u2014 vendor model, in-house integration",
+              "label": "Combination — vendor model, in-house integration",
               "help_short": "You use a foundation or API model and build on top of it.",
               "help_long": "Examples: OpenAI API + in-house RAG layer, Azure OpenAI + custom fine-tuning. You are both deployer (to the foundation model provider) and provider (of the end system to your users). Both obligation sets apply."
             }
@@ -265,11 +265,11 @@
             },
             {
               "value": "1k_10k",
-              "label": "1,000 \u2013 10,000"
+              "label": "1,000 – 10,000"
             },
             {
               "value": "10k_100k",
-              "label": "10,000 \u2013 100,000"
+              "label": "10,000 – 100,000"
             },
             {
               "value": "100k_plus",
@@ -363,7 +363,7 @@
         },
         {
           "value": "skip",
-          "label": "Skip \u2014 not applicable or unknown"
+          "label": "Skip — not applicable or unknown"
         }
       ]
     }
