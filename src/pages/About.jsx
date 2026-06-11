@@ -156,7 +156,7 @@ export default function About() {
           </p>
           <div className={styles.suiteLinks}>
             <a
-              href="https://b-gowland.github.io/ai-risk-kb/"
+              href="https://library.airiskpractice.org/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.suiteItem}
@@ -165,7 +165,7 @@ export default function About() {
               <span className={styles.suiteDesc}>32 AI risk entries with four depth layers, mapped to frameworks</span>
             </a>
             <a
-              href="https://b-gowland.github.io/ai-risk-training/"
+              href="https://app.airiskpractice.org/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.suiteItem}
