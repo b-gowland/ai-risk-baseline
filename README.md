@@ -6,6 +6,8 @@ The AI Governance Baseline is a free, browser-based governance profiler. Describ
 
 **Live:** [baseline.airiskpractice.org](https://baseline.airiskpractice.org)
 
+**Status: maintained, not actively developed.** Baseline is complete and stable, and stays live and free to use. It is not on the current roadmap — active development is on the [AI Risk Practice training app](https://app.airiskpractice.org). Issues and pull requests are still welcome; new features are not planned right now.
+
 ---
 
 ## What it does
