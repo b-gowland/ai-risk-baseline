@@ -41,7 +41,7 @@ Standard PR flow. Run `npm run validate` before submitting — this checks all d
 2. Clone your fork locally
 3. `npm install`
 4. Make your changes in `src/data/` (for content) or `src/` (for code)
-5. Run `node scripts/validate-data.js` to check schema validity
+5. Run `npm run validate`, `npm test`, and `npm run build` to check data schemas, engine behaviour, and the production build.
 6. Open a pull request with a brief description of what you changed and why
 
 ---
