@@ -5,6 +5,10 @@ on:
     - cron: "0 9 1 * *"  # First of every month at 09:00 UTC
   workflow_dispatch:
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   url-health-check:
     runs-on: ubuntu-latest
@@ -74,14 +78,18 @@ jobs:
         continue-on-error: true
 
       - name: Open issue for broken URLs
-        if: failure()
+        if: steps.check.outcome == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.create({
+            await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: 'URL Health Check: broken links detected (' + new Date().toISOString().split('T')[0] + ')',
               body: 'The monthly URL health check found broken source links in regulatory-mappings.json. Please review and update.\n\nRun the workflow manually to see details.',
               labels: ['maintenance', 'broken-link']
             });
+
+      - name: Fail run when source links need attention
+        if: steps.check.outcome == 'failure'
+        run: exit 1
