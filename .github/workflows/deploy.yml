@@ -35,7 +35,7 @@ jobs:
         run: node scripts/validate-data.js
 
       - name: Run engine QA
-        run: node scripts/validate-engine.js
+        run: npm test
 
       - name: Build
         run: npm run build
