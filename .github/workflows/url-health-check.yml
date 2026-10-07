@@ -9,6 +9,10 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: source-url-health
+  cancel-in-progress: false
+
 jobs:
   url-health-check:
     runs-on: ubuntu-latest
@@ -23,72 +27,55 @@ jobs:
 
       - name: Check URLs in regulatory-mappings.json
         id: check
-        run: |
-          node -e "
-          const fs = require('fs');
-          const https = require('https');
-          const http = require('http');
-
-          const reg = JSON.parse(fs.readFileSync('src/data/regulatory-mappings.json', 'utf8'));
-          const urls = [];
-
-          // Collect framework source URLs
-          reg.frameworks.forEach(f => f.source_url && urls.push({ url: f.source_url, context: f.id }));
-          // Collect mapping source URLs
-          reg.mappings.forEach(m => m.source_url && urls.push({ url: m.source_url, context: m.id }));
-
-          let broken = [];
-          let checked = 0;
-
-          function checkUrl({ url, context }) {
-            return new Promise((resolve) => {
-              const client = url.startsWith('https') ? https : http;
-              const req = client.get(url, { timeout: 10000 }, (res) => {
-                if (res.statusCode >= 400) {
-                  broken.push({ url, context, status: res.statusCode });
-                }
-                resolve();
-              });
-              req.on('error', () => {
-                broken.push({ url, context, status: 'ERROR' });
-                resolve();
-              });
-              req.on('timeout', () => {
-                req.destroy();
-                broken.push({ url, context, status: 'TIMEOUT' });
-                resolve();
-              });
-            });
-          }
-
-          async function run() {
-            for (const u of urls) {
-              await checkUrl(u);
-              checked++;
-            }
-            console.log('Checked: ' + checked + ', Broken: ' + broken.length);
-            if (broken.length > 0) {
-              console.log('BROKEN_URLS=' + JSON.stringify(broken));
-              process.exit(1);
-            }
-          }
-
-          run();
-          "
+        run: node scripts/check-source-urls.js
         continue-on-error: true
 
-      - name: Open issue for broken URLs
-        if: steps.check.outcome == 'failure'
+      - name: Upload URL check evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-url-health
+          path: reports/url-health.*
+          if-no-files-found: warn
+
+      - name: Summarize results
+        if: always()
+        run: |
+          if [ -f reports/url-health.md ]; then
+            cat reports/url-health.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "URL checker failed before producing a report; inspect the logs." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Report source links needing attention
+        if: steps.check.outcome == 'failure' && github.ref == 'refs/heads/main'
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'URL Health Check: broken links detected (' + new Date().toISOString().split('T')[0] + ')',
-              body: 'The monthly URL health check found broken source links in regulatory-mappings.json. Please review and update.\n\nRun the workflow manually to see details.',
-              labels: ['maintenance', 'broken-link']
+            const fs = require('fs');
+            const report = fs.existsSync('reports/url-health.md')
+              ? fs.readFileSync('reports/url-health.md', 'utf8')
+              : 'The URL checker failed before producing a report. Inspect the run logs.';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = `${report}\n\n[Workflow run and full artifacts](${runUrl})`;
+            const title = 'URL Health Check: source links need attention';
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'maintenance',
             });
+            const existing = issues.find(i => !i.pull_request && i.title.startsWith('URL Health Check:'));
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner, repo: context.repo.repo,
+                issue_number: existing.number, title, body,
+                labels: existing.labels.map(l => typeof l === 'string' ? l : l.name)
+                  .filter(name => name !== 'broken-link'),
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo, title, body,
+                labels: ['maintenance'],
+              });
+            }
 
       - name: Fail run when source links need attention
         if: steps.check.outcome == 'failure'
