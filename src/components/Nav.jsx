@@ -41,6 +41,14 @@ export default function Nav() {
           >
             Knowledge base ↗
           </a>
+          <a
+            href="https://app.airiskpractice.org"
+            className={styles.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Training ↗
+          </a>
         </nav>
 
         {/* CTA */}

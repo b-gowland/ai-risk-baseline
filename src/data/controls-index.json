@@ -831,7 +831,7 @@
     {
       "id": "c_input_sanitisation",
       "name": "Input sanitisation and prompt protection",
-      "summary": "Implement input validation and prompt sanitisation to defend against prompt injection attacks (OWASP LLM01). Separate system instructions from user input. Implement prompt shields or equivalent protection where the platform provides it. Document the threat model.",
+      "summary": "Implement input validation and prompt sanitisation to defend against prompt injection attacks (OWASP LLM01:2026), including instructions hidden in images, audio or retrieved documents. Separate system instructions from user input. Implement prompt shields or equivalent protection where the platform provides it. Document the threat model.",
       "effort": "Medium",
       "owners": [
         "tech"
@@ -862,7 +862,7 @@
     {
       "id": "c_output_filtering",
       "name": "Output filtering and PII detection",
-      "summary": "Implement output review to detect and filter: personally identifiable information in model responses, harmful or inappropriate content, and hallucinated references. Log filtering events. OWASP LLM02 (sensitive information disclosure) is the primary risk addressed.",
+      "summary": "Implement output review to detect and filter: personally identifiable information in model responses, harmful or inappropriate content, and hallucinated references. Log filtering events. OWASP LLM02:2026 (sensitive information disclosure) is the primary risk addressed.",
       "effort": "Medium",
       "owners": [
         "tech"
@@ -902,7 +902,7 @@
     {
       "id": "c_system_prompt_protection",
       "name": "System prompt protection and separation",
-      "summary": "Implement protection against system prompt leakage (OWASP LLM07). Ensure system instructions cannot be extracted by users. Apply separation between privileged and unprivileged instruction sources. Regularly test for prompt leakage vulnerabilities.",
+      "summary": "Implement protection against system prompt and hidden context exposure (OWASP LLM08:2026, formerly System Prompt Leakage). Do not place secrets or access decisions in system prompts. Ensure system instructions cannot be extracted by users. Apply separation between privileged and unprivileged instruction sources. Regularly test for prompt leakage vulnerabilities.",
       "effort": "Low",
       "owners": [
         "tech"

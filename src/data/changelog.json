@@ -17,7 +17,7 @@
       "date": "2026-10-13",
       "type": "update",
       "title": "Australian and UK mappings refreshed",
-      "detail": "The AU Voluntary AI Safety Standard is replaced by the Guidance for AI Adoption (6 essential practices, October 2025). The Privacy Act automated decision-making mapping now reflects OAIC guidance (APP 1.7\u20131.9 from 10 December 2026) and also applies to decision-support systems. The UK mapping reflects UK GDPR Articles 22A\u201322D, in force since 5 February 2026. OWASP LLM Top 10 updated to the 2025 edition list."
+      "detail": "The AU Voluntary AI Safety Standard is replaced by the Guidance for AI Adoption (6 essential practices, October 2025). The Privacy Act automated decision-making mapping now reflects OAIC guidance (APP 1.7\u20131.9 from 10 December 2026) and also applies to decision-support systems. The UK mapping reflects UK GDPR Articles 22A\u201322D, in force since 5 February 2026. OWASP LLM Top 10 references updated to the 2026 edition (Excessive Agency is now LLM03; System Prompt Leakage is now Hidden Context Exposure, LLM08)."
     },
     {
       "date": "2026-10-13",

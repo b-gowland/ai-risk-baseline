@@ -54,12 +54,12 @@
       "id": "owasp_llm",
       "name": "OWASP LLM Top 10",
       "long_name": "OWASP Top 10 for LLM Applications",
-      "source_url": "https://genai.owasp.org/llm-top-10/",
-      "_source_note": "OWASP GenAI Security Project, Top 10 for LLM Applications 2025 edition (LLM01:2025\u2013LLM10:2025). Current edition on genai.owasp.org as at October 2026. Non-regulatory \u2014 security community best practice. Primary relevance: systems using LLMs.",
+      "source_url": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/tree/main/2026/final",
+      "_source_note": "OWASP GenAI Security Project, Top 10 for LLM Applications 2026 (LLM01:2026\u2013LLM10:2026), published August 2026; ranking combines practitioner voting with an incident corpus. Verified against the project's final 2026 text, October 2026. Non-regulatory \u2014 security community best practice. Primary relevance: systems using LLMs.",
       "framework_version": {
-        "citation": "OWASP Top 10 for LLM Applications 2025",
-        "as_of": "2024-11-18",
-        "note": "Non-regulatory \u2014 security community best practice. 2025 edition is current on genai.owasp.org as at October 2026. Agentic systems: see also the OWASP Top 10 for Agentic Applications."
+        "citation": "OWASP Top 10 for LLM Applications 2026",
+        "as_of": "2026-08-04",
+        "note": "Non-regulatory \u2014 security community best practice. 2026 edition supersedes 2025: Excessive Agency rises to LLM03; System Prompt Leakage becomes Hidden Context Exposure (LLM08). Agentic systems: see also the OWASP Top 10 for Agentic Applications."
       }
     },
     {
@@ -913,14 +913,14 @@
     {
       "id": "owasp_llm_top10",
       "framework": "owasp_llm",
-      "citation": "LLM01:2025\u2013LLM10:2025",
+      "citation": "LLM01:2026\u2013LLM10:2026",
       "title": "OWASP LLM Top 10 \u2014 security risks for LLM applications",
-      "summary": "The OWASP Top 10 for LLM Applications (2025) covers: prompt injection (LLM01), sensitive information disclosure (LLM02), supply chain (LLM03), data and model poisoning (LLM04), improper output handling (LLM05), excessive agency (LLM06), system prompt leakage (LLM07), vector and embedding weaknesses (LLM08), misinformation (LLM09) and unbounded consumption (LLM10).",
+      "summary": "The OWASP Top 10 for LLM Applications (2026) covers: prompt injection (LLM01), sensitive information disclosure (LLM02), excessive agency (LLM03), supply chain (LLM04), data and model poisoning (LLM05), unbounded consumption (LLM06), misinformation (LLM07), hidden context exposure (LLM08), vector and embedding weaknesses (LLM09) and improper output handling (LLM10).",
       "mandatory": false,
       "obligation_type": "recommended",
-      "effective_from": "2024-11-18",
-      "source_url": "https://genai.owasp.org/llm-top-10/",
-      "_source_note": "OWASP Top 10 for LLM Applications 2025 edition, checked against genai.owasp.org October 2026. Voluntary security community standard. Relevant for any system using LLMs.",
+      "effective_from": "2026-08-04",
+      "source_url": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/tree/main/2026/final",
+      "_source_note": "OWASP Top 10 for LLM Applications 2026, final text in the GenAI Security Project repository, checked October 2026. Replaces the 2025 edition. Voluntary security community standard. Relevant for any system using LLMs.",
       "applies_when": {
         "all": [
           {

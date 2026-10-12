@@ -547,7 +547,7 @@
         }
       ],
       "relevance_template": {
-        "default": "Prompt injection is the highest-priority security risk for LLM systems; OWASP LLM01.",
+        "default": "Prompt injection is the highest-priority security risk for LLM systems; OWASP LLM01:2026.",
         "financial_services": "Customer-facing LLMs processing financial data are high-value targets for prompt injection attacks designed to exfiltrate data or trigger unauthorised actions."
       },
       "last_verified": "2026-05-22",
@@ -905,7 +905,7 @@
         }
       ],
       "relevance_template": {
-        "default": "LLM systems can leak training data or contextual PII in responses; OWASP LLM02.",
+        "default": "LLM systems can leak training data or contextual PII in responses; OWASP LLM02:2026.",
         "financial_services": "Customer correspondence and financial data in LLM context windows are high-value disclosure targets."
       },
       "last_verified": "2026-05-22",
@@ -1452,7 +1452,7 @@
       ],
       "relevance_template": {
         "default": "Autonomous AI systems can take consequential, irreversible actions without human oversight. Objective misspecification, missing approval gates, and excessive permissions are the primary failure modes.",
-        "financial_services": "An agent with payment or trading access can execute transactions outside intended scope; OWASP LLM08 Excessive Agency applies. Irreversible financial actions require mandatory human approval gates.",
+        "financial_services": "An agent with payment or trading access can execute transactions outside intended scope; OWASP LLM03:2026 Excessive Agency applies. Irreversible financial actions require mandatory human approval gates.",
         "healthcare": "Autonomous clinical AI acting without human-in-the-loop approval on patient care decisions creates patient safety and liability exposure."
       },
       "last_verified": "2026-05-22",
@@ -1509,7 +1509,7 @@
         }
       ],
       "relevance_template": {
-        "default": "Without an enterprise-wide policy governing autonomous AI action, individual agent deployments accumulate capabilities that collectively exceed what governance controls can manage. OWASP LLM06. An AI agent registry and action classification policy are required.",
+        "default": "Without an enterprise-wide policy governing autonomous AI action, individual agent deployments accumulate capabilities that collectively exceed what governance controls can manage. OWASP LLM03:2026 Excessive Agency. An AI agent registry and action classification policy are required.",
         "financial_services": "Agents deployed across business units with heterogeneous permission sets create action chain risks \u2014 sequences of individually permitted actions that together produce prohibited outcomes such as data exfiltration or unauthorised payments.",
         "public_sector": "Government AI agents with broad administrative access and minimal oversight create accountability and legality risks when they take actions outside their defined mandate."
       },

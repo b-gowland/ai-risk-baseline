@@ -18,7 +18,7 @@ The AI Governance Baseline is a free, browser-based governance profiler. Describ
 - **Actions tab** — 5 prioritised next steps with owners and effort estimates
 - **Shareable URL** — the full configuration is encoded in the URL; share it with your team
 
-No login. No signup. No data collected. Computes entirely in the browser.
+No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), as on the other AI Risk Practice sites.
 
 ---
 
