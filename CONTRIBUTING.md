@@ -54,6 +54,10 @@ Reports are written to `reports/url-health.md` and `.json`. HTTP 404/410 means b
 
 `npm test` includes offline HTTP-server regressions for this checker; it does not contact the public source sites.
 
+## Regulatory date checks
+
+Run `npm run check:dates` to list mappings whose `effective_from` date has passed since their `last_verified` date. The site shows those items as "In force" based on a review done before the date arrived, and legislators often move dates late, so each one needs re-checking against its primary source. After confirming (or correcting) the date, update `effective_from` and `last_verified`. A scheduled workflow runs this twice a month and keeps a single maintenance issue up to date.
+
 ## Predicate language reference
 
 The `applies_when` field uses a small predicate language:

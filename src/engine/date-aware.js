@@ -6,8 +6,13 @@
  *   "upcoming"        — effective_from is in the future (within 12 months = urgent)
  *   "upcoming_distant" — effective_from is in the future (beyond 12 months)
  *
- * Key date: 2 August 2026 — EU AI Act high-risk obligations
- * Key date: 2 February 2025 — EU AI Act Article 4 (already in force)
+ * Key dates (EU AI Act as amended by the Digital Omnibus, Reg. (EU) 2026/1744):
+ *   2 February 2025 — Article 4 AI literacy, Article 5 prohibitions
+ *   2 August 2026   — Article 50 transparency
+ *   2 December 2027 — Annex III high-risk obligations
+ *   2 August 2028   — Annex I (product-embedded) high-risk obligations
+ * Dates live in regulatory-mappings.json; scripts/check-date-crossings.js flags
+ * any that pass after an item was last verified.
  */
 
 /**

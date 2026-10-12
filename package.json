@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "validate": "node scripts/validate-data.js",
     "test": "node scripts/validate-engine.js && node --test scripts/tests/*.test.js",
-    "check:urls": "node scripts/check-source-urls.js"
+    "check:urls": "node scripts/check-source-urls.js",
+    "check:dates": "node scripts/check-date-crossings.js"
   },
   "dependencies": {
     "react": "^19.0.0",

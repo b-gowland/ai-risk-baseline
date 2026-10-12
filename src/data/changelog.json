@@ -2,6 +2,30 @@
   "version": "1.0",
   "entries": [
     {
+      "date": "2026-10-13",
+      "type": "fix",
+      "title": "EU AI Act dates updated for the Digital Omnibus",
+      "detail": "Regulation (EU) 2026/1744 entered into force on 27 July 2026. Annex III high-risk obligations (Articles 9\u201315, 26, 27, 86) now show as applying from 2 December 2027 and medical-device AI from 2 August 2028; since 2 August 2026 they had incorrectly shown as in force. GPAI model obligations corrected to 2 August 2025 and reframed as provider duties. Article 4 AI literacy wording updated."
+    },
+    {
+      "date": "2026-10-13",
+      "type": "update",
+      "title": "New mappings: EU transparency, new prohibitions, OWASP agentic",
+      "detail": "Added EU AI Act Article 50 transparency obligations (in force 2 August 2026) for chatbots, agents, generative and biometric systems; the new Article 5 prohibitions on non-consensual intimate imagery and CSAM generation (from 2 December 2026); and the OWASP Top 10 for Agentic Applications for agentic systems."
+    },
+    {
+      "date": "2026-10-13",
+      "type": "update",
+      "title": "Australian and UK mappings refreshed",
+      "detail": "The AU Voluntary AI Safety Standard is replaced by the Guidance for AI Adoption (6 essential practices, October 2025). The Privacy Act automated decision-making mapping now reflects OAIC guidance (APP 1.7\u20131.9 from 10 December 2026) and also applies to decision-support systems. The UK mapping reflects UK GDPR Articles 22A\u201322D, in force since 5 February 2026. OWASP LLM Top 10 updated to the 2025 edition list."
+    },
+    {
+      "date": "2026-10-13",
+      "type": "feature",
+      "title": "Automatic check for regulatory dates passing",
+      "detail": "A scheduled check now flags any mapping whose effective date passes after it was last verified, so date changes like the Digital Omnibus are caught for review."
+    },
+    {
       "date": "2026-05-22",
       "type": "feature",
       "title": "Provenance icons, framework version footers, and changelog shipped",

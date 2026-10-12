@@ -441,8 +441,10 @@ function isMandatoryControl(ctrl, output) {
 function formatFrameworkRef(fw) {
   const map = {
     eu_ai_act:          `EU AI Act`,
+    eu_ai_act_art_4:    `EU AI Act Art. 4`,
     eu_ai_act_art_9:    `EU AI Act Art. 9`,
     eu_ai_act_art_10:   `EU AI Act Art. 10`,
+    eu_ai_act_art_12:   `EU AI Act Art. 12`,
     eu_ai_act_art_13:   `EU AI Act Art. 13`,
     eu_ai_act_art_14:   `EU AI Act Art. 14`,
     eu_ai_act_art_15:   `EU AI Act Art. 15`,
@@ -456,10 +458,13 @@ function formatFrameworkRef(fw) {
     nist_ai_rmf:        `NIST AI RMF`,
     iso_42001_aimc:     `ISO 42001`,
     iso_42001:          `ISO 42001`,
-    au_voluntary_ai:    `AU Voluntary AI`,
-    au_privacy:         `AU Privacy Act`,
-    apra_cps_230:       `APRA CPS 230`,
-    gdpr:               `GDPR`,
+    au_voluntary_ai:    `AU Guidance for AI Adoption`,
+    au_privacy_act_apps: `AU Privacy Act`,
+    au_privacy_act_aaim: `AU Privacy Act APP 1.7`,
+    apra_cps230:        `APRA CPS 230`,
+    eu_gdpr_art_22:     `GDPR Art. 22`,
+    uk_dua_automated_decisions: `UK GDPR Art. 22A–D`,
+    owasp_llm_top10:    `OWASP LLM Top 10`,
   }
   return map[fw] || fw.replace(/_/g, ` `)
 }
