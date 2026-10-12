@@ -36,52 +36,6 @@
 
 .broadLink:hover { text-decoration: underline; }
 
-/* ─── Profile Snapshot ────────────────────────────────────────────────────────── */
-
-.snapshot {
-  padding: var(--space-4) var(--space-5);
-  background: var(--auth-bg-subtle);
-  border: 1px solid var(--auth-border);
-  border-radius: var(--radius-md);
-}
-
-.snapshotEyebrow {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: var(--auth-text-faint);
-  margin: 0 0 var(--space-3);
-}
-
-.snapshotChips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-}
-
-.snapshotChip {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1) var(--space-3);
-  background: white;
-  border: 1px solid var(--auth-border);
-  border-radius: 100px;
-  font-size: var(--text-xs);
-}
-
-.chipLabel {
-  color: var(--auth-text-faint);
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.chipValue {
-  color: var(--auth-text-primary);
-  font-weight: 500;
-}
-
 /* ─── Roadmap Section ─────────────────────────────────────────────────────────── */
 
 .roadmapSection {
@@ -524,9 +478,6 @@
     margin-bottom: var(--space-2);
   }
 
-  .snapshotChips {
-    gap: var(--space-2);
-  }
 }
 
 /* ─── Print ──────────────────────────────────────────────────────────────────── */
