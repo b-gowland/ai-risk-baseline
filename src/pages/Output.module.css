@@ -78,6 +78,69 @@
   background: var(--auth-bg-subtle);
 }
 
+/* Key dates strip */
+.keyDates {
+  border: 0.5px solid var(--color-upcoming-border);
+  border-left: 3px solid var(--auth-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-6);
+  background: var(--color-upcoming-bg);
+}
+
+.keyDatesList {
+  list-style: none;
+  margin: var(--space-3) 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.keyDate {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: var(--space-4);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--auth-text-muted);
+}
+
+.keyDate strong {
+  color: var(--auth-text-primary);
+  font-weight: 500;
+}
+
+.keyDateWhen {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-upcoming-text);
+}
+
+.keyDatePast {
+  font-weight: 400;
+  color: var(--auth-text-muted);
+}
+
+.keyDatesLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--auth-accent);
+  cursor: pointer;
+}
+
+.keyDatesLink:hover { text-decoration: underline; }
+
+@media (max-width: 768px) {
+  .keyDates { padding: var(--space-4); }
+  .keyDate { grid-template-columns: 1fr; gap: 0; }
+}
+
 .configHeader {
   display: flex;
   justify-content: space-between;
@@ -813,6 +876,7 @@
   .tabBar,
   .exportBar,
   .functionChips,
+  .keyDatesLink,
   .editLink {
     display: none !important;
   }

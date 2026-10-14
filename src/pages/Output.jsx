@@ -15,6 +15,8 @@ import {
   PlatformContent,
 } from '../components/DrillContent.jsx'
 import { useDrillState } from '../hooks/useDrillState.js'
+import SYSTEM_CONFIG from '../data/system-config.json'
+import REGULATORY from '../data/regulatory-mappings.json'
 import styles from './Output.module.css'
 
 // Legacy ?tab= → ?drill= rewrite map (FR-95)
@@ -138,7 +140,9 @@ export default function Output() {
             </div>
           )}
 
-          <ConfigSummary config={config} editParams={editParams} />
+          <ConfigSummary config={config} editParams={editParams} controlCount={output?.controls?.length || 0} />
+
+          <KeyDates regulatory={output?.regulatory} onOpen={() => (drill === `regulatory` ? null : handleDrillToggle(`regulatory`))} />
 
           <DrillChips
             output={output}
@@ -194,22 +198,95 @@ export default function Output() {
   )
 }
 
-function ConfigSummary({ config, editParams }) {
+// ─── KeyDates — upcoming and recently commenced obligations ──────────────────
+
+const FRAMEWORK_NAMES = Object.fromEntries(REGULATORY.frameworks.map(f => [f.id, f.name]))
+const RECENT_DAYS = 180
+
+// "Privacy Act 1988 — automated decision-making…" under "AU Privacy Act" → "automated decision-making…"
+function withoutFrameworkPrefix(title, frameworkName) {
+  const [head, ...rest] = title.split(` — `)
+  if (!rest.length) return title
+  const shared = head.split(` `).some(word => word.length > 3 && frameworkName.includes(word))
+  return shared ? rest.join(` — `) : title
+}
+
+function KeyDates({ regulatory, onOpen }) {
+  const now = Date.now()
+  const groups = new Map()
+  for (const item of regulatory || []) {
+    if (!item.effective_from || !item.mandatory) continue
+    const at = new Date(`${item.effective_from}T00:00:00Z`).getTime()
+    const ageDays = (now - at) / 86400000
+    if (ageDays > RECENT_DAYS) continue
+    const key = `${item.effective_from}|${item.framework}`
+    if (!groups.has(key)) groups.set(key, { date: item.effective_from, at, framework: item.framework, past: ageDays >= 0, items: [] })
+    groups.get(key).items.push(item)
+  }
+  const rows = [...groups.values()].sort((a, b) => a.at - b.at)
+  if (!rows.length) return null
+
+  const fmt = at => new Date(at).toLocaleDateString(`en-GB`, { day: `numeric`, month: `short`, year: `numeric`, timeZone: `UTC` })
+  return (
+    <section className={styles.keyDates} aria-labelledby="key-dates-title">
+      <p id="key-dates-title" className={styles.configEyebrow}>— KEY DATES FOR THIS CONFIGURATION</p>
+      <ol className={styles.keyDatesList}>
+        {rows.map(row => {
+          const name = FRAMEWORK_NAMES[row.framework] || row.framework
+          const titles = [...new Set(row.items.map(i => withoutFrameworkPrefix(i.title, name)))]
+          const shown = titles.slice(0, 2).join(`; `)
+          const more = titles.length > 2 ? ` and ${titles.length - 2} more` : ``
+          return (
+            <li key={`${row.date}${row.framework}`} className={styles.keyDate}>
+              <span className={`${styles.keyDateWhen} ${row.past ? styles.keyDatePast : ``}`}>
+                {row.past ? `In force since ${fmt(row.at)}` : fmt(row.at)}
+              </span>
+              <span className={styles.keyDateWhat}>
+                <strong>{name}</strong> — {shown}{more}
+              </span>
+            </li>
+          )
+        })}
+      </ol>
+      <button type="button" className={styles.keyDatesLink} onClick={onOpen}>
+        See all regulatory obligations →
+      </button>
+    </section>
+  )
+}
+
+// Option value → display label, from the question schema (e.g. llm_chatbot → "LLM / chatbot")
+const OPTION_LABELS = (() => {
+  const map = {}
+  for (const q of SYSTEM_CONFIG.questions) {
+    for (const group of [q, ...(q.parts || [])]) {
+      for (const opt of group.options || []) map[`${group.id}.${opt.value}`] = opt.label
+    }
+  }
+  return map
+})()
+
+function labelFor(field, values) {
+  const list = Array.isArray(values) ? values : [values]
+  return list.map(v => OPTION_LABELS[`${field}.${v}`] || v).join(`, `)
+}
+
+function ConfigSummary({ config, editParams, controlCount }) {
   const chips = []
-  if (config.system_type) chips.push({ label: `System`, value: config.system_type })
-  if (config.context?.domain?.length) chips.push({ label: `Domain`, value: config.context.domain.join(`, `) })
-  if (config.context?.who?.length) chips.push({ label: `Users`, value: config.context.who.join(`, `) })
-  if (config.context?.decision_mode?.length) chips.push({ label: `Decisions`, value: config.context.decision_mode.join(`, `) })
-  if (config.context?.build_path) chips.push({ label: `Build`, value: config.context.build_path })
-  if (config.data?.data_type?.length) chips.push({ label: `Data`, value: config.data.data_type.join(`, `) })
-  if (config.data?.data_scale) chips.push({ label: `Scale`, value: config.data.data_scale })
-  if (config.jurisdiction?.length) chips.push({ label: `Jurisdiction`, value: config.jurisdiction.join(`, `) })
-  if (config.platform && config.platform !== `skip`) chips.push({ label: `Platform`, value: config.platform })
+  if (config.system_type) chips.push({ label: `System`, value: labelFor(`system_type`, config.system_type) })
+  if (config.context?.domain?.length) chips.push({ label: `Domain`, value: labelFor(`domain`, config.context.domain) })
+  if (config.context?.who?.length) chips.push({ label: `Users`, value: labelFor(`who`, config.context.who) })
+  if (config.context?.decision_mode?.length) chips.push({ label: `Decisions`, value: labelFor(`decision_mode`, config.context.decision_mode) })
+  if (config.context?.build_path) chips.push({ label: `Build`, value: labelFor(`build_path`, config.context.build_path) })
+  if (config.data?.data_type?.length) chips.push({ label: `Data`, value: labelFor(`data_type`, config.data.data_type) })
+  if (config.data?.data_scale) chips.push({ label: `Scale`, value: labelFor(`data_scale`, config.data.data_scale) })
+  if (config.jurisdiction?.length) chips.push({ label: `Jurisdiction`, value: labelFor(`jurisdiction`, config.jurisdiction) })
+  if (config.platform && config.platform !== `skip`) chips.push({ label: `Platform`, value: labelFor(`platform`, config.platform) })
 
   return (
     <div className={styles.configCard}>
       <div className={styles.configHeader}>
-        <p className={styles.configEyebrow}>— YOUR CONFIGURATION</p>
+        <p className={styles.configEyebrow}>— YOUR CONFIGURATION · {controlCount} CONTROLS</p>
         <Link to={`/configure?${editParams.toString()}`} className={styles.editLink}>Edit →</Link>
       </div>
       <div className={styles.configChips}>

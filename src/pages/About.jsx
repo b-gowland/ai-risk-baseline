@@ -62,10 +62,10 @@ export default function About() {
           <h2 className={styles.sectionTitle}>Content currency</h2>
           <p className={styles.text}>
             All regulatory mappings, controls, and risk entries were authored against
-            primary sources in early 2026. The framework versions mapped are noted
-            in the Regulatory drill for each applicable framework — for example,
-            the EU AI Act mapping reflects the Digital Omnibus political agreement
-            of May 7, 2026.
+            primary sources in early 2026, and reviewed again in October 2026. The
+            framework versions mapped are noted in the Regulatory drill for each
+            applicable framework — for example, the EU AI Act mapping reflects the
+            Digital Omnibus on AI (Regulation (EU) 2026/1744), in force 27 July 2026.
           </p>
           <p className={styles.text}>
             Source URLs are checked automatically each month to confirm they are

@@ -162,6 +162,25 @@
   border-color: var(--auth-accent);
 }
 
+.optionRadio {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optionSelected .optionRadio {
+  background: var(--auth-bg);
+}
+
+.optionSelected .optionRadio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--auth-accent);
+}
+
 .checkmark {
   color: #ffffff;
   font-size: 11px;

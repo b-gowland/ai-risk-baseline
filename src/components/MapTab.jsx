@@ -1,10 +1,9 @@
 /**
  * MapTab.jsx — Phase 2 Visual Map
  *
- * Three-panel layout:
- *   1. ProfileSnapshot — compact config summary chips
- *   2. RoadmapGrid — function × lifecycle-phase matrix of applicable controls
- *   3. RisksControlsPanel — unified risks + controls map (click-to-pin)
+ * Two-panel layout (the config summary lives in Output.jsx):
+ *   1. RoadmapGrid — function × lifecycle-phase matrix of applicable controls
+ *   2. RisksControlsPanel — unified risks + controls map (click-to-pin)
  *
  * Spec: BASELINE_REFERENCE.md Part 11 (FR-58–FR-72) + Part 12 (FR-73–FR-81)
  */
@@ -58,9 +57,6 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
           </Link>
         </div>
       )}
-
-      {/* Panel 1: Profile snapshot */}
-      <ProfileSnapshot config={config} controls={output?.controls || []} />
 
       {/* Panel 2: Governance Roadmap */}
       <section className={styles.roadmapSection}>
@@ -143,34 +139,6 @@ export default function MapTab({ output, config, editParams, onControlDrillOpen 
   )
 }
 
-// ─── ProfileSnapshot ──────────────────────────────────────────────────────────
-
-function ProfileSnapshot({ config, controls }) {
-  if (!config) return null
-
-  const chips = []
-  if (config.system_type && config.system_type !== `unknown`) chips.push({ label: `Type`, value: config.system_type })
-  if (config.context?.domain?.length)         chips.push({ label: `Domain`, value: config.context.domain.join(` + `) })
-  if (config.context?.who?.length)            chips.push({ label: `Users`, value: config.context.who.join(` + `) })
-  if (config.context?.decision_mode?.length)  chips.push({ label: `Decisions`, value: config.context.decision_mode.join(` + `) })
-  if (config.jurisdiction?.length)    chips.push({ label: `Jurisdiction`, value: config.jurisdiction.join(` + `) })
-  chips.push({ label: `Controls`, value: controls.length })
-
-  return (
-    <div className={styles.snapshot}>
-      <p className={styles.snapshotEyebrow}>— CONFIGURATION SNAPSHOT</p>
-      <div className={styles.snapshotChips}>
-        {chips.map((chip, i) => (
-          <span key={i} className={styles.snapshotChip}>
-            <span className={styles.chipLabel}>{chip.label}</span>
-            <span className={styles.chipValue}>{chip.value}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ─── RoadmapRow ───────────────────────────────────────────────────────────────
 
 function RoadmapRow({ fn, matrix, output, navigate }) {
@@ -204,14 +172,14 @@ function RoadmapCell({ fn, phase, controls, output, navigate }) {
   // FR-65: empty cell shows placeholder, doesn't collapse
   if (controls.length === 0) {
     return (
-      <div role="gridcell" className={`${styles.cell} ${styles.cellEmpty}`}>
+      <div role="gridcell" data-phase={phase.label} className={`${styles.cell} ${styles.cellEmpty}`}>
         <span className={styles.emptyCell}>No controls in this phase</span>
       </div>
     )
   }
 
   return (
-    <div role="gridcell" className={styles.cell}>
+    <div role="gridcell" data-phase={phase.label} className={styles.cell}>
       {visible.map(ctrl => (
         <ControlCard
           key={ctrl.id}
@@ -441,8 +409,10 @@ function isMandatoryControl(ctrl, output) {
 function formatFrameworkRef(fw) {
   const map = {
     eu_ai_act:          `EU AI Act`,
+    eu_ai_act_art_4:    `EU AI Act Art. 4`,
     eu_ai_act_art_9:    `EU AI Act Art. 9`,
     eu_ai_act_art_10:   `EU AI Act Art. 10`,
+    eu_ai_act_art_12:   `EU AI Act Art. 12`,
     eu_ai_act_art_13:   `EU AI Act Art. 13`,
     eu_ai_act_art_14:   `EU AI Act Art. 14`,
     eu_ai_act_art_15:   `EU AI Act Art. 15`,
@@ -456,10 +426,13 @@ function formatFrameworkRef(fw) {
     nist_ai_rmf:        `NIST AI RMF`,
     iso_42001_aimc:     `ISO 42001`,
     iso_42001:          `ISO 42001`,
-    au_voluntary_ai:    `AU Voluntary AI`,
-    au_privacy:         `AU Privacy Act`,
-    apra_cps_230:       `APRA CPS 230`,
-    gdpr:               `GDPR`,
+    au_voluntary_ai:    `AU Guidance for AI Adoption`,
+    au_privacy_act_apps: `AU Privacy Act`,
+    au_privacy_act_aaim: `AU Privacy Act APP 1.7`,
+    apra_cps230:        `APRA CPS 230`,
+    eu_gdpr_art_22:     `GDPR Art. 22`,
+    uk_dua_automated_decisions: `UK GDPR Art. 22A–D`,
+    owasp_llm_top10:    `OWASP LLM Top 10`,
   }
   return map[fw] || fw.replace(/_/g, ` `)
 }

@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom'
+import changelog from '../data/changelog.json'
 import styles from './Landing.module.css'
 
 // Worked examples gallery URL
 const EXAMPLE_URL = `/examples`
+
+// Most recent content update, from the changelog
+const LATEST = changelog.entries[0]
+const LATEST_DATE = LATEST
+  ? new Date(`${LATEST.date}T00:00:00Z`).toLocaleDateString(`en-GB`, { day: `numeric`, month: `long`, year: `numeric`, timeZone: `UTC` })
+  : null
 
 export default function Landing() {
   return (
@@ -30,8 +37,13 @@ export default function Landing() {
             </Link>
           </div>
           <p className={styles.heroMeta}>
-            Takes approximately 4 minutes · No data collected · Apache 2.0 open source
+            Takes about 4 minutes · Your answers stay in your browser · Open source
           </p>
+          {LATEST && (
+            <Link to="/changelog" className={styles.heroFresh}>
+              Content updated {LATEST_DATE}: {LATEST.title} →
+            </Link>
+          )}
         </div>
       </section>
 
@@ -55,9 +67,9 @@ export default function Landing() {
               <div className={styles.stepNum}>02</div>
               <h3 className={styles.stepTitle}>Get your output</h3>
               <p className={styles.stepText}>
-                The tool produces a tailored five-tab output: regulatory citations with article
-                numbers and deadlines, ranked risk profile linked to the knowledge base,
-                controls filtered by function, and prioritised actions.
+                A governance roadmap of controls by function and lifecycle phase, plus panels for
+                regulatory obligations with effective dates, ranked risks linked to the
+                knowledge base, and prioritised actions.
               </p>
             </div>
             <div className={styles.step}>
@@ -80,18 +92,18 @@ export default function Landing() {
           <h2 className={styles.sectionTitle}>A baseline, not a checklist</h2>
           <div className={styles.whatGrid}>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon}>⚖️</span>
+              <span className={styles.whatIcon} aria-hidden="true">REG</span>
               <div>
                 <h3 className={styles.whatTitle}>Regulatory citations</h3>
                 <p className={styles.whatText}>
-                  Article-level citations for EU AI Act, GDPR, AU Privacy Act, APRA CPS 230,
-                  NIST AI RMF, ISO 42001, OWASP LLM Top 10, and more.
-                  Every citation links to the primary source.
+                  Article-level citations for the EU AI Act, GDPR, AU Privacy Act, APRA CPS 230,
+                  UK GDPR, NIST AI RMF, ISO 42001 and OWASP, with the date each obligation
+                  applies. Every citation links to the primary source.
                 </p>
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon}>🎯</span>
+              <span className={styles.whatIcon} aria-hidden="true">RISK</span>
               <div>
                 <h3 className={styles.whatTitle}>Ranked risk profile</h3>
                 <p className={styles.whatText}>
@@ -101,7 +113,7 @@ export default function Landing() {
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon}>🔧</span>
+              <span className={styles.whatIcon} aria-hidden="true">CTRL</span>
               <div>
                 <h3 className={styles.whatTitle}>Function-filtered controls</h3>
                 <p className={styles.whatText}>
@@ -111,7 +123,7 @@ export default function Landing() {
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon}>✅</span>
+              <span className={styles.whatIcon} aria-hidden="true">ACT</span>
               <div>
                 <h3 className={styles.whatTitle}>Prioritised actions</h3>
                 <p className={styles.whatText}>
@@ -121,7 +133,7 @@ export default function Landing() {
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon}>🔗</span>
+              <span className={styles.whatIcon} aria-hidden="true">URL</span>
               <div>
                 <h3 className={styles.whatTitle}>Shareable URL</h3>
                 <p className={styles.whatText}>

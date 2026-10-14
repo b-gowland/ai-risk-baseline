@@ -7,11 +7,11 @@
       "name": "EU AI Act",
       "long_name": "Regulation (EU) 2024/1689",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Verified against EUR-Lex OJ publication 2024/1689 and consolidated text. Entry into force 1 August 2024. Phased application: Art. 5 + Art. 4 from 2 Feb 2025; high-risk obligations (Art. 6\u201317, 26) from 2 Aug 2026.",
+      "_source_note": "Verified against EUR-Lex OJ publication 2024/1689 and the amending Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026. Entry into force 1 August 2024. Phased application as amended: Art. 4 and Art. 5 from 2 Feb 2025; GPAI model obligations from 2 Aug 2025; Art. 50 transparency from 2 Aug 2026; new Art. 5(1)(ba)\u2013(bb) prohibitions from 2 Dec 2026; Annex III high-risk obligations from 2 Dec 2027; Annex I (product-embedded) high-risk obligations from 2 Aug 2028. Verified October 2026.",
       "framework_version": {
-        "citation": "Regulation (EU) 2024/1689",
-        "as_of": "2026-05-07",
-        "note": "Digital Omnibus political agreement May 7, 2026 \u2014 text not yet final. High-risk obligations delayed to Dec 2, 2027."
+        "citation": "Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744",
+        "as_of": "2026-07-27",
+        "note": "Digital Omnibus on AI in force 27 July 2026. Annex III high-risk obligations apply from 2 Dec 2027; Annex I (product-embedded) from 2 Aug 2028. Article 50 transparency applies from 2 Aug 2026."
       }
     },
     {
@@ -35,7 +35,7 @@
       "framework_version": {
         "citation": "NIST AI 100-1 (Jan 2023) + AI 600-1 (July 2024)",
         "as_of": "2024-07-01",
-        "note": "Non-regulatory \u2014 voluntary framework. AI 600-1 addresses generative AI risks."
+        "note": "Non-regulatory \u2014 voluntary framework. AI 600-1 addresses generative AI risks. NIST has announced a revision of AI RMF 1.0; no successor version published as at October 2026."
       }
     },
     {
@@ -53,13 +53,25 @@
     {
       "id": "owasp_llm",
       "name": "OWASP LLM Top 10",
-      "long_name": "OWASP LLM Top 10 for Large Language Model Applications",
-      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
-      "_source_note": "OWASP LLM Top 10 v1.1 (2023) and v2.0 draft (2025). Non-regulatory \u2014 security community best practice. Primary relevance: systems using LLMs.",
+      "long_name": "OWASP Top 10 for LLM Applications",
+      "source_url": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/tree/main/2026/final",
+      "_source_note": "OWASP GenAI Security Project, Top 10 for LLM Applications 2026 (LLM01:2026\u2013LLM10:2026), published August 2026; ranking combines practitioner voting with an incident corpus. Verified against the project's final 2026 text, October 2026. Non-regulatory \u2014 security community best practice. Primary relevance: systems using LLMs.",
       "framework_version": {
-        "citation": "OWASP LLM Top 10 v2.0 (2025)",
-        "as_of": "2025-01-01",
-        "note": "Non-regulatory \u2014 security community best practice. v2.0 released 2025."
+        "citation": "OWASP Top 10 for LLM Applications 2026",
+        "as_of": "2026-08-04",
+        "note": "Non-regulatory \u2014 security community best practice. 2026 edition supersedes 2025: Excessive Agency rises to LLM03; System Prompt Leakage becomes Hidden Context Exposure (LLM08). Agentic systems: see also the OWASP Top 10 for Agentic Applications."
+      }
+    },
+    {
+      "id": "owasp_agentic",
+      "name": "OWASP Agentic Top 10",
+      "long_name": "OWASP Top 10 for Agentic Applications",
+      "source_url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "_source_note": "OWASP GenAI Security Project, Top 10 for Agentic Applications (branded 2026), released 9 December 2025. Extends rather than replaces the LLM Top 10. Non-regulatory. Verified October 2026.",
+      "framework_version": {
+        "citation": "OWASP Top 10 for Agentic Applications for 2026",
+        "as_of": "2025-12-09",
+        "note": "Non-regulatory \u2014 security community best practice for autonomous and tool-using AI systems. Use alongside the LLM Top 10."
       }
     },
     {
@@ -67,11 +79,11 @@
       "name": "AU Privacy Act",
       "long_name": "Privacy Act 1988 (Cth) including Privacy and Other Legislation Amendment Act 2024",
       "source_url": "https://www.legislation.gov.au/Details/C2024A00070",
-      "_source_note": "Privacy Act 1988 as amended. The Privacy and Other Legislation Amendment Act 2024 (Royal Assent 10 Dec 2024) introduces automated-decision-making transparency requirements. Specific commencement dates for new provisions vary \u2014 checked against OAIC guidance as at May 2026.",
+      "_source_note": "Privacy Act 1988 as amended. The Privacy and Other Legislation Amendment Act 2024 (Royal Assent 10 Dec 2024) inserts automated-decision-making transparency requirements (APP 1.7\u20131.9) commencing 10 December 2026. OAIC final guidance (updated APP 1 Guidelines and APP 1.7\u20131.9 fact sheet) released September 2026. Verified October 2026.",
       "framework_version": {
         "citation": "Privacy Act 1988 (Cth) as amended by Privacy and Other Legislation Amendment Act 2024",
         "as_of": "2024-12-10",
-        "note": "Royal Assent 10 Dec 2024. Commencement dates for specific provisions vary \u2014 check OAIC guidance for current operative dates."
+        "note": "ADM transparency obligations (APP 1.7\u20131.9) commence 10 Dec 2026. OAIC final guidance released September 2026."
       }
     },
     {
@@ -88,14 +100,14 @@
     },
     {
       "id": "au_voluntary_ai",
-      "name": "AU Voluntary AI Safety Standard",
-      "long_name": "Australian Government Voluntary AI Safety Standard",
-      "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard",
-      "_source_note": "Published by DISR (now DITRDCA) 2024. Ten voluntary guardrails aligned to NIST AI RMF. Voluntary \u2014 no enforcement mechanism as at May 2026 following government decision to not proceed with mandatory guardrails.",
+      "name": "AU Guidance for AI Adoption",
+      "long_name": "Australian Government Guidance for AI Adoption (replaces the Voluntary AI Safety Standard)",
+      "source_url": "https://www.industry.gov.au/publications/guidance-for-ai-adoption",
+      "_source_note": "Published by the National AI Centre (Department of Industry, Science and Resources), October 2025, as the first update to the 2024 Voluntary AI Safety Standard. Condenses the 10 guardrails into 6 essential practices, in Foundations and Implementation practices editions. Voluntary \u2014 the government has not proceeded with mandatory guardrails. Verified October 2026.",
       "framework_version": {
-        "citation": "Australian Voluntary AI Safety Standard (2024)",
-        "as_of": "2024-01-01",
-        "note": "Voluntary \u2014 no enforcement mechanism as at May 2026."
+        "citation": "Guidance for AI Adoption (National AI Centre, October 2025)",
+        "as_of": "2025-10-21",
+        "note": "Voluntary. Supersedes the Voluntary AI Safety Standard (2024); its 10 guardrails map to the 6 essential practices."
       }
     },
     {
@@ -103,11 +115,11 @@
       "name": "UK Data Use and Access Act",
       "long_name": "Data Use and Access Act 2025",
       "source_url": "https://www.legislation.gov.uk/ukpga/2025/18/contents",
-      "_source_note": "Source URL corrected to chapter 18 on 2026-10-07; mapping content not re-reviewed. Data Use and Access Act 2025 received Royal Assent 19 June 2025. Amends UK GDPR, updates automated-decision-making rights framework (Art. 22 UK GDPR equivalent). ICO guidance on AI applications updated accordingly.",
+      "_source_note": "Data (Use and Access) Act 2025, chapter 18, Royal Assent 19 June 2025. Replaces UK GDPR Article 22 with Articles 22A\u201322D (automated decision-making); commenced 5 February 2026 by SI 2026/82. Verified October 2026.",
       "framework_version": {
-        "citation": "Data Use and Access Act 2025",
-        "as_of": "2025-06-19",
-        "note": "Royal Assent 19 June 2025. Amends UK GDPR automated-decision-making provisions."
+        "citation": "Data (Use and Access) Act 2025",
+        "as_of": "2026-02-05",
+        "note": "Automated decision-making provisions (UK GDPR Arts 22A\u201322D) in force since 5 Feb 2026 (SI 2026/82)."
       }
     },
     {
@@ -132,9 +144,9 @@
       "summary": "AI systems used for creditworthiness assessment or credit scoring of natural persons (excluding fraud detection in financial services) are high-risk. This triggers the full set of high-risk obligations in Articles 9\u201315 and 26.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 5(b): 'AI systems intended to be used for creditworthiness assessment or credit scoring of natural persons, with the exception of AI systems put into service by small scale providers for their own use.' Verified against EUR-Lex text May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 5(b): AI systems intended to be used to evaluate the creditworthiness of natural persons or establish their credit score, with the exception of AI systems used for the purpose of detecting financial fraud. (Corrected October 2026: earlier note quoted the 2021 Commission proposal wording.) Verified against EUR-Lex text May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -160,7 +172,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_annex_iii_4",
@@ -170,9 +182,9 @@
       "summary": "AI systems used for recruitment, selection, promotion, task allocation, monitoring, or evaluation of persons in employment relationships are high-risk.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 4: employment, workers management and access to self-employment. Verified against EUR-Lex text May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 4: employment, workers management and access to self-employment. Verified against EUR-Lex text May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -187,19 +199,19 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_annex_iii_5a",
       "framework": "eu_ai_act",
-      "citation": "Annex III \u00a75(a)",
+      "citation": "Article 6(1) + Annex I \u2014 medical device safety components",
       "title": "High-risk classification \u2014 healthcare safety components",
-      "summary": "AI systems intended to be used as safety components in medical devices, or as medical devices themselves (within the scope of EU medical device legislation), are high-risk.",
+      "summary": "AI systems that are medical devices, or safety components of medical devices, requiring third-party conformity assessment under the Medical Devices or In Vitro Diagnostic Regulations are high-risk under Article 6(1) and Annex I. Obligations apply from 2 August 2028 following the Digital Omnibus.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2028-08-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Annex III, point 5(a): AI systems in medical devices or as safety components. Verified against EUR-Lex text May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 6(1) and Annex I, Section A (Regulations (EU) 2017/745 and 2017/746). Corrected October 2026: previously cited as Annex III point 5(a), which covers eligibility for public assistance benefits, not medical devices. Application date 2 Aug 2028 per Art. 113(c)(ii) as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026.",
       "applies_when": {
         "all": [
           {
@@ -220,19 +232,19 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_4",
       "framework": "eu_ai_act",
       "citation": "Article 4 \u2014 AI literacy",
       "title": "AI literacy obligation",
-      "summary": "Providers and deployers of AI systems must take measures to ensure a sufficient level of AI literacy among their staff and others who operate or use AI systems on their behalf. Applies to all AI systems \u2014 not only high-risk.",
+      "summary": "Providers and deployers of AI systems must take measures to support the development of AI literacy among their staff and others operating AI systems on their behalf, taking account of their knowledge, experience and the context of use. As amended by the Digital Omnibus, this does not require guaranteeing a specific level of literacy for any individual. Applies to all AI systems \u2014 not only high-risk.",
       "mandatory": true,
       "obligation_type": "mandatory",
       "effective_from": "2025-02-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 4. Application date: 2 February 2025 per Article 113(1). Note: often cited as '2 August 2026' in press coverage but Art. 4 applies from 2 Feb 2025, not August 2026. August 2026 is when high-risk obligations apply. Verified against EUR-Lex and Commission FAQ May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 4, applicable from 2 February 2025 per Article 113. Wording amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026: obligation is now to 'support the development of' AI literacy rather than 'ensure, to their best extent, a sufficient level'. Verified against EUR-Lex October 2026.",
       "applies_when": {
         "all": [
           {
@@ -242,7 +254,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_9",
@@ -252,9 +264,9 @@
       "summary": "Providers must establish, implement, document, and maintain a risk management system covering the entire lifecycle of the high-risk AI system. The system must identify foreseeable risks, estimate and evaluate them, adopt appropriate measures, and provide for post-market monitoring.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 9. Applies to high-risk AI systems (Annex III). Verified against EUR-Lex text May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 9. Applies to high-risk AI systems (Annex III). Verified against EUR-Lex text May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -297,7 +309,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_9_any_high_risk",
@@ -307,9 +319,9 @@
       "summary": "Providers must establish, implement, document, and maintain a risk management system covering the entire lifecycle of the high-risk AI system. Covers identification of foreseeable risks, evaluation, mitigation, and residual risk acceptance, with ongoing post-market monitoring.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 9. High-risk system trigger: Annex III categories. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 9. High-risk system trigger: Annex III categories. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -333,7 +345,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_10",
@@ -343,9 +355,9 @@
       "summary": "Training, validation and testing datasets must meet quality criteria: relevance, representativeness, freedom from errors where possible, and appropriateness of statistical properties relevant to the persons on which the system is to be used.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 10. High-risk system requirement. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 10. High-risk system requirement. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -375,7 +387,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_13",
@@ -385,9 +397,9 @@
       "summary": "Providers must supply deployers with instructions for use covering: intended purpose, performance characteristics, foreseeable misuse, circumstances that may affect accuracy, human oversight requirements, and technical measures available to the deployer.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 13. Applies to all high-risk AI systems. For vendor-procured systems, the deployer must obtain and rely on these instructions. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 13. Applies to all high-risk AI systems. For vendor-procured systems, the deployer must obtain and rely on these instructions. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -411,7 +423,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_14",
@@ -421,9 +433,9 @@
       "summary": "High-risk AI systems must be designed and developed to be effectively overseen by natural persons during their use. Deployers must be able to intervene, halt, or override the system. Note: fully automated decisions with no human review create tension with this obligation.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 14. Requires designated natural persons with competence and authority to exercise oversight. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 14. Requires designated natural persons with competence and authority to exercise oversight. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -447,7 +459,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_15",
@@ -457,9 +469,9 @@
       "summary": "High-risk AI systems must be designed to achieve appropriate levels of accuracy, robustness, and cybersecurity. Resilience to errors, faults, and inconsistencies (including adversarial inputs) must be considered.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 15. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 15. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -483,7 +495,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_26",
@@ -493,9 +505,9 @@
       "summary": "Deployers must: use the system in accordance with instructions; assign human oversight to natural persons with appropriate competence; ensure input data is relevant and representative; inform affected workers; monitor operation; keep logs for at least six months.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 26. Applies where you are a deployer (not just provider) of a high-risk system. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 26. Applies where you are a deployer (not just provider) of a high-risk system. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -519,19 +531,19 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_27",
       "framework": "eu_ai_act",
       "citation": "Article 27 \u2014 Fundamental rights impact assessment",
       "title": "Fundamental rights impact assessment (FRIA)",
-      "summary": "Deployers that are public bodies, or private entities providing public services or processing personal data at scale, must conduct a fundamental rights impact assessment before first use. Covers affected categories of persons, foreseeable harms, governance arrangements, and oversight measures.",
+      "summary": "Before first use of an Annex III high-risk system, deployers that are bodies governed by public law or private entities providing public services, and any deployer of credit-scoring or life and health insurance risk-pricing systems (Annex III 5(b)\u2013(c)), must conduct a fundamental rights impact assessment. Covers affected categories of persons, foreseeable harms, human oversight, and governance arrangements; may build on an existing GDPR DPIA.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 27. Applies to public-body deployers and private entities providing services to the public at scale. Financial services customer-facing systems are in scope. Notification to market surveillance authority required. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 27. Applies to public-body deployers and private entities providing services to the public at scale. Financial services customer-facing systems are in scope. Notification to market surveillance authority required. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation. The Omnibus also lets deployers build the FRIA on an existing GDPR data protection impact assessment (Art. 27(4) as amended). Summary corrected October 2026: scope is set by Art. 27(1), not by the scale of personal data processing.",
       "applies_when": {
         "all": [
           {
@@ -563,7 +575,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_ai_act_art_86",
@@ -573,9 +585,9 @@
       "summary": "Any person subject to a decision based on a high-risk AI system that produces legal or significant effects may request an explanation of the AI's role and the main elements of the decision. Deployers must provide meaningful explanations.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2026-08-02",
+      "effective_from": "2027-12-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Article 86. Applies to natural persons subject to decisions by high-risk AI systems. Interacts with GDPR Article 22 right to explanation. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 86. Applies to natural persons subject to decisions by high-risk AI systems. Interacts with GDPR Article 22 right to explanation. Verified May 2026. Application date moved from 2 Aug 2026 to 2 Dec 2027 for Annex III high-risk systems by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026 (Art. 113(c)(i) as amended); 2 Aug 2028 where the system is high-risk via Annex I product legislation.",
       "applies_when": {
         "all": [
           {
@@ -604,19 +616,76 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
-      "id": "eu_ai_act_general_purpose",
+      "id": "eu_ai_act_art_50",
       "framework": "eu_ai_act",
-      "citation": "Articles 51\u201356 \u2014 General-purpose AI model obligations",
-      "title": "General-purpose AI model obligations (if using a GPAI API)",
-      "summary": "Organisations integrating general-purpose AI models (e.g. via OpenAI, Anthropic, or Google APIs) must comply with the GPAI obligations. Model providers must supply technical documentation; deployers must implement downstream governance requirements.",
+      "citation": "Article 50 \u2014 Transparency obligations",
+      "title": "Transparency for AI interactions and synthetic content",
+      "summary": "Applies to all relevant AI systems, not only high-risk. Providers must design systems that interact with people so users are informed they are dealing with AI, and must mark synthetic audio, image, video and text output in a machine-readable, detectable way. Deployers of emotion recognition or biometric categorisation must inform the people exposed, and deployers must disclose deepfakes and AI-generated text published to inform the public on matters of public interest.",
       "mandatory": true,
       "obligation_type": "mandatory",
       "effective_from": "2026-08-02",
       "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "_source_note": "Regulation (EU) 2024/1689 Articles 51\u201356. Applies to organisations using GPAI models via API (OpenAI, Anthropic, Gemini, etc.) integrated into downstream products. Verified May 2026.",
+      "_source_note": "Regulation (EU) 2024/1689 Article 50, applicable from 2 August 2026 per Article 113 \u2014 not deferred by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026. Transitional period: providers of generative systems placed on the market before 2 Aug 2026 must comply with Art. 50(2) marking by 2 Dec 2026 (Art. 111(4) as amended). Commission Article 50 guidelines and Code of Practice on marking AI-generated content in preparation during 2026. Added October 2026.",
+      "applies_when": {
+        "all": [
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "llm_chatbot",
+              "agentic",
+              "generative_content",
+              "biometric"
+            ]
+          }
+        ]
+      },
+      "last_verified": "2026-10-13"
+    },
+    {
+      "id": "eu_ai_act_art_5_synthetic_abuse",
+      "framework": "eu_ai_act",
+      "citation": "Article 5(1)(ba)\u2013(bb) \u2014 Prohibited practices (added 2026)",
+      "title": "Prohibition: non-consensual intimate imagery and child sexual abuse material",
+      "summary": "Placing on the market or using AI systems that generate or manipulate realistic intimate imagery of an identifiable person without their explicit consent, or child sexual abuse material, is prohibited. Providers are caught where this is the intended purpose or a reasonably foreseeable, reproducible outcome without adequate safeguards \u2014 so image, video and audio generators need effective safeguards in place.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2026-12-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj",
+      "_source_note": "New prohibitions inserted into Article 5(1) points (ba) and (bb), with Art. 5(1a)\u2013(1b), by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026. Apply from 2 December 2026 per Art. 113(a) as amended. Added October 2026.",
+      "applies_when": {
+        "all": [
+          {
+            "jurisdiction": [
+              "eu"
+            ]
+          },
+          {
+            "system_type": [
+              "generative_content"
+            ]
+          }
+        ]
+      },
+      "last_verified": "2026-10-13"
+    },
+    {
+      "id": "eu_ai_act_general_purpose",
+      "framework": "eu_ai_act",
+      "citation": "Articles 53\u201355 \u2014 General-purpose AI model obligations",
+      "title": "General-purpose AI models \u2014 provider duties and downstream information rights",
+      "summary": "Obligations under Articles 53\u201355 fall on providers of general-purpose AI models (e.g. OpenAI, Anthropic, Google), which must maintain technical documentation and make information available to downstream providers integrating the model. If you build on a GPAI model via API you are generally a downstream provider or deployer, not a GPAI provider: use the model provider's documentation and the GPAI Code of Practice signatory status in vendor due diligence. Fine-tuning that substantially modifies a model can make you a GPAI provider.",
+      "mandatory": true,
+      "obligation_type": "mandatory",
+      "effective_from": "2025-08-02",
+      "source_url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "_source_note": "Regulation (EU) 2024/1689 Articles 51\u201356, applicable from 2 August 2025 per Article 113(b); Commission enforcement powers from 2 August 2026. Corrected October 2026: previously dated 2 Aug 2026 and framed as a deployer obligation.",
       "applies_when": {
         "all": [
           {
@@ -632,7 +701,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "eu_gdpr_art_22",
@@ -669,14 +738,14 @@
     {
       "id": "au_privacy_act_aaim",
       "framework": "au_privacy_act",
-      "citation": "Automated decision-making transparency provisions",
+      "citation": "APP 1.7\u20131.9 \u2014 automated decision-making transparency",
       "title": "Privacy Act 1988 \u2014 automated decision-making notice requirements",
-      "summary": "The Privacy and Other Legislation Amendment Act 2024 introduces transparency requirements for automated decision-making about individuals using personal information. Organisations must include information about automated decisions in their privacy policies.",
+      "summary": "From 10 December 2026, privacy policies must explain where a computer program uses personal information to make, or to do something substantially and directly related to making, decisions that could significantly affect an individual's rights or interests. OAIC guidance confirms this reaches decision-support tools and embedded software, not only fully automated decisions, and applies to decisions made after commencement even if the data was collected earlier.",
       "mandatory": true,
       "obligation_type": "mandatory",
       "effective_from": "2026-12-10",
       "source_url": "https://www.legislation.gov.au/Details/C2024A00070",
-      "_source_note": "Privacy and Other Legislation Amendment Act 2024. Royal Assent 10 December 2024. Automated decision-making transparency provisions in Schedule 1. Some provisions delayed 24 months from Royal Assent \u2014 estimated Dec 2026 for full effect. Verified against OAIC FAQ and legislation May 2026.",
+      "_source_note": "Privacy and Other Legislation Amendment Act 2024, Schedule 1, inserting APP 1.7\u20131.9; commences 10 December 2026. OAIC final guidance (APP 1 Guidelines update and APP 1.7\u20131.9 fact sheet) released September 2026. Scope widened in October 2026 review to include decision-support configurations. Verified October 2026.",
       "applies_when": {
         "all": [
           {
@@ -686,7 +755,8 @@
           },
           {
             "context.decision_mode": [
-              "automated_decision"
+              "automated_decision",
+              "decision_support"
             ]
           },
           {
@@ -704,7 +774,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "au_privacy_act_apps",
@@ -773,14 +843,14 @@
     {
       "id": "au_voluntary_ai",
       "framework": "au_voluntary_ai",
-      "citation": "10 Voluntary Guardrails",
-      "title": "AU Voluntary AI Safety Standard \u2014 10 guardrails",
-      "summary": "The Australian Government's Voluntary AI Safety Standard sets out 10 guardrails covering: accountability, risk management, transparency, fairness, privacy, security, reliability, governance, and oversight. Voluntary but increasingly referenced in procurement and regulatory context.",
+      "citation": "6 essential practices",
+      "title": "AU Guidance for AI Adoption \u2014 6 essential practices",
+      "summary": "The Australian Government's Guidance for AI Adoption (October 2025) replaces the Voluntary AI Safety Standard. Its six essential practices are: decide who is accountable; understand impacts and plan accordingly; measure and manage risks; share essential information; test and monitor; maintain human control. Voluntary, but the reference point for responsible AI expectations in Australia.",
       "mandatory": false,
       "obligation_type": "recommended",
-      "effective_from": "2024-09-05",
-      "source_url": "https://www.industry.gov.au/publications/voluntary-ai-safety-standard",
-      "_source_note": "Voluntary AI Safety Standard published September 2024 by Department of Industry, Science and Resources. Voluntary. Australian government agencies expected to apply. Verified May 2026.",
+      "effective_from": "2025-10-21",
+      "source_url": "https://www.industry.gov.au/publications/guidance-for-ai-adoption",
+      "_source_note": "Guidance for AI Adoption, National AI Centre, October 2025 \u2014 Foundations and Implementation practices editions. First update to the Voluntary AI Safety Standard (September 2024); the 10 guardrails are consolidated into 6 practices. Voluntary. Verified October 2026.",
       "applies_when": {
         "all": [
           {
@@ -790,7 +860,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "nist_ai_rmf_govern",
@@ -843,14 +913,14 @@
     {
       "id": "owasp_llm_top10",
       "framework": "owasp_llm",
-      "citation": "LLM01\u2013LLM10",
+      "citation": "LLM01:2026\u2013LLM10:2026",
       "title": "OWASP LLM Top 10 \u2014 security risks for LLM applications",
-      "summary": "The OWASP LLM Top 10 covers the most critical security risks in LLM applications: prompt injection (LLM01), sensitive data disclosure (LLM02), supply chain vulnerabilities (LLM03), data poisoning (LLM04), improper output handling (LLM05), excessive agency (LLM06), system prompt leakage (LLM07), and others.",
+      "summary": "The OWASP Top 10 for LLM Applications (2026) covers: prompt injection (LLM01), sensitive information disclosure (LLM02), excessive agency (LLM03), supply chain (LLM04), data and model poisoning (LLM05), unbounded consumption (LLM06), misinformation (LLM07), hidden context exposure (LLM08), vector and embedding weaknesses (LLM09) and improper output handling (LLM10).",
       "mandatory": false,
       "obligation_type": "recommended",
-      "effective_from": "2023-10-16",
-      "source_url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
-      "_source_note": "OWASP LLM Top 10 v1.1 (October 2023). Voluntary security community standard. Relevant for any system using LLMs. Verified May 2026.",
+      "effective_from": "2026-08-04",
+      "source_url": "https://github.com/GenAI-Security-Project/GenAI-LLM-Top10/tree/main/2026/final",
+      "_source_note": "OWASP Top 10 for LLM Applications 2026, final text in the GenAI Security Project repository, checked October 2026. Replaces the 2025 edition. Voluntary security community standard. Relevant for any system using LLMs.",
       "applies_when": {
         "all": [
           {
@@ -862,19 +932,41 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
+    },
+    {
+      "id": "owasp_agentic_top10",
+      "framework": "owasp_agentic",
+      "citation": "ASI01\u2013ASI10",
+      "title": "OWASP Agentic Top 10 \u2014 security risks for autonomous AI agents",
+      "summary": "Security risks specific to agents that plan, use tools and act with delegated permissions \u2014 including goal hijacking, tool misuse, identity and privilege abuse, memory poisoning, and cascading failures across multi-agent systems. Use alongside the LLM Top 10, which agentic systems also inherit.",
+      "mandatory": false,
+      "obligation_type": "recommended",
+      "effective_from": "2025-12-09",
+      "source_url": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "_source_note": "OWASP Top 10 for Agentic Applications for 2026, released 9 December 2025 by the OWASP GenAI Security Project. Voluntary security community guidance. Added October 2026.",
+      "applies_when": {
+        "all": [
+          {
+            "system_type": [
+              "agentic"
+            ]
+          }
+        ]
+      },
+      "last_verified": "2026-10-13"
     },
     {
       "id": "uk_dua_automated_decisions",
       "framework": "uk_dua",
-      "citation": "Data Use and Access Act 2025 \u2014 automated decision-making",
-      "title": "UK DUA Act \u2014 automated decision-making rights",
-      "summary": "The Data Use and Access Act 2025 updates UK GDPR Article 22 equivalents, providing rights not to be subject to solely automated decisions with significant effects. Requires transparency about automated processing and the right to human review.",
+      "citation": "UK GDPR Articles 22A\u201322D (Data (Use and Access) Act 2025)",
+      "title": "UK automated decision-making \u2014 safeguards regime (Arts 22A\u201322D)",
+      "summary": "Since 5 February 2026, UK GDPR permits solely automated decisions with legal or similarly significant effects on most personal data, provided safeguards are in place: tell individuals about the decision, let them make representations, obtain human intervention, and contest the decision. Stricter limits remain where special category data is used.",
       "mandatory": true,
       "obligation_type": "mandatory",
-      "effective_from": "2025-06-19",
+      "effective_from": "2026-02-05",
       "source_url": "https://www.legislation.gov.uk/ukpga/2025/18/contents",
-      "_source_note": "Source URL corrected to chapter 18 on 2026-10-07; mapping content not re-reviewed. Data Use and Access Act 2025, Royal Assent 19 June 2025. Updates automated decision-making rights framework. Commencement regulations specify phased implementation. Verified May 2026.",
+      "_source_note": "Data (Use and Access) Act 2025 replaced UK GDPR Article 22 with Articles 22A\u201322D; commenced 5 February 2026 by the Data (Use and Access) Act 2025 (Commencement No. 6 and Transitional and Saving Provisions) Regulations 2026 (SI 2026/82). Corrected October 2026: previously described the former Article 22 restriction and dated from Royal Assent.",
       "applies_when": {
         "all": [
           {
@@ -894,7 +986,7 @@
           }
         ]
       },
-      "last_verified": "2026-05-22"
+      "last_verified": "2026-10-13"
     },
     {
       "id": "uk_ico_ai_fairness",

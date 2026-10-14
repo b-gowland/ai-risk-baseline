@@ -58,20 +58,37 @@ export default function Disclaimer() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Jurisdiction limitations</h2>
           <p className={styles.text}>
-            Phase 1 of the Baseline covers EU, Australian, UK, US, Singapore, and Japan
-            jurisdictions at varying levels of depth. Coverage is not exhaustive within
-            any jurisdiction. Requirements specific to your sector, entity type, or
-            regulatory status may not be reflected.
+            Jurisdiction-specific mappings currently cover the EU, Australia and the UK.
+            If you select the US, Singapore, Japan or another jurisdiction, the output
+            includes only the international frameworks (NIST AI RMF, ISO/IEC 42001,
+            OWASP) — local laws such as US state AI and privacy statutes are not mapped.
+            Coverage is not exhaustive within any jurisdiction. Requirements specific to
+            your sector, entity type, or regulatory status may not be reflected.
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>No data collection</h2>
+          <h2 className={styles.sectionTitle}>Privacy and analytics</h2>
           <p className={styles.text}>
             Your configuration answers are encoded into the URL and processed entirely
-            in your browser. No configuration data is sent to any server. Plausible
-            Analytics is used for anonymised, aggregate usage statistics only — no
-            personally identifiable information is collected.
+            in your browser. No configuration data is sent to any server. Anyone you
+            share the URL with can see the answers it contains.
+          </p>
+          <p className={styles.text}>
+            Like the other AI Risk Practice sites, Baseline uses{` `}
+            <a
+              href="https://plausible.io/data-policy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
+              Plausible Analytics ↗
+            </a>
+            , which sets no cookies and stores no IP address or persistent visitor
+            identifier. It records the page path (not your answers in the URL), referrer,
+            country, and browser and device type, plus anonymous events such as which
+            output panel or worked example was opened and whether the share, copy or print
+            buttons were used. We publish only aggregates and never sell or share data.
           </p>
         </section>
 

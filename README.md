@@ -12,13 +12,15 @@ The AI Governance Baseline is a free, browser-based governance profiler. Describ
 
 ## What it does
 
-- **Regulatory tab** — applicable framework citations (EU AI Act, NIST AI RMF, ISO 42001, AU Privacy Act, APRA CPS 230, and more) with article numbers, deadlines, and links to primary sources
-- **Risks tab** — top 7 ranked risks for your configuration, each linking to the AI Risk Practice knowledge base
-- **Controls tab** — specific controls filtered by function (Risk · Legal · Tech · Procurement), each with owner, effort, and framework references
-- **Actions tab** — 5 prioritised next steps with owners and effort estimates
+- **Governance roadmap** — controls laid out by function (Risk · Legal · Tech · Procurement) and lifecycle phase, mandatory items flagged
+- **Key dates** — upcoming and recently commenced obligations for your configuration
+- **Regulatory panel** — applicable framework citations (EU AI Act, NIST AI RMF, ISO 42001, AU Privacy Act, APRA CPS 230, UK GDPR, OWASP and more) with article numbers, effective dates, and links to primary sources
+- **Risks panel** — top 7 ranked risks for your configuration, each linking to the AI Risk Practice knowledge base
+- **Controls panel** — specific controls with owner, effort, and framework references
+- **Actions panel** — 5 prioritised next steps with owners and effort estimates
 - **Shareable URL** — the full configuration is encoded in the URL; share it with your team
 
-No login. No signup. No data collected. Computes entirely in the browser.
+No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), as on the other AI Risk Practice sites.
 
 ---
 

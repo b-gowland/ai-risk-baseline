@@ -9,6 +9,10 @@ updates:
     schedule:
       interval: weekly
     groups:
+      # vite and @vitejs/plugin-react pin each other's majors, so separate
+      # PRs can never pass CI. Keep them in one PR (listed first so it wins).
+      vite-toolchain:
+        patterns: ["vite", "@vitejs/*"]
       npm-minor-patch:
         update-types: [minor, patch]
 

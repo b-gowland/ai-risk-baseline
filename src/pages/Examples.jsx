@@ -28,7 +28,7 @@ const EXAMPLES = [
     title: `LLM internal support tool`,
     description: `An LLM-powered assistant deployed for internal staff — helping relationship managers draft customer communications, summarise documents, and look up policy. Employee-facing, recommendation-only (human makes the final call), procured from a vendor. Lower regulatory exposure than customer-facing systems, but data governance, vendor due diligence, and AI literacy obligations still apply.`,
     persona: `Marcus — operations manager, mid-tier bank`,
-    tags: [`AU Privacy Act`, `AU Voluntary AI Standard`, `OWASP LLM Top 10`],
+    tags: [`AU Privacy Act`, `AU Guidance for AI Adoption`, `OWASP LLM Top 10`],
     url: `/output?v=1&st=llm_chatbot&who=employee_facing&dom=financial_services&dm=recommendation_only&bp=vendor&dt=personal_basic%2Cpersonal_financial&ds=10k_100k&juris=au&plat=skip`,
   },
   {
@@ -55,7 +55,7 @@ const EXAMPLES = [
     title: `Public-sector eligibility assessment`,
     description: `A government agency's system that automatically determines eligibility for a benefit or service — processing applications at scale with no human review of individual decisions. Customer-facing, fully automated, built in-house, processing basic personal and financial data for 100K+ people per year. High accountability expectations. APRA-equivalent prudential framing does not apply, but AU Privacy Act, the Voluntary AI Safety Standard, and administrative law accountability obligations do.`,
     persona: `Claire — digital transformation lead, federal agency`,
-    tags: [`AU Privacy Act`, `AU Voluntary AI Standard`, `NIST AI RMF`, `ISO/IEC 42001`],
+    tags: [`AU Privacy Act`, `AU Guidance for AI Adoption`, `NIST AI RMF`, `ISO/IEC 42001`],
     url: `/output?v=1&st=automated_decision&who=customer_facing&dom=public_sector&dm=automated_decision&bp=in_house&dt=personal_basic%2Cpersonal_financial&ds=100k_plus&juris=au&plat=skip`,
   },
 ]

@@ -126,7 +126,7 @@ export default function Configure() {
     <div className={styles.page}>
       <div className={styles.inner}>
         {/* Progress stepper */}
-        <div className={styles.stepper} role="progressbar" aria-valuenow={step + 1} aria-valuemax={STEPS.length} aria-label="Configuration progress">
+        <div className={styles.stepper} role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={STEPS.length} aria-label="Configuration progress">
           {STEPS.map((s, i) => (
             <div key={s.id} className={styles.stepItem}>
               <div className={`${styles.stepDot} ${i < step ? styles.done : i === step ? styles.active : ''}`}>
@@ -219,7 +219,7 @@ export default function Configure() {
               />
               {q[4].phase2_note && (
                 <p className={styles.phase2Note}>
-                  ℹ️ {q[4].phase2_note}
+                  {q[4].phase2_note}
                 </p>
               )}
             </div>
@@ -276,13 +276,14 @@ function QuestionBlock({ question, value, onSelect, expandedHelp, onToggleHelp, 
       )}
       <h2 className={styles.questionLabel}>{question.label}</h2>
       {multiSelect && <p className={styles.multiHint}>Select all that apply</p>}
-      <div className={styles.options}>
+      <div className={styles.options} role={singleSelect ? `radiogroup` : `group`} aria-label={question.label}>
         {question.options.map(opt => (
           <OptionCard
             key={opt.value}
             opt={opt}
             selected={isSelected(opt.value)}
             onSelect={() => onSelect(opt.value)}
+            single={singleSelect}
             helpKey={`${question.id}.${opt.value}`}
             expanded={expandedHelp[`${question.id}.${opt.value}`]}
             onToggleHelp={onToggleHelp}
@@ -304,13 +305,14 @@ function QuestionPartBlock({ part, value, onSelect, expandedHelp, onToggleHelp, 
       <h2 className={styles.questionLabel}>{part.label}</h2>
       {multiSelect && <p className={styles.multiHint}>Select all that apply</p>}
       {part.required === false && <p className={styles.multiHint}>Optional</p>}
-      <div className={styles.options}>
+      <div className={styles.options} role={singleSelect ? `radiogroup` : `group`} aria-label={part.label}>
         {part.options.map(opt => (
           <OptionCard
             key={opt.value}
             opt={opt}
             selected={isSelected(opt.value)}
             onSelect={() => onSelect(opt.value)}
+            single={singleSelect}
             helpKey={`${part.id}.${opt.value}`}
             expanded={expandedHelp[`${part.id}.${opt.value}`]}
             onToggleHelp={onToggleHelp}
@@ -321,19 +323,22 @@ function QuestionPartBlock({ part, value, onSelect, expandedHelp, onToggleHelp, 
   )
 }
 
-function OptionCard({ opt, selected, onSelect, helpKey, expanded, onToggleHelp }) {
+function OptionCard({ opt, selected, onSelect, single, helpKey, expanded, onToggleHelp }) {
   return (
     <div
       className={`${styles.option} ${selected ? styles.optionSelected : ''}`}
       onClick={onSelect}
-      role="button"
+      role={single ? `radio` : `checkbox`}
       tabIndex={0}
-      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect()}
-      aria-pressed={selected}
+      onKeyDown={(e) => {
+        if (e.target !== e.currentTarget) return
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect() }
+      }}
+      aria-checked={selected}
     >
       <div className={styles.optionTop}>
-        <div className={styles.optionCheck}>
-          {selected && <span className={styles.checkmark}>✓</span>}
+        <div className={`${styles.optionCheck} ${single ? styles.optionRadio : ``}`}>
+          {selected && !single && <span className={styles.checkmark}>✓</span>}
         </div>
         <div className={styles.optionContent}>
           <span className={styles.optionLabel}>{opt.label}</span>

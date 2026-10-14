@@ -295,7 +295,7 @@
         {
           "value": "au",
           "label": "Australia",
-          "help_short": "Privacy Act 1988 (inc. 2024 amendments), APRA CPS 230, AU Voluntary AI Safety Standard."
+          "help_short": "Privacy Act 1988 (inc. 2024 amendments), APRA CPS 230, AU Guidance for AI Adoption."
         },
         {
           "value": "uk",
@@ -305,22 +305,22 @@
         {
           "value": "us",
           "label": "United States",
-          "help_short": "Federal and state-level laws (EEOC, NYC AEDT Local Law 144, sector-specific regulators). No single federal AI Act."
+          "help_short": "Not yet mapped: output shows international frameworks only (NIST AI RMF, ISO 42001, OWASP). Check federal sector rules and state laws such as NYC Local Law 144 separately."
         },
         {
           "value": "sg",
           "label": "Singapore",
-          "help_short": "PDPA, MAS FEAT principles, IMDA AI Verify / Model AI Governance Framework. Phase 2."
+          "help_short": "Not yet mapped: output shows international frameworks only. Check PDPA, MAS FEAT and the Model AI Governance Framework separately."
         },
         {
           "value": "jp",
           "label": "Japan",
-          "help_short": "AI Promotion Act, METI/MIC guidelines. Phase 2."
+          "help_short": "Not yet mapped: output shows international frameworks only. Check the AI Promotion Act and METI/MIC AI guidelines separately."
         },
         {
           "value": "global_other",
           "label": "Global / other",
-          "help_short": "Applies broadest cross-jurisdictional mappings; add specific jurisdictions for precise output."
+          "help_short": "Output shows international frameworks only. Add EU, Australia or UK where they apply for jurisdiction-specific obligations."
         }
       ]
     },
@@ -331,7 +331,7 @@
       "help_intro": "Select your primary AI deployment platform. The Platform tab will show documentation links for your selected provider.",
       "type": "single",
       "required": false,
-      "phase2_note": "The Platform tab includes governance documentation links for your selected provider.",
+      "phase2_note": "The Platform panel links to governance documentation for your selected provider.",
       "options": [
         {
           "value": "azure_ai_foundry",
