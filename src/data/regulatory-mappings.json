@@ -30,8 +30,8 @@
       "id": "nist_ai_rmf",
       "name": "NIST AI RMF",
       "long_name": "NIST AI Risk Management Framework 1.0",
-      "source_url": "https://airc.nist.gov/RMF/1",
-      "_source_note": "NIST AI RMF 1.0 published January 2023. Non-regulatory \u2014 voluntary framework. Core functions: GOVERN, MAP, MEASURE, MANAGE.",
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "_source_note": "Source URL updated to the official NIST framework page on 2026-10-07; mapping content not re-reviewed. NIST AI RMF 1.0 published January 2023. Non-regulatory \u2014 voluntary framework. Core functions: GOVERN, MAP, MEASURE, MANAGE.",
       "framework_version": {
         "citation": "NIST AI 100-1 (Jan 2023) + AI 600-1 (July 2024)",
         "as_of": "2024-07-01",
@@ -102,8 +102,8 @@
       "id": "uk_dua",
       "name": "UK Data Use and Access Act",
       "long_name": "Data Use and Access Act 2025",
-      "source_url": "https://www.legislation.gov.uk/ukpga/2025/1",
-      "_source_note": "Data Use and Access Act 2025 received Royal Assent 19 June 2025. Amends UK GDPR, updates automated-decision-making rights framework (Art. 22 UK GDPR equivalent). ICO guidance on AI applications updated accordingly.",
+      "source_url": "https://www.legislation.gov.uk/ukpga/2025/18/contents",
+      "_source_note": "Source URL corrected to chapter 18 on 2026-10-07; mapping content not re-reviewed. Data Use and Access Act 2025 received Royal Assent 19 June 2025. Amends UK GDPR, updates automated-decision-making rights framework (Art. 22 UK GDPR equivalent). ICO guidance on AI applications updated accordingly.",
       "framework_version": {
         "citation": "Data Use and Access Act 2025",
         "as_of": "2025-06-19",
@@ -801,8 +801,8 @@
       "mandatory": false,
       "obligation_type": "recommended",
       "effective_from": "2023-01-26",
-      "source_url": "https://airc.nist.gov/RMF/1",
-      "_source_note": "NIST AI RMF 1.0, GOVERN function. Published January 2023. Cross-referenced by AU Voluntary AI Safety Standard and ISO 42001. Verified May 2026.",
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "_source_note": "Source URL updated to the official NIST framework page on 2026-10-07; mapping content not re-reviewed. NIST AI RMF 1.0, GOVERN function. Published January 2023. Cross-referenced by AU Voluntary AI Safety Standard and ISO 42001. Verified May 2026.",
       "applies_when": {
         "all": [
           {
@@ -873,8 +873,8 @@
       "mandatory": true,
       "obligation_type": "mandatory",
       "effective_from": "2025-06-19",
-      "source_url": "https://www.legislation.gov.uk/ukpga/2025/1",
-      "_source_note": "Data Use and Access Act 2025, Royal Assent 19 June 2025. Updates automated decision-making rights framework. Commencement regulations specify phased implementation. Verified May 2026.",
+      "source_url": "https://www.legislation.gov.uk/ukpga/2025/18/contents",
+      "_source_note": "Source URL corrected to chapter 18 on 2026-10-07; mapping content not re-reviewed. Data Use and Access Act 2025, Royal Assent 19 June 2025. Updates automated decision-making rights framework. Commencement regulations specify phased implementation. Verified May 2026.",
       "applies_when": {
         "all": [
           {

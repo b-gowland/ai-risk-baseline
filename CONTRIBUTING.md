@@ -46,6 +46,14 @@ Standard PR flow. Run `npm run validate` before submitting — this checks all d
 
 ---
 
+## Source URL health checks
+
+Run `npm run check:urls` to check the public URLs in regulatory mappings. It checks each unique URL once while retaining all framework/mapping references, follows up to five redirects, and retries temporary failures at most twice. Each attempt has a 15-second deadline.
+
+Reports are written to `reports/url-health.md` and `.json`. HTTP 404/410 means broken; 401/403 means blocked. Timeouts, network errors and temporary server/rate-limit failures remain distinct and need investigation. Any unresolved result makes the command exit nonzero. The scheduled workflow uploads the evidence and updates an existing maintenance issue rather than opening duplicates. Local runs never create issues.
+
+`npm test` includes offline HTTP-server regressions for this checker; it does not contact the public source sites.
+
 ## Predicate language reference
 
 The `applies_when` field uses a small predicate language:
