@@ -61,6 +61,9 @@ export function rolesStep(answers, status) {
         break;
     }
   }
+  if (answers.scope_exclusion === 'personal_non_professional' && roles.delete('deployer')) {
+    trace.push({ step: 6, rule: 'Art. 2(10): deployer obligations do not apply to purely personal, non-professional use', because: because(answers, 'scope_exclusion') });
+  }
   if ((answers.tech || []).includes('third_party_model') && !roles.has('gpai_provider')) {
     notes.push({ ref: 'Art. 53', text: 'Building on a third-party general-purpose model through its API does not make you a GPAI model provider; only a substantial modification of the model itself can.' });
   }

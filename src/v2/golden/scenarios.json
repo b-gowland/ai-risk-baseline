@@ -419,6 +419,13 @@
       "basis_refs": ["Art. 5(1)(f) medical or safety exception", "Annex III 1(c)", "Art. 50(3)", "Art. 26(7)"],
       "answers": { "purpose": "emotion_recognition", "prohibited": { "art_5_1f": "no" }, "interaction": ["emotion_or_biometric_categorisation"], "affected": ["staff"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "serious" },
       "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_26_11", "eu.art_50_3"], "must_exclude": ["eu.art_5_1f"] }
+    },
+    {
+      "id": "G58",
+      "title": "Individual builds an image generator for purely personal use",
+      "basis_refs": ["Art. 2(10) removes only natural-person deployer obligations", "Art. 3(3) provider includes putting into service free of charge", "Art. 50(2)"],
+      "answers": { "purpose": "synthetic_media_generation", "scope_exclusion": "personal_non_professional", "role": ["build_own_use"], "prohibited": { "art_5_1ba": "no", "art_5_1bb": "no" }, "interaction": ["generates_synthetic_content", "deepfake"], "tech": ["llm_genai"], "affected": ["public"], "data": ["none"] },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["provider"], "tier": 1, "must_include": ["eu.art_50_2"], "must_exclude": ["eu.art_50_4"] }
     }
   ]
 }
