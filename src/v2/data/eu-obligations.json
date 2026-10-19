@@ -1,0 +1,58 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "Provisional EU AI Act obligation keys used by the classification spec and the golden suite. Phase 3 turns each into a full requirement (artefact, crosswalk to ISO/IEC 42001 and NIST AI RMF). 'applies' is a plain-language statement of the rule in docs/v2/classification-spec.md §5. Dates reflect Reg. (EU) 2024/1689 as amended by Reg. (EU) 2026/1744.",
+  "dates": {
+    "annex_iii": "2027-12-02",
+    "annex_i": "2028-08-02"
+  },
+  "obligations": [
+    { "id": "eu.art_4",    "citation": "Art. 4",  "title": "AI literacy (support measures, as amended 2026)", "role": ["provider", "deployer"], "applies": "Any in-scope provider or deployer.", "effective_from": "2025-02-02" },
+
+    { "id": "eu.art_5_1a", "citation": "Art. 5(1)(a)", "title": "Prohibited: manipulative techniques", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1b", "citation": "Art. 5(1)(b)", "title": "Prohibited: exploiting vulnerabilities", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1c", "citation": "Art. 5(1)(c)", "title": "Prohibited: social scoring", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1d", "citation": "Art. 5(1)(d)", "title": "Prohibited: crime prediction solely by profiling", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1e", "citation": "Art. 5(1)(e)", "title": "Prohibited: untargeted facial scraping", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1f", "citation": "Art. 5(1)(f)", "title": "Prohibited: emotion recognition at work or in education", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1g", "citation": "Art. 5(1)(g)", "title": "Prohibited: biometric categorisation of sensitive traits", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1h", "citation": "Art. 5(1)(h)", "title": "Prohibited: real-time RBI for law enforcement", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2025-02-02" },
+    { "id": "eu.art_5_1ba", "citation": "Art. 5(1)(ba)", "title": "Prohibited: non-consensual intimate imagery", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2026-12-02" },
+    { "id": "eu.art_5_1bb", "citation": "Art. 5(1)(bb)", "title": "Prohibited: child sexual abuse material", "role": ["provider", "deployer"], "applies": "Screen answered yes.", "effective_from": "2026-12-02" },
+
+    { "id": "eu.art_6_4",  "citation": "Art. 6(4)", "title": "Document the assessment that an Annex III system is not high-risk", "role": ["provider"], "applies": "Status not_high_risk_6_3.", "effective_from": "annex_iii" },
+    { "id": "eu.art_49_2", "citation": "Art. 49(2)", "title": "Register the Art. 6(3) non-high-risk system", "role": ["provider"], "applies": "Status not_high_risk_6_3.", "effective_from": "annex_iii", "notes": "Retained by Reg. (EU) 2026/1744 (Art. 49 not amended). The registration content is lighter: Annex VIII Section B points 7 (summary of grounds) and 9 (Member States) are deleted." },
+
+    { "id": "eu.art_9",    "citation": "Art. 9",  "title": "Risk management system", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_10",   "citation": "Art. 10", "title": "Data and data governance", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_11",   "citation": "Art. 11 + Annex IV", "title": "Technical documentation (simplified form for SMEs and small mid-caps)", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_12",   "citation": "Art. 12", "title": "Record-keeping (automatic logging)", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_13",   "citation": "Art. 13", "title": "Transparency and instructions for use to deployers", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_14",   "citation": "Art. 14", "title": "Human oversight by design", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_15",   "citation": "Art. 15", "title": "Accuracy, robustness and cybersecurity", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_16",   "citation": "Art. 16", "title": "Provider obligations (overall)", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_17",   "citation": "Art. 17", "title": "Quality management system (proportionate for SMEs and small mid-caps)", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_43",   "citation": "Art. 43", "title": "Conformity assessment", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_47",   "citation": "Art. 47-48", "title": "EU declaration of conformity and CE marking", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_49_1", "citation": "Art. 49(1)", "title": "Register the high-risk system in the EU database", "role": ["provider"], "applies": "High-risk under Annex III (except point 2, registered nationally), provider.", "effective_from": "annex_iii" },
+    { "id": "eu.art_72",   "citation": "Art. 72", "title": "Post-market monitoring", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+    { "id": "eu.art_73",   "citation": "Art. 73", "title": "Serious incident reporting", "role": ["provider"], "applies": "High-risk, provider.", "effective_from": "basis" },
+
+    { "id": "eu.art_23",   "citation": "Art. 23", "title": "Importer obligations", "role": ["importer_distributor"], "applies": "High-risk, importer or distributor role selected.", "effective_from": "basis" },
+    { "id": "eu.art_24",   "citation": "Art. 24", "title": "Distributor obligations", "role": ["importer_distributor"], "applies": "High-risk, importer or distributor role selected.", "effective_from": "basis" },
+
+    { "id": "eu.art_26",   "citation": "Art. 26", "title": "Deployer obligations (use per instructions, oversight, input data, monitoring, logs)", "role": ["deployer"], "applies": "High-risk, deployer.", "effective_from": "basis" },
+    { "id": "eu.art_26_7", "citation": "Art. 26(7)", "title": "Inform workers and their representatives before workplace use", "role": ["deployer"], "applies": "High-risk, deployer, staff affected.", "effective_from": "basis" },
+    { "id": "eu.art_26_11","citation": "Art. 26(11)", "title": "Inform people that they are subject to the high-risk system", "role": ["deployer"], "applies": "Annex III high-risk, deployer, the system makes or assists decisions related to natural persons, workers included. The spec approximates this as: not point 2, and any affected persons.", "effective_from": "annex_iii" },
+    { "id": "eu.art_27",   "citation": "Art. 27", "title": "Fundamental rights impact assessment", "role": ["deployer"], "applies": "Annex III high-risk (not point 2), deployer that is a public authority or private entity providing public services, or any deployer under point 5(b) or 5(c).", "effective_from": "annex_iii" },
+    { "id": "eu.art_49_3", "citation": "Art. 49(3)", "title": "Public-authority deployer registration", "role": ["deployer"], "applies": "Annex III high-risk (not point 2), deployer that is a public authority.", "effective_from": "annex_iii" },
+    { "id": "eu.art_86",   "citation": "Art. 86", "title": "Explanation of individual decisions to affected persons", "role": ["deployer"], "applies": "Annex III high-risk (not point 2), deployer, severity material or serious.", "effective_from": "annex_iii" },
+
+    { "id": "eu.art_50_1", "citation": "Art. 50(1)", "title": "Tell people they are interacting with AI", "role": ["provider"], "applies": "Interacts directly with people, provider.", "effective_from": "2026-08-02" },
+    { "id": "eu.art_50_2", "citation": "Art. 50(2)", "title": "Machine-readable marking of synthetic content", "role": ["provider"], "applies": "Generates synthetic audio, image, video or text, provider.", "effective_from": "2026-08-02", "notes": "Art. 111(4): systems placed on the market before 2 Aug 2026 must comply by 2 Dec 2026. Does not apply to assistive editing that does not substantially alter input." },
+    { "id": "eu.art_50_3", "citation": "Art. 50(3)", "title": "Inform people exposed to emotion recognition or biometric categorisation", "role": ["deployer"], "applies": "Emotion recognition or biometric categorisation, deployer.", "effective_from": "2026-08-02" },
+    { "id": "eu.art_50_4", "citation": "Art. 50(4)", "title": "Disclose deepfakes and AI-generated public-interest text", "role": ["deployer"], "applies": "Deepfake or public-interest text without human editorial responsibility, deployer.", "effective_from": "2026-08-02" },
+
+    { "id": "eu.art_53",   "citation": "Art. 53", "title": "General-purpose AI model provider obligations", "role": ["gpai_provider"], "applies": "GPAI model provider role selected.", "effective_from": "2025-08-02" },
+    { "id": "eu.art_55",   "citation": "Art. 55", "title": "GPAI models with systemic risk", "role": ["gpai_provider"], "applies": "GPAI model provider and the model meets the systemic-risk threshold (always an open question in v2).", "effective_from": "2025-08-02" }
+  ]
+}

@@ -6,7 +6,35 @@ Thank you for considering a contribution. This project is an open-source AI gove
 
 ## What can I contribute?
 
-### Regulatory mappings (highest value)
+### v2 classification spec and golden scenarios (highest value)
+
+v2 is being rebuilt around purpose-first classification (see [docs/first-principles-review.md](./docs/first-principles-review.md)). The spec is the source of truth:
+
+| File | What it holds |
+|---|---|
+| `docs/v2/classification-spec.md` | The classification pipeline, obligation rules, governance tier and verification register |
+| `src/v2/data/purposes.json` | Purpose catalogue, mapped to EU AI Act Annex III |
+| `src/v2/data/prohibited-practices.json` | Art. 5 screen questions |
+| `src/v2/data/eu-obligations.json` | EU obligation keys, roles and dates |
+| `src/v2/data/tier-matrix.json` | Governance tier rules |
+| `src/v2/data/answer-model.json` | Questionnaire fields and allowed values |
+| `src/v2/golden/scenarios.json` | Golden scenarios: the executable form of the spec |
+
+**Adding or correcting a golden scenario:**
+- Cite the provision you rely on in `basis_refs` (article, recital or Commission guideline).
+- Keep `answers` minimal: they are merged over `defaults`.
+- Prefer edge cases: carve-outs, exceptions, condition failures, role shifts under Art. 25.
+- If a scenario and the spec disagree, fix both in the same pull request.
+
+**Changing a legal rule:**
+- Cite the primary text on EUR-Lex, not a summary.
+- Update the verification register in §8 of the spec.
+
+`npm test` runs `scripts/tests/golden-v2.test.js`. It checks that every scenario is valid against the data files and that each expected tier follows `tier-matrix.json`. Once `src/v2/engine/classify.js` exists, it also checks that the engine matches every scenario.
+
+### v1 regulatory mappings (fixes only)
+
+v1 (`src/data/`) remains live until v2 ships. Fixes to wrong citations or dates are welcome; new mappings should go into v2 instead.
 
 The `src/data/regulatory-mappings.json` file maps configuration conditions to regulatory citations. Adding a new jurisdiction, a new framework, or a new article-level mapping is a pure data-file contribution — no React code required.
 

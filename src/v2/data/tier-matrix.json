@@ -1,0 +1,73 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "Governance tier: framework-neutral, published rule matrix. Order of evaluation: unsure defaults → severity modifiers → base matrix → escalators → floors. Prohibited systems get tier 'P' and no number. See docs/v2/classification-spec.md §6.",
+  "unsure_defaults": {
+    "severity": "material",
+    "autonomy": "human_oversight",
+    "reversible": "no"
+  },
+  "severity_modifiers": [
+    {
+      "id": "irreversible_material_is_serious",
+      "if": { "severity": "material", "reversible": "no" },
+      "set_severity": "serious",
+      "why": "Material harm that cannot easily be detected and reversed is treated as serious."
+    }
+  ],
+  "matrix": {
+    "_axes": "rows = severity, columns = autonomy",
+    "negligible": { "human_decides": 1, "human_oversight": 1, "autonomous": 1 },
+    "minor":      { "human_decides": 1, "human_oversight": 1, "autonomous": 2 },
+    "material":   { "human_decides": 2, "human_oversight": 2, "autonomous": 3 },
+    "serious":    { "human_decides": 3, "human_oversight": 3, "autonomous": 4 }
+  },
+  "escalators": [
+    {
+      "id": "vulnerable_affected",
+      "if_affected_any": ["vulnerable_or_children"],
+      "add": 1,
+      "max": 4,
+      "why": "Vulnerable people or children are affected."
+    }
+  ],
+  "floors": [
+    {
+      "id": "eu_high_risk",
+      "if_status": ["high_risk"],
+      "min": 3,
+      "why": "EU AI Act high-risk systems (including provisional classifications) need at least enhanced governance."
+    },
+    {
+      "id": "sensitive_data",
+      "if_data_any": ["special_category", "biometric", "children"],
+      "min": 2,
+      "why": "Special-category, biometric or children's data."
+    }
+  ],
+  "tiers": {
+    "P": {
+      "name": "Prohibited",
+      "summary": "Do not develop, place on the market or use. Escalate to Legal."
+    },
+    "1": {
+      "name": "Basic",
+      "summary": "Record it and name an owner.",
+      "expects": ["AI inventory entry", "Named business owner", "Acceptable-use check against AI policy", "AI literacy for users"]
+    },
+    "2": {
+      "name": "Standard",
+      "summary": "Lightweight, documented risk assessment and transparency.",
+      "expects": ["Tier 1", "Documented risk assessment (ISO/IEC 23894 process, proportionate)", "User transparency", "Vendor due diligence where third-party", "Basic performance monitoring and an issue route"]
+    },
+    "3": {
+      "name": "Enhanced",
+      "summary": "Formal impact assessment, designed oversight and pre-deployment testing.",
+      "expects": ["Tier 2", "AI system impact assessment (ISO/IEC 42005-style)", "Designed human oversight", "Pre-deployment testing for validity, robustness and bias", "Logging and traceability", "Incident process", "Governance-forum approval before go-live"]
+    },
+    "4": {
+      "name": "Critical",
+      "summary": "Independent challenge and executive accountability.",
+      "expects": ["Tier 3", "Independent validation or review", "Executive sign-off and named accountable executive", "Continuous monitoring with thresholds and kill-switch", "Re-assessment at least every 12 months"]
+    }
+  }
+}

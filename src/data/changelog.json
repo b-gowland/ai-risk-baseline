@@ -2,6 +2,12 @@
   "version": "1.0",
   "entries": [
     {
+      "date": "2026-10-20",
+      "type": "update",
+      "title": "Known issue: EU AI Act classification is being rebuilt",
+      "detail": "A review found that this version classifies systems by technology rather than intended purpose. That causes known errors: fraud detection shown as high-risk under Annex III 5(b), despite being carved out; workplace emotion recognition not flagged as prohibited under Article 5(1)(f); credit scoring by an LLM not shown as high-risk; Annex III education, biometric, law-enforcement, migration and justice uses not mapped; and general-purpose AI model duties listed for deployers. Don't rely on this version to decide whether a system is prohibited or high-risk. Version 2, built around purpose, role and impact and checked against the Official Journal text, is in progress: see the project README on GitHub."
+    },
+    {
       "date": "2026-10-13",
       "type": "fix",
       "title": "EU AI Act dates updated for the Digital Omnibus",

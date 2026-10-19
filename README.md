@@ -6,11 +6,33 @@ The AI Governance Baseline is a free, browser-based governance profiler. Describ
 
 **Live:** [baseline.airiskpractice.org](https://baseline.airiskpractice.org)
 
-**Status: maintained, not actively developed.** Baseline is complete and stable, and stays live and free to use. It is not on the current roadmap — active development is on the [AI Risk Practice training app](https://app.airiskpractice.org). Issues and pull requests are still welcome; new features are not planned right now.
+**Status: v2 rebuild in progress.** The live site (v1) stays up and free to use, but its EU AI Act classification has known errors (see below). Don't rely on it to decide whether a system is prohibited or high-risk. v2 replaces v1 in place when it ships.
 
 ---
 
-## What it does
+## v2: what's changing and why
+
+A [first-principles review](./docs/first-principles-review.md) found that v1 classifies systems by *technology*, while the EU AI Act, ISO/IEC 42001/23894 and NIST AI RMF all start from *intended purpose, role and impact*. As a result, v1 gets the EU AI Act classification wrong in common cases. For example, it shows fraud detection as high-risk, misses that workplace emotion recognition is prohibited, and loses credit scoring as high-risk when the scorer is an LLM.
+
+v2 is built around:
+
+- **Purpose-first classification.** Steps through the prohibited-practice screen, Annex I, Annex III, the Art. 6(3) exemption, Art. 50 transparency and roles, with a "because" trace behind every result.
+- **A governance tier (1–4).** Comes from a published impact × autonomy matrix and tells you how much governance a use case needs, whether or not the EU AI Act applies.
+- **Requirements by role and lifecycle gate.** EU AI Act articles crosswalked to ISO/IEC 42001 and NIST AI RMF, each with the artefact it produces.
+- **"Unsure" answers become open questions** with stated conservative assumptions, never an empty result.
+- **A global core** (EU AI Act, ISO/IEC, NIST) with optional country packs (GDPR, UK, AU).
+
+| Phase | Status |
+|---|---|
+| 1. Spec, purpose catalogue, tier matrix, golden scenarios | **Done**: [classification spec](./docs/v2/classification-spec.md), [`src/v2/`](./src/v2/), verified against the Official Journal text of Reg. (EU) 2024/1689 and 2026/1744 |
+| 2. Classification engine | Next |
+| 3. Requirements library (EU AI Act + ISO/IEC + NIST crosswalk) | Planned |
+| 4. Questionnaire and output UX | Planned |
+| 5. Release: v2 replaces v1 | Planned |
+
+---
+
+## What v1 does (live site)
 
 - **Governance roadmap** — controls laid out by function (Risk · Legal · Tech · Procurement) and lifecycle phase, mandatory items flagged
 - **Key dates** — upcoming and recently commenced obligations for your configuration
@@ -53,9 +75,13 @@ No login. No signup. Your answers never leave the browser: everything is compute
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to propose new regulatory mappings, controls, or risk weights.
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-The data files in `src/data/` are the primary contribution surface. Adding a new jurisdiction requires only data file edits — no React code changes.
+The most valuable contributions now are to v2:
+- corrections to the [classification spec](./docs/v2/classification-spec.md);
+- new edge-case scenarios in [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json), each citing the provision it relies on.
+
+v1 data files in `src/data/` take fixes only.
 
 ---
 
