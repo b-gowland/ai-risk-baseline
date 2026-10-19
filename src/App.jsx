@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
@@ -12,6 +12,9 @@ import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
 import Changelog from './pages/Changelog.jsx'
 import Examples from './pages/Examples.jsx'
+// v2 preview pages load on demand so they don't grow the v1 bundle
+const ConfigureV2 = lazy(() => import('./v2/ui/pages/ConfigureV2.jsx'))
+const OutputV2 = lazy(() => import('./v2/ui/pages/OutputV2.jsx'))
 
 // Handle 404.html redirect for GitHub Pages BrowserRouter
 //
@@ -67,6 +70,9 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/changelog" element={<Changelog />} />
+            {/* v2 preview: hidden routes, not linked from the nav until Phase 5 */}
+            <Route path="/v2/configure" element={<Suspense fallback={null}><ConfigureV2 /></Suspense>} />
+            <Route path="/v2/output" element={<Suspense fallback={null}><OutputV2 /></Suspense>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
