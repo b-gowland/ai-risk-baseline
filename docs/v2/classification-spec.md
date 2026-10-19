@@ -262,3 +262,105 @@ The secondary sources consulted earlier were wrong or imprecise on two points: A
 - No GPAI systemic-risk threshold question.
 - Art. 2 territorial nuance is collapsed into a single `eu_nexus` question.
 - Country packs (GDPR, UK, AU) run after this pipeline and are out of scope for this spec.
+
+## 10. Requirements library
+
+`src/v2/data/requirements.json` turns the classification and the tier into concrete requirements. `src/v2/engine/requirements.js` resolves it and `src/v2/engine/actions.js` picks the first five actions. `classify()` returns both as `requirements` and `actions`. Tests: `scripts/tests/requirements-v2.test.js`.
+
+### 10.1 Shape
+
+```text
+Requirement = {
+  id, title, summary,
+  level:   org | use_case,
+  gate:    classify | design | build | pre_deploy | operate,
+  sources: [{ framework, ref, url? }],   // framework: eu_ai_act | iso_42001 | iso_23894 | iso_42005 | nist_ai_rmf | nist_ai_600_1
+  artefact,                               // what "done" looks like
+  owners:  [risk | legal | tech | procurement],
+  effort:  Low | Medium | High,
+  effective_from: YYYY-MM-DD | null,      // earliest date of the EU obligations it cites; null if none
+  why,                                    // the conditions that made it apply
+  existing?: true                         // org items only, see 10.3
+}
+actions = [{ rank, requirement_id, title, why }]   // at most 5
+```
+
+One requirement can satisfy several frameworks, so it is listed once. For example, `uc.risk_assessment` is the tier-2 risk assessment (ISO/IEC 23894 cl. 6.4–6.5, ISO/IEC 42001 cl. 6.1.2–6.1.3 and 8.2–8.3, NIST MAP 5.1, MANAGE 1.2–1.3) and, when the engine lists `eu.art_9`, also the Art. 9 risk management system.
+
+### 10.2 When a requirement applies
+
+`applies` is a typed predicate over the classification result:
+
+| Leaf | Matches when |
+|---|---|
+| `always: true` | always |
+| `status: [...]` | `result.status` is one of the values |
+| `obligation: [eu.*]` | `result.obligations` lists any of the keys |
+| `tier_min: n` | `result.tier` is a number ≥ n (never for tier `P`) |
+| `role: [...]` / `tech: [...]` | the answer intersects the values |
+
+`all` and `any` combine leaves. The leaves that matched become the requirement's `why`.
+
+**EU sources follow the engine.** An EU source with an `obligation` key is shown only when `classify()` lists that obligation; one marked `in_scope` only when the status is not `out_of_scope`. So a merged requirement cites the EU article only where the Act applies to this user in this role. When at least one EU obligation source is shown, the requirement's `eu_variant` (title, summary, artefact, effort) replaces the framework-neutral wording, e.g. "AI system impact assessment" becomes "Fundamental rights impact assessment (EU Art. 27)".
+
+**Every EU obligation key maps to exactly one requirement:**
+
+| Requirement | EU obligation keys | Also applies |
+|---|---|---|
+| `uc.prohibited_stop` | `art_5_1*` | status `prohibited` |
+| `uc.classification_record` | (Arts. 2, 3, 6, 25 cited) | always |
+| `org.ai_literacy` | `art_4` | tier ≥ 1 |
+| `uc.art_6_3_record` | `art_6_4`, `art_49_2` | |
+| `uc.risk_assessment` | `art_9` | tier ≥ 2 |
+| `uc.impact_assessment` | `art_27` | tier ≥ 3 |
+| `org.aims` | `art_17` | tier ≥ 3 |
+| `uc.human_oversight` | `art_14` | tier ≥ 3 |
+| `uc.data_governance` | `art_10` | tier ≥ 3 and a building role |
+| `uc.testing` | `art_15` | tier ≥ 3 |
+| `uc.logging` | `art_12` | tier ≥ 3 |
+| `uc.technical_documentation` | `art_11`, `art_13` | |
+| `uc.transparency` | `art_50_1`, `art_50_3`, `art_50_4`, `art_26_7`, `art_26_11`, `art_86` | tier ≥ 2 |
+| `uc.content_marking` | `art_50_2` | |
+| `uc.gpai_model` | `art_53`, `art_55` | |
+| `uc.importer_distributor` | `art_23`, `art_24` | |
+| `uc.deployer_duties` | `art_26` | |
+| `uc.conformity` | `art_16`, `art_43`, `art_47` | |
+| `uc.eu_registration` | `art_49_1`, `art_49_3` | |
+| `uc.monitoring` | `art_72` | tier ≥ 2 |
+| `uc.incident_process` | `art_73` | tier ≥ 3 |
+
+**Tier core.** These apply whether or not the EU AI Act does, following `tier-matrix.json → tiers.expects`:
+
+- Tier 1: `org.ai_inventory`, `uc.owner` (named owner and acceptable-use check), `org.ai_policy`, `org.ai_literacy`.
+- Tier 2 adds: `uc.risk_assessment` (ISO/IEC 23894 process), `uc.transparency`, `uc.vendor_due_diligence` (only where a vendor system or third-party model is used), `uc.monitoring`.
+- Tier 3 adds: `uc.impact_assessment` (ISO/IEC 42005-style), `uc.human_oversight`, `uc.testing`, `uc.logging`, `uc.incident_process`, `uc.go_live_approval`, `org.aims`, and `uc.data_governance` when the user builds the system.
+- Tier 4 adds: `uc.independent_review`, `uc.exec_accountability`, `uc.continuous_monitoring` (thresholds, kill-switch, re-assessment at least every 12 months).
+- `uc.genai_overlay` (NIST AI 600-1, 12 GAI risks) applies at any tier when `tech` includes `llm_genai`.
+- `uc.classification_record` always applies, so the list is never empty. A `prohibited` result gets only `uc.prohibited_stop` and `uc.classification_record`.
+
+### 10.3 Organisation-level items
+
+`org.ai_policy`, `org.ai_inventory`, `org.ai_literacy` and `org.aims` are `level: "org"`: done once for the organisation, not per system. When `ai_policy_inventory = yes`, `org.ai_policy` and `org.ai_inventory` are kept with `existing: true` and a `why` starting "Existing: confirm it covers this use case". When it is `unsure`, the `why` starts "Check whether this already exists". The answer says nothing about literacy measures or a management system, so those two are never marked existing.
+
+### 10.4 First 5 actions
+
+Ordered by gate and dependency, never by effort. One slot per stage, each filled by the first applicable requirement in its preference list:
+
+1. **Classify:** `uc.classification_record`. If any open question is blocking, the action is "Resolve the blocking open questions and record the classification" and the `why` lists them with their assumptions.
+2. **Inventory:** `org.ai_inventory`.
+3. **Assess:** `uc.impact_assessment`, else `uc.risk_assessment`, else `uc.owner`.
+4. **Blocks go-live:** `uc.conformity`, `uc.art_6_3_record`, `uc.gpai_model`, `uc.importer_distributor`, `uc.deployer_duties`, `uc.go_live_approval`, `uc.content_marking`, `uc.transparency`, `uc.vendor_due_diligence`, `org.ai_literacy`.
+5. **Operate:** `uc.incident_process`, else `uc.monitoring`, else `org.ai_literacy`.
+
+The picks are then stably sorted by gate, so the list never goes backwards in the lifecycle. For a `prohibited` result there are two actions: stop and escalate (`uc.prohibited_stop`), then record the finding.
+
+### 10.5 Sources and verification
+
+Each framework in `requirements.json → frameworks` has a URL, a `last_verified` date and a source note.
+
+| Framework | Checked on 2026-10-20 |
+|---|---|
+| EU AI Act | Article references as in §8. |
+| NIST AI RMF 1.0 (AI 100-1) | All 72 subcategory ids checked against the PDF from nvlpubs.nist.gov; the test suite rejects any other id. |
+| NIST AI 600-1 | The 12 risk names checked against Section 2 of the PDF (note: "Harmful Bias **or** Homogenization"). |
+| ISO/IEC 42001, 23894, 42005 | Catalogue pages checked (editions and dates). The texts are paywalled and were **not** consulted. Clause and Annex A control numbers are cited from the standards' published structure, with our own paraphrase only; no ISO text is reproduced. Corrections welcome via an issue. |
