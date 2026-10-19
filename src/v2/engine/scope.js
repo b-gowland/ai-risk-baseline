@@ -14,9 +14,13 @@ const EXCLUDED = {
   military_defence_national_security: 'Art. 2(3)',
   scientific_research_only: 'Art. 2(6)',
   pre_market_research: 'Art. 2(8)',
-  // Art. 2(10) strictly removes only the obligations of natural-person deployers; spec §3 treats it as out of scope.
-  personal_non_professional: 'Art. 2(10)',
 };
+
+// Art. 2(10) removes only the obligations of deployers who are natural persons acting in a
+// purely personal, non-professional capacity. It does not take the system out of scope, so
+// it ends the pipeline only when deploying is the user's sole role (roles.js drops the
+// deployer role otherwise).
+const PERSONAL_DEPLOYER_ONLY = ['deploy_vendor'];
 
 const FOSS_IN_SCOPE = ['prohibited', 'high_risk', 'transparency'];
 
@@ -37,6 +41,13 @@ export function scopeStep(answers) {
       because: because(answers, 'scope_exclusion'),
     });
     return { scope: 'out', out: true, foss: false, open_questions, trace };
+  }
+  if (exclusion === 'personal_non_professional') {
+    if (answers.role.every(r => PERSONAL_DEPLOYER_ONLY.includes(r))) {
+      trace.push({ step: 0, rule: 'Art. 2(10): personal, non-professional deployer, so deployer obligations do not apply, out of scope', because: because(answers, 'scope_exclusion', 'role') });
+      return { scope: 'out', out: true, foss: false, open_questions, trace };
+    }
+    trace.push({ step: 0, rule: 'Art. 2(10): removes only personal deployer obligations; your other roles still carry obligations, so the system stays in scope', because: because(answers, 'scope_exclusion', 'role') });
   }
 
   let scope = 'in';

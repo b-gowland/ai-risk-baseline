@@ -67,7 +67,8 @@ The steps run in order. A step can end the pipeline early, but it always records
 |---|---|
 | `eu_nexus = no` | `scope=out`, `status=out_of_scope`. The tier and the core (ISO/NIST) baseline are still produced. |
 | `eu_nexus = unsure` | `scope=undetermined`. Continue as if in scope; open question `eu_nexus`, assumption "treat as in scope", **provisional**. |
-| `scope_exclusion` ∈ military_defence_national_security, scientific_research_only, pre_market_research, personal_non_professional | `scope=out`, `status=out_of_scope`. Note: real-world testing is not covered by the pre-market exclusion. |
+| `scope_exclusion` ∈ military_defence_national_security, scientific_research_only, pre_market_research | `scope=out`, `status=out_of_scope`. Note: real-world testing is not covered by the pre-market exclusion. |
+| `scope_exclusion = personal_non_professional` | Art. 2(10) removes only the obligations of **deployers** who are natural persons acting in a purely personal, non-professional capacity. It does not take the system out of scope. If `role` is only `deploy_vendor` → `scope=out`, `status=out_of_scope`. Otherwise continue in scope, and Step 6 drops the `deployer` role (provider and other duties remain). |
 | `scope_exclusion = free_open_source` | Evaluate steps 1–5. If the result is `prohibited`, `high_risk` or `transparency`, stay in scope (Art. 2(12)). Otherwise `scope=out`. |
 | `scope_exclusion = unsure` | Open question; continue as in scope. |
 
@@ -151,6 +152,7 @@ Otherwise, `status=minimal`.
 | `import_or_distribute` | importer_distributor (`eu.art_23`, `eu.art_24` if high-risk) |
 | `gpai_model_provider` | gpai_provider (Art. 53). `eu.art_55` is always an open question (systemic-risk threshold). |
 | `unsure` | provider + deployer, provisional, open question `role` |
+| *any, with `scope_exclusion = personal_non_professional`* | `deployer` is removed (Art. 2(10)); the other roles stay |
 
 When Art. 25(1) makes someone the new provider, Art. 25(2) as amended says the initial provider is no longer the provider of that system. It must still cooperate: it hands over technical documentation, tells the new provider about known limitations and failure modes, and gives targeted technical access for testing. This duty doesn't apply where the initial provider clearly specified that the system must not be turned into a high-risk system. In that case the trace tells the user to check the vendor terms.
 

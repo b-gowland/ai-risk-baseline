@@ -25,9 +25,9 @@ v2 is built around:
 | Phase | Status |
 |---|---|
 | 1. Spec, purpose catalogue, tier matrix, golden scenarios | **Done**: [classification spec](./docs/v2/classification-spec.md), [`src/v2/`](./src/v2/), verified against the Official Journal text of Reg. (EU) 2024/1689 and 2026/1744 |
-| 2. Classification engine | Next |
-| 3. Requirements library (EU AI Act + ISO/IEC + NIST crosswalk) | Planned |
-| 4. Questionnaire and output UX | Planned |
+| 2. Classification engine | **Done**: [`src/v2/engine/`](./src/v2/engine/), passes all golden scenarios |
+| 3. Requirements library (EU AI Act + ISO/IEC + NIST crosswalk) | In progress |
+| 4. Questionnaire and output UX | In progress |
 | 5. Release: v2 replaces v1 | Planned |
 
 ---
