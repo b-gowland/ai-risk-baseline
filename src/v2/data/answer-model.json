@@ -1,0 +1,153 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "Answer model for the v2 use-case questionnaire. Field ids are the contract between the questionnaire, the URL state, the classification engine and the golden suite. 'show_when' uses the predicate language described in docs/v2/classification-spec.md §2. 'unsure' always means: record an open question and apply the conservative assumption in the spec.",
+  "fields": [
+    {
+      "id": "purpose",
+      "type": "single",
+      "values_from": "purposes",
+      "extra_values": ["unsure"],
+      "required": true,
+      "question": "What is the system intended to be used for?"
+    },
+    {
+      "id": "prohibited",
+      "type": "map",
+      "keys_from": "prohibited_practices",
+      "values": ["yes", "no", "unsure"],
+      "question": "Prohibited-practice screen (only the items relevant to your purpose are shown)."
+    },
+    {
+      "id": "eu_nexus",
+      "type": "single",
+      "values": ["yes", "no", "unsure"],
+      "question": "Will the system be placed on the EU market or used in the EU, or will its outputs be used in the EU?"
+    },
+    {
+      "id": "scope_exclusion",
+      "type": "single",
+      "values": ["none", "military_defence_national_security", "scientific_research_only", "pre_market_research", "personal_non_professional", "free_open_source", "unsure"],
+      "question": "Does any of these apply exclusively?"
+    },
+    {
+      "id": "role",
+      "type": "multi",
+      "values": ["build_own_use", "build_supply", "deploy_vendor", "put_name_on_or_substantially_modify", "repurpose_to_high_risk", "import_or_distribute", "gpai_model_provider", "unsure"],
+      "question": "What is your organisation's role?"
+    },
+    {
+      "id": "org_type",
+      "type": "single",
+      "values": ["private", "private_public_service", "public_authority", "unsure"],
+      "question": "What kind of organisation will use the system?"
+    },
+    {
+      "id": "org_size",
+      "type": "single",
+      "values": ["sme", "small_mid_cap", "large", "unsure"],
+      "question": "Organisation size"
+    },
+    {
+      "id": "annex_i_product",
+      "type": "single",
+      "values": ["yes", "no", "unsure"],
+      "show_when": { "any": [ { "purpose": ["medical_clinical_support", "product_safety_component", "other", "unsure"] } ] },
+      "question": "Is the AI a safety component of (or itself) a regulated product that needs third-party conformity assessment, e.g. a medical device?"
+    },
+    {
+      "id": "art_6_3",
+      "type": "map",
+      "keys": ["narrow_procedural", "improves_completed_human_activity", "pattern_detection_with_review", "preparatory", "profiling"],
+      "values": ["yes", "no", "unsure"],
+      "show_when": { "annex_iii_matched": true },
+      "question": "Does the system only do one of these (and does it profile people)?"
+    },
+    {
+      "id": "interaction",
+      "type": "multi",
+      "values": ["interacts_directly", "generates_synthetic_content", "deepfake", "public_interest_text", "emotion_or_biometric_categorisation"],
+      "question": "Which of these does the system do? (none is a valid answer)"
+    },
+    {
+      "id": "autonomy",
+      "type": "single",
+      "values": ["human_decides", "human_oversight", "autonomous", "unsure"],
+      "question": "How much does a human control what the system does?"
+    },
+    {
+      "id": "severity",
+      "type": "single",
+      "values": ["negligible", "minor", "material", "serious", "unsure"],
+      "question": "If the system gets it wrong, what is the worst plausible harm to a person?"
+    },
+    {
+      "id": "reversible",
+      "type": "single",
+      "values": ["yes", "no", "unsure"],
+      "question": "Can that harm be easily detected and reversed?"
+    },
+    {
+      "id": "affected",
+      "type": "multi",
+      "values": ["staff", "customers", "public", "vulnerable_or_children"],
+      "question": "Who is affected by the system's outputs?"
+    },
+    {
+      "id": "data",
+      "type": "multi",
+      "values": ["none", "personal", "special_category", "biometric", "children"],
+      "question": "What data does it process?"
+    },
+    {
+      "id": "tech",
+      "type": "multi",
+      "values": ["classical_ml", "llm_genai", "agent_tools", "vision_biometric", "third_party_model"],
+      "question": "Which technologies does it use? (affects technical risk considerations only, never legal classification)"
+    },
+    {
+      "id": "stage",
+      "type": "single",
+      "values": ["idea", "build", "pre_deploy", "live"],
+      "question": "Where is it in its lifecycle?"
+    },
+    {
+      "id": "ai_policy_inventory",
+      "type": "single",
+      "values": ["yes", "no", "unsure"],
+      "question": "Does your organisation already have an AI policy and an AI inventory?"
+    }
+  ],
+  "value_help": {
+    "role": {
+      "build_own_use": "We build it (or have it built) and use it ourselves. Makes you provider and deployer.",
+      "build_supply": "We build it and supply it to others. Makes you provider.",
+      "deploy_vendor": "We use a system made by someone else. Makes you deployer.",
+      "put_name_on_or_substantially_modify": "We put our name or trademark on someone else's system, or substantially modify it (Art. 25(1)(a)-(b)).",
+      "repurpose_to_high_risk": "We use a system for a high-risk purpose its maker did not intend (Art. 25(1)(c)).",
+      "import_or_distribute": "We import or distribute someone else's system in the EU.",
+      "gpai_model_provider": "We develop and release a general-purpose AI model."
+    },
+    "autonomy": {
+      "human_decides": "A person makes every decision; the system only informs it.",
+      "human_oversight": "The system acts or decides, and people review samples or can override.",
+      "autonomous": "The system acts or decides with no case-by-case human review, including taking actions through tools."
+    },
+    "severity": {
+      "negligible": "Nothing that matters to a person.",
+      "minor": "Inconvenience, easily worked around.",
+      "material": "Financial loss, or losing or being delayed in access to a service, job, education or opportunity.",
+      "serious": "Legal effects, harm to health or safety, or a significant impact on fundamental rights."
+    },
+    "org_type": {
+      "private_public_service": "Private entity providing public services (e.g. education, healthcare, utilities, social services).",
+      "public_authority": "Public authority, or a body acting on its behalf."
+    },
+    "art_6_3": {
+      "narrow_procedural": "Performs a narrow procedural task (e.g. turns unstructured data into structured data).",
+      "improves_completed_human_activity": "Improves the result of a human activity already completed.",
+      "pattern_detection_with_review": "Detects decision patterns or deviations from them, and does not replace or influence the prior human assessment without proper human review.",
+      "preparatory": "Performs a preparatory task for an assessment relevant to the Annex III purpose.",
+      "profiling": "Profiles natural persons (automated evaluation of personal aspects). If yes, the system is always high-risk."
+    }
+  }
+}

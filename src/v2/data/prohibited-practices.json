@@ -1,0 +1,117 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "Art. 5 prohibited-practice screen. Each item is a yes/no/unsure question in plain language, with the exceptions written into the question so 'yes' means prohibited. 'show_when' limits which items a user sees; purpose 'other' or 'unsure' shows all. Interpretation follows the Commission Guidelines on prohibited AI practices (February 2025).",
+  "practices": [
+    {
+      "id": "art_5_1a",
+      "citation": "Art. 5(1)(a)",
+      "title": "Manipulative or deceptive techniques",
+      "question": "Does the system use subliminal, purposefully manipulative or deceptive techniques that materially distort people's behaviour in a way that causes, or is reasonably likely to cause, significant harm?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["recommendation_personalisation", "marketing_targeting", "election_influence", "customer_service_assistant", "content_generation", "other", "unsure"] },
+        { "tech": ["llm_genai", "agent_tools"] }
+      ] }
+    },
+    {
+      "id": "art_5_1b",
+      "citation": "Art. 5(1)(b)",
+      "title": "Exploiting vulnerabilities",
+      "question": "Does the system exploit vulnerabilities due to age, disability or a specific social or economic situation to materially distort behaviour in a way that causes, or is reasonably likely to cause, significant harm?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "affected": ["vulnerable_or_children"] },
+        { "purpose": ["recommendation_personalisation", "marketing_targeting", "credit_scoring", "public_benefits_eligibility", "other", "unsure"] }
+      ] }
+    },
+    {
+      "id": "art_5_1c",
+      "citation": "Art. 5(1)(c)",
+      "title": "Social scoring",
+      "question": "Does the system evaluate or classify people over time based on social behaviour or personal characteristics, leading to detrimental treatment in unrelated contexts or treatment that is unjustified or disproportionate?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["public_benefits_eligibility", "credit_scoring", "life_health_insurance_pricing", "workforce_management", "law_enforcement", "other", "unsure"] }
+      ] }
+    },
+    {
+      "id": "art_5_1d",
+      "citation": "Art. 5(1)(d)",
+      "title": "Crime prediction based solely on profiling",
+      "question": "Does the system assess or predict the risk of a person committing a crime based solely on profiling or personality traits (rather than supporting a human assessment based on objective, verifiable facts)?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["law_enforcement", "migration_border", "other", "unsure"] },
+        { "org_type": ["public_authority"] }
+      ] }
+    },
+    {
+      "id": "art_5_1e",
+      "citation": "Art. 5(1)(e)",
+      "title": "Untargeted scraping of facial images",
+      "question": "Does the system create or expand a facial recognition database through untargeted scraping of facial images from the internet or CCTV footage?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["biometric_remote_identification", "biometric_verification", "biometric_categorisation", "other", "unsure"] },
+        { "tech": ["vision_biometric"] }
+      ] }
+    },
+    {
+      "id": "art_5_1f",
+      "citation": "Art. 5(1)(f)",
+      "title": "Emotion recognition at work or in education",
+      "question": "Does the system infer the emotions of people in a workplace or education setting, for reasons other than medical or safety reasons?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["emotion_recognition", "exam_proctoring", "workforce_management", "recruitment_selection", "education_admission", "education_assessment", "education_level_assignment", "other", "unsure"] },
+        { "interaction": ["emotion_or_biometric_categorisation"] }
+      ] }
+    },
+    {
+      "id": "art_5_1g",
+      "citation": "Art. 5(1)(g)",
+      "title": "Biometric categorisation of sensitive traits",
+      "question": "Does the system use biometric data to categorise people by inferred race, political opinions, trade union membership, religious or philosophical beliefs, sex life or sexual orientation (other than labelling or filtering lawfully acquired datasets)?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["biometric_categorisation", "marketing_targeting", "other", "unsure"] },
+        { "tech": ["vision_biometric"] },
+        { "interaction": ["emotion_or_biometric_categorisation"] }
+      ] }
+    },
+    {
+      "id": "art_5_1h",
+      "citation": "Art. 5(1)(h)",
+      "title": "Real-time remote biometric identification for law enforcement",
+      "question": "Is the system used for real-time remote biometric identification in publicly accessible spaces for law enforcement, outside the narrow authorised exceptions?",
+      "effective_from": "2025-02-02",
+      "show_when": { "any": [
+        { "purpose": ["biometric_remote_identification", "law_enforcement", "other", "unsure"] }
+      ] }
+    },
+    {
+      "id": "art_5_ncii",
+      "citation": "Art. 5 (as amended by Reg. (EU) 2026/1744): non-consensual intimate imagery",
+      "title": "Non-consensual intimate imagery (\"nudifiers\")",
+      "question": "Is the system designed to generate or manipulate realistic intimate images, video or audio of an identifiable person without consent, or is that a reasonably foreseeable, reproducible output because it lacks effective safeguards?",
+      "effective_from": "2026-12-02",
+      "verification": "Paragraph lettering and exact wording to confirm against the OJ text of Reg. (EU) 2026/1744.",
+      "show_when": { "any": [
+        { "purpose": ["synthetic_media_generation", "content_generation", "other", "unsure"] },
+        { "interaction": ["generates_synthetic_content", "deepfake"] }
+      ] }
+    },
+    {
+      "id": "art_5_csam",
+      "citation": "Art. 5 (as amended by Reg. (EU) 2026/1744): child sexual abuse material",
+      "title": "Child sexual abuse material",
+      "question": "Is the system designed to generate child sexual abuse material, or is that a reasonably foreseeable, reproducible output because it lacks effective safeguards?",
+      "effective_from": "2026-12-02",
+      "verification": "Paragraph lettering, wording and the Member State 'without right' defence to confirm against the OJ text of Reg. (EU) 2026/1744.",
+      "show_when": { "any": [
+        { "purpose": ["synthetic_media_generation", "content_generation", "other", "unsure"] },
+        { "interaction": ["generates_synthetic_content", "deepfake"] }
+      ] }
+    }
+  ]
+}

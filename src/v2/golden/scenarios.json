@@ -1,0 +1,424 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "Golden scenarios for the v2 classification spec (docs/v2/classification-spec.md). Each scenario's answers are shallow-merged over 'defaults'. In 'expect', 'basis' and 'roles' are asserted only when present; 'open_questions', 'must_include' and 'must_exclude' are subsets. Unanswered shown prohibited items default to 'no'.",
+  "defaults": {
+    "prohibited": {},
+    "eu_nexus": "yes",
+    "scope_exclusion": "none",
+    "role": ["deploy_vendor"],
+    "org_type": "private",
+    "org_size": "large",
+    "annex_i_product": "no",
+    "art_6_3": {},
+    "interaction": [],
+    "autonomy": "human_decides",
+    "severity": "minor",
+    "reversible": "yes",
+    "affected": ["customers"],
+    "data": ["personal"],
+    "tech": ["classical_ml"],
+    "stage": "build",
+    "ai_policy_inventory": "no"
+  },
+  "scenarios": [
+    {
+      "id": "G01",
+      "title": "Emotion recognition of employees (vendor tool)",
+      "basis_refs": ["Art. 5(1)(f)", "Recital 44", "Commission Guidelines on prohibited AI practices (Feb 2025), emotion recognition section"],
+      "answers": { "purpose": "emotion_recognition", "prohibited": { "art_5_1f": "yes" }, "affected": ["staff"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1f", "provisional": false, "roles": ["deployer"], "tier": "P", "must_include": ["eu.art_5_1f"], "must_exclude": ["eu.art_26", "eu.art_50_3", "eu.art_4"] }
+    },
+    {
+      "id": "G02",
+      "title": "Call-centre voice emotion analysis of customers (not staff)",
+      "basis_refs": ["Annex III 1(c)", "Art. 50(3)", "Art. 5(1)(f) limited to workplace and education"],
+      "answers": { "purpose": "emotion_recognition", "prohibited": { "art_5_1f": "no" }, "interaction": ["emotion_or_biometric_categorisation"], "data": ["personal", "biometric"], "autonomy": "human_oversight" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_11", "eu.art_50_3", "eu.art_4"], "must_exclude": ["eu.art_9", "eu.art_27", "eu.art_86"] }
+    },
+    {
+      "id": "G03",
+      "title": "Retail facial identification of shoppers against a watchlist (private, not law enforcement)",
+      "basis_refs": ["Annex III 1(a)", "Art. 5(1)(h) applies only to law enforcement"],
+      "answers": { "purpose": "biometric_remote_identification", "prohibited": { "art_5_1h": "no", "art_5_1e": "no" }, "affected": ["public"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(a)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_11", "eu.art_86"], "must_exclude": ["eu.art_27", "eu.art_9", "eu.art_49_3"] }
+    },
+    {
+      "id": "G04",
+      "title": "Face login (1:1 biometric verification)",
+      "basis_refs": ["Annex III 1(a) excludes verification", "Recital 54"],
+      "answers": { "purpose": "biometric_verification", "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 2, "must_include": ["eu.art_4"], "must_exclude": ["eu.art_26", "eu.art_9", "eu.art_50_3"] }
+    },
+    {
+      "id": "G05",
+      "title": "Building a face database by scraping the web",
+      "basis_refs": ["Art. 5(1)(e)"],
+      "answers": { "purpose": "biometric_remote_identification", "prohibited": { "art_5_1e": "yes" }, "role": ["build_supply"], "affected": ["public"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "autonomous", "severity": "serious" },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1e", "provisional": false, "roles": ["provider"], "tier": "P", "must_include": ["eu.art_5_1e"], "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G06",
+      "title": "Inferring sexual orientation from photos for ad targeting",
+      "basis_refs": ["Art. 5(1)(g)"],
+      "answers": { "purpose": "biometric_categorisation", "prohibited": { "art_5_1g": "yes" }, "role": ["build_own_use"], "affected": ["public"], "data": ["biometric"], "tech": ["vision_biometric"] },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1g", "provisional": false, "roles": ["provider", "deployer"], "tier": "P", "must_include": ["eu.art_5_1g"] }
+    },
+    {
+      "id": "G07",
+      "title": "Public university uses vendor essay-scoring system",
+      "basis_refs": ["Annex III 3(b)", "Art. 27(1)", "Art. 49(3)", "Art. 86"],
+      "answers": { "purpose": "education_assessment", "org_type": "public_authority", "affected": ["public"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.3(b)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_11", "eu.art_27", "eu.art_49_3", "eu.art_86"], "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G08",
+      "title": "Private school uses online proctoring for children's exams",
+      "basis_refs": ["Annex III 3(d)", "Art. 27(1) private entities providing public services", "Recital 96"],
+      "answers": { "purpose": "exam_proctoring", "org_type": "private_public_service", "affected": ["vulnerable_or_children"], "data": ["personal", "biometric", "children"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.3(d)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_27"], "must_exclude": ["eu.art_49_3", "eu.art_9"] }
+    },
+    {
+      "id": "G09",
+      "title": "Bank builds and runs its own automated consumer credit scoring",
+      "basis_refs": ["Annex III 5(b)", "Arts. 9-17, 43, 49(1), 72, 73", "Art. 26", "Art. 27(1) deployers of 5(b)", "Art. 86"],
+      "answers": { "purpose": "credit_scoring", "role": ["build_own_use"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_9", "eu.art_10", "eu.art_11", "eu.art_12", "eu.art_13", "eu.art_14", "eu.art_15", "eu.art_17", "eu.art_43", "eu.art_49_1", "eu.art_72", "eu.art_73", "eu.art_26", "eu.art_26_11", "eu.art_27", "eu.art_86"], "must_exclude": ["eu.art_53", "eu.art_49_3"] }
+    },
+    {
+      "id": "G10",
+      "title": "Card-transaction fraud detection (in-house, automated blocking)",
+      "basis_refs": ["Annex III 5(b) carve-out for fraud detection", "Recital 58"],
+      "answers": { "purpose": "fraud_detection", "role": ["build_own_use"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_4"], "must_exclude": ["eu.art_9", "eu.art_26", "eu.art_27", "eu.art_86"] }
+    },
+    {
+      "id": "G11",
+      "title": "LLM-based credit decisioning built on a third-party model API",
+      "basis_refs": ["Annex III 5(b) is technology-neutral", "Art. 3(3) provider", "GPAI duties sit with the model provider (Art. 53)"],
+      "answers": { "purpose": "credit_scoring", "role": ["build_own_use"], "tech": ["llm_genai", "third_party_model"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_9", "eu.art_26", "eu.art_27"], "must_exclude": ["eu.art_53", "eu.art_50_1"] }
+    },
+    {
+      "id": "G12",
+      "title": "Insurer deploys vendor health-insurance pricing model",
+      "basis_refs": ["Annex III 5(c)", "Art. 27(1)"],
+      "answers": { "purpose": "life_health_insurance_pricing", "data": ["personal", "special_category"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_27", "eu.art_86"], "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G13",
+      "title": "Motor-insurance pricing model",
+      "basis_refs": ["Annex III 5(c) limited to life and health insurance"],
+      "answers": { "purpose": "individual_risk_pricing", "role": ["build_own_use"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_exclude": ["eu.art_9", "eu.art_27"] }
+    },
+    {
+      "id": "G14",
+      "title": "Welfare agency scores benefit eligibility (vulnerable claimants)",
+      "basis_refs": ["Annex III 5(a)", "Art. 27(1)", "Art. 49(3)", "Art. 86"],
+      "answers": { "purpose": "public_benefits_eligibility", "org_type": "public_authority", "affected": ["public", "vulnerable_or_children"], "autonomy": "human_oversight", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(a)", "provisional": false, "roles": ["deployer"], "tier": 4, "must_include": ["eu.art_26", "eu.art_26_11", "eu.art_27", "eu.art_49_3", "eu.art_86"] }
+    },
+    {
+      "id": "G15",
+      "title": "Contractor unsure whether it acts on behalf of a public authority (benefits eligibility)",
+      "basis_refs": ["Annex III 5(a) 'by or on behalf of public authorities'", "Spec §4 conservative assumption"],
+      "answers": { "purpose": "public_benefits_eligibility", "org_type": "unsure", "affected": ["public"], "autonomy": "human_oversight", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(a)", "provisional": true, "roles": ["deployer"], "tier": 3, "open_questions": ["annex_iii_condition"], "must_include": ["eu.art_26", "eu.art_27"] }
+    },
+    {
+      "id": "G16",
+      "title": "Emergency services dispatch prioritisation",
+      "basis_refs": ["Annex III 5(d)", "Art. 27(1)"],
+      "answers": { "purpose": "emergency_triage_dispatch", "org_type": "public_authority", "affected": ["public"], "autonomy": "human_oversight", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(d)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_27", "eu.art_49_3", "eu.art_86"] }
+    },
+    {
+      "id": "G17",
+      "title": "In-house agent screening CVs automatically, built on a third-party LLM",
+      "basis_refs": ["Annex III 4(a)", "Art. 14", "Art. 26", "Art. 86"],
+      "answers": { "purpose": "recruitment_selection", "role": ["build_own_use"], "tech": ["llm_genai", "agent_tools", "third_party_model"], "affected": ["public"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(a)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_9", "eu.art_14", "eu.art_26", "eu.art_26_11", "eu.art_86"], "must_exclude": ["eu.art_53", "eu.art_27", "eu.art_26_7"] }
+    },
+    {
+      "id": "G18",
+      "title": "Using a vendor platform to target job adverts",
+      "basis_refs": ["Annex III 4(a) 'to place targeted job advertisements'"],
+      "answers": { "purpose": "recruitment_selection", "affected": ["public"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(a)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26"], "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G19",
+      "title": "HR team uses a vendor copilot to draft job-ad text (no personal data)",
+      "basis_refs": ["Annex III 4(a) not engaged: no targeting or candidate evaluation", "Art. 50(1) is a provider duty"],
+      "answers": { "purpose": "internal_productivity_assistant", "interaction": ["interacts_directly"], "tech": ["llm_genai", "third_party_model"], "affected": ["staff"], "data": ["none"], "severity": "negligible" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 1, "must_include": ["eu.art_4"], "must_exclude": ["eu.art_50_1", "eu.art_26", "eu.art_9", "eu.art_26_7"] }
+    },
+    {
+      "id": "G20",
+      "title": "Vendor tool scoring staff productivity",
+      "basis_refs": ["Annex III 4(b)", "Art. 26(7)", "Art. 86"],
+      "answers": { "purpose": "workforce_management", "affected": ["staff"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(b)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_86"], "must_exclude": ["eu.art_26_11", "eu.art_27"] }
+    },
+    {
+      "id": "G21",
+      "title": "Gig platform allocates tasks based on driver behaviour (in-house)",
+      "basis_refs": ["Annex III 4(b)", "Art. 6(3) last subparagraph: profiling is always high-risk"],
+      "answers": { "purpose": "workforce_management", "role": ["build_own_use"], "art_6_3": { "profiling": "yes" }, "affected": ["staff"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(b)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_9", "eu.art_26", "eu.art_26_7"] }
+    },
+    {
+      "id": "G22",
+      "title": "CV parser that only converts CVs into structured fields (supplied to others)",
+      "basis_refs": ["Art. 6(3)(a) narrow procedural task", "Art. 6(4)", "Recital 53"],
+      "answers": { "purpose": "recruitment_selection", "role": ["build_supply"], "art_6_3": { "narrow_procedural": "yes", "profiling": "no" }, "affected": ["public"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "not_high_risk_6_3", "basis": "annex_iii.4(a)", "provisional": false, "roles": ["provider"], "tier": 2, "must_include": ["eu.art_6_4"], "must_exclude": ["eu.art_9", "eu.art_43"] }
+    },
+    {
+      "id": "G23",
+      "title": "Candidate-ranking tool claimed as 'preparatory' but profiles candidates",
+      "basis_refs": ["Art. 6(3) last subparagraph"],
+      "answers": { "purpose": "recruitment_selection", "role": ["build_supply"], "art_6_3": { "preparatory": "yes", "profiling": "yes" }, "affected": ["public"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(a)", "provisional": false, "roles": ["provider"], "tier": 3, "must_include": ["eu.art_9"], "must_exclude": ["eu.art_6_4"] }
+    },
+    {
+      "id": "G24",
+      "title": "Recruitment tool provider unsure whether the Art. 6(3) derogation applies",
+      "basis_refs": ["Art. 6(3)", "Spec §4 conservative assumption"],
+      "answers": { "purpose": "recruitment_selection", "role": ["build_supply"], "art_6_3": { "preparatory": "unsure", "profiling": "unsure" }, "affected": ["public"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(a)", "provisional": true, "roles": ["provider"], "tier": 3, "open_questions": ["art_6_3"], "must_include": ["eu.art_9"] }
+    },
+    {
+      "id": "G25",
+      "title": "Company deploys a vendor customer-service chatbot",
+      "basis_refs": ["Art. 50(1) provider duty", "Arts. 53-55 apply to GPAI model providers only"],
+      "answers": { "purpose": "customer_service_assistant", "interaction": ["interacts_directly"], "tech": ["llm_genai", "third_party_model"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 2, "must_include": ["eu.art_4"], "must_exclude": ["eu.art_50_1", "eu.art_53", "eu.art_9", "eu.art_26"] }
+    },
+    {
+      "id": "G26",
+      "title": "Company builds its own customer chatbot on a third-party model API",
+      "basis_refs": ["Art. 3(3) provider", "Art. 50(1)"],
+      "answers": { "purpose": "customer_service_assistant", "role": ["build_own_use"], "interaction": ["interacts_directly"], "tech": ["llm_genai", "third_party_model"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["provider", "deployer"], "tier": 2, "must_include": ["eu.art_50_1"], "must_exclude": ["eu.art_53", "eu.art_9"] }
+    },
+    {
+      "id": "G27",
+      "title": "Lab trains and releases its own general-purpose model",
+      "basis_refs": ["Art. 3(63)", "Art. 53", "Art. 51 systemic-risk threshold"],
+      "answers": { "purpose": "general_purpose_model", "role": ["gpai_model_provider"], "tech": ["llm_genai"], "affected": ["public"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["gpai_provider"], "tier": 2, "open_questions": ["gpai_systemic"], "must_include": ["eu.art_53"], "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G28",
+      "title": "Agency uses a vendor generator to make consented deepfake adverts",
+      "basis_refs": ["Art. 50(4) deployer disclosure", "Art. 50(2) is a provider duty"],
+      "answers": { "purpose": "content_generation", "interaction": ["deepfake"], "prohibited": { "art_5_ncii": "no", "art_5_csam": "no" }, "tech": ["llm_genai", "third_party_model"], "affected": ["public"] },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 1, "must_include": ["eu.art_50_4"], "must_exclude": ["eu.art_50_2"] }
+    },
+    {
+      "id": "G29",
+      "title": "\"Nudifier\" app",
+      "basis_refs": ["Art. 5 as amended by Reg. (EU) 2026/1744 (applies from 2 Dec 2026)"],
+      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_ncii": "yes" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"] },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_ncii", "provisional": false, "roles": ["provider"], "tier": "P", "must_include": ["eu.art_5_ncii"], "must_exclude": ["eu.art_50_2"] }
+    },
+    {
+      "id": "G30",
+      "title": "General image generator; provider unsure whether safeguards prevent intimate imagery",
+      "basis_refs": ["Art. 5 as amended (foreseeable, reproducible outputs without effective safeguards)", "Art. 50(2)"],
+      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_ncii": "unsure", "art_5_csam": "no" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"], "data": ["none"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": true, "roles": ["provider"], "tier": 2, "open_questions": ["prohibited.art_5_ncii"], "must_include": ["eu.art_50_2"] }
+    },
+    {
+      "id": "G31",
+      "title": "Publisher posts AI-written news with no human editorial review",
+      "basis_refs": ["Art. 50(4) second subparagraph"],
+      "answers": { "purpose": "content_generation", "interaction": ["public_interest_text"], "tech": ["llm_genai", "third_party_model"], "affected": ["public"], "data": ["none"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 2, "must_include": ["eu.art_50_4"] }
+    },
+    {
+      "id": "G32",
+      "title": "In-house procurement agent that raises and pays purchase orders",
+      "basis_refs": ["No Annex III purpose; tier driven by impact and autonomy"],
+      "answers": { "purpose": "business_process_automation", "role": ["build_own_use"], "tech": ["llm_genai", "agent_tools", "third_party_model"], "affected": ["staff"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_exclude": ["eu.art_9", "eu.art_26"] }
+    },
+    {
+      "id": "G33",
+      "title": "US-only credit scoring, no EU nexus",
+      "basis_refs": ["Art. 2(1)"],
+      "answers": { "purpose": "credit_scoring", "eu_nexus": "no", "role": ["build_own_use"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "out", "status": "out_of_scope", "provisional": false, "tier": 3, "must_exclude": ["eu.art_9", "eu.art_26", "eu.art_4"] }
+    },
+    {
+      "id": "G34",
+      "title": "Credit scoring, unsure whether outputs are used in the EU",
+      "basis_refs": ["Art. 2(1)(c)", "Spec §4 conservative assumption"],
+      "answers": { "purpose": "credit_scoring", "eu_nexus": "unsure", "role": ["build_own_use"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "undetermined", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": true, "roles": ["provider", "deployer"], "tier": 3, "open_questions": ["eu_nexus"], "must_include": ["eu.art_9"] }
+    },
+    {
+      "id": "G35",
+      "title": "Radiology triage software that is a class IIa medical device",
+      "basis_refs": ["Art. 6(1)", "Annex I Section A (MDR)", "Application from 2 Aug 2028"],
+      "answers": { "purpose": "medical_clinical_support", "annex_i_product": "yes", "role": ["build_supply"], "data": ["special_category"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_i", "provisional": false, "roles": ["provider"], "tier": 3, "must_include": ["eu.art_9", "eu.art_43", "eu.art_72"], "must_exclude": ["eu.art_49_1", "eu.art_27"] }
+    },
+    {
+      "id": "G36",
+      "title": "Clinical decision support; provider unsure whether it is a medical device",
+      "basis_refs": ["Art. 6(1)", "Spec §4 conservative assumption"],
+      "answers": { "purpose": "medical_clinical_support", "annex_i_product": "unsure", "role": ["build_supply"], "data": ["special_category"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_i", "provisional": true, "roles": ["provider"], "tier": 3, "open_questions": ["annex_i"], "must_include": ["eu.art_9"] }
+    },
+    {
+      "id": "G37",
+      "title": "Visual quality inspection on a production line (no safety function)",
+      "basis_refs": ["Art. 3(14) as amended: safety component limited to health and safety functions"],
+      "answers": { "purpose": "product_safety_component", "annex_i_product": "no", "role": ["build_own_use"], "affected": ["staff"], "data": ["none"], "tech": ["classical_ml", "vision_biometric"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["provider", "deployer"], "tier": 2, "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G38",
+      "title": "E-commerce product recommendations (vendor)",
+      "basis_refs": ["No Annex III purpose", "Art. 5(1)(a)-(b) screened"],
+      "answers": { "purpose": "recommendation_personalisation", "prohibited": { "art_5_1a": "no", "art_5_1b": "no" }, "autonomy": "autonomous", "severity": "negligible" },
+      "expect": { "scope": "in", "status": "minimal", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 1, "must_exclude": ["eu.art_26", "eu.art_50_1"] }
+    },
+    {
+      "id": "G39",
+      "title": "Municipality rates residents' behaviour to restrict unrelated services",
+      "basis_refs": ["Art. 5(1)(c)"],
+      "answers": { "purpose": "public_benefits_eligibility", "org_type": "public_authority", "prohibited": { "art_5_1c": "yes" }, "affected": ["public"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1c", "provisional": false, "roles": ["deployer"], "tier": "P", "must_include": ["eu.art_5_1c"], "must_exclude": ["eu.art_27"] }
+    },
+    {
+      "id": "G40",
+      "title": "Police predict who will offend, based solely on profiling",
+      "basis_refs": ["Art. 5(1)(d)"],
+      "answers": { "purpose": "law_enforcement", "org_type": "public_authority", "prohibited": { "art_5_1d": "yes" }, "affected": ["public"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1d", "provisional": false, "roles": ["deployer"], "tier": "P", "must_include": ["eu.art_5_1d"] }
+    },
+    {
+      "id": "G41",
+      "title": "Police tool assessing reliability of evidence",
+      "basis_refs": ["Annex III 6(c)", "Art. 27", "Art. 49(3)"],
+      "answers": { "purpose": "law_enforcement", "org_type": "public_authority", "affected": ["public"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.6", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_27", "eu.art_49_3", "eu.art_86"] }
+    },
+    {
+      "id": "G42",
+      "title": "Assisting examination of asylum applications",
+      "basis_refs": ["Annex III 7(c)", "Art. 27"],
+      "answers": { "purpose": "migration_border", "org_type": "public_authority", "affected": ["public", "vulnerable_or_children"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.7", "provisional": false, "roles": ["deployer"], "tier": 4, "must_include": ["eu.art_27", "eu.art_49_3"] }
+    },
+    {
+      "id": "G43",
+      "title": "Court uses a judicial research assistant",
+      "basis_refs": ["Annex III 8(a)"],
+      "answers": { "purpose": "justice_adr", "org_type": "public_authority", "affected": ["public"], "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.8(a)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_27"] }
+    },
+    {
+      "id": "G44",
+      "title": "Campaign builds voter micro-targeting with persuasive generated content",
+      "basis_refs": ["Annex III 8(b)"],
+      "answers": { "purpose": "election_influence", "role": ["build_own_use"], "prohibited": { "art_5_1a": "no" }, "tech": ["llm_genai"], "affected": ["public"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.8(b)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_9", "eu.art_26_11"], "must_exclude": ["eu.art_27"] }
+    },
+    {
+      "id": "G45",
+      "title": "University lab model used solely for scientific research",
+      "basis_refs": ["Art. 2(6)"],
+      "answers": { "purpose": "document_processing", "scope_exclusion": "scientific_research_only", "role": ["build_own_use"] },
+      "expect": { "scope": "out", "status": "out_of_scope", "provisional": false, "tier": 1, "must_exclude": ["eu.art_4"] }
+    },
+    {
+      "id": "G46",
+      "title": "Defence targeting support",
+      "basis_refs": ["Art. 2(3)"],
+      "answers": { "purpose": "other", "scope_exclusion": "military_defence_national_security", "role": ["build_own_use"], "affected": ["public"], "autonomy": "autonomous", "severity": "serious" },
+      "expect": { "scope": "out", "status": "out_of_scope", "provisional": false, "tier": 4, "must_exclude": ["eu.art_9"] }
+    },
+    {
+      "id": "G47",
+      "title": "Early idea: almost everything unsure",
+      "basis_refs": ["Spec §1.3 never silent", "Spec §4"],
+      "answers": { "purpose": "unsure", "eu_nexus": "unsure", "role": ["unsure"], "org_type": "unsure", "annex_i_product": "unsure", "prohibited": { "art_5_1a": "unsure" }, "autonomy": "unsure", "severity": "unsure", "reversible": "unsure", "stage": "idea" },
+      "expect": { "scope": "undetermined", "status": "high_risk", "provisional": true, "roles": ["provider", "deployer"], "tier": 3, "open_questions": ["purpose", "eu_nexus", "role", "annex_i", "prohibited.art_5_1a", "severity", "autonomy"], "must_include": ["eu.art_9", "eu.art_26"] }
+    },
+    {
+      "id": "G48",
+      "title": "Bank rebrands a vendor credit-scoring system as its own",
+      "basis_refs": ["Art. 25(1)(a)"],
+      "answers": { "purpose": "credit_scoring", "role": ["put_name_on_or_substantially_modify"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_16", "eu.art_9", "eu.art_26", "eu.art_27"] }
+    },
+    {
+      "id": "G49",
+      "title": "HR repurposes a general chatbot to screen applicants",
+      "basis_refs": ["Art. 25(1)(c)", "Annex III 4(a)"],
+      "answers": { "purpose": "recruitment_selection", "role": ["repurpose_to_high_risk"], "tech": ["llm_genai", "third_party_model"], "affected": ["public"], "autonomy": "autonomous", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(a)", "provisional": false, "roles": ["provider", "deployer"], "tier": 3, "must_include": ["eu.art_16", "eu.art_26"] }
+    },
+    {
+      "id": "G50",
+      "title": "SME supplies a credit-scoring product",
+      "basis_refs": ["Annex III 5(b)", "Art. 11(1) and Art. 17(2) SME proportionality, extended to small mid-caps in 2026"],
+      "answers": { "purpose": "credit_scoring", "role": ["build_supply"], "org_size": "sme", "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["provider"], "tier": 3, "must_include": ["eu.art_11", "eu.art_17"], "must_exclude": ["eu.art_26", "eu.art_27"] }
+    },
+    {
+      "id": "G51",
+      "title": "Water utility (public) deploys an AI safety component in network control",
+      "basis_refs": ["Annex III 2", "Art. 27(1), Art. 49(3), Art. 86 and Art. 26(11) exclude point 2"],
+      "answers": { "purpose": "critical_infrastructure_safety", "org_type": "public_authority", "affected": ["public"], "data": ["none"], "autonomy": "autonomous", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.2", "provisional": false, "roles": ["deployer"], "tier": 4, "must_include": ["eu.art_26"], "must_exclude": ["eu.art_27", "eu.art_49_3", "eu.art_86", "eu.art_26_11"] }
+    },
+    {
+      "id": "G52",
+      "title": "Open-source code assistant released under a free licence",
+      "basis_refs": ["Art. 2(12)"],
+      "answers": { "purpose": "code_assistant", "scope_exclusion": "free_open_source", "role": ["build_supply"], "tech": ["llm_genai"], "data": ["none"] },
+      "expect": { "scope": "out", "status": "out_of_scope", "provisional": false, "tier": 1, "must_exclude": ["eu.art_50_1"] }
+    },
+    {
+      "id": "G53",
+      "title": "Open-source credit-scoring system placed on the market",
+      "basis_refs": ["Art. 2(12): exemption does not cover high-risk systems"],
+      "answers": { "purpose": "credit_scoring", "scope_exclusion": "free_open_source", "role": ["build_supply"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["provider"], "tier": 3, "must_include": ["eu.art_9"] }
+    },
+    {
+      "id": "G54",
+      "title": "Individual uses a chatbot for personal, non-professional tasks",
+      "basis_refs": ["Art. 2(10)"],
+      "answers": { "purpose": "internal_productivity_assistant", "scope_exclusion": "personal_non_professional", "tech": ["llm_genai"], "data": ["none"], "severity": "negligible" },
+      "expect": { "scope": "out", "status": "out_of_scope", "provisional": false, "tier": 1, "must_exclude": ["eu.art_4"] }
+    },
+    {
+      "id": "G55",
+      "title": "Open-source customer chatbot that talks to people",
+      "basis_refs": ["Art. 2(12): exemption does not cover Art. 50 systems", "Art. 50(1)"],
+      "answers": { "purpose": "customer_service_assistant", "scope_exclusion": "free_open_source", "role": ["build_supply"], "interaction": ["interacts_directly"], "tech": ["llm_genai"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["provider"], "tier": 2, "must_include": ["eu.art_50_1"] }
+    },
+    {
+      "id": "G56",
+      "title": "Importer brings a non-EU credit-scoring system into the EU",
+      "basis_refs": ["Art. 23", "Art. 24"],
+      "answers": { "purpose": "credit_scoring", "role": ["import_or_distribute"], "autonomy": "human_oversight", "severity": "material" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.5(b)", "provisional": false, "roles": ["importer_distributor"], "tier": 3, "must_include": ["eu.art_23"], "must_exclude": ["eu.art_9", "eu.art_26"] }
+    },
+    {
+      "id": "G57",
+      "title": "Bus operator detects driver distress or aggression for safety reasons",
+      "basis_refs": ["Art. 5(1)(f) medical or safety exception", "Annex III 1(c)", "Art. 50(3)", "Art. 26(7)"],
+      "answers": { "purpose": "emotion_recognition", "prohibited": { "art_5_1f": "no" }, "interaction": ["emotion_or_biometric_categorisation"], "affected": ["staff"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "serious" },
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_50_3"], "must_exclude": ["eu.art_5_1f", "eu.art_26_11"] }
+    }
+  ]
+}
