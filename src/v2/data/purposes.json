@@ -6,7 +6,10 @@
       "id": "biometric_remote_identification",
       "group": "Biometrics",
       "label": "Identify people at a distance from biometric data (e.g. face matching against a watchlist)",
-      "examples": ["Facial recognition of shoppers against a banned-persons list", "Matching CCTV footage against a database of faces"],
+      "examples": [
+        "Facial recognition of shoppers against a banned-persons list",
+        "Matching CCTV footage against a database of faces"
+      ],
       "annex_iii": "1(a)",
       "notes": "Excludes biometric verification whose sole purpose is to confirm a person is who they claim to be (see biometric_verification). Real-time use in public spaces for law enforcement is screened under Art. 5(1)(h)."
     },
@@ -14,7 +17,10 @@
       "id": "biometric_verification",
       "group": "Biometrics",
       "label": "Confirm a person is who they claim to be (1:1 biometric check)",
-      "examples": ["Face or fingerprint login", "Selfie-to-ID-document check at onboarding"],
+      "examples": [
+        "Face or fingerprint login",
+        "Selfie-to-ID-document check at onboarding"
+      ],
       "annex_iii": null,
       "notes": "Expressly excluded from Annex III 1(a). Biometric data still raises the governance tier."
     },
@@ -22,7 +28,10 @@
       "id": "biometric_categorisation",
       "group": "Biometrics",
       "label": "Sort people into categories from biometric data (e.g. age, gender, sensitive traits)",
-      "examples": ["Estimating age band from a face image", "Inferring attributes from voice"],
+      "examples": [
+        "Estimating age band from a face image",
+        "Inferring attributes from voice"
+      ],
       "annex_iii": "1(b)",
       "notes": "Annex III 1(b) covers categorisation by sensitive or protected attributes. Inferring race, political opinions, trade union membership, religion, sex life or sexual orientation is prohibited under Art. 5(1)(g)."
     },
@@ -30,7 +39,10 @@
       "id": "emotion_recognition",
       "group": "Biometrics",
       "label": "Infer people's emotions or intentions from biometric data (face, voice, physiology)",
-      "examples": ["Call-centre voice sentiment of customers", "Measuring audience reactions from video"],
+      "examples": [
+        "Call-centre voice sentiment of customers",
+        "Measuring audience reactions from video"
+      ],
       "annex_iii": "1(c)",
       "notes": "Prohibited in the workplace and in education except for medical or safety reasons (Art. 5(1)(f)). Physical states such as pain or fatigue are not emotions (Recital 18)."
     },
@@ -38,7 +50,10 @@
       "id": "critical_infrastructure_safety",
       "group": "Critical infrastructure",
       "label": "Safety component in operating critical digital infrastructure, road traffic, or water, gas, heating or electricity supply",
-      "examples": ["AI controlling pressure safety in a water network", "AI safety layer in traffic-signal control"],
+      "examples": [
+        "AI controlling pressure safety in a water network",
+        "AI safety layer in traffic-signal control"
+      ],
       "annex_iii": "2",
       "notes": "No FRIA (Art. 27), no Art. 86 explanation right, and no Art. 49(3) public-deployer registration for point 2."
     },
@@ -46,35 +61,49 @@
       "id": "education_admission",
       "group": "Education",
       "label": "Decide admission to, or assignment within, an education or training institution",
-      "examples": ["Ranking university applicants", "Allocating students to schools"],
+      "examples": [
+        "Ranking university applicants",
+        "Allocating students to schools"
+      ],
       "annex_iii": "3(a)"
     },
     {
       "id": "education_assessment",
       "group": "Education",
       "label": "Evaluate learning outcomes (grading, assessment, steering learning)",
-      "examples": ["Automated essay scoring", "Adaptive tutoring that grades and routes students"],
+      "examples": [
+        "Automated essay scoring",
+        "Adaptive tutoring that grades and routes students"
+      ],
       "annex_iii": "3(b)"
     },
     {
       "id": "education_level_assignment",
       "group": "Education",
       "label": "Assess what level of education a person should receive or can access",
-      "examples": ["Placement testing that sets a student's track"],
+      "examples": [
+        "Placement testing that sets a student's track"
+      ],
       "annex_iii": "3(c)"
     },
     {
       "id": "exam_proctoring",
       "group": "Education",
       "label": "Monitor or detect prohibited behaviour of students during tests",
-      "examples": ["Online proctoring that flags cheating"],
+      "examples": [
+        "Online proctoring that flags cheating"
+      ],
       "annex_iii": "3(d)"
     },
     {
       "id": "recruitment_selection",
       "group": "Employment",
       "label": "Recruit or select people: targeted job ads, filtering applications, evaluating candidates",
-      "examples": ["CV screening and ranking", "Targeting job adverts to selected audiences", "Video interview scoring"],
+      "examples": [
+        "CV screening and ranking",
+        "Targeting job adverts to selected audiences",
+        "Video interview scoring"
+      ],
       "annex_iii": "4(a)",
       "notes": "Drafting job-ad text with no targeting or candidate evaluation is not this purpose (use internal_productivity_assistant)."
     },
@@ -82,23 +111,36 @@
       "id": "workforce_management",
       "group": "Employment",
       "label": "Decide on promotion, termination or terms of work; allocate tasks by behaviour or traits; monitor or evaluate workers",
-      "examples": ["Productivity scoring of staff", "Gig-platform task allocation based on driver behaviour"],
+      "examples": [
+        "Productivity scoring of staff",
+        "Gig-platform task allocation based on driver behaviour"
+      ],
       "annex_iii": "4(b)"
     },
     {
       "id": "public_benefits_eligibility",
       "group": "Essential services",
       "label": "Evaluate eligibility for public assistance benefits or services, or grant, reduce, revoke or reclaim them",
-      "examples": ["Welfare eligibility scoring", "Flagging benefit claims for revocation"],
+      "examples": [
+        "Welfare eligibility scoring",
+        "Flagging benefit claims for revocation"
+      ],
       "annex_iii": "5(a)",
-      "annex_iii_condition": { "org_type": ["public_authority", "private_public_service"] },
-      "notes": "Only high-risk when used by, or on behalf of, a public authority."
+      "annex_iii_condition": {
+        "org_type": [
+          "public_authority"
+        ]
+      },
+      "notes": "Only high-risk when used by, or on behalf of, a public authority (org_type public_authority covers bodies acting on its behalf)."
     },
     {
       "id": "credit_scoring",
       "group": "Essential services",
       "label": "Evaluate the creditworthiness of individuals or set their credit score",
-      "examples": ["Consumer loan approval model", "LLM-assisted credit decisioning"],
+      "examples": [
+        "Consumer loan approval model",
+        "LLM-assisted credit decisioning"
+      ],
       "annex_iii": "5(b)",
       "notes": "Fraud detection is expressly carved out (use fraud_detection). Covers natural persons only."
     },
@@ -106,7 +148,10 @@
       "id": "life_health_insurance_pricing",
       "group": "Essential services",
       "label": "Assess risk or set prices for individuals' life or health insurance",
-      "examples": ["Health-insurance premium model", "Life-insurance underwriting score"],
+      "examples": [
+        "Health-insurance premium model",
+        "Life-insurance underwriting score"
+      ],
       "annex_iii": "5(c)",
       "notes": "Other insurance lines (motor, home) are not Annex III 5(c)."
     },
@@ -114,7 +159,10 @@
       "id": "individual_risk_pricing",
       "group": "Essential services",
       "label": "Assess risk or set prices for individuals in other insurance or contracts (not life/health insurance, not credit)",
-      "examples": ["Motor-insurance premium model", "Home-insurance underwriting score"],
+      "examples": [
+        "Motor-insurance premium model",
+        "Home-insurance underwriting score"
+      ],
       "annex_iii": null,
       "notes": "Not Annex III: 5(c) covers only life and health insurance. Profiling still raises the tier."
     },
@@ -122,37 +170,61 @@
       "id": "emergency_triage_dispatch",
       "group": "Essential services",
       "label": "Classify emergency calls, dispatch or prioritise emergency services, or triage emergency patients",
-      "examples": ["Ambulance dispatch prioritisation", "Emergency department triage"],
+      "examples": [
+        "Ambulance dispatch prioritisation",
+        "Emergency department triage"
+      ],
       "annex_iii": "5(d)"
     },
     {
       "id": "law_enforcement",
       "group": "Law enforcement, migration, justice",
       "label": "Law-enforcement use: victim risk, polygraph-type tools, evidence reliability, (re)offending risk, profiling in investigations",
-      "examples": ["Assessing reliability of evidence", "Risk of re-offending assessment supporting a human"],
+      "examples": [
+        "Assessing reliability of evidence",
+        "Risk of re-offending assessment supporting a human"
+      ],
       "annex_iii": "6",
-      "notes": "Predicting offending based solely on profiling or personality traits is prohibited (Art. 5(1)(d))."
+      "notes": "Annex III 6 covers use by or on behalf of law-enforcement authorities. Predicting offending based solely on profiling or personality traits is prohibited (Art. 5(1)(d)).",
+      "annex_iii_condition": {
+        "org_type": [
+          "public_authority"
+        ]
+      }
     },
     {
       "id": "migration_border",
       "group": "Law enforcement, migration, justice",
       "label": "Migration, asylum or border control: risk assessment, application examination, identification",
-      "examples": ["Assisting examination of asylum applications", "Border risk screening"],
+      "examples": [
+        "Assisting examination of asylum applications",
+        "Border risk screening"
+      ],
       "annex_iii": "7",
-      "notes": "Verification of travel documents is excluded from 7(d)."
+      "notes": "Annex III 7 covers use by or on behalf of competent public authorities. Verification of travel documents is excluded from 7(d).",
+      "annex_iii_condition": {
+        "org_type": [
+          "public_authority"
+        ]
+      }
     },
     {
       "id": "justice_adr",
       "group": "Law enforcement, migration, justice",
       "label": "Assist a court or dispute-resolution body in researching or interpreting facts and law, or applying law to facts",
-      "examples": ["Judicial research assistant used by a court"],
-      "annex_iii": "8(a)"
+      "examples": [
+        "Judicial research assistant used by a court"
+      ],
+      "annex_iii": "8(a)",
+      "notes": "Covers use by or on behalf of a judicial authority, or similar use in alternative dispute resolution (which may be private)."
     },
     {
       "id": "election_influence",
       "group": "Law enforcement, migration, justice",
       "label": "Influence the outcome of an election or referendum, or how people vote",
-      "examples": ["Voter micro-targeting with persuasive content"],
+      "examples": [
+        "Voter micro-targeting with persuasive content"
+      ],
       "annex_iii": "8(b)",
       "notes": "Excludes tools whose outputs people are not directly exposed to, e.g. campaign logistics."
     },
@@ -160,7 +232,10 @@
       "id": "fraud_detection",
       "group": "Common non-high-risk purposes",
       "label": "Detect fraud or financial crime",
-      "examples": ["Card-transaction fraud scoring", "AML alert triage"],
+      "examples": [
+        "Card-transaction fraud scoring",
+        "AML alert triage"
+      ],
       "annex_iii": null,
       "notes": "Expressly carved out of Annex III 5(b)."
     },
@@ -168,28 +243,40 @@
       "id": "customer_service_assistant",
       "group": "Common non-high-risk purposes",
       "label": "Answer customer questions or handle service requests",
-      "examples": ["Website support chatbot", "Voice assistant for bookings"],
+      "examples": [
+        "Website support chatbot",
+        "Voice assistant for bookings"
+      ],
       "annex_iii": null
     },
     {
       "id": "internal_productivity_assistant",
       "group": "Common non-high-risk purposes",
       "label": "Help staff draft, summarise, search or analyse (general productivity)",
-      "examples": ["Copilot for drafting documents", "Internal knowledge-base Q&A"],
+      "examples": [
+        "Copilot for drafting documents",
+        "Internal knowledge-base Q&A"
+      ],
       "annex_iii": null
     },
     {
       "id": "content_generation",
       "group": "Common non-high-risk purposes",
       "label": "Generate text or media for marketing, communications or publishing",
-      "examples": ["Marketing copy generator", "AI-written news summaries"],
+      "examples": [
+        "Marketing copy generator",
+        "AI-written news summaries"
+      ],
       "annex_iii": null
     },
     {
       "id": "synthetic_media_generation",
       "group": "Common non-high-risk purposes",
       "label": "Provide a tool that generates or edits images, video, audio or voices",
-      "examples": ["Text-to-image app", "Voice-cloning service"],
+      "examples": [
+        "Text-to-image app",
+        "Voice-cloning service"
+      ],
       "annex_iii": null,
       "notes": "Screened against the 2026 prohibitions on non-consensual intimate imagery and CSAM."
     },
@@ -197,56 +284,80 @@
       "id": "code_assistant",
       "group": "Common non-high-risk purposes",
       "label": "Write, review or test software code",
-      "examples": ["IDE code completion", "Automated code review"],
+      "examples": [
+        "IDE code completion",
+        "Automated code review"
+      ],
       "annex_iii": null
     },
     {
       "id": "document_processing",
       "group": "Common non-high-risk purposes",
       "label": "Extract, classify or route documents and data",
-      "examples": ["Invoice data extraction", "Email triage"],
+      "examples": [
+        "Invoice data extraction",
+        "Email triage"
+      ],
       "annex_iii": null
     },
     {
       "id": "business_process_automation",
       "group": "Common non-high-risk purposes",
       "label": "Automate business tasks or workflows, including agents acting through tools",
-      "examples": ["Procurement agent that raises and pays purchase orders", "IT ticket auto-resolution agent"],
+      "examples": [
+        "Procurement agent that raises and pays purchase orders",
+        "IT ticket auto-resolution agent"
+      ],
       "annex_iii": null
     },
     {
       "id": "recommendation_personalisation",
       "group": "Common non-high-risk purposes",
       "label": "Recommend or personalise products, content or offers",
-      "examples": ["E-commerce product recommendations", "Content feed ranking"],
+      "examples": [
+        "E-commerce product recommendations",
+        "Content feed ranking"
+      ],
       "annex_iii": null
     },
     {
       "id": "marketing_targeting",
       "group": "Common non-high-risk purposes",
       "label": "Profile or segment people for marketing (not employment, credit or elections)",
-      "examples": ["Propensity-to-buy models", "Ad audience segmentation"],
+      "examples": [
+        "Propensity-to-buy models",
+        "Ad audience segmentation"
+      ],
       "annex_iii": null
     },
     {
       "id": "forecasting_optimisation",
       "group": "Common non-high-risk purposes",
       "label": "Forecast or optimise operations (demand, logistics, pricing of goods)",
-      "examples": ["Demand forecasting", "Route optimisation"],
+      "examples": [
+        "Demand forecasting",
+        "Route optimisation"
+      ],
       "annex_iii": null
     },
     {
       "id": "cybersecurity_detection",
       "group": "Common non-high-risk purposes",
       "label": "Detect security threats or anomalies in systems",
-      "examples": ["Intrusion detection", "Phishing classifier"],
+      "examples": [
+        "Intrusion detection",
+        "Phishing classifier"
+      ],
       "annex_iii": null
     },
     {
       "id": "medical_clinical_support",
       "group": "Products and safety",
       "label": "Support diagnosis, treatment or clinical decisions",
-      "examples": ["Radiology image triage", "Clinical decision support"],
+      "examples": [
+        "Radiology image triage",
+        "Clinical decision support"
+      ],
       "annex_iii": null,
       "annex_i_prompt": true,
       "notes": "High-risk via Annex I if the software is a medical device needing notified-body conformity assessment (MDR/IVDR)."
@@ -255,16 +366,22 @@
       "id": "product_safety_component",
       "group": "Products and safety",
       "label": "Part of a regulated physical product (machinery, toys, lifts, vehicles, radio equipment, etc.)",
-      "examples": ["Collision-avoidance in an industrial robot", "Visual quality inspection on a production line"],
+      "examples": [
+        "Collision-avoidance in an industrial robot",
+        "Visual quality inspection on a production line"
+      ],
       "annex_iii": null,
       "annex_i_prompt": true,
-      "notes": "Since Reg. (EU) 2026/1744, 'safety component' is limited to functions that prevent or mitigate health and safety risks. Pure optimisation does not qualify."
+      "notes": "Art. 6(1a)-(1c) as inserted by Reg. (EU) 2026/1744: systems used solely for non-safety user assistance, optimisation, efficiency, automation, convenience or quality control are not safety components, unless their failure would endanger health and safety. A third-party conformity assessment required only for non-health-and-safety risks (e.g. radio spectrum) does not count. Machinery moved from Annex I Section A to Section B, where only Art. 6(1), 60a and 102-112 apply (Art. 2(2))."
     },
     {
       "id": "general_purpose_model",
       "group": "Products and safety",
       "label": "Develop or release a general-purpose AI model (not a specific application)",
-      "examples": ["Training and publishing a foundation model", "Releasing a substantially fine-tuned base model"],
+      "examples": [
+        "Training and publishing a foundation model",
+        "Releasing a substantially fine-tuned base model"
+      ],
       "annex_iii": null
     },
     {

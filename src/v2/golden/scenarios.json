@@ -157,9 +157,9 @@
     {
       "id": "G20",
       "title": "Vendor tool scoring staff productivity",
-      "basis_refs": ["Annex III 4(b)", "Art. 26(7)", "Art. 86"],
+      "basis_refs": ["Annex III 4(b)", "Art. 26(7)", "Art. 26(11) covers decisions about any natural person, workers included", "Art. 86"],
       "answers": { "purpose": "workforce_management", "affected": ["staff"], "autonomy": "human_oversight", "severity": "material" },
-      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(b)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_86"], "must_exclude": ["eu.art_26_11", "eu.art_27"] }
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.4(b)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_26_11", "eu.art_86"], "must_exclude": ["eu.art_27"] }
     },
     {
       "id": "G21",
@@ -214,22 +214,22 @@
       "id": "G28",
       "title": "Agency uses a vendor generator to make consented deepfake adverts",
       "basis_refs": ["Art. 50(4) deployer disclosure", "Art. 50(2) is a provider duty"],
-      "answers": { "purpose": "content_generation", "interaction": ["deepfake"], "prohibited": { "art_5_ncii": "no", "art_5_csam": "no" }, "tech": ["llm_genai", "third_party_model"], "affected": ["public"] },
+      "answers": { "purpose": "content_generation", "interaction": ["deepfake"], "prohibited": { "art_5_1ba": "no", "art_5_1bb": "no" }, "tech": ["llm_genai", "third_party_model"], "affected": ["public"] },
       "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": false, "roles": ["deployer"], "tier": 1, "must_include": ["eu.art_50_4"], "must_exclude": ["eu.art_50_2"] }
     },
     {
       "id": "G29",
       "title": "\"Nudifier\" app",
-      "basis_refs": ["Art. 5 as amended by Reg. (EU) 2026/1744 (applies from 2 Dec 2026)"],
-      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_ncii": "yes" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"] },
-      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_ncii", "provisional": false, "roles": ["provider"], "tier": "P", "must_include": ["eu.art_5_ncii"], "must_exclude": ["eu.art_50_2"] }
+      "basis_refs": ["Art. 5(1)(ba) and (1a)(a)(i)", "Art. 113, third paragraph, point (a) as amended: applies from 2 Dec 2026"],
+      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_1ba": "yes" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"] },
+      "expect": { "scope": "in", "status": "prohibited", "basis": "art_5_1ba", "provisional": false, "roles": ["provider"], "tier": "P", "must_include": ["eu.art_5_1ba"], "must_exclude": ["eu.art_50_2"] }
     },
     {
       "id": "G30",
       "title": "General image generator; provider unsure whether safeguards prevent intimate imagery",
-      "basis_refs": ["Art. 5 as amended (foreseeable, reproducible outputs without effective safeguards)", "Art. 50(2)"],
-      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_ncii": "unsure", "art_5_csam": "no" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"], "data": ["none"], "autonomy": "autonomous" },
-      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": true, "roles": ["provider"], "tier": 2, "open_questions": ["prohibited.art_5_ncii"], "must_include": ["eu.art_50_2"] }
+      "basis_refs": ["Art. 5(1a)(a)(ii): reasonably foreseeable and reproducible outcome without adequate safeguards", "Art. 50(2)"],
+      "answers": { "purpose": "synthetic_media_generation", "role": ["build_supply"], "prohibited": { "art_5_1ba": "unsure", "art_5_1bb": "no" }, "interaction": ["generates_synthetic_content"], "tech": ["llm_genai"], "affected": ["public"], "data": ["none"], "autonomy": "autonomous" },
+      "expect": { "scope": "in", "status": "transparency", "basis": null, "provisional": true, "roles": ["provider"], "tier": 2, "open_questions": ["prohibited.art_5_1ba"], "must_include": ["eu.art_50_2"] }
     },
     {
       "id": "G31",
@@ -374,7 +374,7 @@
     {
       "id": "G51",
       "title": "Water utility (public) deploys an AI safety component in network control",
-      "basis_refs": ["Annex III 2", "Art. 27(1), Art. 49(3), Art. 86 and Art. 26(11) exclude point 2"],
+      "basis_refs": ["Annex III 2", "Art. 27(1), Art. 49(3) and Art. 86 exclude point 2", "Art. 26(11) applies only to decisions related to natural persons (spec approximation: not point 2)"],
       "answers": { "purpose": "critical_infrastructure_safety", "org_type": "public_authority", "affected": ["public"], "data": ["none"], "autonomy": "autonomous", "severity": "serious" },
       "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.2", "provisional": false, "roles": ["deployer"], "tier": 4, "must_include": ["eu.art_26"], "must_exclude": ["eu.art_27", "eu.art_49_3", "eu.art_86", "eu.art_26_11"] }
     },
@@ -418,7 +418,7 @@
       "title": "Bus operator detects driver distress or aggression for safety reasons",
       "basis_refs": ["Art. 5(1)(f) medical or safety exception", "Annex III 1(c)", "Art. 50(3)", "Art. 26(7)"],
       "answers": { "purpose": "emotion_recognition", "prohibited": { "art_5_1f": "no" }, "interaction": ["emotion_or_biometric_categorisation"], "affected": ["staff"], "data": ["biometric"], "tech": ["vision_biometric"], "autonomy": "human_oversight", "severity": "serious" },
-      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_50_3"], "must_exclude": ["eu.art_5_1f", "eu.art_26_11"] }
+      "expect": { "scope": "in", "status": "high_risk", "basis": "annex_iii.1(c)", "provisional": false, "roles": ["deployer"], "tier": 3, "must_include": ["eu.art_26", "eu.art_26_7", "eu.art_26_11", "eu.art_50_3"], "must_exclude": ["eu.art_5_1f"] }
     }
   ]
 }

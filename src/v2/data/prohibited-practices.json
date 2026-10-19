@@ -90,24 +90,24 @@
       ] }
     },
     {
-      "id": "art_5_ncii",
-      "citation": "Art. 5 (as amended by Reg. (EU) 2026/1744): non-consensual intimate imagery",
+      "id": "art_5_1ba",
+      "citation": "Art. 5(1)(ba), (1a) and (1b) (inserted by Reg. (EU) 2026/1744)",
       "title": "Non-consensual intimate imagery (\"nudifiers\")",
-      "question": "Is the system designed to generate or manipulate realistic intimate images, video or audio of an identifiable person without consent, or is that a reasonably foreseeable, reproducible output because it lacks effective safeguards?",
+      "question": "If you provide the system: is generating or manipulating realistic intimate or sexually explicit images, video or audio of an identifiable person without their explicit consent its intended purpose, or a reasonably foreseeable and reproducible outcome that it lacks adequate safeguards to reliably prevent? If you only use the system: do you use it for that purpose?",
       "effective_from": "2026-12-02",
-      "verification": "Paragraph lettering and exact wording to confirm against the OJ text of Reg. (EU) 2026/1744.",
+      "notes": "Art. 5(1a)(b): use by a deployer is prohibited only where the deployer uses the system for that purpose. Art. 5(1b): edits that do not increase exposure of intimate parts or alter the nature of sexually explicit activity are not 'manipulation'. Verified against OJ L 2026/1744 on 2026-10-20.",
       "show_when": { "any": [
         { "purpose": ["synthetic_media_generation", "content_generation", "other", "unsure"] },
         { "interaction": ["generates_synthetic_content", "deepfake"] }
       ] }
     },
     {
-      "id": "art_5_csam",
-      "citation": "Art. 5 (as amended by Reg. (EU) 2026/1744): child sexual abuse material",
+      "id": "art_5_1bb",
+      "citation": "Art. 5(1)(bb) and (1a) (inserted by Reg. (EU) 2026/1744)",
       "title": "Child sexual abuse material",
-      "question": "Is the system designed to generate child sexual abuse material, or is that a reasonably foreseeable, reproducible output because it lacks effective safeguards?",
+      "question": "If you provide the system: is generating child sexual abuse material its intended purpose, or a reasonably foreseeable and reproducible outcome that it lacks adequate safeguards to reliably prevent? If you only use the system: do you use it for that purpose?",
       "effective_from": "2026-12-02",
-      "verification": "Paragraph lettering, wording and the Member State 'without right' defence to confirm against the OJ text of Reg. (EU) 2026/1744.",
+      "notes": "Material within Art. 2(c) and (e) of Directive 2011/93/EU, except where a national-law 'without right' defence applies. Art. 5(1a) provider/deployer split as for point (ba). Verified against OJ L 2026/1744 on 2026-10-20.",
       "show_when": { "any": [
         { "purpose": ["synthetic_media_generation", "content_generation", "other", "unsure"] },
         { "interaction": ["generates_synthetic_content", "deepfake"] }

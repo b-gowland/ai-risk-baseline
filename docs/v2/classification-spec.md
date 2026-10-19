@@ -77,7 +77,11 @@ The items shown are those whose `show_when` matches.
 
 - Any shown item = `yes` → `status=prohibited`, `basis=<item id>`, obligations `eu.<item id>`, `tier=P`. **Stop.** No further obligations are listed, and nothing else should be built on top of the use case.
 - Any shown item = `unsure` (and none `yes`) → open question, `blocking: true`, assumption "treat as potentially prohibited: do not deploy until resolved". Continue so the user can see what else would apply. `provisional=true`.
-- For prohibitions with a future `effective_from` (2026 amendment items), the classification still says prohibited, and the date is shown alongside it.
+- For prohibitions with a future `effective_from` (points (ba) and (bb), from 2 Dec 2026), the classification still says prohibited, and the date is shown alongside it.
+- For points (ba) and (bb), the provider and deployer tests differ (Art. 5(1a)):
+  - A provider is caught if the prohibited output is the intended purpose, or if it is a reasonably foreseeable and reproducible outcome the system lacks adequate safeguards to prevent.
+  - A deployer is caught only if they use the system for that purpose.
+  - The screen question states both tests.
 
 ### Step 2: Annex I product route (Art. 6(1))
 
@@ -85,11 +89,18 @@ This step only runs when the `annex_i_product` question is shown.
 
 - `yes` → `status=high_risk`, `basis=annex_i`. Obligation dates come from `dates.annex_i` (2 Aug 2028).
 - `unsure` → open question. Assumption: **high-risk via Annex I** (provisional), because the purposes that trigger this question are medical and safety ones.
-- Annex I Section B products (vehicles, aviation, marine, rail and, since 2026, machinery) apply AI Act obligations only through their sectoral acts. v2 treats Section B as an open question, not as high-risk. *(Future question.)*
+- What counts as a "safety component" (Art. 3(14) and Art. 6(1a)–(1c), as amended):
+  - A safety component is one whose intended purpose is to prevent or mitigate risks to health and safety.
+  - Systems used *solely* for non-safety assistance, optimisation, efficiency, automation, convenience or quality control are not safety components, unless their failure would endanger health and safety.
+  - A third-party conformity assessment that is required only for non-health-and-safety risks (e.g. radio spectrum) doesn't meet Art. 6(1)(b).
+  - The `annex_i_product` help text must say all of this.
+- Annex I Section B products (vehicles, aviation, marine, rail and, since 2026, machinery) apply AI Act obligations only through their sectoral acts. Under Art. 2(2) as amended, only Art. 6(1), Art. 60a and Arts. 102–112 apply directly. v2 treats Section B as an open question, not as high-risk. *(Future question.)*
+- Art. 2(13) (new) lets delegated acts limit some Art. 9–15 and 17–25 obligations where Annex I Section A legislation already gives equivalent protection. The output should note this for Annex I systems.
 
 ### Step 3: Annex III (Art. 6(2))
 
 - If the purpose has an `annex_iii` reference and its `annex_iii_condition` (if any) matches → candidate `high_risk`, `basis=annex_iii.<ref>`.
+- Conditions in the catalogue: 5(a), 6 and 7 require `org_type = public_authority`. That answer includes bodies acting on a public authority's behalf, which is how the Annex III wording reads ("by or on behalf of").
 - If the condition answer is `unsure` → candidate `high_risk`, provisional, open question `annex_iii_condition`.
 - If `purpose = unsure` → candidate `high_risk`, `basis=null`, provisional, open question `purpose`, `blocking: true`.
 - If Step 2 already set `annex_i` and an Annex III purpose also matches, keep both bases. Annex I governs the dates.
@@ -101,7 +112,7 @@ This step only runs for an Annex III candidate.
 | `art_6_3` answers | Result |
 |---|---|
 | `profiling = yes` | `high_risk`. The derogation is unavailable; record that in the trace. |
-| `profiling = no` and any condition `yes` | `status=not_high_risk_6_3`. Provider obligations `eu.art_6_4` and `eu.art_49_2` (see verification register). |
+| `profiling = no` and any condition `yes` | `status=not_high_risk_6_3`. Provider obligations `eu.art_6_4` (document the assessment) and `eu.art_49_2` (register; retained in 2026, with lighter Annex VIII Section B content). |
 | `profiling = unsure`, or only `unsure` conditions | `high_risk`, provisional, open question `art_6_3`. |
 | All conditions `no` | `high_risk`. |
 
@@ -119,6 +130,11 @@ Art. 50 can apply on top of any status other than `prohibited` and `out_of_scope
 | `deepfake` | `eu.art_50_4` | deployer |
 | `public_interest_text` | `eu.art_50_4` | deployer (only when there is no human editorial responsibility) |
 
+The output carries these exceptions as notes. They are not asked as questions:
+- Art. 50(2) does not apply to assistive editing that does not substantially alter the input.
+- Under Art. 50(4), evidently artistic, creative, satirical or fictional works only need an unobtrusive disclosure.
+- Uses authorised by law for criminal-offence purposes are exempt.
+
 If no higher status applies and any Art. 50 trigger is present, then `status=transparency`. The status describes the **system**. If the user's role doesn't hold the obligation (e.g. a deployer of a vendor chatbot), the output says "this duty sits with your provider: check they meet it" and does **not** list the obligation as theirs.
 
 Otherwise, `status=minimal`.
@@ -135,6 +151,8 @@ Otherwise, `status=minimal`.
 | `import_or_distribute` | importer_distributor (`eu.art_23`, `eu.art_24` if high-risk) |
 | `gpai_model_provider` | gpai_provider (Art. 53). `eu.art_55` is always an open question (systemic-risk threshold). |
 | `unsure` | provider + deployer, provisional, open question `role` |
+
+When Art. 25(1) makes someone the new provider, Art. 25(2) as amended says the initial provider is no longer the provider of that system. It must still cooperate: it hands over technical documentation, tells the new provider about known limitations and failure modes, and gives targeted technical access for testing. This duty doesn't apply where the initial provider clearly specified that the system must not be turned into a high-risk system. In that case the trace tells the user to check the vendor terms.
 
 Building an application on a third-party GPAI model through its API does **not** make you a GPAI model provider. Only a substantial modification of the model itself can, as described in the Commission GPAI guidelines.
 
@@ -158,16 +176,20 @@ Building an application on a third-party GPAI model through its API does **not**
 The rules are summarised per key in `eu-obligations.json` (`applies`). The non-obvious ones are spelled out here:
 
 - **Provider high-risk set:** `art_9, 10, 11, 12, 13, 14, 15, 16, 17, 43, 47, 72, 73`, plus `art_49_1` for Annex III except point 2.
-- **Deployer high-risk set:** `art_26`. Add `art_26_7` if `affected` includes `staff`. Add `art_26_11` if the basis is Annex III (not point 2) and `affected` includes anyone other than staff.
-- **FRIA, `art_27`:** deployer, Annex III but not point 2, and either `org_type` ∈ {public_authority, private_public_service} or basis ∈ {5(b), 5(c)}.
+- **Deployer high-risk set:** `art_26`. Add `art_26_7` if `affected` includes `staff`. Add `art_26_11` if the basis is Annex III and the system makes or assists decisions related to natural persons, workers included. v2 approximates this as "not point 2" (critical-infrastructure safety components don't decide about people), applied whoever is affected.
+- **FRIA, `art_27`:** deployer, Annex III but not point 2, and either `org_type` ∈ {public_authority, private_public_service} or basis ∈ {5(b), 5(c)}. Since 2026, the FRIA may cross-refer to a GDPR Art. 35 DPIA (Art. 27(4)), and the AI Office is to publish a questionnaire template (Art. 27(5)).
+- **Special-category data for bias work (Art. 4a, new):** this is a permission, not an obligation, and it replaces the deleted Art. 10(5). Providers of high-risk systems may process special-category data where strictly necessary for bias detection and correction, under conditions (a)–(f). Other providers and deployers may do so on the same conditions. The output notes it when `data` includes `special_category` and status is `high_risk`.
 - **`art_49_3`:** deployer, Annex III but not point 2, and `org_type = public_authority`.
 - **`art_86`:** deployer, Annex III but not point 2, and severity (after the tier's unsure defaults) ∈ {material, serious}.
 - **`art_4`:** any in-scope provider or deployer, unless prohibited. As amended in 2026, this is an obligation to *support* AI literacy, not to guarantee a level of it.
 - **SME and small mid-cap** (`org_size` ∈ {sme, small_mid_cap}): no obligations are removed. The output notes the simplified technical documentation (Art. 11), the proportionate QMS (Art. 17) and the penalty caps.
 - **Dates:**
   - `effective_from: "basis"` resolves to 2 Dec 2027 (Annex III) or 2 Aug 2028 (Annex I).
-  - Systems placed on the market before the relevant date are covered only if substantially modified afterwards. v2 does not ask about this yet *(future question; noted in the output)*.
-  - Public-authority legacy systems have until 2 Aug 2030.
+    - Strictly, Art. 113(c) as amended dates only Chapter III Sections 1–3 (Arts. 6–27), and the rest of the Act applies from 2 Aug 2026.
+    - But no system is high-risk until Art. 6 applies, so Arts. 43, 47–49, 72, 73 and 86 bite on the same dates in practice. v2 shows the basis date for all of them.
+  - Art. 50: from 2 Aug 2026. Under Art. 111(4), Art. 50(2) is postponed to 2 Dec 2026 only for systems placed on the market before 2 Aug 2026.
+  - Under Art. 111(2) as amended, high-risk systems placed on the market before the application date are covered only if their design changes significantly afterwards. v2 does not ask about this yet *(future question; noted in the output)*.
+  - High-risk systems intended for use by public authorities must comply by 2 Aug 2030 regardless (Art. 111(2)).
 
 ## 6. Governance tier
 
@@ -206,19 +228,32 @@ Each tier's expectations are in `tier-matrix.json → tiers` and become concrete
 
 ## 8. Verification register
 
-These were checked against secondary sources on 2026-10-20 (law-firm and policy briefings on Reg. (EU) 2026/1744). Items marked **open** must be confirmed against the Official Journal text before v2 ships.
+**Verified on 2026-10-20 against the primary texts on EUR-Lex:**
+- Regulation (EU) 2024/1689, OJ L 12.7.2024.
+- Regulation (EU) 2026/1744, OJ L 24.7.2026 (signed 8 July 2026; Art. 4: in force the third day after publication, i.e. 27 July 2026).
 
-| Item | Status |
+Article references below are to 2024/1689 as amended. "2026/1744 pt (n)" is point (n) of Article 1 of the amending regulation.
+
+| Item | Primary-text finding |
 |---|---|
-| Reg. (EU) 2026/1744 published OJ 24 Jul 2026, in force 27 Jul 2026 | Confirmed (multiple sources) |
-| Annex III high-risk obligations from 2 Dec 2027; Annex I from 2 Aug 2028 | Confirmed |
-| New Art. 5 prohibitions (NCII, CSAM) from 2 Dec 2026 | Confirmed. **Open:** paragraph lettering and exact wording |
-| Art. 4 reframed as "support the development of AI literacy" | Confirmed (one source) |
-| Art. 50(2) from 2 Dec 2026 | **Open:** whether this applies to all systems or only to those placed on the market before 2 Aug 2026 |
-| Art. 49(2) registration of Art. 6(3) systems deleted | **Open:** in the Commission proposal; final text not confirmed |
-| "Safety component" narrowed to health and safety functions; machinery moved to Annex I Section B | Confirmed (one source) |
-| SME measures extended to small mid-caps (<750 staff, ≤€150m turnover or ≤€129m balance sheet) | Confirmed (one source) |
-| Commission high-risk classification guidelines (Art. 6(5)) | Not yet published. The golden suite relies on the Act text, the recitals and the prohibited-practices guidelines (Feb 2025). |
+| Annex III dates | Art. 113(c)(i): Chapter III Sections 1–3 apply from **2 Dec 2027** for Art. 6(2)/Annex III (2026/1744 pt 40) |
+| Annex I dates | Art. 113(c)(ii): Chapter III Sections 1–3 apply from **2 Aug 2028** for Art. 6(1)/Annex I (2026/1744 pt 40) |
+| New prohibitions | **Art. 5(1)(ba)** (non-consensual intimate imagery) and **(bb)** (CSAM, subject to a national "without right" defence). Art. 5(1a) splits the provider and deployer tests; Art. 5(1b) defines what is not manipulation. All apply from **2 Dec 2026** (Art. 113(a)) (2026/1744 pts 7, 40) |
+| Art. 4 AI literacy | Replaced: providers and deployers "take measures to support the development of AI literacy", with no guaranteed level. The Commission and Member States support this, and the Board adopts recommendations (2026/1744 pt 5) |
+| Art. 50 dates | Art. 50 is **not** amended apart from para. 7 (codes of practice). It applies from **2 Aug 2026** (original Art. 113). New **Art. 111(4)**: Art. 50(2) applies from **2 Dec 2026** only to systems placed on the market before 2 Aug 2026 (2026/1744 pts 20, 39) |
+| Art. 49(2) registration of Art. 6(3) systems | **Retained.** Art. 49 is not amended, and Art. 6(4) still refers to it. Only Annex VIII Section B **points 7 and 9** are deleted (2026/1744 pt 42) |
+| Safety component | Art. 3(14) redefined. New Art. 6(1a)–(1c) (2026/1744 pts 4, 8) |
+| Machinery | Removed from Annex I Section A (point 1) and added to Section B (point 21) (2026/1744 pt 41) |
+| Annex I Section B | Art. 2(2): only Art. 6(1), 60a and 102–112 apply (2026/1744 pt 2) |
+| SME / small mid-cap | SME and SMC defined in Art. 3(14a)–(14b), the latter by reference to Recommendation (EU) 2025/1099. Simplified technical documentation (Art. 11(1)), proportionate QMS (Art. 17(2)) and penalties (Art. 99(1), (6a)) (2026/1744 pts 4, 10, 11, 38) |
+| Bias data | New Art. 4a; Art. 10(5) deleted (2026/1744 pts 6, 9) |
+| FRIA | Art. 27(4)–(5): DPIA cross-reference and AI Office template (2026/1744 pt 13) |
+| Value chain | Art. 25(2) and (4) rewritten: duties of the initial provider and of third-party suppliers (2026/1744 pt 12) |
+| Legacy systems | Art. 111(2): covered only on "significant changes in their designs"; public-authority systems by **2 Aug 2030** (2026/1744 pt 39) |
+| Unchanged provisions the spec relies on | Original OJ text checked: Art. 2(12), 5(1)(f), 6(3)–(4), 25(1), 26(7), 26(11), 27(1), 49(1)–(5), 50(1)–(4), 86(1), Annex III |
+| Commission high-risk classification guidelines (Art. 6(5)) | Not yet published, so the golden suite relies on the Act text, the recitals and the prohibited-practices guidelines (Feb 2025) |
+
+The secondary sources consulted earlier were wrong or imprecise on two points: Art. 50(2) is not postponed for new systems, and the Art. 49(2) deletion proposed by the Commission did not survive into the final text.
 
 ## 9. Known gaps (deliberate for v2.0)
 

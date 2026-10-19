@@ -90,7 +90,12 @@ From that, five design principles follow:
 - `groupControlsByFunction` doesn't add multi-owner controls to every owner, despite its comment. `MANDATORY_FRAMEWORK_IDS` is dead code.
 - Engine tests check presence and counts. Apart from one AU case, they never assert that something is *excluded* or that a classification is correct, so all the probe failures pass CI.
 
-**G. Things I could not verify.** The repo states that the Digital Omnibus on AI was adopted as Regulation (EU) 2026/1744 (moving Annex III to 2 Dec 2027 and Annex I to 2 Aug 2028) and that new Art. 5(1)(ba)–(bb) prohibitions were added. Both are after my knowledge cut-off, so confirm them against EUR-Lex before reusing them in the rebuild.
+**G. Amendment facts: now verified.** I checked the repo's claims about Regulation (EU) 2026/1744 against the Official Journal text on 2026-10-20:
+- Annex III obligations apply from 2 Dec 2027 and Annex I from 2 Aug 2028.
+- Art. 5(1)(ba)–(bb) were added and apply from 2 Dec 2026.
+- Art. 50(2) is postponed to 2 Dec 2026 only for systems already on the market (Art. 111(4)).
+
+v1's dates are correct. The details are in `docs/v2/classification-spec.md` §8.
 
 ### 3.3 What's worth keeping
 
