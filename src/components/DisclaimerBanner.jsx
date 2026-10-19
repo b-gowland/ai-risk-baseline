@@ -19,6 +19,15 @@ export default function DisclaimerBanner() {
       </span>
       {' '}
       <Link to="/disclaimer" className={styles.readmore}>Read more →</Link>
+      <span className={styles.notice}>
+        <span className={styles.label}>EU AI Act classification is being rebuilt.</span>
+        {' '}
+        <span className={styles.text}>
+          This version has known errors in deciding whether a system is prohibited or high-risk. Don't rely on it for that decision.
+        </span>
+        {' '}
+        <Link to="/changelog" className={styles.readmore}>Details →</Link>
+      </span>
     </div>
   )
 }
