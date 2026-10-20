@@ -321,3 +321,11 @@ test('crosswalk: every ISO/IEC ref has a verified title and a public verificatio
     }
   }
 });
+
+test('crosswalk: every ISO/IEC 42001 clause is confirmed against a published-edition source', () => {
+  const fw = LIB.frameworks.iso_42001;
+  const confirmed = new Set(fw.confirmed_published);
+  for (const ref of confirmed) assert.ok(fw.ref_titles[ref], `confirmed_published lists unknown ref ${ref}`);
+  const clauses = Object.keys(fw.ref_titles).filter(r => r.startsWith('Cl. ') && r !== 'Cl. 4-10');
+  assert.deepEqual(clauses.filter(r => !confirmed.has(r)), []);
+});
