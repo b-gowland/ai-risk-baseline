@@ -82,7 +82,10 @@ export default function About() {
             Every ISO/IEC 42001, 23894 and 42005 reference was verified against NIST's official
             crosswalks from the AI RMF to those standards, published on the NIST AI Resource Center.
             The 42001 Annex A controls were also cross-checked against an independent listing of
-            the published edition. ISO/IEC 42005 is cited only by top-level clause, because NIST's
+            the published edition. Against the published edition itself, every cited 42001 clause is
+            confirmed by ISO's own harmonized structure for management system standards or by the
+            Australian Government's Voluntary AI Safety Standard, which cites the identical Australian
+            adoption, and so are 15 of the 26 cited Annex A controls. ISO/IEC 42005 is cited only by top-level clause, because NIST's
             crosswalk was made against its draft.
           </p>
           <p className={styles.text}>
