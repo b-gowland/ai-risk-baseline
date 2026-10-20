@@ -10,7 +10,7 @@
 import {
   statusLabel, scopeLabel, roleLabel, basesLabels, keyDates, tierInfo, tierExpectations,
   openQuestionText, hasRequirements, requirementsByGate, obligationsByRole, firstActions,
-  formatDate, purposeById, midSentence, sourceLabel,
+  formatDate, purposeById, midSentence, sourceLabel, packSections,
 } from './present.js';
 import { FIELD_TITLES, valueLabel } from './labels.js';
 import MODEL from '../data/answer-model.json' with { type: 'json' };
@@ -114,15 +114,13 @@ export function toMarkdown(model, result) {
 
   if (model.requirements) {
     out.push('## Requirements by gate');
-    for (const g of requirementsByGate(r)) {
-      out.push(`### ${g.label}`);
-      for (const q of g.items) {
-        const src = (q.sources || []).map(sourceLabel).join('; ');
-        out.push(`- **${q.title}** (${q.level === 'org' ? 'organisation' : 'use case'})${q.summary ? `: ${q.summary}` : ''}`);
-        if (q.why) out.push(`  - Why: ${q.why}`);
-        if (q.artefact) out.push(`  - Artefact: ${q.artefact}`);
-        if (src) out.push(`  - Sources: ${src}`);
-        if (q.effective_from) out.push(`  - Applies from: ${formatDate(q.effective_from)}`);
+    for (const g of requirementsByGate(r)) mdGroup(out, `### ${g.label}`, g.items);
+    const packs = packSections(r);
+    if (packs.length) {
+      out.push('', '## Country packs');
+      for (const p of packs) {
+        out.push(`### ${p.label}`, `_${p.note}_`);
+        for (const g of p.groups) mdGroup(out, `#### ${g.label}`, g.items);
       }
     }
   } else {
@@ -134,6 +132,22 @@ export function toMarkdown(model, result) {
       for (const o of g.items) out.push(`- **${o.citation}** ${o.title}${o.effective_from ? ` (from ${formatDate(o.effective_from)})` : ''}`);
     }
   }
+  return mdTail(out, model);
+}
+
+function mdGroup(out, heading, items) {
+  out.push(heading);
+  for (const q of items) {
+    const src = (q.sources || []).map(sourceLabel).join('; ');
+    out.push(`- **${q.title}** (${q.level === 'org' ? 'organisation' : 'use case'})${q.summary ? `: ${q.summary}` : ''}`);
+    if (q.why) out.push(`  - Why: ${q.why}`);
+    if (q.artefact) out.push(`  - Artefact: ${q.artefact}`);
+    if (src) out.push(`  - Sources: ${src}`);
+    if (q.effective_from) out.push(`  - Applies from: ${formatDate(q.effective_from)}`);
+  }
+}
+
+function mdTail(out, model) {
   out.push('');
 
   if (model.open_questions.length) {
@@ -166,7 +180,7 @@ export function toCsv(model, result) {
   const rows = [CSV_COLUMNS];
   if (model.requirements) {
     for (const q of model.requirements) {
-      rows.push(['requirement', q.id, q.title, q.gate, q.level, (q.owners || []).join('; '),
+      rows.push([q.pack ? `pack_requirement:${q.pack}` : 'requirement', q.id, q.title, q.gate, q.level, (q.owners || []).join('; '),
         (q.sources || []).map(sourceLabel).join('; '), q.effective_from || '',
         q.artefact || '', q.effort || '', '', q.why || q.summary || '']);
     }

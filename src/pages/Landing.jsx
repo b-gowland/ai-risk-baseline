@@ -135,6 +135,17 @@ export default function Landing() {
               </div>
             </div>
             <div className={styles.whatItem}>
+              <span className={styles.whatIcon} aria-hidden="true">PACK</span>
+              <div>
+                <h3 className={styles.whatTitle}>Country packs</h3>
+                <p className={styles.whatText}>
+                  Data protection on top of the core: GDPR when the system reaches the EU and uses
+                  personal data, plus UK data protection law as amended in 2026 and Australia's
+                  Privacy Act and national AI guidance when you select them.
+                </p>
+              </div>
+            </div>
+            <div className={styles.whatItem}>
               <span className={styles.whatIcon} aria-hidden="true">ASK</span>
               <div>
                 <h3 className={styles.whatTitle}>Open questions to escalate</h3>

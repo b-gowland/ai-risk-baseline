@@ -63,6 +63,11 @@ export const VALUE_LABELS = {
     material: 'Financial loss or lost access to a service or opportunity',
     serious: 'Legal effects, health or safety, or fundamental rights',
   },
+  other_jurisdictions: {
+    uk: 'United Kingdom',
+    au: 'Australia',
+    other: 'Elsewhere (not covered yet)',
+  },
   affected: {
     staff: 'Staff',
     customers: 'Customers',
@@ -97,6 +102,7 @@ export const FIELD_TITLES = {
   prohibited: 'Prohibited-practice screen',
   eu_nexus: 'EU connection',
   scope_exclusion: 'Exclusions',
+  other_jurisdictions: 'Other jurisdictions',
   role: 'Your role',
   org_type: 'Organisation type',
   org_size: 'Organisation size',
@@ -118,6 +124,7 @@ export const FIELD_HELP = {
   purpose: 'Pick what the system is for, not how it works. The EU AI Act classifies by purpose; the technology never changes the legal result.',
   eu_nexus: 'Yes if it is sold, supplied or used in the EU, or its outputs are used there, wherever your organisation is based.',
   scope_exclusion: 'Only pick one if it applies exclusively. Real-world testing is not covered by the research exclusion. Open-source systems stay in scope if they turn out prohibited, high-risk or subject to transparency duties.',
+  other_jurisdictions: 'Adds country packs: data protection rules (UK GDPR as amended in 2026; the Australian Privacy Act and the national AI guidance). GDPR is added automatically when the system has an EU connection and uses personal data.',
   role: 'Pick every role that applies. Building on a third-party model through its API does not make you a general-purpose model provider.',
   org_type: 'Public authority includes bodies acting on its behalf.',
   org_size: 'SME and small mid-cap status does not remove obligations, but it simplifies some of them.',
@@ -138,7 +145,7 @@ export const FIELD_QUESTIONS = {
 export const GATES = [
   { id: 'purpose', label: 'Purpose', fields: ['purpose'] },
   { id: 'prohibited', label: 'Prohibited screen', fields: ['prohibited'] },
-  { id: 'scope', label: 'Scope', fields: ['eu_nexus', 'scope_exclusion'] },
+  { id: 'scope', label: 'Scope', fields: ['eu_nexus', 'scope_exclusion', 'other_jurisdictions'] },
   { id: 'role', label: 'Role', fields: ['role', 'org_type', 'org_size'] },
   { id: 'product', label: 'Product', fields: ['annex_i_product'] },
   { id: 'art_6_3', label: 'Art. 6(3)', fields: ['art_6_3'] },
@@ -180,6 +187,20 @@ export const FRAMEWORK_LABELS = {
   iso_42005: 'ISO/IEC 42005',
   nist_ai_rmf: 'NIST AI RMF',
   nist_ai_600_1: 'NIST AI 600-1',
+  gdpr: 'GDPR',
+  uk_gdpr: 'UK GDPR',
+  ico: 'ICO',
+  au_privacy_act: 'Privacy Act 1988 (Cth)',
+  au_pola_2024: 'Privacy and Other Legislation Amendment Act 2024',
+  oaic_ai: 'OAIC',
+  au_ai_guidance: 'Guidance for AI Adoption',
+};
+
+/** Country packs (spec §11): heading and the one-line scope note shown above each. */
+export const PACK_LABELS = {
+  gdpr: { label: 'GDPR (EU)', note: 'Added because the system has an EU connection and processes personal data.' },
+  uk: { label: 'United Kingdom', note: 'UK GDPR and the Data Protection Act 2018 as amended by the Data (Use and Access) Act 2025, with ICO guidance.' },
+  au: { label: 'Australia', note: 'The Privacy Act applies to APP entities: most organisations with turnover above A$3 million, Australian Government agencies and some smaller businesses. The national AI guidance applies to everyone.' },
 };
 
 export const GATE_LABELS = {

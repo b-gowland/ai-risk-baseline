@@ -1,0 +1,114 @@
+{
+  "id": "uk",
+  "title": "United Kingdom",
+  "version": "1.0.0",
+  "_note": "Country pack: UK GDPR and the Data Protection Act 2018 as amended by the Data (Use and Access) Act 2025, plus ICO guidance. Added when the user selects the UK and the system processes personal data. The UK has no AI-specific statute; data protection law is the main binding regime for AI. Checked against legislation.gov.uk on 2026-10-20.",
+  "frameworks": {
+    "uk_gdpr": {
+      "title": "UK GDPR and Data Protection Act 2018, as amended by the Data (Use and Access) Act 2025",
+      "url": "https://www.legislation.gov.uk/eur/2016/679/contents",
+      "last_verified": "2026-10-20",
+      "source_note": "legislation.gov.uk checked on 2026-10-20. Data (Use and Access) Act 2025 s.80 replaced UK GDPR Art. 22 with Arts. 22A-22D; ss.70, 80, 81 and 85 commenced on 5 February 2026 under SI 2026/82, reg. 2 (decisions taken before then keep the old Art. 22 safeguards, reg. 5)."
+    },
+    "ico": {
+      "title": "ICO guidance on AI and data protection",
+      "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+      "last_verified": "2026-10-20",
+      "source_note": "Regulator guidance: not law, but how the ICO expects UK GDPR to be applied to AI. Checked on 2026-10-20: it says that in the vast majority of cases AI use involves processing likely to be high risk (so a DPIA is needed), and that the guidance is under review following the Data (Use and Access) Act."
+    }
+  },
+  "requirements": [
+    {
+      "id": "uk.lawful_basis",
+      "title": "Lawful basis and records of processing (UK GDPR)",
+      "summary": "Identify the lawful basis for each purpose the AI system uses personal data for. Since 5 February 2026, UK GDPR also lists 'recognised legitimate interests', such as crime prevention and safeguarding, that need no balancing test. Special-category data needs an Art. 9 condition, usually with a DPA 2018 Schedule 1 condition. Record it in your records of processing.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true } ] },
+      "artefact": "Records-of-processing entry for the system: purposes, lawful basis per purpose, special-category condition where relevant, retention.",
+      "owners": ["legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 6" },
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 9" },
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 30" }
+      ]
+    },
+    {
+      "id": "uk.transparency",
+      "title": "Privacy information and explaining AI decisions (UK GDPR)",
+      "summary": "Tell people how the system uses their personal data, and be able to explain decisions it makes or supports about them, in line with the ICO's guidance on explaining AI decisions.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true } ] },
+      "artefact": "Updated privacy notice covering the AI processing, and an explanation approach for affected people proportionate to the decision's impact.",
+      "owners": ["legal", "tech"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "uk_gdpr", "ref": "UK GDPR Arts. 13-14" },
+        { "framework": "ico", "ref": "Explaining decisions made with AI" }
+      ]
+    },
+    {
+      "id": "uk.dpia",
+      "title": "Data protection impact assessment (UK GDPR)",
+      "summary": "Carry out a DPIA before processing that is likely to be high risk. The ICO treats most uses of AI that process personal data as likely to need one, and it is required for systematic automated evaluation that drives significant decisions or for large-scale special-category data.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true }, { "any": [ { "tier_min": 2 }, { "data": ["special_category", "biometric", "children"] }, { "significant_automated": true } ] } ] },
+      "artefact": "DPIA covering the AI processing, its necessity and proportionality, risks to individuals (including fairness and accuracy) and mitigations.",
+      "owners": ["legal", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 35" },
+        { "framework": "ico", "ref": "DPIA guidance", "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/accountability-and-governance/data-protection-impact-assessments-dpias/" }
+      ]
+    },
+    {
+      "id": "uk.automated_decisions",
+      "title": "Significant decisions based solely on automated processing (UK GDPR Arts. 22A-22D)",
+      "summary": "Since 5 February 2026 such decisions are generally allowed, but you must provide safeguards: tell people about the decision, let them make representations, give them human intervention and let them contest it. A decision is solely automated if no person meaningfully takes part in it. Decisions using special-category data still need explicit consent, or contract or legal necessity with substantial public interest, and none may rely on the 'recognised legitimate interests' basis.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true }, { "significant_automated": true } ] },
+      "artefact": "Record of whether decisions are solely automated (and why any human involvement is meaningful), the lawful route for special-category data, and the safeguards process: notice, representations, human review, challenge.",
+      "owners": ["legal", "tech"],
+      "effort": "Medium",
+      "effective_from": "2026-02-05",
+      "sources": [
+        { "framework": "uk_gdpr", "ref": "UK GDPR Arts. 22A-22D", "url": "https://www.legislation.gov.uk/ukpga/2025/18/section/80" }
+      ]
+    },
+    {
+      "id": "uk.fairness_accuracy",
+      "title": "Fairness, accuracy and bias in AI (ICO guidance)",
+      "summary": "Show that the system processes personal data fairly: test for bias and discriminatory outcomes, track statistical accuracy, and keep them under review, as set out in the ICO's AI and data protection guidance.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true }, { "tier_min": 2 } ] },
+      "artefact": "Fairness and accuracy test results, with the metrics, thresholds and review cadence used.",
+      "owners": ["tech", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "ico", "ref": "AI and data protection guidance" },
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 5(1)(a), (d)" }
+      ]
+    },
+    {
+      "id": "uk.processors_security",
+      "title": "Processors, international transfers and security (UK GDPR)",
+      "summary": "Put Art. 28 processor terms in place with AI vendors, check their use of your data, and make sure any transfer outside the UK meets the transfer rules as amended in 2026. Secure the data and report qualifying breaches to the ICO within 72 hours.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "all": [ { "jurisdiction": ["uk"] }, { "personal_data": true } ] },
+      "artefact": "Processor agreement and transfer mechanism for the AI service, security measures for the system, and its place in the breach-response procedure.",
+      "owners": ["procurement", "tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "uk_gdpr", "ref": "UK GDPR Art. 28" },
+        { "framework": "uk_gdpr", "ref": "UK GDPR Chapter V" },
+        { "framework": "uk_gdpr", "ref": "UK GDPR Arts. 32-34" }
+      ]
+    }
+  ]
+}

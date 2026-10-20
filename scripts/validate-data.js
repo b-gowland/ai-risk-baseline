@@ -123,6 +123,37 @@ if (requirements) {
   if (errors === before) pass(REQ, `${items.length} requirements valid; all ${obligationIds.size} EU obligations covered`)
 }
 
+// ─── country packs (spec §11) ────────────────────────────────────────────────
+
+const PACK_IDS = [`gdpr`, `uk`, `au`]
+const seenIds = new Set((requirements?.requirements || []).map(r => r.id))
+for (const id of PACK_IDS) {
+  const file = `packs/${id}.json`
+  const pack = loadJSON(`src/v2/${file}`)
+  if (!pack) continue
+  const before = errors
+  if (pack.id !== id) fail(file, `'id' must be '${id}'`)
+  const frameworks = pack.frameworks || {}
+  for (const [fid, fw] of Object.entries(frameworks)) {
+    if (!fw.url) fail(file, `Framework '${fid}' missing 'url'`)
+    checkFresh(file, `Framework '${fid}'`, fw.last_verified)
+  }
+  for (const r of pack.requirements || []) {
+    if (!r.id?.startsWith(`${id}.`)) fail(file, `${r.id}: id must start with '${id}.'`)
+    if (seenIds.has(r.id)) fail(file, `${r.id}: duplicate id`)
+    seenIds.add(r.id)
+    for (const k of [`title`, `summary`, `level`, `gate`, `artefact`, `effort`, `applies`]) {
+      if (!r[k]) fail(file, `${r.id}: missing '${k}'`)
+    }
+    if (r.effective_from && !ISO_DATE.test(r.effective_from)) fail(file, `${r.id}: invalid 'effective_from'`)
+    if (!r.sources?.length) fail(file, `${r.id}: no sources`)
+    for (const s of r.sources || []) {
+      if (!frameworks[s.framework]) fail(file, `${r.id}: unknown framework '${s.framework}'`)
+    }
+  }
+  if (errors === before) pass(file, `${(pack.requirements || []).length} requirements valid`)
+}
+
 // ─── Summary ─────────────────────────────────────────────────────────────────
 
 console.log(``)

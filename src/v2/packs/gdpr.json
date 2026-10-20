@@ -1,0 +1,126 @@
+{
+  "id": "gdpr",
+  "title": "GDPR (EU)",
+  "version": "1.0.0",
+  "_note": "Country pack: EU General Data Protection Regulation. Added automatically when the system has an EU connection and processes personal data. Same requirement schema as src/v2/data/requirements.json (spec §11). Article numbers and wording checked against the EUR-Lex text of Regulation (EU) 2016/679 on 2026-10-20.",
+  "frameworks": {
+    "gdpr": {
+      "title": "Regulation (EU) 2016/679 (General Data Protection Regulation)",
+      "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "last_verified": "2026-10-20",
+      "source_note": "EUR-Lex text checked on 2026-10-20: Arts. 5, 6, 8, 9, 13, 14, 22, 25, 28, 30, 32-36, 44 and 46."
+    }
+  },
+  "requirements": [
+    {
+      "id": "gdpr.lawful_basis",
+      "title": "Lawful basis and records of processing (GDPR)",
+      "summary": "Identify the lawful basis for each purpose the AI system processes personal data for, including training, testing and use. Special-category data, including biometric data used to identify people, needs an Art. 9(2) condition as well; consent from children for online services needs parental authorisation below the national age (16 by default). Record it all in your records of processing.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true } ] },
+      "artefact": "Records-of-processing entry for the system: purposes, lawful basis per purpose, Art. 9 condition where relevant, data categories, recipients, retention.",
+      "owners": ["legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 5" },
+        { "framework": "gdpr", "ref": "Art. 6" },
+        { "framework": "gdpr", "ref": "Art. 8" },
+        { "framework": "gdpr", "ref": "Art. 9" },
+        { "framework": "gdpr", "ref": "Art. 30" }
+      ]
+    },
+    {
+      "id": "gdpr.transparency",
+      "title": "Privacy information covering the AI processing (GDPR)",
+      "summary": "Tell people how the system uses their personal data, whether collected from them or elsewhere. Where solely automated decisions with legal or similarly significant effects are made, say so and give meaningful information about the logic involved and the likely consequences for them.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true } ] },
+      "artefact": "Updated privacy notice (and just-in-time notices where people interact with the system), including the automated-decision information where it applies.",
+      "owners": ["legal"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 13" },
+        { "framework": "gdpr", "ref": "Art. 14" }
+      ]
+    },
+    {
+      "id": "gdpr.dpia",
+      "title": "Data protection impact assessment (GDPR)",
+      "summary": "Assess the impact on data protection before processing that is likely to be high risk. It is expressly required for systematic, extensive automated evaluation (including profiling) that drives decisions with legal or similarly significant effects, and for large-scale special-category data. Consult the supervisory authority if high risk remains. An EU AI Act fundamental rights impact assessment may cross-refer to it.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true }, { "any": [ { "tier_min": 3 }, { "data": ["special_category", "biometric", "children"] }, { "significant_automated": true } ] } ] },
+      "artefact": "DPIA: description of the processing, necessity and proportionality, risks to individuals, and the measures that address them; record of any prior consultation.",
+      "owners": ["legal", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 35" },
+        { "framework": "gdpr", "ref": "Art. 36" }
+      ]
+    },
+    {
+      "id": "gdpr.automated_decisions",
+      "title": "Solely automated decisions with significant effects (GDPR Art. 22)",
+      "summary": "People have the right not to be subject to a decision based solely on automated processing that has legal or similarly significant effects on them. It is allowed only where necessary for a contract, authorised by law with safeguards, or based on explicit consent. Even then, offer human intervention, a chance to give their view and to contest the decision. Special-category data may be used only with explicit consent or on substantial public interest grounds.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true }, { "significant_automated": true } ] },
+      "artefact": "Art. 22 assessment: whether decisions are solely automated, the exception relied on, and the process for human intervention, representations and challenge.",
+      "owners": ["legal", "tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 22" },
+        { "framework": "gdpr", "ref": "Art. 13" }
+      ]
+    },
+    {
+      "id": "gdpr.by_design",
+      "title": "Data protection by design and by default (GDPR)",
+      "summary": "Build data protection into the system: use only the personal data needed for each purpose, pseudonymise where you can, limit retention and access, and make the most privacy-protective settings the default.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true }, { "role": ["build_own_use", "build_supply", "put_name_on_or_substantially_modify", "repurpose_to_high_risk", "unsure"] } ] },
+      "artefact": "Design record showing data minimisation, pseudonymisation, retention and access decisions for training, testing and operation.",
+      "owners": ["tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 5" },
+        { "framework": "gdpr", "ref": "Art. 25" }
+      ]
+    },
+    {
+      "id": "gdpr.processors_transfers",
+      "title": "Processor contracts and international transfers (GDPR)",
+      "summary": "Where a vendor or model provider processes personal data for you, put an Art. 28 processor contract in place and check what it may do with your data, including any use for its own model training. If data leaves the EEA, rely on an adequacy decision or appropriate safeguards such as standard contractual clauses.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true }, { "any": [ { "role": ["deploy_vendor"] }, { "tech": ["third_party_model"] } ] } ] },
+      "artefact": "Signed processor agreement covering the AI service, a record of the vendor's data use (including training), and the transfer mechanism for any non-EEA processing.",
+      "owners": ["procurement", "legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 28" },
+        { "framework": "gdpr", "ref": "Art. 44" },
+        { "framework": "gdpr", "ref": "Art. 46" }
+      ]
+    },
+    {
+      "id": "gdpr.security_breach",
+      "title": "Security of processing and breach notification (GDPR)",
+      "summary": "Secure the personal data the system holds and produces, including against model-specific attacks such as data extraction. Notify the supervisory authority of a personal data breach within 72 hours where required, and tell affected people when the risk to them is high.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "all": [ { "jurisdiction": ["eu"] }, { "personal_data": true } ] },
+      "artefact": "Security measures recorded for the system, and its inclusion in the breach-response procedure.",
+      "owners": ["tech", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "gdpr", "ref": "Art. 32" },
+        { "framework": "gdpr", "ref": "Art. 33" },
+        { "framework": "gdpr", "ref": "Art. 34" }
+      ]
+    }
+  ]
+}

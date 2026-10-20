@@ -92,3 +92,20 @@ test('csvCell quotes only when needed', () => {
   assert.equal(csvCell('say "hi"'), '"say ""hi"""');
   assert.equal(csvCell(null), '');
 });
+
+test('country packs get their own Markdown section and CSV record type', () => {
+  const answers = { ...SUITE.defaults, ...scenario('G09').answers, other_jurisdictions: ['uk', 'au'] };
+  const result = classify(answers, { today });
+  const model = buildExportModel({ answers, name: 'Packs', result, url: 'https://example.test/output?v=2', generatedAt: '2026-10-20T00:00:00.000Z' });
+  const md = toMarkdown(model, result);
+  assert.match(md, /## Country packs/);
+  for (const heading of ['### GDPR (EU)', '### United Kingdom', '### Australia']) assert.ok(md.includes(heading), heading);
+  assert.match(md, /UK GDPR Arts\. 22A-22D/);
+  // Core requirements are not repeated under the packs, and pack items not under the core gates.
+  const core = md.slice(md.indexOf('## Requirements by gate'), md.indexOf('## Country packs'));
+  assert.doesNotMatch(core, /\(GDPR\)|UK GDPR|APP 1\.7/);
+  const rows = parseCsv(toCsv(model, result));
+  const kinds = new Set(rows.slice(1).map(r => r[0]));
+  for (const k of ['requirement', 'pack_requirement:gdpr', 'pack_requirement:uk', 'pack_requirement:au']) assert.ok(kinds.has(k), k);
+  for (const r of rows) assert.equal(r.length, CSV_COLUMNS.length);
+});

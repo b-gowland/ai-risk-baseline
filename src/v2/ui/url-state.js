@@ -45,6 +45,7 @@ export const PARAM_KEYS = {
   tech: 't',
   stage: 'st',
   ai_policy_inventory: 'pol',
+  other_jurisdictions: 'oj',
 };
 
 const MAP_VALUE = { yes: 'y', no: 'n', unsure: 'u' };

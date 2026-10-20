@@ -263,7 +263,7 @@ The secondary sources consulted earlier were wrong or imprecise on two points: A
 - Annex I Section B is handled only as an open question.
 - No GPAI systemic-risk threshold question.
 - Art. 2 territorial nuance is collapsed into a single `eu_nexus` question.
-- Country packs (GDPR, UK, AU) run after this pipeline and are out of scope for this spec.
+- Country packs (GDPR, UK, AU) run after this pipeline and never change the classification; see §11.
 
 ## 10. Requirements library
 
@@ -366,3 +366,41 @@ Each framework in `requirements.json → frameworks` has a URL, a `last_verified
 | NIST AI RMF 1.0 (AI 100-1) | All 72 subcategory ids checked against the PDF from nvlpubs.nist.gov; the test suite rejects any other id. |
 | NIST AI 600-1 | The 12 risk names checked against Section 2 of the PDF (note: "Harmful Bias **or** Homogenization"). |
 | ISO/IEC 42001, 23894, 42005 | The texts are paywalled and not reproduced: refs are clause and control numbers and titles, with our own paraphrase. On 2026-10-20 every ref was verified against NIST's official crosswalks on the AI Resource Center: [AI RMF to ISO/IEC 42001](https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf) (FDIS; its Annex B mirrors Annex A numbering), [ISO/IEC 23894, revised](https://airc.nist.gov/documents/3/ai-2025-00109_revised_ISO_IEC_23894_Crosswalk_to_the_NIST_AI_RMF.pdf), and [ISO/IEC 42005](https://airc.nist.gov/documents/2/ai-2025-00108_ISO_IEC_42005_to_NIST_AI_RMF_Crosswalk.pdf) (DIS, so only top-level clauses 5 and 6 are cited). The 38 Annex A controls of 42001 were cross-checked against an independent listing of the published 2023 edition. The verified titles live in `requirements.json → frameworks.*.ref_titles`, and `npm run validate` rejects any ISO ref without one. |
+
+## 11. Country packs
+
+Country packs add data protection and national AI guidance on top of the core frameworks. Each pack lives in `src/v2/packs/<id>.json` and uses the requirement schema of §10. It is resolved after the core library, and every resulting requirement carries `pack: "<id>"`. Packs never change the EU AI Act classification, the tier or the first five actions, and they add nothing when the status is `prohibited`.
+
+### 11.1 When a pack applies
+
+| Pack | Applies when | Covers |
+|---|---|---|
+| `gdpr` | `eu_nexus` is `yes` or `unsure`, and personal data is processed | Regulation (EU) 2016/679: Arts. 5, 6, 8, 9, 13, 14, 22, 25, 28, 30, 32–36, 44, 46 |
+| `uk` | `other_jurisdictions` includes `uk`, and personal data is processed | UK GDPR and DPA 2018 as amended by the Data (Use and Access) Act 2025 (Arts. 22A–22D from 5 Feb 2026), ICO guidance |
+| `au` | `other_jurisdictions` includes `au` (the privacy items also need personal data) | Privacy Act 1988 and the APPs, including APP 1.7–1.9 from 10 Dec 2026; OAIC AI guidance; Guidance for AI Adoption |
+
+`other_jurisdictions = other` adds no pack; the output says those jurisdictions are not covered.
+
+### 11.2 Answer-based predicate leaves
+
+Packs use these leaves in addition to those in §10.2:
+
+| Leaf | Matches when |
+|---|---|
+| `jurisdiction: [eu, uk, au]` | `eu`: `eu_nexus` is `yes` or `unsure`; `uk`/`au`: listed in `other_jurisdictions` |
+| `data: [...]` | `data` includes any of the values |
+| `personal_data: true` | `data` includes personal, special-category, biometric or children's data, and `scope_exclusion` is not `personal_non_professional` or `military_defence_national_security` (data protection law does not reach those, GDPR Art. 2(2)) |
+| `significant_decision: true` | severity (after the tier's unsure default) is `material` or `serious`, and someone is affected |
+| `significant_automated: true` | `significant_decision`, and `autonomy` is not `human_decides`: sample review or override is not meaningful human involvement in each decision (UK GDPR Art. 22A(1)(a); GDPR Art. 22 "solely") |
+
+AU APP 1.7 uses `significant_decision`, not `significant_automated`, because it reaches programs that do something "substantially and directly related to" making a decision, i.e. decision support.
+
+### 11.3 Verification
+
+| Pack | Primary sources checked on 2026-10-20 |
+|---|---|
+| GDPR | EUR-Lex text of Regulation (EU) 2016/679: the articles listed in 11.1 (Art. 22(1)–(4), 35(3), 8(1), 9(1), 13(2)(f) checked verbatim). |
+| UK | legislation.gov.uk: Data (Use and Access) Act 2025 s.80 (Arts. 22A–22D text); SI 2026/82 reg. 2 (ss.70, 80, 81, 85 in force 5 Feb 2026) and reg. 5 (decisions before then keep the old Art. 22 safeguards). ICO AI guidance: DPIA expectation, and note that the guidance is under review after the Act. |
+| AU | legislation.gov.au: Privacy and Other Legislation Amendment Act 2024 (No. 128), commencement table item 7 (Schedule 1 Part 15 from 10 Dec 2026), items 87–89 (APP 1.7–1.9 text, s 13K infringement notices, application to later decisions). OAIC: small business threshold (A$3 million) and AI product guidance. ai.gov.au: the six essential practices. |
+
+Pack tests are in `scripts/tests/packs-v2.test.js`.
