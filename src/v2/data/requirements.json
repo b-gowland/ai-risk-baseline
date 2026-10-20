@@ -12,19 +12,80 @@
       "title": "ISO/IEC 42001:2023 Artificial intelligence — Management system",
       "url": "https://www.iso.org/standard/42001",
       "last_verified": "2026-10-20",
-      "source_note": "Catalogue page checked (edition 1, 2023-12). The standard is paywalled and its text was not consulted: clause 4-10 and Annex A control numbers are cited from the standard's published structure and are open to correction via an issue."
+      "source_note": "Paywalled; its text is not reproduced. Clause 4-10 and Annex A control numbers and titles verified on 2026-10-20 against NIST's official AI RMF to ISO/IEC 42001 crosswalk (which cites the FDIS; its Annex B guidance mirrors Annex A numbering), and cross-checked against an independent listing of the 38 Annex A controls in the published 2023 edition.",
+      "verified_against": ["https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf"],
+      "ref_titles": {
+        "Cl. 4.1": "Understanding the organization and its context",
+        "Cl. 4.3": "Determining the scope of the AI management system",
+        "Cl. 4-10": "AI management system requirements",
+        "Cl. 5.1": "Leadership and commitment",
+        "Cl. 5.2": "AI policy",
+        "Cl. 5.3": "Roles, responsibilities and authorities",
+        "Cl. 6.1.2": "AI risk assessment",
+        "Cl. 6.1.3": "AI risk treatment",
+        "Cl. 6.1.4": "AI system impact assessment",
+        "Cl. 7.2": "Competence",
+        "Cl. 7.3": "Awareness",
+        "Cl. 8.2": "AI risk assessment",
+        "Cl. 8.3": "AI risk treatment",
+        "Cl. 8.4": "AI system impact assessment",
+        "Cl. 9.1": "Monitoring, measurement, analysis and evaluation",
+        "Cl. 9.2": "Internal audit",
+        "Cl. 9.3": "Management review",
+        "Cl. 10.2": "Nonconformity and corrective action",
+        "A.2.2": "AI policy",
+        "A.2.4": "Review of the AI policy",
+        "A.3.2": "AI roles and responsibilities",
+        "A.3.3": "Reporting of concerns",
+        "A.4.2": "Resource documentation",
+        "A.4.6": "Human resources",
+        "A.5.2": "AI system impact assessment process",
+        "A.5.3": "Documentation of AI system impact assessments",
+        "A.5.4": "Assessing AI system impact on individuals or groups of individuals",
+        "A.5.5": "Assessing societal impacts of AI systems",
+        "A.6.2.4": "AI system verification and validation",
+        "A.6.2.5": "AI system deployment",
+        "A.6.2.6": "AI system operation and monitoring",
+        "A.6.2.7": "AI system technical documentation",
+        "A.6.2.8": "AI system recording of event logs",
+        "A.7.2": "Data for development and enhancement of AI system",
+        "A.7.4": "Quality of data for AI systems",
+        "A.7.5": "Data provenance",
+        "A.7.6": "Data preparation",
+        "A.8.2": "System documentation and information for users",
+        "A.8.4": "Communication of incidents",
+        "A.8.5": "Information for interested parties",
+        "A.9.2": "Processes for responsible use of AI systems",
+        "A.9.4": "Intended use of the AI system",
+        "A.10.2": "Allocating responsibilities",
+        "A.10.3": "Suppliers",
+        "A.10.4": "Customers"
+      }
     },
     "iso_23894": {
       "title": "ISO/IEC 23894:2023 Artificial intelligence — Guidance on risk management",
       "url": "https://www.iso.org/standard/77304.html",
       "last_verified": "2026-10-20",
-      "source_note": "Catalogue page checked (edition 1, 2023-02). Paywalled; clause numbers follow the ISO 31000 process structure the standard adopts."
+      "source_note": "Paywalled; its text is not reproduced. Clause numbers and titles verified on 2026-10-20 against NIST's revised official crosswalk of ISO/IEC 23894:2023 to the AI RMF. Clause 6 follows the ISO 31000 risk management process.",
+      "verified_against": ["https://airc.nist.gov/documents/3/ai-2025-00109_revised_ISO_IEC_23894_Crosswalk_to_the_NIST_AI_RMF.pdf"],
+      "ref_titles": {
+        "Cl. 6.3": "Scope, context and criteria",
+        "Cl. 6.4": "Risk assessment",
+        "Cl. 6.5": "Risk treatment",
+        "Cl. 6.6": "Monitoring and review",
+        "Cl. 6.7": "Recording and reporting"
+      }
     },
     "iso_42005": {
       "title": "ISO/IEC 42005:2025 Artificial intelligence — AI system impact assessment",
       "url": "https://www.iso.org/standard/42005",
       "last_verified": "2026-10-20",
-      "source_note": "Catalogue page checked (edition 1, 2025-05). Paywalled; cited as a whole, not by clause."
+      "source_note": "Paywalled; its text is not reproduced. Clause structure taken on 2026-10-20 from NIST's official crosswalk of ISO/IEC 42005 to the AI RMF, which cites the DIS: clause 5 sets out the impact assessment process and clause 6 its documentation. Only top-level clauses are cited, as sub-clause numbering may differ in the published 2025 edition.",
+      "verified_against": ["https://airc.nist.gov/documents/2/ai-2025-00108_ISO_IEC_42005_to_NIST_AI_RMF_Crosswalk.pdf"],
+      "ref_titles": {
+        "Cl. 5": "AI system impact assessment process",
+        "Cl. 6": "Documenting the AI system impact assessment"
+      }
     },
     "nist_ai_rmf": {
       "title": "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023",
@@ -203,8 +264,10 @@
       },
       "sources": [
         { "framework": "eu_ai_act", "ref": "Art. 9", "obligation": "eu.art_9" },
+        { "framework": "iso_23894", "ref": "Cl. 6.3" },
         { "framework": "iso_23894", "ref": "Cl. 6.4" },
         { "framework": "iso_23894", "ref": "Cl. 6.5" },
+        { "framework": "iso_23894", "ref": "Cl. 6.7" },
         { "framework": "iso_42001", "ref": "Cl. 6.1.2" },
         { "framework": "iso_42001", "ref": "Cl. 6.1.3" },
         { "framework": "iso_42001", "ref": "Cl. 8.2" },
@@ -231,10 +294,12 @@
       },
       "sources": [
         { "framework": "eu_ai_act", "ref": "Art. 27", "obligation": "eu.art_27" },
-        { "framework": "iso_42005", "ref": "ISO/IEC 42005:2025" },
+        { "framework": "iso_42005", "ref": "Cl. 5" },
+        { "framework": "iso_42005", "ref": "Cl. 6" },
         { "framework": "iso_42001", "ref": "Cl. 6.1.4" },
         { "framework": "iso_42001", "ref": "Cl. 8.4" },
         { "framework": "iso_42001", "ref": "A.5.2" },
+        { "framework": "iso_42001", "ref": "A.5.3" },
         { "framework": "iso_42001", "ref": "A.5.4" },
         { "framework": "iso_42001", "ref": "A.5.5" },
         { "framework": "nist_ai_rmf", "ref": "MAP 1.1" },
@@ -596,6 +661,7 @@
         { "framework": "eu_ai_act", "ref": "Art. 72", "obligation": "eu.art_72" },
         { "framework": "iso_42001", "ref": "Cl. 9.1" },
         { "framework": "iso_42001", "ref": "A.6.2.6" },
+        { "framework": "iso_23894", "ref": "Cl. 6.6" },
         { "framework": "nist_ai_rmf", "ref": "MEASURE 2.4" },
         { "framework": "nist_ai_rmf", "ref": "MANAGE 4.1" }
       ]

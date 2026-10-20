@@ -78,8 +78,12 @@ export default function About() {
           </p>
           <p className={styles.text}>
             ISO/IEC standards are paywalled. The Baseline cites their clause and control numbers
-            with its own plain-language paraphrase and never reproduces their text; those numbers
-            have not been checked against the standards themselves.
+            and titles, with its own plain-language paraphrase, and never reproduces their text.
+            Every ISO/IEC 42001, 23894 and 42005 reference was verified against NIST's official
+            crosswalks from the AI RMF to those standards, published on the NIST AI Resource Center.
+            The 42001 Annex A controls were also cross-checked against an independent listing of
+            the published edition. ISO/IEC 42005 is cited only by top-level clause, because NIST's
+            crosswalk was made against its draft.
           </p>
           <p className={styles.text}>
             Source URLs are checked automatically each month, and a scheduled check flags any

@@ -287,7 +287,7 @@ Requirement = {
 actions = [{ rank, requirement_id, title, why }]   // at most 5
 ```
 
-One requirement can satisfy several frameworks, so it is listed once. For example, `uc.risk_assessment` is the tier-2 risk assessment (ISO/IEC 23894 cl. 6.4–6.5, ISO/IEC 42001 cl. 6.1.2–6.1.3 and 8.2–8.3, NIST MAP 5.1, MANAGE 1.2–1.3) and, when the engine lists `eu.art_9`, also the Art. 9 risk management system.
+One requirement can satisfy several frameworks, so it is listed once. For example, `uc.risk_assessment` is the tier-2 risk assessment (ISO/IEC 23894 cl. 6.3–6.5 and 6.7, ISO/IEC 42001 cl. 6.1.2–6.1.3 and 8.2–8.3, NIST MAP 5.1, MANAGE 1.2–1.3) and, when the engine lists `eu.art_9`, also the Art. 9 risk management system.
 
 ### 10.2 When a requirement applies
 
@@ -365,4 +365,4 @@ Each framework in `requirements.json → frameworks` has a URL, a `last_verified
 | EU AI Act | Article references as in §8. |
 | NIST AI RMF 1.0 (AI 100-1) | All 72 subcategory ids checked against the PDF from nvlpubs.nist.gov; the test suite rejects any other id. |
 | NIST AI 600-1 | The 12 risk names checked against Section 2 of the PDF (note: "Harmful Bias **or** Homogenization"). |
-| ISO/IEC 42001, 23894, 42005 | Catalogue pages checked (editions and dates). The texts are paywalled and were **not** consulted. Clause and Annex A control numbers are cited from the standards' published structure, with our own paraphrase only; no ISO text is reproduced. Corrections welcome via an issue. |
+| ISO/IEC 42001, 23894, 42005 | The texts are paywalled and not reproduced: refs are clause and control numbers and titles, with our own paraphrase. On 2026-10-20 every ref was verified against NIST's official crosswalks on the AI Resource Center: [AI RMF to ISO/IEC 42001](https://airc.nist.gov/docs/NIST_AI_RMF_to_ISO_IEC_42001_Crosswalk.pdf) (FDIS; its Annex B mirrors Annex A numbering), [ISO/IEC 23894, revised](https://airc.nist.gov/documents/3/ai-2025-00109_revised_ISO_IEC_23894_Crosswalk_to_the_NIST_AI_RMF.pdf), and [ISO/IEC 42005](https://airc.nist.gov/documents/2/ai-2025-00108_ISO_IEC_42005_to_NIST_AI_RMF_Crosswalk.pdf) (DIS, so only top-level clauses 5 and 6 are cited). The 38 Annex A controls of 42001 were cross-checked against an independent listing of the published 2023 edition. The verified titles live in `requirements.json → frameworks.*.ref_titles`, and `npm run validate` rejects any ISO ref without one. |

@@ -16,10 +16,15 @@ import {
   STATUS_LABELS, SCOPE_LABELS, ROLE_LABELS, GATE_LABELS, REQUIREMENT_GATES, OPEN_QUESTION_TEXT, FRAMEWORK_LABELS,
 } from './labels.js';
 
-/** "ISO/IEC 42001 A.6.2.4"; the ref alone when it already names the standard (e.g. "ISO/IEC 42005:2025"). */
+/**
+ * "ISO/IEC 42001 A.6.2.4 (AI system verification and validation)": the verified clause or control
+ * title is added when the library has one. The ref alone when it already names the standard.
+ */
 export function sourceLabel(s) {
   const fw = FRAMEWORK_LABELS[s.framework] || s.framework;
-  return s.ref && s.ref.startsWith(fw) ? s.ref : `${fw} ${s.ref}`.trim();
+  const label = s.ref && s.ref.startsWith(fw) ? s.ref : `${fw} ${s.ref}`.trim();
+  const title = REQUIREMENTS.frameworks?.[s.framework]?.ref_titles?.[s.ref];
+  return title ? `${label} (${title})` : label;
 }
 
 /** The source's own link, or the framework's catalogue page when it has none. */

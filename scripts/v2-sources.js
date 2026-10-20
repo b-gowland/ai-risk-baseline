@@ -52,8 +52,11 @@ export function datedItems({ obligations, requirements }) {
 }
 
 export function sourcedEntries({ requirements }) {
-  const frameworks = Object.entries(requirements.frameworks || {})
-    .map(([id, fw]) => ({ id, source_url: fw.url }));
+  const frameworks = Object.entries(requirements.frameworks || {}).flatMap(([id, fw]) => [
+    { id, source_url: fw.url },
+    // The public crosswalks that paywalled standards were verified against.
+    ...(fw.verified_against || []).map(url => ({ id: `${id} (verification source)`, source_url: url })),
+  ]);
   const mappings = requirements.requirements.flatMap(r =>
     (r.sources || []).filter(s => s.url).map(s => ({ id: r.id, source_url: s.url })));
   return { frameworks, mappings };
