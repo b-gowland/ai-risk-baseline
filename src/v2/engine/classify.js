@@ -4,7 +4,8 @@
  * classify(answers, options) → {
  *   scope, status, basis, bases, provisional, roles, obligations, effective_from,
  *   tier, open_questions: [{ gate, field, assumption, blocking }],
- *   trace: [{ step, rule, because }], notes: [{ ref, text }]
+ *   trace: [{ step, rule, because }], notes: [{ ref, text }],
+ *   requirements: Requirement[], actions: [{ rank, requirement_id, title, why }]
  * }
  *
  * Implements docs/v2/classification-spec.md §3-§6. Steps run in order:
@@ -13,7 +14,7 @@
  * options.today (ISO date, default today) only affects dated notes.
  *
  * Spec §3 lists the keys up to trace; bases, effective_from and notes are additions
- * for the UI.
+ * for the UI. requirements and actions come from the requirements library (spec §10).
  */
 
 import { normalize, because } from './answers.js';
@@ -24,11 +25,20 @@ import { transparencyStep } from './transparency.js';
 import { rolesStep } from './roles.js';
 import { obligationsStep } from './obligations.js';
 import { tierStep, tierInputs } from './tier.js';
+import { requirementsStep } from './requirements.js';
+import { actionsStep } from './actions.js';
 
 // Open questions that only feed the tier, or that never change the status.
 const NON_PROVISIONAL_GATES = ['severity', 'autonomy', 'reversible', 'gpai_systemic'];
 
-export function classify(rawAnswers, { today = new Date().toISOString().slice(0, 10) } = {}) {
+export function classify(rawAnswers, options) {
+  const result = classifyStatus(rawAnswers, options);
+  const answers = normalize(rawAnswers);
+  const requirements = requirementsStep(answers, result);
+  return { ...result, requirements, actions: actionsStep(answers, result, requirements) };
+}
+
+function classifyStatus(rawAnswers, { today = new Date().toISOString().slice(0, 10) } = {}) {
   const answers = normalize(rawAnswers);
   const open_questions = [];
   const trace = [];

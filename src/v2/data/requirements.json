@@ -1,0 +1,645 @@
+{
+  "version": "2.0.0-draft",
+  "_note": "v2 requirements library (docs/v2/classification-spec.md §10). One requirement can satisfy several frameworks, so it is listed once. 'applies' is a typed predicate over the classification result (see §10.2). An EU source with 'obligation' is shown only when classify() lists that obligation; one with 'in_scope' only when the EU AI Act applies. 'eu_variant' replaces fields when any EU obligation source is shown. ISO/IEC standards are paywalled: refs are clause and control numbers only, and every summary is our own paraphrase, never ISO text.",
+  "frameworks": {
+    "eu_ai_act": {
+      "title": "Regulation (EU) 2024/1689 (AI Act), as amended by Regulation (EU) 2026/1744",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "last_verified": "2026-10-20",
+      "source_note": "Official Journal texts on EUR-Lex; see spec §8 for the verification register."
+    },
+    "iso_42001": {
+      "title": "ISO/IEC 42001:2023 Artificial intelligence — Management system",
+      "url": "https://www.iso.org/standard/42001",
+      "last_verified": "2026-10-20",
+      "source_note": "Catalogue page checked (edition 1, 2023-12). The standard is paywalled and its text was not consulted: clause 4-10 and Annex A control numbers are cited from the standard's published structure and are open to correction via an issue."
+    },
+    "iso_23894": {
+      "title": "ISO/IEC 23894:2023 Artificial intelligence — Guidance on risk management",
+      "url": "https://www.iso.org/standard/77304.html",
+      "last_verified": "2026-10-20",
+      "source_note": "Catalogue page checked (edition 1, 2023-02). Paywalled; clause numbers follow the ISO 31000 process structure the standard adopts."
+    },
+    "iso_42005": {
+      "title": "ISO/IEC 42005:2025 Artificial intelligence — AI system impact assessment",
+      "url": "https://www.iso.org/standard/42005",
+      "last_verified": "2026-10-20",
+      "source_note": "Catalogue page checked (edition 1, 2025-05). Paywalled; cited as a whole, not by clause."
+    },
+    "nist_ai_rmf": {
+      "title": "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023",
+      "url": "https://doi.org/10.6028/NIST.AI.100-1",
+      "last_verified": "2026-10-20",
+      "source_note": "All 72 subcategory ids checked against the PDF from nvlpubs.nist.gov (Tables 1-4)."
+    },
+    "nist_ai_600_1": {
+      "title": "NIST AI 600-1, AI RMF: Generative Artificial Intelligence Profile, July 2024",
+      "url": "https://doi.org/10.6028/NIST.AI.600-1",
+      "last_verified": "2026-10-20",
+      "source_note": "The 12 risk names checked against Section 2 of the PDF from nvlpubs.nist.gov."
+    }
+  },
+  "nist_ai_600_1_risks": [
+    "CBRN Information or Capabilities",
+    "Confabulation",
+    "Dangerous, Violent, or Hateful Content",
+    "Data Privacy",
+    "Environmental Impacts",
+    "Harmful Bias or Homogenization",
+    "Human-AI Configuration",
+    "Information Integrity",
+    "Information Security",
+    "Intellectual Property",
+    "Obscene, Degrading, and/or Abusive Content",
+    "Value Chain and Component Integration"
+  ],
+  "requirements": [
+    {
+      "id": "uc.prohibited_stop",
+      "title": "Stop: prohibited practice",
+      "summary": "The use case matches a practice banned by Art. 5. Do not develop, place on the market or use it. Escalate to Legal; only a documented legal analysis showing the practice is not caught can reopen it.",
+      "level": "use_case",
+      "gate": "classify",
+      "applies": { "status": ["prohibited"] },
+      "artefact": "Legal sign-off recording the prohibited-practice finding and the decision to stop (or a legal analysis showing the practice is not caught), filed with the classification record.",
+      "owners": ["legal", "risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(a)", "obligation": "eu.art_5_1a" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(b)", "obligation": "eu.art_5_1b" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(ba)", "obligation": "eu.art_5_1ba" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(bb)", "obligation": "eu.art_5_1bb" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(c)", "obligation": "eu.art_5_1c" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(d)", "obligation": "eu.art_5_1d" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(e)", "obligation": "eu.art_5_1e" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(f)", "obligation": "eu.art_5_1f" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(g)", "obligation": "eu.art_5_1g" },
+        { "framework": "eu_ai_act", "ref": "Art. 5(1)(h)", "obligation": "eu.art_5_1h" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 3.3" }
+      ]
+    },
+    {
+      "id": "uc.classification_record",
+      "title": "Record the classification and resolve open questions",
+      "summary": "Write down the EU AI Act status and basis, your role, the governance tier and the reasoning behind them. Give every open question an owner and a date, and resolve blocking ones before anything else.",
+      "level": "use_case",
+      "gate": "classify",
+      "applies": { "always": true },
+      "why": "Every use case needs a recorded classification.",
+      "artefact": "Classification record: EU AI Act status and basis, role(s), governance tier, the answers and trace that produced them, and each open question with an owner and due date. Reviewed by Legal where the result is provisional.",
+      "owners": ["legal", "risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 2" },
+        { "framework": "eu_ai_act", "ref": "Arts. 3, 6, 25", "in_scope": true },
+        { "framework": "iso_42001", "ref": "Cl. 4.1" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 1.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 3.3" }
+      ]
+    },
+    {
+      "id": "org.ai_policy",
+      "title": "AI policy and acceptable-use rules",
+      "summary": "An organisation-wide AI policy that says which uses are acceptable, which are banned, how use cases are tiered and who approves them. Done once for the organisation, then each use case is checked against it.",
+      "level": "org",
+      "gate": "classify",
+      "applies": { "tier_min": 1 },
+      "existing_when_policy_inventory": true,
+      "artefact": "Approved AI policy with an owner and review date, covering acceptable and prohibited uses, risk tiers and approval routes.",
+      "owners": ["risk", "legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "iso_42001", "ref": "Cl. 5.2" },
+        { "framework": "iso_42001", "ref": "A.2.2" },
+        { "framework": "iso_42001", "ref": "A.2.4" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.2" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.4" }
+      ]
+    },
+    {
+      "id": "org.ai_inventory",
+      "title": "AI inventory entry",
+      "summary": "Keep a single inventory of the organisation's AI systems and add this use case to it, so it can be found, owned and reviewed.",
+      "level": "org",
+      "gate": "classify",
+      "applies": { "tier_min": 1 },
+      "existing_when_policy_inventory": true,
+      "artefact": "Inventory entry for this system: name, intended purpose, business owner, your role, EU AI Act status, tier, lifecycle stage, vendor or model used, next review date.",
+      "owners": ["risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "iso_42001", "ref": "Cl. 4.3" },
+        { "framework": "iso_42001", "ref": "A.4.2" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.6" }
+      ]
+    },
+    {
+      "id": "uc.owner",
+      "title": "Named business owner and acceptable-use check",
+      "summary": "Name one person accountable for the use case, and have them confirm it is allowed under the AI policy.",
+      "level": "use_case",
+      "gate": "classify",
+      "applies": { "tier_min": 1 },
+      "artefact": "Owner named in the inventory entry, with a dated confirmation that the use case fits the AI policy.",
+      "owners": ["risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "iso_42001", "ref": "Cl. 5.3" },
+        { "framework": "iso_42001", "ref": "A.3.2" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 2.1" }
+      ]
+    },
+    {
+      "id": "org.ai_literacy",
+      "title": "AI literacy for staff who build or use the system",
+      "summary": "Make sure the people who build, operate or rely on the system understand what it does, its limits and how to escalate problems. Proportionate to their role and the system.",
+      "level": "org",
+      "gate": "pre_deploy",
+      "applies": { "any": [ { "obligation": ["eu.art_4"] }, { "tier_min": 1 } ] },
+      "artefact": "Literacy measures recorded per role (training, guidance or briefing) with a record of who received them before getting access.",
+      "owners": ["risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 4", "obligation": "eu.art_4" },
+        { "framework": "iso_42001", "ref": "Cl. 7.2" },
+        { "framework": "iso_42001", "ref": "Cl. 7.3" },
+        { "framework": "iso_42001", "ref": "A.4.6" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 2.2" }
+      ]
+    },
+    {
+      "id": "uc.art_6_3_record",
+      "title": "Document and register the Art. 6(3) assessment",
+      "summary": "The system is in an Annex III area but you have assessed it as not high-risk. As provider, document that assessment before placing it on the market or putting it into service, and register the system in the EU database.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "obligation": ["eu.art_6_4", "eu.art_49_2"] },
+      "artefact": "Signed Art. 6(3) assessment naming the condition relied on and confirming no profiling, plus the EU database registration reference. Available to authorities on request.",
+      "owners": ["legal", "tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 6(4)", "obligation": "eu.art_6_4" },
+        { "framework": "eu_ai_act", "ref": "Art. 49(2)", "obligation": "eu.art_49_2" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" }
+      ]
+    },
+    {
+      "id": "uc.risk_assessment",
+      "title": "Risk assessment and treatment",
+      "summary": "Identify what could go wrong, for whom and how likely and severe it is, decide how each risk is treated, and record the residual risk the owner accepts. Proportionate to the tier.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "any": [ { "tier_min": 2 }, { "obligation": ["eu.art_9"] } ] },
+      "artefact": "Risk register for the use case: risks, likelihood and impact, treatments with owners, residual risk accepted by the business owner, and a review date.",
+      "owners": ["risk", "tech"],
+      "effort": "Medium",
+      "eu_variant": {
+        "title": "Risk management system (EU Art. 9)",
+        "summary": "As provider of a high-risk system, run a documented risk management process across the whole lifecycle: identify and analyse known and foreseeable risks, including misuse, adopt targeted measures, and test that residual risk is acceptable. Keep it updated after release.",
+        "artefact": "Risk management file maintained over the lifecycle: risk identification and analysis, measures adopted, residual-risk acceptance, test results, and the update log. Feeds the Annex IV technical documentation.",
+        "effort": "High"
+      },
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 9", "obligation": "eu.art_9" },
+        { "framework": "iso_23894", "ref": "Cl. 6.4" },
+        { "framework": "iso_23894", "ref": "Cl. 6.5" },
+        { "framework": "iso_42001", "ref": "Cl. 6.1.2" },
+        { "framework": "iso_42001", "ref": "Cl. 6.1.3" },
+        { "framework": "iso_42001", "ref": "Cl. 8.2" },
+        { "framework": "iso_42001", "ref": "Cl. 8.3" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 5.1" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 1.2" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 1.3" }
+      ]
+    },
+    {
+      "id": "uc.impact_assessment",
+      "title": "AI system impact assessment",
+      "summary": "Assess the effects of the system on the people and groups it affects, and on society, before it goes live: who is affected, how, how badly, and what mitigates it.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_27"] } ] },
+      "artefact": "Impact assessment report: affected people and groups, foreseeable impacts on them and on society, severity and reversibility, mitigations, and sign-off. Repeated when the system or its use changes.",
+      "owners": ["risk", "legal"],
+      "effort": "High",
+      "eu_variant": {
+        "title": "Fundamental rights impact assessment (EU Art. 27)",
+        "summary": "As deployer, assess the impact on fundamental rights before first use: the process and period of use, the people affected, specific risks of harm, human oversight and what happens if risks materialise. Notify the market surveillance authority of the result. It may cross-refer to a GDPR DPIA.",
+        "artefact": "FRIA covering the Art. 27(1) elements (a)-(f), the notification to the market surveillance authority, and any DPIA it cross-refers to. Updated when an element changes."
+      },
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 27", "obligation": "eu.art_27" },
+        { "framework": "iso_42005", "ref": "ISO/IEC 42005:2025" },
+        { "framework": "iso_42001", "ref": "Cl. 6.1.4" },
+        { "framework": "iso_42001", "ref": "Cl. 8.4" },
+        { "framework": "iso_42001", "ref": "A.5.2" },
+        { "framework": "iso_42001", "ref": "A.5.4" },
+        { "framework": "iso_42001", "ref": "A.5.5" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 1.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 5.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 5.2" }
+      ]
+    },
+    {
+      "id": "uc.vendor_due_diligence",
+      "title": "Vendor and third-party model due diligence",
+      "summary": "Before relying on a third-party system or model, check what it was built for, its known limits, what the vendor commits to, and who is responsible for what.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [
+        { "tier_min": 2 },
+        { "any": [
+          { "role": ["deploy_vendor", "put_name_on_or_substantially_modify", "repurpose_to_high_risk", "import_or_distribute"] },
+          { "tech": ["third_party_model"] }
+        ] }
+      ] },
+      "artefact": "Vendor assessment: intended purpose and limits from the vendor, contract terms on responsibilities, data use, incidents and change notice, and the provider's EU AI Act documentation where relevant.",
+      "owners": ["procurement", "legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "iso_42001", "ref": "A.10.2" },
+        { "framework": "iso_42001", "ref": "A.10.3" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 6.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 4.1" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 3.1" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 3.2" }
+      ]
+    },
+    {
+      "id": "uc.genai_overlay",
+      "title": "Generative AI risk overlay (NIST AI 600-1)",
+      "summary": "The system uses an LLM or other generative AI. Check the 12 generative AI risks in NIST AI 600-1 (for example confabulation, information integrity, information security, intellectual property and value chain) and add the relevant ones to the risk assessment.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "tier_min": 1 }, { "tech": ["llm_genai"] } ] },
+      "artefact": "Each of the 12 NIST AI 600-1 risks marked relevant or not with a reason, and the relevant ones carried into the risk register with treatments and tests.",
+      "owners": ["tech", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "nist_ai_600_1", "ref": "Section 2 (12 GAI risks)" },
+        { "framework": "nist_ai_600_1", "ref": "Section 3 (suggested actions)" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 2.2" },
+        { "framework": "iso_42001", "ref": "Cl. 6.1.2" }
+      ]
+    },
+    {
+      "id": "org.aims",
+      "title": "AI management system",
+      "summary": "An organisation-wide management system for AI: scope, roles, objectives, risk and impact processes, internal audit, management review and continual improvement. ISO/IEC 42001 certification is optional.",
+      "level": "org",
+      "gate": "design",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_17"] } ] },
+      "artefact": "Documented management system: scope, AI policy, roles, objectives, risk and impact assessment procedures, internal audit programme and management review minutes.",
+      "owners": ["risk"],
+      "effort": "High",
+      "eu_variant": {
+        "title": "Quality management system (EU Art. 17)",
+        "summary": "As provider of a high-risk system, run a documented quality management system covering compliance strategy, design and development controls, testing, data management, risk management, post-market monitoring, incident reporting and accountability. It can be built within an ISO/IEC 42001 management system; it may be proportionate for SMEs and small mid-caps.",
+        "artefact": "QMS documentation covering the Art. 17(1) elements, kept for 10 years after the system is placed on the market."
+      },
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 17", "obligation": "eu.art_17" },
+        { "framework": "iso_42001", "ref": "Cl. 4-10" },
+        { "framework": "iso_42001", "ref": "Cl. 9.2" },
+        { "framework": "iso_42001", "ref": "Cl. 9.3" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.4" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.5" }
+      ]
+    },
+    {
+      "id": "uc.human_oversight",
+      "title": "Designed human oversight",
+      "summary": "Decide who oversees the system, what they can see, when they must intervene and how they override or stop it, and build that into the system and the process.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_14"] } ] },
+      "artefact": "Oversight design: named oversight roles, the information and controls they get, intervention and override points, and evidence that overseers are trained and have authority.",
+      "owners": ["tech", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 14", "obligation": "eu.art_14" },
+        { "framework": "iso_42001", "ref": "A.9.2" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 3.2" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 3.5" }
+      ]
+    },
+    {
+      "id": "uc.data_governance",
+      "title": "Data governance for training, validation and test data",
+      "summary": "Know where the data comes from, whether it is relevant and representative for the intended purpose, how it was prepared, and what biases it may carry.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "any": [
+        { "obligation": ["eu.art_10"] },
+        { "all": [ { "tier_min": 3 }, { "role": ["build_own_use", "build_supply", "put_name_on_or_substantially_modify", "gpai_model_provider", "unsure"] } ] }
+      ] },
+      "artefact": "Data sheet per dataset: source and provenance, collection and preparation steps, relevance and representativeness for the purpose, known gaps and biases, and the bias checks run.",
+      "owners": ["tech"],
+      "effort": "High",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 10", "obligation": "eu.art_10" },
+        { "framework": "iso_42001", "ref": "A.7.2" },
+        { "framework": "iso_42001", "ref": "A.7.4" },
+        { "framework": "iso_42001", "ref": "A.7.5" },
+        { "framework": "iso_42001", "ref": "A.7.6" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 2.3" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.10" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.11" }
+      ]
+    },
+    {
+      "id": "uc.testing",
+      "title": "Pre-deployment testing for validity, robustness and bias",
+      "summary": "Before go-live, test that the system performs as intended in conditions like real use, holds up against errors and attacks, and does not treat groups unfairly. Set pass criteria in advance.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_15"] } ] },
+      "artefact": "Test plan with pass criteria set in advance, and a test report covering accuracy, robustness, security and bias, with declared accuracy metrics.",
+      "owners": ["tech"],
+      "effort": "High",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 15", "obligation": "eu.art_15" },
+        { "framework": "iso_42001", "ref": "A.6.2.4" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.3" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.5" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.7" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.11" }
+      ]
+    },
+    {
+      "id": "uc.logging",
+      "title": "Logging and traceability",
+      "summary": "Record enough about what the system did, when, and on what input that a decision or incident can be reconstructed later. Keep logs for a defined period.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_12"] } ] },
+      "artefact": "Logging specification (events, fields, retention period, access) and evidence that logs are produced and retained in the live system.",
+      "owners": ["tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 12", "obligation": "eu.art_12" },
+        { "framework": "iso_42001", "ref": "A.6.2.8" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.8" }
+      ]
+    },
+    {
+      "id": "uc.technical_documentation",
+      "title": "Technical documentation and instructions for use",
+      "summary": "As provider of a high-risk system, keep technical documentation that shows how it meets the requirements, and give deployers clear instructions for use: purpose, accuracy, limits, oversight and logging.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "obligation": ["eu.art_11", "eu.art_13"] },
+      "artefact": "Annex IV technical documentation (simplified form allowed for SMEs and small mid-caps) and the instructions for use supplied with the system.",
+      "owners": ["tech", "legal"],
+      "effort": "High",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 11, Annex IV", "obligation": "eu.art_11" },
+        { "framework": "eu_ai_act", "ref": "Art. 13", "obligation": "eu.art_13" },
+        { "framework": "iso_42001", "ref": "A.6.2.7" },
+        { "framework": "iso_42001", "ref": "A.8.2" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 2.2" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.9" }
+      ]
+    },
+    {
+      "id": "uc.transparency",
+      "title": "Transparency to the people affected",
+      "summary": "Tell people when they are dealing with AI or affected by its output, in plain language, and give them a way to ask questions, get an explanation or challenge an outcome.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "any": [
+        { "tier_min": 2 },
+        { "obligation": ["eu.art_50_1", "eu.art_50_3", "eu.art_50_4", "eu.art_26_7", "eu.art_26_11", "eu.art_86"] }
+      ] },
+      "artefact": "User-facing notices (wording and where they appear), the worker information given where staff are affected, and the route for questions, explanations and challenges.",
+      "owners": ["risk", "legal"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 50(1)", "obligation": "eu.art_50_1" },
+        { "framework": "eu_ai_act", "ref": "Art. 50(3)", "obligation": "eu.art_50_3" },
+        { "framework": "eu_ai_act", "ref": "Art. 50(4)", "obligation": "eu.art_50_4" },
+        { "framework": "eu_ai_act", "ref": "Art. 26(7)", "obligation": "eu.art_26_7" },
+        { "framework": "eu_ai_act", "ref": "Art. 26(11)", "obligation": "eu.art_26_11" },
+        { "framework": "eu_ai_act", "ref": "Art. 86", "obligation": "eu.art_86" },
+        { "framework": "iso_42001", "ref": "A.8.2" },
+        { "framework": "iso_42001", "ref": "A.8.5" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.8" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 3.3" }
+      ]
+    },
+    {
+      "id": "uc.content_marking",
+      "title": "Machine-readable marking of synthetic content",
+      "summary": "As provider of a system that generates synthetic audio, images, video or text, mark the outputs in a machine-readable way so they can be detected as AI-generated.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "obligation": ["eu.art_50_2"] },
+      "artefact": "Description of the marking technique (e.g. watermark, metadata, provenance signature), its robustness test results, and the detection method offered.",
+      "owners": ["tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 50(2)", "obligation": "eu.art_50_2" },
+        { "framework": "nist_ai_600_1", "ref": "Section 2: Information Integrity" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.8" }
+      ]
+    },
+    {
+      "id": "uc.gpai_model",
+      "title": "General-purpose AI model provider duties",
+      "summary": "As provider of a general-purpose AI model, keep technical documentation for the AI Office and for downstream providers, have a copyright policy and publish a training-content summary. Whether the model has systemic risk (Art. 55) is an open question to resolve.",
+      "level": "use_case",
+      "gate": "build",
+      "applies": { "obligation": ["eu.art_53", "eu.art_55"] },
+      "artefact": "Model documentation (Annex XI) and downstream-provider information (Annex XII), copyright policy, public training-content summary, and a recorded decision on the systemic-risk threshold.",
+      "owners": ["legal", "tech"],
+      "effort": "High",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 53", "obligation": "eu.art_53" },
+        { "framework": "eu_ai_act", "ref": "Art. 55", "obligation": "eu.art_55" },
+        { "framework": "iso_42001", "ref": "A.6.2.7" },
+        { "framework": "iso_42001", "ref": "A.10.4" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" },
+        { "framework": "nist_ai_rmf", "ref": "MAP 4.1" }
+      ]
+    },
+    {
+      "id": "uc.importer_distributor",
+      "title": "Importer or distributor checks",
+      "summary": "Before making a high-risk system available in the EU, check that the provider has done the conformity assessment, the documentation and CE marking are in place, and storage or transport does not compromise compliance.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "obligation": ["eu.art_23", "eu.art_24"] },
+      "artefact": "Checklist per system showing the conformity assessment, declaration of conformity, CE marking, instructions and authorised representative were verified, with the date and who checked.",
+      "owners": ["procurement", "legal"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 23", "obligation": "eu.art_23" },
+        { "framework": "eu_ai_act", "ref": "Art. 24", "obligation": "eu.art_24" },
+        { "framework": "iso_42001", "ref": "A.10.3" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 6.1" }
+      ]
+    },
+    {
+      "id": "uc.deployer_duties",
+      "title": "Deployer operating procedure for a high-risk system",
+      "summary": "Use the system as the provider's instructions say, assign trained people to oversee it, make sure the input data you control is relevant, monitor it, keep its logs and tell the provider about risks or incidents.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "obligation": ["eu.art_26"] },
+      "artefact": "Operating procedure covering use per the instructions, named oversight staff, input-data checks, monitoring, log retention (at least six months unless other law says otherwise) and the route for informing the provider.",
+      "owners": ["risk", "tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 26", "obligation": "eu.art_26" },
+        { "framework": "iso_42001", "ref": "A.9.2" },
+        { "framework": "iso_42001", "ref": "A.9.4" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 3.2" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 4.1" }
+      ]
+    },
+    {
+      "id": "uc.conformity",
+      "title": "Conformity assessment, declaration and CE marking",
+      "summary": "As provider of a high-risk system, complete the applicable conformity assessment before placing it on the market, sign the EU declaration of conformity and affix the CE marking.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "obligation": ["eu.art_16", "eu.art_43", "eu.art_47"] },
+      "artefact": "Conformity assessment record (internal control or notified-body certificate), signed EU declaration of conformity, and CE marking on the system or its documentation.",
+      "owners": ["legal", "tech"],
+      "effort": "High",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 16", "obligation": "eu.art_16" },
+        { "framework": "eu_ai_act", "ref": "Art. 43", "obligation": "eu.art_43" },
+        { "framework": "eu_ai_act", "ref": "Arts. 47-48", "obligation": "eu.art_47" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" }
+      ]
+    },
+    {
+      "id": "uc.eu_registration",
+      "title": "Register in the EU database",
+      "summary": "Register the high-risk system (as provider) or its use (as a public-authority deployer) in the EU database before it is placed on the market or used.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "obligation": ["eu.art_49_1", "eu.art_49_3"] },
+      "artefact": "EU database registration reference and a copy of the information submitted.",
+      "owners": ["legal"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 49(1)", "obligation": "eu.art_49_1" },
+        { "framework": "eu_ai_act", "ref": "Art. 49(3)", "obligation": "eu.art_49_3" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.1" }
+      ]
+    },
+    {
+      "id": "uc.independent_review",
+      "title": "Independent validation or review",
+      "summary": "Have someone who did not build or run the system challenge it before go-live: the risk and impact assessments, the test evidence and the oversight design.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "tier_min": 4 },
+      "artefact": "Independent review report with findings, the owner's responses and closure evidence.",
+      "owners": ["risk"],
+      "effort": "High",
+      "sources": [
+        { "framework": "iso_42001", "ref": "Cl. 9.2" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 1.3" }
+      ]
+    },
+    {
+      "id": "uc.exec_accountability",
+      "title": "Executive sign-off and accountable executive",
+      "summary": "Name an accountable executive and have them sign off the residual risk before go-live.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "tier_min": 4 },
+      "artefact": "Signed executive acceptance of residual risk, naming the accountable executive.",
+      "owners": ["risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "iso_42001", "ref": "Cl. 5.1" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 2.3" }
+      ]
+    },
+    {
+      "id": "uc.go_live_approval",
+      "title": "Governance approval before go-live",
+      "summary": "Take the assessment, test results and oversight design to your AI governance forum (or the equivalent approver) for a documented go or no-go decision.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "tier_min": 3 },
+      "artefact": "Minuted go/no-go decision with any conditions attached and the evidence it relied on.",
+      "owners": ["risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "iso_42001", "ref": "A.6.2.5" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 1.1" }
+      ]
+    },
+    {
+      "id": "uc.monitoring",
+      "title": "Performance monitoring and issue route",
+      "summary": "Watch how the system performs once live, give users a way to report problems, and act on what you find.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "any": [ { "tier_min": 2 }, { "obligation": ["eu.art_72"] } ] },
+      "artefact": "Monitoring plan (metrics, frequency, owner, thresholds for action), the user issue route, and periodic monitoring reports.",
+      "owners": ["tech", "risk"],
+      "effort": "Medium",
+      "eu_variant": {
+        "title": "Post-market monitoring (EU Art. 72)",
+        "summary": "As provider of a high-risk system, actively collect and analyse data on its performance throughout its life, following a documented post-market monitoring plan, and feed the results back into risk management.",
+        "artefact": "Post-market monitoring plan (part of the technical documentation) and the monitoring reports it produces."
+      },
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 72", "obligation": "eu.art_72" },
+        { "framework": "iso_42001", "ref": "Cl. 9.1" },
+        { "framework": "iso_42001", "ref": "A.6.2.6" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.4" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 4.1" }
+      ]
+    },
+    {
+      "id": "uc.incident_process",
+      "title": "Incident process",
+      "summary": "Define what counts as an AI incident, how it is reported, who investigates, how affected people are told and how lessons feed back into the system.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "any": [ { "tier_min": 3 }, { "obligation": ["eu.art_73"] } ] },
+      "artefact": "Incident procedure (definitions, reporting route, roles, timelines) and an incident log.",
+      "owners": ["risk", "tech", "legal"],
+      "effort": "Medium",
+      "eu_variant": {
+        "title": "Incident process with serious incident reporting (EU Art. 73)",
+        "summary": "As provider of a high-risk system, report serious incidents to the market surveillance authority as soon as a causal link is established or reasonably likely, and within the Art. 73 time limits (shorter for deaths and for widespread or critical-infrastructure incidents). Investigate and take corrective action.",
+        "artefact": "Incident procedure mapped to the Art. 73 time limits, the authority contacts per Member State, and an incident log with reports filed."
+      },
+      "sources": [
+        { "framework": "eu_ai_act", "ref": "Art. 73", "obligation": "eu.art_73" },
+        { "framework": "iso_42001", "ref": "Cl. 10.2" },
+        { "framework": "iso_42001", "ref": "A.3.3" },
+        { "framework": "iso_42001", "ref": "A.8.4" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 4.3" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 4.3" }
+      ]
+    },
+    {
+      "id": "uc.continuous_monitoring",
+      "title": "Continuous monitoring, kill-switch and annual re-assessment",
+      "summary": "Monitor continuously against set thresholds, have a tested way to pause or switch the system off, and re-assess it at least every 12 months.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "tier_min": 4 },
+      "artefact": "Alert thresholds and dashboards, a tested shutdown or fallback procedure with the last test date, and the dated annual re-assessment.",
+      "owners": ["tech", "risk"],
+      "effort": "High",
+      "sources": [
+        { "framework": "iso_42001", "ref": "A.6.2.6" },
+        { "framework": "nist_ai_rmf", "ref": "GOVERN 1.5" },
+        { "framework": "nist_ai_rmf", "ref": "MEASURE 2.4" },
+        { "framework": "nist_ai_rmf", "ref": "MANAGE 2.4" }
+      ]
+    }
+  ]
+}
