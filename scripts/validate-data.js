@@ -109,6 +109,9 @@ if (requirements) {
     if (!r.sources?.length) fail(REQ, `${r.id}: no sources`)
     for (const s of r.sources || []) {
       if (!frameworks[s.framework]) fail(REQ, `${r.id}: unknown framework '${s.framework}'`)
+      // Frameworks with verified titles (the paywalled ISO/IEC standards) may only cite verified refs.
+      const titles = frameworks[s.framework]?.ref_titles
+      if (titles && !titles[s.ref]) fail(REQ, `${r.id}: ${s.framework} ${s.ref} has no verified title in ref_titles`)
       if (s.obligation) {
         if (!obligationIds.has(s.obligation)) fail(REQ, `${r.id}: unknown obligation '${s.obligation}'`)
         covered.add(s.obligation)

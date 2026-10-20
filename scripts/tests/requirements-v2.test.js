@@ -31,7 +31,7 @@ const REFS = {
   eu_ai_act: /^(Art\.|Arts\.)/,
   iso_42001: /^(Cl\. ([4-9]|10)(\.\d+)*(-10)?|A\.([2-9]|10)\.\d+(\.\d+)?)$/,
   iso_23894: /^Cl\. \d+(\.\d+)*$/,
-  iso_42005: /^ISO\/IEC 42005:2025$/,
+  iso_42005: /^Cl\. [56]$/,
   nist_ai_rmf: { test: ref => NIST_SUBCATEGORIES.has(ref) },
   nist_ai_600_1: /^Section [23]/,
 };
@@ -299,4 +299,23 @@ test('Art. 6(3) derogation (provider) lists the documentation and registration i
   assert.ok(q);
   assert.deepEqual(q.sources.filter(s => s.framework === 'eu_ai_act').map(s => s.ref), ['Art. 6(4)', 'Art. 49(2)']);
   assert.ok(r.actions.some(a => a.requirement_id === 'uc.art_6_3_record'));
+});
+
+test('action and requirement text never shows internal ids', () => {
+  const raw = /annex_iii\.|annex_i\b|art_\d|eu\.art_|uc\.|org\.|prohibited\.\w|\w_\w/;
+  for (const s of SUITE.scenarios) {
+    const r = classify({ ...SUITE.defaults, ...s.answers }, { today: '2026-10-20' });
+    for (const a of r.actions) assert.doesNotMatch(`${a.title} ${a.why}`, raw, `${s.id} action ${a.requirement_id}`);
+    for (const q of r.requirements) assert.doesNotMatch(`${q.title} ${q.why}`, raw, `${s.id} requirement ${q.id}`);
+  }
+});
+
+test('crosswalk: every ISO/IEC ref has a verified title and a public verification source', () => {
+  for (const id of ['iso_42001', 'iso_23894', 'iso_42005']) {
+    const fw = LIB.frameworks[id];
+    assert.ok(fw.verified_against?.length, `${id}: verified_against`);
+    for (const r of LIB.requirements) for (const s of r.sources) {
+      if (s.framework === id) assert.ok(fw.ref_titles[s.ref], `${r.id}: ${id} ${s.ref} has no verified title`);
+    }
+  }
 });

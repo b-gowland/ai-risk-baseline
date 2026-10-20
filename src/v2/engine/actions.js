@@ -44,14 +44,14 @@ export function actionsStep(answers, result, requirements) {
   const blocking = result.open_questions.filter(q => q.blocking);
 
   if (result.status === 'prohibited') {
-    take('uc.prohibited_stop', null, `Art. 5 applies: ${result.basis}. Nothing else should be built on this use case.`);
+    take('uc.prohibited_stop', null, `${basisText(result.basis)} applies. Nothing else should be built on this use case.`);
     take('uc.classification_record', 'Record the prohibited-practice finding', 'Keep the trace and the legal sign-off with the decision to stop.');
     return rank(picked);
   }
 
   if (blocking.length) {
     take('uc.classification_record', 'Resolve the blocking open questions and record the classification',
-      `Blocking: ${blocking.map(q => `${q.gate} (assumed: ${q.assumption})`).join('; ')}. Resolve before go-live.`);
+      `Blocking: ${blocking.map(q => `${gateText(q.gate)} (assumed: ${q.assumption[0].toLowerCase()}${q.assumption.slice(1)})`).join('; ')}. Resolve before go-live.`);
   } else {
     take('uc.classification_record', 'Record the classification', classificationWhy(result));
   }
@@ -67,9 +67,33 @@ const STATUS_LABEL = {
   minimal: 'minimal', out_of_scope: 'outside the EU AI Act',
 };
 
+// "annex_iii.5(b)" → "Annex III point 5(b)"; "art_5_1f" → "Art. 5(1)(f)".
+export function basisText(basis) {
+  if (!basis) return '';
+  if (basis === 'annex_i') return 'Annex I';
+  if (basis.startsWith('annex_iii.')) return `Annex III point ${basis.slice('annex_iii.'.length)}`;
+  const m = basis.match(/^art_(\d+)_(\d+)([a-z]+)$/);
+  return m ? `Art. ${m[1]}(${m[2]})(${m[3]})` : basis;
+}
+
+const GATE_TEXT = {
+  purpose: 'the intended purpose',
+  eu_nexus: 'whether the EU AI Act reaches the system',
+  annex_i: 'whether it is a regulated product',
+  annex_iii_condition: 'whether it is used by or for a public authority',
+  art_6_3: 'whether the Art. 6(3) exemption applies',
+  role: 'your role',
+};
+
+// "prohibited.art_5_1a" → "the Art. 5(1)(a) prohibited-practice question".
+function gateText(gate) {
+  if (gate.startsWith('prohibited.')) return `the ${basisText(gate.slice('prohibited.'.length))} prohibited-practice question`;
+  return GATE_TEXT[gate] || gate.replace(/_/g, ' ');
+}
+
 function classificationWhy(result) {
   const status = STATUS_LABEL[result.status] || result.status;
-  const basis = result.basis ? ` (${result.basis})` : '';
+  const basis = result.basis ? ` (${basisText(result.basis)})` : '';
   const tier = `tier ${result.tier}`;
   const prov = result.provisional ? ' The result is provisional: confirm the assumptions with Legal.' : '';
   return `Everything else builds on it: ${status}${basis}, ${tier}.${prov}`;
