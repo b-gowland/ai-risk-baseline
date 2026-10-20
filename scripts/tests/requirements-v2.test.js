@@ -300,3 +300,12 @@ test('Art. 6(3) derogation (provider) lists the documentation and registration i
   assert.deepEqual(q.sources.filter(s => s.framework === 'eu_ai_act').map(s => s.ref), ['Art. 6(4)', 'Art. 49(2)']);
   assert.ok(r.actions.some(a => a.requirement_id === 'uc.art_6_3_record'));
 });
+
+test('action and requirement text never shows internal ids', () => {
+  const raw = /annex_iii\.|annex_i\b|art_\d|eu\.art_|uc\.|org\.|prohibited\.\w|\w_\w/;
+  for (const s of SUITE.scenarios) {
+    const r = classify({ ...SUITE.defaults, ...s.answers }, { today: '2026-10-20' });
+    for (const a of r.actions) assert.doesNotMatch(`${a.title} ${a.why}`, raw, `${s.id} action ${a.requirement_id}`);
+    for (const q of r.requirements) assert.doesNotMatch(`${q.title} ${q.why}`, raw, `${s.id} requirement ${q.id}`);
+  }
+});
