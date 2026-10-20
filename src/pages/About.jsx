@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import styles from './About.module.css'
 
+const REPO = `https://github.com/b-gowland/ai-risk-baseline/blob/main`
+
 export default function About() {
   return (
     <div className={styles.page}>
@@ -11,67 +13,79 @@ export default function About() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>What it is</h2>
           <p className={styles.text}>
-            The AI Governance Baseline is a free, browser-based inception tool for
-            cross-functional AI project teams. It takes five configuration questions
-            describing your AI system and returns a tailored output: regulatory obligations,
-            risk profile, controls by function, and prioritised actions — ready to share
-            with Legal, Cyber, Risk, and the project team before the first sprint starts.
+            The AI Governance Baseline is a free, browser-based tool for AI governance leads,
+            from a one-person function to an enterprise AI risk team. Describe one AI use case in
+            plain-language questions and get a starting baseline: its EU AI Act classification and
+            your role, a governance tier, the requirements that apply (crosswalked to ISO/IEC and
+            NIST), your first five actions, and the open questions to escalate.
           </p>
           <p className={styles.text}>
-            It's designed for the moment a team is deciding whether and how to build or
-            deploy an AI system — not for after-the-fact audits or board reporting.
-            The goal is to surface the right questions for the right functions at the
-            right time, not to replace formal risk assessments or legal advisors.
+            It is for the moment a use case lands on your desk, before decisions are made.
+            It surfaces what applies and why; it does not replace a formal risk assessment
+            or legal advice.
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>How the mappings are made</h2>
+          <h2 className={styles.sectionTitle}>How the classification works</h2>
           <p className={styles.text}>
-            Every regulatory mapping is authored by hand against primary sources — the
-            EU AI Act official text, GDPR, the NIST AI RMF, ISO/IEC 42001, the OWASP LLM
-            Top 10, the Australian Privacy Act, APRA CPS 230, and others. No mapping is
-            generated automatically.
-          </p>
-          <p className={styles.text}>
-            Each mapping includes:
+            The EU AI Act, ISO/IEC 42001 and 23894, and the NIST AI RMF all start from a system's
+            intended purpose, who is responsible for it and the harm it could cause, not from the
+            technology it uses. So the Baseline asks about purpose first and works through the Act
+            in order:
           </p>
           <ul className={styles.list}>
-            <li>The precise article, section, or control number</li>
-            <li>A plain-English description of the requirement</li>
-            <li>Whether it's mandatory, recommended, or voluntary</li>
-            <li>Applicability predicates (which configurations trigger this mapping)</li>
-            <li>A source note referencing the exact document and section</li>
-            <li>A link to the primary source document</li>
+            <li>Scope (Art. 2), including the exclusions</li>
+            <li>Prohibited practices (Art. 5)</li>
+            <li>High-risk via regulated products (Art. 6(1), Annex I)</li>
+            <li>High-risk via listed uses (Art. 6(2), Annex III), and the Art. 6(3) exemption</li>
+            <li>Transparency obligations (Art. 50)</li>
+            <li>Your role: provider, deployer, importer or distributor, and when Art. 25 makes you the provider</li>
           </ul>
           <p className={styles.text}>
-            Every mapping is auditable in the{` `}
-            <a
-              href="https://github.com/b-gowland/ai-risk-baseline/blob/main/src/data/regulatory-mappings.json"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.link}
-            >
-              regulatory-mappings.json ↗
+            Every result shows the answers and articles behind it. Anything you are unsure about
+            becomes an open question with a stated, cautious assumption, never a silent gap.
+            Technology choices (LLM, agents, biometrics) shape the requirements but never
+            the legal classification.
+          </p>
+          <p className={styles.text}>
+            Separately, a <strong>governance tier</strong> from 1 to 4 comes from a published
+            matrix of worst plausible harm and autonomy, raised for vulnerable people and sensitive
+            data, with EU high-risk as a floor. It applies whether or not the EU AI Act does.
+          </p>
+          <p className={styles.text}>
+            The rules are written down in the{` `}
+            <a href={`${REPO}/docs/v2/classification-spec.md`} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              classification spec ↗
             </a>
-            {` `}file in the public repository.
+            {` `}and tested against a suite of{` `}
+            <a href={`${REPO}/src/v2/golden/scenarios.json`} target="_blank" rel="noopener noreferrer" className={styles.link}>
+              golden scenarios ↗
+            </a>
+            , each citing the provision it relies on: carve-outs such as fraud detection, exceptions
+            such as emotion recognition for safety reasons, and role shifts under Art. 25.
           </p>
         </section>
 
         <section className={styles.section} id="methodology">
-          <h2 className={styles.sectionTitle}>Content currency</h2>
+          <h2 className={styles.sectionTitle}>Sources and currency</h2>
           <p className={styles.text}>
-            All regulatory mappings, controls, and risk entries were authored against
-            primary sources in early 2026, and reviewed again in October 2026. The
-            framework versions mapped are noted in the Regulatory drill for each
-            applicable framework — for example, the EU AI Act mapping reflects the
-            Digital Omnibus on AI (Regulation (EU) 2026/1744), in force 27 July 2026.
+            The EU AI Act rules were checked on 20 October 2026 against the Official Journal text
+            of Regulation (EU) 2024/1689 and the amending Regulation (EU) 2026/1744 (Digital
+            Omnibus on AI), as recorded in the spec's verification register. NIST AI RMF 1.0
+            subcategory ids and the NIST AI 600-1 risk names were checked against the NIST
+            publications.
           </p>
           <p className={styles.text}>
-            Source URLs are checked automatically each month to confirm they are
-            still live. <strong>Content accuracy has not been independently audited</strong> —
-            each mapping should be verified against the cited primary source before
-            use in a formal governance document. Found something wrong?{` `}
+            ISO/IEC standards are paywalled. The Baseline cites their clause and control numbers
+            with its own plain-language paraphrase and never reproduces their text; those numbers
+            have not been checked against the standards themselves.
+          </p>
+          <p className={styles.text}>
+            Source URLs are checked automatically each month, and a scheduled check flags any
+            obligation whose date passes after it was last verified. <strong>The content has not
+            been independently audited.</strong> Verify against the cited primary source before using
+            it in a formal governance document. Found something wrong?{` `}
             <a
               href="https://github.com/b-gowland/ai-risk-baseline/issues/new?title=Content+inaccuracy&body=Describe+the+issue+and+cite+the+correct+source:"
               target="_blank"
@@ -81,9 +95,6 @@ export default function About() {
               Report it on GitHub ↗
             </a>
           </p>
-          <p className={styles.text}>
-            <strong>Source URLs last checked: May 2026.</strong>
-          </p>
         </section>
 
         <section className={styles.section}>
@@ -91,21 +102,22 @@ export default function About() {
           <ul className={styles.list}>
             <li>
               <strong>Not legal advice.</strong> Every output should be reviewed by qualified
-              legal counsel before use in a formal governance document.
+              advisors before use in a formal governance document.
             </li>
             <li>
-              <strong>Not exhaustive.</strong> Phase 1 covers ten frameworks and a specific
-              set of high-probability system configurations. Edge cases and less common
-              configurations may produce thinner output.
+              <strong>Core frameworks only.</strong> The EU AI Act, ISO/IEC 42001, 23894 and 42005,
+              and the NIST AI RMF and Generative AI Profile. Other laws (such as GDPR, UK and
+              Australian rules, or sector regulation) are not covered yet; optional country packs
+              are planned.
             </li>
             <li>
-              <strong>Regulatory landscape changes.</strong> Laws are amended, guidance is
-              updated, and enforcement priorities shift. The mappings are maintained on a
-              best-effort basis — check source URLs for current status.
+              <strong>Deliberate simplifications.</strong> There is no question yet on systems already
+              on the market before the application dates, on Annex I Section B products, or on the
+              GPAI systemic-risk threshold; these appear as notes or open questions.
             </li>
             <li>
-              <strong>No platform-native controls yet.</strong> Platform-specific guidance
-              for AWS, Azure, Google Cloud, and others is planned for Phase 2.
+              <strong>The law moves.</strong> Rules are maintained on a best-effort basis, and the
+              changelog records every change.
             </li>
           </ul>
         </section>
@@ -114,17 +126,13 @@ export default function About() {
           <h2 className={styles.sectionTitle}>How to contribute</h2>
           <p className={styles.text}>
             The Baseline is open source under Apache 2.0 (code) and CC BY 4.0 (content).
-            Contributions are welcome — especially new regulatory mappings, additional
-            jurisdiction coverage, and corrections to existing mappings.
-          </p>
-          <p className={styles.text}>
             The most valuable contributions are:
           </p>
           <ul className={styles.list}>
-            <li>New jurisdiction coverage (US, UK, Singapore, Japan, Canada)</li>
-            <li>Corrections to existing mappings with source citations</li>
-            <li>New framework additions (sector-specific regulations, industry standards)</li>
-            <li>Platform-native control mappings (AWS, Azure, GCP, etc.)</li>
+            <li>Corrections to the classification rules, citing the primary text</li>
+            <li>New edge-case test scenarios, each citing the provision it relies on</li>
+            <li>Corrections to the ISO/IEC and NIST crosswalk</li>
+            <li>Country packs (GDPR, UK, Australia and others)</li>
           </ul>
           <p className={styles.text}>
             Please read{` `}
@@ -136,8 +144,7 @@ export default function About() {
             >
               CONTRIBUTING.md ↗
             </a>
-            {` `}before submitting — it describes the predicate language used in the data files
-            and the source citation requirements for new mappings.
+            {` `}before submitting.
           </p>
           <a
             href="https://github.com/b-gowland/ai-risk-baseline"

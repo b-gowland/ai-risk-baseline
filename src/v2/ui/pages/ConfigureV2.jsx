@@ -107,7 +107,7 @@ export default function ConfigureV2() {
 
   const handleSubmit = () => {
     if (!isComplete(answers)) { setShowMissing(true); return }
-    navigate(`/v2/output${toSearch(pruneHidden(answers), name)}`)
+    navigate(`/output${toSearch(pruneHidden(answers), name)}`)
   }
 
   const deployerOnly = Array.isArray(answers.role) && answers.role.length > 0 && answers.role.every(r => r === 'deploy_vendor')
@@ -117,7 +117,7 @@ export default function ConfigureV2() {
       <V2Disclaimer />
       <div className={styles.page}>
         <div className={styles.inner}>
-          <p className={styles.eyebrow}>Use-case baseline · v2 preview</p>
+          <p className={styles.eyebrow}>Use-case baseline</p>
 
           <nav aria-label="Questionnaire gates" className={styles.progress}>
             <p className={styles.progressText}>

@@ -19,29 +19,29 @@ export default function Landing() {
         <div className={styles.heroInner}>
           <p className={styles.eyebrow}>——— AI RISK PRACTICE · BASELINE</p>
           <h1 className={styles.heroTitle}>
-            Starting an AI project?<br />
-            <em>Get the room aligned first.</em>
+            Someone has brought you an AI use case.<br />
+            <em>Know where you stand in ten minutes.</em>
           </h1>
           <p className={styles.heroSub}>
-            Five questions about your AI system. Instant output: the risks that apply,
-            the controls your team needs, and the regulatory obligations by jurisdiction.
-            Bring it to the kickoff. Share the link with Legal and Cyber.
-            Free. No signup.
+            Answer plain-language questions about what the system is for, your role and its impact.
+            Get its EU AI Act classification, a governance tier, the requirements that apply,
+            crosswalked to ISO/IEC 42001 and the NIST AI RMF, and your first five actions,
+            plus a list of what to escalate. Free. No signup.
           </p>
           <div className={styles.heroCtas}>
             <Link to="/configure" className={styles.btnPrimary}>
-              Profile your system →
+              Assess a use case →
             </Link>
             <Link to={EXAMPLE_URL} className={styles.btnSecondary}>
-              See a worked example
+              See worked examples
             </Link>
           </div>
           <p className={styles.heroMeta}>
-            Takes about 4 minutes · Your answers stay in your browser · Open source
+            Takes about 10 minutes · Your answers stay in your browser · Open source
           </p>
           {LATEST && (
             <Link to="/changelog" className={styles.heroFresh}>
-              Content updated {LATEST_DATE}: {LATEST.title} →
+              Updated {LATEST_DATE}: {LATEST.title} →
             </Link>
           )}
         </div>
@@ -51,34 +51,34 @@ export default function Landing() {
       <section className={styles.how}>
         <div className={styles.howInner}>
           <p className={styles.sectionEyebrow}>——— HOW IT WORKS</p>
-          <h2 className={styles.sectionTitle}>From system description to team-ready output</h2>
+          <h2 className={styles.sectionTitle}>From use case to governance baseline</h2>
 
           <div className={styles.steps}>
             <div className={styles.step}>
               <div className={styles.stepNum}>01</div>
-              <h3 className={styles.stepTitle}>Describe your system</h3>
+              <h3 className={styles.stepTitle}>Describe the use case</h3>
               <p className={styles.stepText}>
-                Answer five questions: system type, how it's used, what data it processes,
-                which jurisdictions apply, and which platform it runs on.
-                Each question has help text to disambiguate adjacent options.
+                Start with its intended purpose, then work through short gates: prohibited practices,
+                EU scope, your role, product and high-risk questions, transparency, impact and data.
+                Questions appear only when they matter, and every one has an "Unsure" option.
               </p>
             </div>
             <div className={styles.step}>
               <div className={styles.stepNum}>02</div>
-              <h3 className={styles.stepTitle}>Get your output</h3>
+              <h3 className={styles.stepTitle}>Get your baseline</h3>
               <p className={styles.stepText}>
-                A governance roadmap of controls by function and lifecycle phase, plus panels for
-                regulatory obligations with effective dates, ranked risks linked to the
-                knowledge base, and prioritised actions.
+                Your EU AI Act status with the reasoning behind it, a governance tier from 1 to 4,
+                requirements grouped by lifecycle gate, each with the artefact it produces,
+                and five first actions in the order to do them.
               </p>
             </div>
             <div className={styles.step}>
               <div className={styles.stepNum}>03</div>
               <h3 className={styles.stepTitle}>Bring it to the room</h3>
               <p className={styles.stepText}>
-                Every configuration encodes into the URL. Share the link with Legal, Cyber,
-                or your project team before the kickoff. Export as Markdown for Confluence or Notion.
-                Download as PDF for your governance file.
+                Your answers are encoded in the link: share it with Legal, Risk or Technology.
+                Export as Markdown for Confluence or Notion, JSON for your tooling,
+                or CSV for your GRC register.
               </p>
             </div>
           </div>
@@ -92,53 +92,55 @@ export default function Landing() {
           <h2 className={styles.sectionTitle}>A baseline, not a checklist</h2>
           <div className={styles.whatGrid}>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon} aria-hidden="true">REG</span>
+              <span className={styles.whatIcon} aria-hidden="true">EU</span>
               <div>
-                <h3 className={styles.whatTitle}>Regulatory citations</h3>
+                <h3 className={styles.whatTitle}>EU AI Act classification</h3>
                 <p className={styles.whatText}>
-                  Article-level citations for the EU AI Act, GDPR, AU Privacy Act, APRA CPS 230,
-                  UK GDPR, NIST AI RMF, ISO 42001 and OWASP, with the date each obligation
-                  applies. Every citation links to the primary source.
+                  Prohibited, high-risk (and on which basis), Art. 6(3) exemption, transparency
+                  obligations or minimal risk, plus your role as provider or deployer. Every result shows
+                  the answers and articles that produced it.
                 </p>
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon} aria-hidden="true">RISK</span>
+              <span className={styles.whatIcon} aria-hidden="true">TIER</span>
               <div>
-                <h3 className={styles.whatTitle}>Ranked risk profile</h3>
+                <h3 className={styles.whatTitle}>Governance tier</h3>
                 <p className={styles.whatText}>
-                  Top 7 risks for your configuration, ranked by relevance.
-                  Each links to the AI Risk Practice Knowledge Base for detailed analysis.
+                  How much governance the use case needs, from worst plausible harm and autonomy,
+                  whether or not the EU AI Act applies. The rules are published, so you can map
+                  them to your own risk appetite.
                 </p>
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon} aria-hidden="true">CTRL</span>
+              <span className={styles.whatIcon} aria-hidden="true">REQ</span>
               <div>
-                <h3 className={styles.whatTitle}>Function-filtered controls</h3>
+                <h3 className={styles.whatTitle}>Requirements with a crosswalk</h3>
                 <p className={styles.whatText}>
-                  Controls for Risk, Legal, Technology, and Procurement — each with owner,
-                  effort rating, and framework references. Not a generic checklist.
+                  Requirements by lifecycle gate, each with an owner, effort, the artefact it produces
+                  and its references in the EU AI Act, ISO/IEC 42001, 23894 and 42005, and the
+                  NIST AI RMF and Generative AI Profile.
                 </p>
               </div>
             </div>
             <div className={styles.whatItem}>
               <span className={styles.whatIcon} aria-hidden="true">ACT</span>
               <div>
-                <h3 className={styles.whatTitle}>Prioritised actions</h3>
+                <h3 className={styles.whatTitle}>First five actions</h3>
                 <p className={styles.whatText}>
-                  Five next steps with owners and effort estimates — the
-                  "what do I do first this sprint?" answer your team is looking for.
+                  The order to start in: record the classification, inventory, assessment,
+                  the item that blocks go-live, then monitoring and incidents.
                 </p>
               </div>
             </div>
             <div className={styles.whatItem}>
-              <span className={styles.whatIcon} aria-hidden="true">URL</span>
+              <span className={styles.whatIcon} aria-hidden="true">ASK</span>
               <div>
-                <h3 className={styles.whatTitle}>Shareable URL</h3>
+                <h3 className={styles.whatTitle}>Open questions to escalate</h3>
                 <p className={styles.whatText}>
-                  The full configuration encodes into the URL.
-                  One link gives Legal and Cyber a shared, function-filtered starting point.
+                  Anything you were unsure about becomes a question for Legal, your vendor or
+                  Technology, with the cautious assumption used meanwhile. Blocking ones come first.
                 </p>
               </div>
             </div>
@@ -151,22 +153,21 @@ export default function Landing() {
         <div className={styles.whyInner}>
           <p className={styles.sectionEyebrow}>——— WHY THIS EXISTS</p>
           <div className={styles.whyContent}>
-            <h2 className={styles.whyTitle}>Built for the kickoff, not the board paper</h2>
+            <h2 className={styles.whyTitle}>For governance leads, from a one-person team to an enterprise</h2>
             <p className={styles.whyText}>
-              Most AI governance tools are designed for after the fact — audits, compliance
-              reviews, formal risk assessments. The Baseline is for the inception phase:
-              the moment a cross-functional team is deciding whether and how to build or deploy
-              an AI system, and needs a shared understanding of what applies before the first
-              sprint starts.
+              The EU AI Act, ISO/IEC 42001 and the NIST AI RMF all start from what a system is for,
+              who is responsible for it and the harm it could cause. The Baseline asks exactly that,
+              then tells you what applies, why, and what to do first, scaled to the use case rather
+              than a one-size checklist.
             </p>
             <p className={styles.whyText}>
-              It's a free, open-source tool built by an AI risk practitioner for practitioners.
-              Every mapping is auditable in the public repository. It's a starting point,
-              not a compliance certification — the goal is to surface the right questions
-              for the right functions before decisions get made, not to replace your advisors.
+              It's free and open source, built by an AI risk practitioner. The rules, the
+              legal test scenarios behind them and their sources in the Official Journal are all public.
+              It's a starting point, not legal advice: the goal is to surface the right questions
+              for the right people before decisions get made.
             </p>
             <div className={styles.whyLinks}>
-              <Link to="/about" className={styles.btnSecondary}>How the mappings are made →</Link>
+              <Link to="/about" className={styles.btnSecondary}>How the classification works →</Link>
               <a
                 href="https://github.com/b-gowland/ai-risk-baseline"
                 className={styles.btnSecondary}
@@ -183,10 +184,10 @@ export default function Landing() {
       {/* CTA */}
       <section className={styles.bottomCta}>
         <div className={styles.bottomCtaInner}>
-          <h2 className={styles.bottomCtaTitle}>Ready to profile your system?</h2>
-          <p className={styles.bottomCtaSub}>4 minutes. Free. No signup. Share the link with your team.</p>
+          <h2 className={styles.bottomCtaTitle}>Ready to assess a use case?</h2>
+          <p className={styles.bottomCtaSub}>About 10 minutes. Free. No signup. Share the link with your team.</p>
           <Link to="/configure" className={styles.btnPrimary}>
-            Profile your system →
+            Assess a use case →
           </Link>
         </div>
       </section>

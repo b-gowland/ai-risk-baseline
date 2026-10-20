@@ -9,10 +9,10 @@ export default defineConfig({
       hostname: 'https://baseline.airiskpractice.org',
       dynamicRoutes: [
         '/configure',
-        '/output',
-        '/example',
+        '/examples',
         '/about',
         '/disclaimer',
+        '/changelog',
       ],
       exclude: ['/404'],
     }),

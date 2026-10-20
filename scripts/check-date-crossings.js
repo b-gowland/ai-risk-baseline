@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { loadV2, datedItems } from './v2-sources.js';
 
 // A mapping's effective_from date "crosses" when it falls after the item was
 // last verified but on or before today. The site then shows the item as
@@ -26,15 +27,16 @@ export function renderReport(crossings) {
   }
   lines.push(`${crossings.length} mapping(s) reached their effective date after they were last verified. `
     + 'The site now shows these as in force. Confirm against the primary source that the date did not move, '
-    + 'then update `effective_from` and `last_verified` in `src/data/regulatory-mappings.json`.', '',
+    + 'then update `effective_from` (and `last_verified`) in `src/v2/data/eu-obligations.json` or '
+    + '`src/v2/data/requirements.json`, and the verification register in `docs/v2/classification-spec.md` §8.', '',
   '| Mapping | Framework | Effective from | Last verified | Source |', '|---|---|---|---|---|');
   for (const c of crossings) lines.push(`| ${cell(c.id)} | ${cell(c.framework)} | ${c.effective_from} | `
     + `${c.last_verified} | ${cell(c.source_url)} |`);
   return lines.join('\n') + '\n';
 }
 
-export async function run(input = 'src/data/regulatory-mappings.json', output = 'reports/date-crossings.md') {
-  const crossings = findCrossings(JSON.parse(await fs.readFile(input, 'utf8')));
+export async function run(output = 'reports/date-crossings.md') {
+  const crossings = findCrossings(datedItems(await loadV2()));
   const report = renderReport(crossings);
   await fs.mkdir(path.dirname(output), { recursive: true });
   await fs.writeFile(output, report);

@@ -11,9 +11,19 @@ import PURPOSES from '../data/purposes.json' with { type: 'json' };
 import PROHIBITED from '../data/prohibited-practices.json' with { type: 'json' };
 import EU from '../data/eu-obligations.json' with { type: 'json' };
 import TIERS from '../data/tier-matrix.json' with { type: 'json' };
+import REQUIREMENTS from '../data/requirements.json' with { type: 'json' };
 import {
-  STATUS_LABELS, SCOPE_LABELS, ROLE_LABELS, GATE_LABELS, REQUIREMENT_GATES, OPEN_QUESTION_TEXT,
+  STATUS_LABELS, SCOPE_LABELS, ROLE_LABELS, GATE_LABELS, REQUIREMENT_GATES, OPEN_QUESTION_TEXT, FRAMEWORK_LABELS,
 } from './labels.js';
+
+/** "ISO/IEC 42001 A.6.2.4"; the ref alone when it already names the standard (e.g. "ISO/IEC 42005:2025"). */
+export function sourceLabel(s) {
+  const fw = FRAMEWORK_LABELS[s.framework] || s.framework;
+  return s.ref && s.ref.startsWith(fw) ? s.ref : `${fw} ${s.ref}`.trim();
+}
+
+/** The source's own link, or the framework's catalogue page when it has none. */
+export const sourceUrl = s => s.url || REQUIREMENTS.frameworks?.[s.framework]?.url || null;
 
 const PURPOSE_BY_ID = new Map(PURPOSES.purposes.map(p => [p.id, p]));
 const PRACTICE_BY_ID = new Map(PROHIBITED.practices.map(p => [p.id, p]));
@@ -42,6 +52,8 @@ export function basisLabel(basis) {
 
 /** Every basis, e.g. Annex I and Annex III together. Falls back to 'Annex III, point unknown' for purpose unsure. */
 export function basesLabels(result) {
+  // A prohibition ends the pipeline: its Art. 5 point is the basis, not any Annex III candidate.
+  if (result.status === 'prohibited') return [basisLabel(result.basis)];
   const list = (result.bases || []).map(basisLabel);
   // Purpose unsure: the engine treats it as an Annex III candidate with no known point.
   if ((result.open_questions || []).some(q => q.gate === 'purpose')) list.push('Annex III, point unknown until the purpose is confirmed');

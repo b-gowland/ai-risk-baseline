@@ -145,3 +145,12 @@ test('basis labels: purpose unsure still names a basis', () => {
   assert.equal(r.status, 'high_risk');
   assert.ok(basesLabels(r).length >= 1);
 });
+
+test('basis labels: a prohibited system shows only its Art. 5 basis', () => {
+  for (const s of SUITE.scenarios.filter(x => x.expect.status === 'prohibited')) {
+    const r = classify({ ...SUITE.defaults, ...s.answers }, { today });
+    const labels = basesLabels(r);
+    assert.equal(labels.length, 1, s.id);
+    assert.match(labels[0], /^Art\. 5/, s.id);
+  }
+});

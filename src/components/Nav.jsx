@@ -17,7 +17,7 @@ export default function Nav() {
             to="/configure"
             className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}
           >
-            Profile your system
+            Assess a use case
           </NavLink>
           <NavLink
             to="/examples"

@@ -10,7 +10,7 @@
 import {
   statusLabel, scopeLabel, roleLabel, basesLabels, keyDates, tierInfo, tierExpectations,
   openQuestionText, hasRequirements, requirementsByGate, obligationsByRole, firstActions,
-  formatDate, purposeById, midSentence,
+  formatDate, purposeById, midSentence, sourceLabel,
 } from './present.js';
 import { FIELD_TITLES, valueLabel } from './labels.js';
 import MODEL from '../data/answer-model.json' with { type: 'json' };
@@ -117,7 +117,7 @@ export function toMarkdown(model, result) {
     for (const g of requirementsByGate(r)) {
       out.push(`### ${g.label}`);
       for (const q of g.items) {
-        const src = (q.sources || []).map(s => `${s.framework} ${s.ref}`).join('; ');
+        const src = (q.sources || []).map(sourceLabel).join('; ');
         out.push(`- **${q.title}** (${q.level === 'org' ? 'organisation' : 'use case'})${q.summary ? `: ${q.summary}` : ''}`);
         if (q.why) out.push(`  - Why: ${q.why}`);
         if (q.artefact) out.push(`  - Artefact: ${q.artefact}`);
@@ -167,7 +167,7 @@ export function toCsv(model, result) {
   if (model.requirements) {
     for (const q of model.requirements) {
       rows.push(['requirement', q.id, q.title, q.gate, q.level, (q.owners || []).join('; '),
-        (q.sources || []).map(s => `${s.framework} ${s.ref}`).join('; '), q.effective_from || '',
+        (q.sources || []).map(sourceLabel).join('; '), q.effective_from || '',
         q.artefact || '', q.effort || '', '', q.why || q.summary || '']);
     }
   } else {

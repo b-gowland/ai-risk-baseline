@@ -20,14 +20,14 @@ export default function Disclaimer() {
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Accuracy and completeness</h2>
           <p className={styles.text}>
-            The regulatory mappings, risk assessments, and control recommendations in this
-            tool are maintained on a best-effort basis by an individual practitioner.
-            They may be incomplete, out of date, or incorrect for your specific circumstances.
+            The classification rules, requirements and framework crosswalks in this tool are
+            maintained on a best-effort basis by an individual practitioner. They may be
+            incomplete, out of date, or incorrect for your specific circumstances.
           </p>
           <p className={styles.text}>
             Regulatory frameworks evolve continuously. Article numbers, obligations, and
-            enforcement dates may change after these mappings were last updated. Always
-            verify requirements against the current primary source before acting on them.
+            application dates may change after the rules were last verified. Always verify
+            requirements against the current primary source before acting on them.
           </p>
         </section>
 
@@ -49,28 +49,27 @@ export default function Disclaimer() {
           <h2 className={styles.sectionTitle}>No "compliance" claim</h2>
           <p className={styles.text}>
             This tool does not assess, certify, or indicate whether your AI system
-            is "compliant" with any law, regulation, or standard. Output describes
-            applicable requirements and suggested controls — it does not determine
-            whether those requirements are met.
+            is "compliant" with any law, regulation, or standard. The EU AI Act classification
+            is an indicative reading of your answers, not a legal determination, and the output
+            describes applicable requirements without determining whether they are met.
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Jurisdiction limitations</h2>
+          <h2 className={styles.sectionTitle}>Coverage limitations</h2>
           <p className={styles.text}>
-            Jurisdiction-specific mappings currently cover the EU, Australia and the UK.
-            If you select the US, Singapore, Japan or another jurisdiction, the output
-            includes only the international frameworks (NIST AI RMF, ISO/IEC 42001,
-            OWASP) — local laws such as US state AI and privacy statutes are not mapped.
-            Coverage is not exhaustive within any jurisdiction. Requirements specific to
-            your sector, entity type, or regulatory status may not be reflected.
+            The tool covers the EU AI Act, ISO/IEC 42001, 23894 and 42005, and the NIST AI RMF
+            and Generative AI Profile. Other laws that may apply to an AI system, such as data
+            protection law (GDPR and others), national AI or privacy statutes outside the EU,
+            consumer, employment or product law, and sector regulation, are not covered.
+            Requirements specific to your sector, entity type, or regulatory status may not be reflected.
           </p>
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Privacy and analytics</h2>
           <p className={styles.text}>
-            Your configuration answers are encoded into the URL and processed entirely
+            Your answers are encoded into the URL and processed entirely
             in your browser. No configuration data is sent to any server. Anyone you
             share the URL with can see the answers it contains.
           </p>
@@ -87,8 +86,7 @@ export default function Disclaimer() {
             , which sets no cookies and stores no IP address or persistent visitor
             identifier. It records the page path (not your answers in the URL), referrer,
             country, and browser and device type, plus anonymous events such as which
-            output panel or worked example was opened and whether the share, copy or print
-            buttons were used. We publish only aggregates and never sell or share data.
+            worked example was opened. We publish only aggregates and never sell or share data.
           </p>
         </section>
 
@@ -104,7 +102,7 @@ export default function Disclaimer() {
             >
               Apache 2.0 ↗
             </a>.
-            {` `}Content (regulatory mappings, risk descriptions, control text) is licensed
+            {` `}Content (classification rules, requirements, crosswalks and test scenarios) is licensed
             under{` `}
             <a
               href="https://creativecommons.org/licenses/by/4.0/"
