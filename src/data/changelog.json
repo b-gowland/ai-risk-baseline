@@ -4,6 +4,18 @@
     {
       "date": "2026-10-20",
       "type": "feature",
+      "title": "Country packs: GDPR, UK and Australia",
+      "detail": "Data protection requirements now sit alongside the core frameworks, grouped by lifecycle gate with their sources. GDPR is added automatically when the system has an EU connection and processes personal data (lawful basis, transparency, DPIA, Art. 22 automated decisions, data protection by design, processors and transfers, security). Selecting the UK adds UK GDPR as amended by the Data (Use and Access) Act 2025, including the new Articles 22A-22D in force since 5 February 2026, and ICO guidance. Selecting Australia adds the Privacy Act and APPs, including the automated-decision privacy policy rules (APP 1.7-1.9) from 10 December 2026, OAIC guidance and the national Guidance for AI Adoption. All checked against primary legislation."
+    },
+    {
+      "date": "2026-10-20",
+      "type": "fix",
+      "title": "ISO/IEC references verified",
+      "detail": "Every ISO/IEC 42001, 23894 and 42005 reference was checked against NIST's official crosswalks from the AI RMF to those standards, and the 42001 controls against a listing of the published edition. References now show their clause or control title, ISO/IEC 42005 is cited by clause, and a few missing references were added. First-action text no longer shows internal codes."
+    },
+    {
+      "date": "2026-10-20",
+      "type": "feature",
       "title": "Baseline v2: purpose-first EU AI Act classification",
       "detail": "The Baseline has been rebuilt. You now describe an AI use case by its intended purpose, your role and its impact, and get: its EU AI Act classification, working through Art. 2 scope, Art. 5 prohibitions, Annex I, Annex III and the Art. 6(3) exemption, Art. 50 transparency and Art. 25 role shifts, with the reasoning shown; a governance tier from 1 to 4; requirements by lifecycle gate, crosswalked to ISO/IEC 42001, 23894 and 42005 and the NIST AI RMF and Generative AI Profile; your first five actions; and the open questions to escalate. The rules were checked against the Official Journal text of Regulation (EU) 2024/1689 and 2026/1744 and are tested against a public suite of legal scenarios. This fixes the known classification errors listed below. Coverage now focuses on the EU AI Act, ISO/IEC and NIST: the Australian, UK, GDPR, APRA and OWASP mappings from the earlier version are retired, with optional country packs planned. Links shared from the earlier version no longer open a result; please answer the new questions."
     },

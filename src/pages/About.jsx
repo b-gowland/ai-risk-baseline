@@ -86,6 +86,12 @@ export default function About() {
             crosswalk was made against its draft.
           </p>
           <p className={styles.text}>
+            The country packs were checked against primary legislation on the same day: the GDPR on
+            EUR-Lex; the Data (Use and Access) Act 2025 and its commencement regulations on
+            legislation.gov.uk; and the Privacy and Other Legislation Amendment Act 2024 on the Federal
+            Register of Legislation, together with guidance from the ICO, the OAIC and the National AI Centre.
+          </p>
+          <p className={styles.text}>
             Source URLs are checked automatically each month, and a scheduled check flags any
             obligation whose date passes after it was last verified. <strong>The content has not
             been independently audited.</strong> Verify against the cited primary source before using
@@ -109,10 +115,11 @@ export default function About() {
               advisors before use in a formal governance document.
             </li>
             <li>
-              <strong>Core frameworks only.</strong> The EU AI Act, ISO/IEC 42001, 23894 and 42005,
-              and the NIST AI RMF and Generative AI Profile. Other laws (such as GDPR, UK and
-              Australian rules, or sector regulation) are not covered yet; optional country packs
-              are planned.
+              <strong>Coverage.</strong> The core is the EU AI Act, ISO/IEC 42001, 23894 and 42005,
+              and the NIST AI RMF and Generative AI Profile. Country packs add GDPR (automatically,
+              with an EU connection and personal data), UK data protection law as amended in 2026,
+              and Australia's Privacy Act and national AI guidance. Other countries, and consumer,
+              employment, product and sector rules, are not covered.
             </li>
             <li>
               <strong>Deliberate simplifications.</strong> There is no question yet on systems already
@@ -136,7 +143,7 @@ export default function About() {
             <li>Corrections to the classification rules, citing the primary text</li>
             <li>New edge-case test scenarios, each citing the provision it relies on</li>
             <li>Corrections to the ISO/IEC and NIST crosswalk</li>
-            <li>Country packs (GDPR, UK, Australia and others)</li>
+            <li>New country packs, or corrections to the GDPR, UK and Australia packs</li>
           </ul>
           <p className={styles.text}>
             Please read{` `}

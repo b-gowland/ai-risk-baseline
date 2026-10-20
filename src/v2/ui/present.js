@@ -14,6 +14,7 @@ import TIERS from '../data/tier-matrix.json' with { type: 'json' };
 import REQUIREMENTS from '../data/requirements.json' with { type: 'json' };
 import {
   STATUS_LABELS, SCOPE_LABELS, ROLE_LABELS, GATE_LABELS, REQUIREMENT_GATES, OPEN_QUESTION_TEXT, FRAMEWORK_LABELS,
+  PACK_LABELS,
 } from './labels.js';
 
 /**
@@ -119,12 +120,24 @@ export function openQuestionText(q) {
 export const hasRequirements = result => Array.isArray(result.requirements);
 
 /** Requirements grouped by lifecycle gate, in gate order; empty gates dropped. */
-export function requirementsByGate(result) {
-  const reqs = result.requirements || [];
+function byGate(reqs) {
   const known = REQUIREMENT_GATES.map(g => ({ gate: g, label: gateLabel(g), items: reqs.filter(r => r.gate === g) }));
   const other = reqs.filter(r => !REQUIREMENT_GATES.includes(r.gate));
   if (other.length) known.push({ gate: 'other', label: 'Other', items: other });
   return known.filter(g => g.items.length);
+}
+
+/** Core requirements (not country packs), grouped by lifecycle gate. */
+export function requirementsByGate(result) {
+  return byGate((result.requirements || []).filter(r => !r.pack));
+}
+
+/** Country-pack requirements: one section per pack, each grouped by gate, in pack order. */
+export function packSections(result) {
+  const reqs = (result.requirements || []).filter(r => r.pack);
+  return Object.keys(PACK_LABELS)
+    .map(pack => ({ pack, ...PACK_LABELS[pack], groups: byGate(reqs.filter(r => r.pack === pack)) }))
+    .filter(p => p.groups.length);
 }
 
 /** Fallback while result.requirements is absent: the user's EU obligations grouped by role. */

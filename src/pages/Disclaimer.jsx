@@ -59,9 +59,10 @@ export default function Disclaimer() {
           <h2 className={styles.sectionTitle}>Coverage limitations</h2>
           <p className={styles.text}>
             The tool covers the EU AI Act, ISO/IEC 42001, 23894 and 42005, and the NIST AI RMF
-            and Generative AI Profile. Other laws that may apply to an AI system, such as data
-            protection law (GDPR and others), national AI or privacy statutes outside the EU,
-            consumer, employment or product law, and sector regulation, are not covered.
+            and Generative AI Profile, with country packs for GDPR, UK data protection law and
+            Australia's Privacy Act and national AI guidance. Packs cover the main data protection
+            requirements for AI, not every provision. Other countries' laws, and consumer, employment,
+            product, equality and sector rules, are not covered.
             Requirements specific to your sector, entity type, or regulatory status may not be reflected.
           </p>
         </section>

@@ -15,6 +15,7 @@ The AI Governance Baseline is a free, browser-based tool for AI governance leads
 - **Requirements by lifecycle gate.** Each has an owner, an effort rating, the artefact it produces, and references to the EU AI Act, ISO/IEC 42001, 23894 and 42005, and the NIST AI RMF and Generative AI Profile.
 - **First five actions,** ordered by dependency rather than effort.
 - **Open questions.** Every "Unsure" answer becomes a question to escalate, with the cautious assumption used meanwhile. Blocking ones come first.
+- **Country packs.** GDPR, UK and Australian data protection requirements, each by lifecycle gate with its sources.
 - **Shareable URL and exports.** The answers live in the link. Export as Markdown, JSON or CSV.
 
 No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), as on the other AI Risk Practice sites.
@@ -33,7 +34,7 @@ Version 2 (October 2026) replaced the original tool after a [first-principles re
 | Golden legal scenarios, each citing its provision | [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json) |
 | Questionnaire, output page and exports | [`src/v2/ui/`](./src/v2/ui/) |
 
-**Scope:** the core is the EU AI Act plus ISO/IEC and NIST. Optional country packs (GDPR, UK, Australia) are planned. ISO/IEC standards are paywalled, so they are cited by clause and control number with original paraphrase only.
+**Scope:** the core is the EU AI Act plus ISO/IEC and NIST. Country packs add data protection and national guidance on top: **GDPR** (added automatically with an EU connection and personal data), the **UK** (UK GDPR as amended by the Data (Use and Access) Act 2025, ICO guidance) and **Australia** (Privacy Act and APPs, including APP 1.7–1.9 from 10 December 2026, OAIC guidance, Guidance for AI Adoption), in [`src/v2/packs/`](./src/v2/packs/). ISO/IEC standards are paywalled, so they are cited by clause and control number and title, verified against NIST's official crosswalks, with original paraphrase only.
 
 ---
 
@@ -71,7 +72,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 The most valuable contributions are:
 - corrections to the [classification spec](./docs/v2/classification-spec.md) or the ISO/IEC and NIST crosswalk, citing the primary text;
 - new edge-case scenarios in [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json), each citing the provision it relies on;
-- country packs.
+- new country packs, or corrections to the existing ones (GDPR, UK, Australia).
 
 ---
 

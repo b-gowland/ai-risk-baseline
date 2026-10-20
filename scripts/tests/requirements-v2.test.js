@@ -5,7 +5,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { classify } from '../../src/v2/engine/classify.js';
-import { GATES, PREDICATE_LEAVES, leafValues } from '../../src/v2/engine/requirements.js';
+import { GATES, PREDICATE_LEAVES, PACKS, leafValues } from '../../src/v2/engine/requirements.js';
 import LIB from '../../src/v2/data/requirements.json' with { type: 'json' };
 import MODEL from '../../src/v2/data/answer-model.json' with { type: 'json' };
 import PURPOSES from '../../src/v2/data/purposes.json' with { type: 'json' };
@@ -152,8 +152,10 @@ function checkShape(r, where) {
     );
     assert.ok(q.effective_from === null || ISO_DATE.test(q.effective_from), `${where} ${q.id} date`);
     assert.ok(q.why.length > 0, `${where} ${q.id} why`);
+    // Core requirements cite core frameworks; pack requirements cite their own pack's.
+    const allowed = q.pack ? Object.keys(PACKS.find(p => p.id === q.pack).frameworks) : FRAMEWORKS;
     for (const s of q.sources) {
-      assert.ok(FRAMEWORKS.includes(s.framework));
+      assert.ok(allowed.includes(s.framework), `${where} ${q.id}: framework ${s.framework}`);
       assert.deepEqual(Object.keys(s).sort(), ['framework', 'ref', 'url']);
     }
     // EU sources only where the Act applies.

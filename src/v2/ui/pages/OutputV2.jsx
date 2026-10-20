@@ -7,7 +7,7 @@ import { isComplete } from '../flow.js'
 import {
   statusLabel, scopeLabel, roleLabel, basesLabels, keyDates, tierInfo, tierExpectations,
   openQuestionText, hasRequirements, requirementsByGate, obligationsByRole, firstActions, formatDate,
-  purposeById, midSentence, sourceLabel, sourceUrl,
+  purposeById, midSentence, sourceLabel, sourceUrl, packSections,
 } from '../present.js'
 import { buildExportModel, toMarkdown, toCsv } from '../export.js'
 import styles from './OutputV2.module.css'
@@ -61,6 +61,7 @@ export default function OutputV2() {
 
   const { answers, name } = decoded
   const editHref = `/configure${toSearch(answers, name)}`
+  const otherJurisdiction = (answers.other_jurisdictions || []).includes('other')
   const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
   const blocking = result.open_questions.filter(q => q.blocking)
   const tone = STATUS_TONE[result.status] || 'neutral'
@@ -250,6 +251,33 @@ export default function OutputV2() {
               </>
             )}
           </section>
+
+          {/* 5b. Country packs: data protection and national guidance beyond the core frameworks */}
+          {(packSections(result).length > 0 || otherJurisdiction) && (
+            <section className={styles.section} aria-labelledby="packs-heading">
+              <h2 id="packs-heading" className={styles.h2}>Country packs</h2>
+              {packSections(result).map(p => (
+                <div key={p.pack} className={styles.reqGroup}>
+                  <h3 className={styles.h3}>{p.label}</h3>
+                  <p className={styles.small}>{p.note}</p>
+                  {p.groups.map(g => (
+                    <div key={g.gate}>
+                      <h4 className={styles.h4}>{g.label}</h4>
+                      <ul className={styles.reqList}>
+                        {g.items.map(r => <Requirement key={r.id} r={r} />)}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              {otherJurisdiction && (
+                <p className={styles.small}>
+                  You also selected other jurisdictions. They are not covered yet: check the local data protection,
+                  AI and sector rules that apply there.
+                </p>
+              )}
+            </section>
+          )}
 
           {/* 6. Open questions */}
           <section className={styles.section} aria-labelledby="oq-heading">

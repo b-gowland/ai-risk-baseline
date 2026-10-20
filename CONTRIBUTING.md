@@ -39,7 +39,13 @@ The Baseline classifies an AI use case by intended purpose, role and impact (see
 
 ### Country packs
 
-Country packs (GDPR, UK, Australia and others) are planned as optional additions on the same requirement schema. Open an issue to discuss scope before starting one.
+Country packs live in `src/v2/packs/` (GDPR, UK, Australia). They use the requirement schema of the core library, plus answer-based predicate leaves (`jurisdiction`, `personal_data`, `significant_decision`, `significant_automated`, `data`), as described in §11 of the spec.
+
+**Adding or correcting a pack:**
+- Cite the primary legislation (and regulator guidance only as guidance), with a `last_verified` date per framework.
+- Every requirement id starts with the pack id and names its jurisdiction in `applies`.
+- Add tests to `scripts/tests/packs-v2.test.js` for when the pack and its requirements apply.
+- A new pack also needs an entry in `PACKS` (`src/v2/engine/requirements.js`), `PACK_LABELS` (`src/v2/ui/labels.js`), the `other_jurisdictions` answer, and `PACK_IDS` in `scripts/validate-data.js` and `PACK_FILES` in `scripts/v2-sources.js`.
 
 ### Bug fixes and UI improvements
 

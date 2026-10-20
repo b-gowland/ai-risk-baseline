@@ -324,6 +324,15 @@
   margin-bottom: var(--space-2);
 }
 
+/* Gate headings inside a country pack */
+.h4 {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--auth-text-muted);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
 .tierBadge {
   display: inline-block;
   font-family: var(--font-mono);

@@ -187,6 +187,20 @@ export const FRAMEWORK_LABELS = {
   iso_42005: 'ISO/IEC 42005',
   nist_ai_rmf: 'NIST AI RMF',
   nist_ai_600_1: 'NIST AI 600-1',
+  gdpr: 'GDPR',
+  uk_gdpr: 'UK GDPR',
+  ico: 'ICO',
+  au_privacy_act: 'Privacy Act 1988 (Cth)',
+  au_pola_2024: 'Privacy and Other Legislation Amendment Act 2024',
+  oaic_ai: 'OAIC',
+  au_ai_guidance: 'Guidance for AI Adoption',
+};
+
+/** Country packs (spec §11): heading and the one-line scope note shown above each. */
+export const PACK_LABELS = {
+  gdpr: { label: 'GDPR (EU)', note: 'Added because the system has an EU connection and processes personal data.' },
+  uk: { label: 'United Kingdom', note: 'UK GDPR and the Data Protection Act 2018 as amended by the Data (Use and Access) Act 2025, with ICO guidance.' },
+  au: { label: 'Australia', note: 'The Privacy Act applies to APP entities: most organisations with turnover above A$3 million, Australian Government agencies and some smaller businesses. The national AI guidance applies to everyone.' },
 };
 
 export const GATE_LABELS = {
