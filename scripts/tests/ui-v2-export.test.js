@@ -33,13 +33,24 @@ function parseCsv(text) {
   return rows;
 }
 
+// The UI falls back to obligations and derived actions when the engine returns no requirements.
+const WITHOUT_REQUIREMENTS = { requirements: undefined, actions: undefined };
+
 test('JSON export is versioned and JSON-safe', () => {
   const { model } = build('G09');
   assert.equal(model.schema_version, EXPORT_SCHEMA_VERSION);
   assert.ok(model.schema);
   assert.deepEqual(JSON.parse(JSON.stringify(model)), model);
   assert.equal(model.classification.status, 'high_risk');
+  assert.ok(model.requirements.length > 0);
+  assert.equal(model.first_actions.derived, false);
+  assert.ok(model.first_actions.items.length <= 5);
+});
+
+test('JSON export without requirements falls back to derived actions', () => {
+  const { model } = build('G09', WITHOUT_REQUIREMENTS);
   assert.equal(model.requirements, null);
+  assert.equal(model.first_actions.derived, true);
   assert.ok(model.first_actions.items.length <= 5);
 });
 
@@ -58,7 +69,7 @@ for (const id of SUITE.scenarios.map(s => s.id)) {
 }
 
 test('CSV lists each obligation once, with all its holder roles', () => {
-  const { model, result } = build('G09');
+  const { model, result } = build('G09', WITHOUT_REQUIREMENTS);
   const rows = parseCsv(toCsv(model, result)).filter(r => r[0] === 'eu_obligation');
   assert.equal(rows.length, result.obligations.length);
   assert.equal(rows.find(r => r[1] === 'eu.art_4')[5], 'Provider; Deployer');
