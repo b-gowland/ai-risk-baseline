@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
+import { loadV2, sourcedEntries } from './v2-sources.js';
 
 export function collectSources(data) {
   const sources = new Map();
@@ -92,8 +93,8 @@ export function renderReport(results) {
   return lines.join('\n') + '\n';
 }
 
-export async function run(input = 'src/data/regulatory-mappings.json', output = 'reports/url-health') {
-  const data = JSON.parse(await fs.readFile(input, 'utf8'));
+export async function run(output = 'reports/url-health') {
+  const data = sourcedEntries(await loadV2());
   const results = [];
   for (const source of collectSources(data)) results.push(await checkSource(source));
   await fs.mkdir(path.dirname(output), { recursive: true });

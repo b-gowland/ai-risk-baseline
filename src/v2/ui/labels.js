@@ -173,6 +173,15 @@ export const ROLE_LABELS = {
   gpai_provider: 'General-purpose AI model provider',
 };
 
+export const FRAMEWORK_LABELS = {
+  eu_ai_act: 'EU AI Act',
+  iso_42001: 'ISO/IEC 42001',
+  iso_23894: 'ISO/IEC 23894',
+  iso_42005: 'ISO/IEC 42005',
+  nist_ai_rmf: 'NIST AI RMF',
+  nist_ai_600_1: 'NIST AI 600-1',
+};
+
 export const GATE_LABELS = {
   classify: 'Classify',
   design: 'Design',

@@ -3,6 +3,12 @@
   "entries": [
     {
       "date": "2026-10-20",
+      "type": "feature",
+      "title": "Baseline v2: purpose-first EU AI Act classification",
+      "detail": "The Baseline has been rebuilt. You now describe an AI use case by its intended purpose, your role and its impact, and get: its EU AI Act classification, working through Art. 2 scope, Art. 5 prohibitions, Annex I, Annex III and the Art. 6(3) exemption, Art. 50 transparency and Art. 25 role shifts, with the reasoning shown; a governance tier from 1 to 4; requirements by lifecycle gate, crosswalked to ISO/IEC 42001, 23894 and 42005 and the NIST AI RMF and Generative AI Profile; your first five actions; and the open questions to escalate. The rules were checked against the Official Journal text of Regulation (EU) 2024/1689 and 2026/1744 and are tested against a public suite of legal scenarios. This fixes the known classification errors listed below. Coverage now focuses on the EU AI Act, ISO/IEC and NIST: the Australian, UK, GDPR, APRA and OWASP mappings from the earlier version are retired, with optional country packs planned. Links shared from the earlier version no longer open a result; please answer the new questions."
+    },
+    {
+      "date": "2026-10-20",
       "type": "update",
       "title": "Known issue: EU AI Act classification is being rebuilt",
       "detail": "A review found that this version classifies systems by technology rather than intended purpose. That causes known errors: fraud detection shown as high-risk under Annex III 5(b), despite being carved out; workplace emotion recognition not flagged as prohibited under Article 5(1)(f); credit scoring by an LLM not shown as high-risk; Annex III education, biometric, law-enforcement, migration and justice uses not mapped; and general-purpose AI model duties listed for deployers. Don't rely on this version to decide whether a system is prohibited or high-risk. Version 2, built around purpose, role and impact and checked against the Official Journal text, is in progress: see the project README on GitHub."

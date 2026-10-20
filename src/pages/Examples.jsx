@@ -1,64 +1,82 @@
 /**
  * Examples.jsx
- * Gallery of worked examples — four pre-configured Baseline outputs.
- * Each card links directly to /output?... with the example's URL state.
- * The original /example route (credit decisioning) is preserved separately.
- *
- * Configs verified against system-config.json options May 22, 2026.
+ * Gallery of worked examples. Each card is a golden scenario (src/v2/golden/scenarios.json):
+ * its link carries the scenario's answers, and its status, tier and role tags come from
+ * the engine, so the cards always match what the output page shows.
  */
 
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { trackEvent } from '../utils/analytics.js'
+import { classify } from '../v2/engine/classify.js'
+import { toSearch } from '../v2/ui/url-state.js'
+import { statusLabel, roleLabel } from '../v2/ui/present.js'
+import SUITE from '../v2/golden/scenarios.json'
 import styles from './Examples.module.css'
 
 const EXAMPLES = [
   {
-    id: `credit_decisioning`,
-    eyebrow: `Financial services · EU + AU · Predictive`,
-    title: `Credit decisioning system`,
-    description: `A bank's automated credit-scoring model used for customer loan decisions. Customer-facing, fully automated, processing personal financial data at scale. The highest-obligation configuration in the Baseline — triggers EU AI Act Annex III high-risk classification, Article 86 right to explanation, APRA CPS 230, and GDPR Article 22.`,
-    persona: `Sarah — risk lead, APAC bank`,
-    tags: [`EU AI Act`, `GDPR`, `APRA CPS 230`, `AU Privacy Act`],
-    url: `/output?v=1&st=predictive&who=customer_facing&dom=financial_services&dm=automated_decision&bp=in_house&dt=personal_financial%2Cpersonal_basic&ds=10k_100k&juris=eu%2Cau&plat=skip`,
+    scenario: `G09`,
+    eyebrow: `Financial services · Built in-house`,
+    title: `Automated consumer credit scoring`,
+    description: `A bank builds and runs its own model that approves or declines consumer loans without case-by-case review. A listed high-risk use (Annex III 5(b)), so the bank carries provider and deployer duties, including a fundamental rights impact assessment.`,
   },
   {
-    id: `llm_internal_tool`,
-    eyebrow: `Financial services · AU · LLM / chatbot`,
-    title: `LLM internal support tool`,
-    description: `An LLM-powered assistant deployed for internal staff — helping relationship managers draft customer communications, summarise documents, and look up policy. Employee-facing, recommendation-only (human makes the final call), procured from a vendor. Lower regulatory exposure than customer-facing systems, but data governance, vendor due diligence, and AI literacy obligations still apply.`,
-    persona: `Marcus — operations manager, mid-tier bank`,
-    tags: [`AU Privacy Act`, `AU Guidance for AI Adoption`, `OWASP LLM Top 10`],
-    url: `/output?v=1&st=llm_chatbot&who=employee_facing&dom=financial_services&dm=recommendation_only&bp=vendor&dt=personal_basic%2Cpersonal_financial&ds=10k_100k&juris=au&plat=skip`,
+    scenario: `G10`,
+    eyebrow: `Financial services · Built in-house`,
+    title: `Card fraud detection`,
+    description: `A transaction fraud model that blocks suspicious payments automatically. Fraud detection is expressly carved out of the credit-scoring category, so it is not high-risk under the EU AI Act, but its autonomy and impact still call for enhanced governance.`,
   },
   {
-    id: `radiology_triage`,
-    eyebrow: `Healthcare · EU + AU · Predictive`,
-    title: `Radiology triage AI`,
-    description: `A predictive AI system that prioritises radiology scan queues, flagging likely urgent cases for faster clinician review. Clinician-facing, decision-support (radiologist makes the final read), processing health and special-category personal data. EU AI Act Annex III classifies this as high-risk. GDPR special-category rules apply. Australian Privacy Principles apply to health data.`,
-    persona: `Dr Anya — clinical informatics lead, hospital network`,
-    tags: [`EU AI Act Annex III`, `GDPR Art. 9`, `AU Privacy Act`, `ISO/IEC 42001`],
-    url: `/output?v=1&st=predictive&who=clinician_facing&dom=healthcare&dm=decision_support&bp=vendor&dt=personal_health%2Cspecial_category&ds=10k_100k&juris=eu%2Cau&plat=skip`,
+    scenario: `G25`,
+    eyebrow: `Retail · Vendor chatbot`,
+    title: `Customer-service chatbot`,
+    description: `A company deploys a vendor's LLM chatbot on its website. The Art. 50 duty to tell people they are talking to AI sits with the vendor as provider; the company checks it is met and covers its own deployer duties.`,
   },
   {
-    id: `hr_screening`,
-    eyebrow: `HR / employment · AU + UK · Automated decision`,
-    title: `Automated CV screening`,
-    description: `An AI system that screens job applications and ranks candidates before a human recruiter reviews a shortlist. Employee-facing (affects job applicants), decision-support model, vendor-procured, processing basic personal and HR data. EU AI Act Annex III lists recruitment AI as high-risk. UK Data Use and Access Act 2025 automated-decision provisions apply. AU Privacy Act governs candidate data.`,
-    persona: `Jordan — HR systems lead, professional services firm`,
-    tags: [`EU AI Act Annex III`, `UK DUA Act 2025`, `AU Privacy Act`, `NIST AI RMF`],
-    url: `/output?v=1&st=automated_decision&who=employee_facing&dom=hr_employment&dm=decision_support&bp=vendor&dt=personal_basic%2Cpersonal_hr&ds=1k_10k&juris=au%2Cuk&plat=skip`,
+    scenario: `G17`,
+    eyebrow: `Employment · Agent built on a third-party LLM`,
+    title: `Automated CV screening agent`,
+    description: `An in-house agent screens applications and decides who progresses. Recruitment is a listed high-risk use (Annex III 4(a)); building on a third-party model does not make the company a general-purpose model provider.`,
   },
   {
-    id: `public_sector_eligibility`,
-    eyebrow: `Public sector · AU · Automated decision`,
-    title: `Public-sector eligibility assessment`,
-    description: `A government agency's system that automatically determines eligibility for a benefit or service — processing applications at scale with no human review of individual decisions. Customer-facing, fully automated, built in-house, processing basic personal and financial data for 100K+ people per year. High accountability expectations. APRA-equivalent prudential framing does not apply, but AU Privacy Act, the Voluntary AI Safety Standard, and administrative law accountability obligations do.`,
-    persona: `Claire — digital transformation lead, federal agency`,
-    tags: [`AU Privacy Act`, `AU Guidance for AI Adoption`, `NIST AI RMF`, `ISO/IEC 42001`],
-    url: `/output?v=1&st=automated_decision&who=customer_facing&dom=public_sector&dm=automated_decision&bp=in_house&dt=personal_basic%2Cpersonal_financial&ds=100k_plus&juris=au&plat=skip`,
+    scenario: `G35`,
+    eyebrow: `Healthcare · Medical device`,
+    title: `Radiology triage software`,
+    description: `Software that prioritises scans and is itself a class IIa medical device. High-risk through the product route (Art. 6(1), Annex I), applying from 2 August 2028.`,
+  },
+  {
+    scenario: `G14`,
+    eyebrow: `Public sector · Vendor system`,
+    title: `Welfare benefit eligibility`,
+    description: `A welfare agency scores eligibility for benefits, affecting vulnerable claimants. High-risk (Annex III 5(a)) with public-authority duties to register the use and assess fundamental rights impact. Governance tier 4.`,
+  },
+  {
+    scenario: `G01`,
+    eyebrow: `Employment · Vendor tool`,
+    title: `Emotion recognition of employees`,
+    description: `A vendor tool infers staff emotions from video. Prohibited in the workplace (Art. 5(1)(f)) unless used for medical or safety reasons: the output says stop and escalate.`,
+  },
+  {
+    scenario: `G47`,
+    eyebrow: `Early idea · Almost everything unsure`,
+    title: `An idea at the very start`,
+    description: `Purpose, role and EU nexus are all still unknown. Instead of an empty result, the Baseline lists the open questions to resolve and shows a provisional, cautious baseline in the meantime.`,
   },
 ]
+
+const today = new Date().toISOString().slice(0, 10)
+const CARDS = EXAMPLES.map(ex => {
+  const scenario = SUITE.scenarios.find(s => s.id === ex.scenario)
+  const answers = { ...SUITE.defaults, ...scenario.answers }
+  const result = classify(answers, { today })
+  const tags = [
+    `${statusLabel(result)}${result.provisional ? ` (provisional)` : ``}`,
+    ...(result.tier === `P` ? [] : [`Tier ${result.tier}`]),
+    ...result.roles.map(roleLabel),
+  ]
+  return { ...ex, tags, url: `/output${toSearch(answers, ex.title)}` }
+})
 
 export default function Examples() {
   useEffect(() => {
@@ -73,14 +91,15 @@ export default function Examples() {
           <p className={styles.eyebrow}>— AI GOVERNANCE BASELINE</p>
           <h1 className={styles.title}>Worked examples</h1>
           <p className={styles.subtitle}>
-            Five pre-configured outputs showing the Baseline applied to real deployment scenarios.
-            Each links to a live output you can explore, share, or adapt.
+            Eight use cases from the Baseline's test scenarios, chosen to show how the classification
+            handles high-risk uses, carve-outs, vendor roles, product rules, prohibitions and unknowns.
+            Each opens a live output you can explore, share, or adapt.
           </p>
         </div>
 
         <div className={styles.grid}>
-          {EXAMPLES.map(ex => (
-            <div key={ex.id} className={styles.card}>
+          {CARDS.map(ex => (
+            <div key={ex.scenario} className={styles.card}>
               <div className={styles.cardTop}>
                 <p className={styles.cardEyebrow}>{ex.eyebrow}</p>
                 <h2 className={styles.cardTitle}>{ex.title}</h2>
@@ -93,11 +112,11 @@ export default function Examples() {
                   ))}
                 </div>
                 <div className={styles.cardFooter}>
-                  <span className={styles.persona}>{ex.persona}</span>
+                  <span className={styles.persona}>Scenario {ex.scenario}</span>
                   <Link
                     to={ex.url}
                     className={styles.viewBtn}
-                    onClick={() => trackEvent(`example_viewed`, { example_id: ex.id })}
+                    onClick={() => trackEvent(`example_viewed`, { example_id: ex.scenario })}
                   >
                     View example →
                   </Link>
@@ -109,8 +128,8 @@ export default function Examples() {
 
         <div className={styles.footer}>
           <p className={styles.footerNote}>
-            Want to run the tool for your own system?{` `}
-            <Link to="/configure" className={styles.footerLink}>Start with your configuration →</Link>
+            Want to assess your own use case?{` `}
+            <Link to="/configure" className={styles.footerLink}>Start the questionnaire →</Link>
           </p>
         </div>
 

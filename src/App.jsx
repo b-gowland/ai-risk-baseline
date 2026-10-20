@@ -1,20 +1,21 @@
 import { useEffect, lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
-import DisclaimerBanner from './components/DisclaimerBanner.jsx'
 import Landing from './pages/Landing.jsx'
-import Configure from './pages/Configure.jsx'
-import Output from './pages/Output.jsx'
-import DrillPage from './pages/DrillPage.jsx'
-import Example from './pages/Example.jsx'
 import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
 import Changelog from './pages/Changelog.jsx'
 import Examples from './pages/Examples.jsx'
-// v2 preview pages load on demand so they don't grow the v1 bundle
+// The questionnaire and output pages load on demand, keeping the landing page light
 const ConfigureV2 = lazy(() => import('./v2/ui/pages/ConfigureV2.jsx'))
 const OutputV2 = lazy(() => import('./v2/ui/pages/OutputV2.jsx'))
+
+// Keep links from the v2 preview period (/v2/configure, /v2/output) working.
+function KeepQuery({ to }) {
+  const { search } = useLocation()
+  return <Navigate to={`${to}${search}`} replace />
+}
 
 // Handle 404.html redirect for GitHub Pages BrowserRouter
 //
@@ -57,22 +58,20 @@ export default function App() {
       <RedirectHandler />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Nav />
-        <DisclaimerBanner />
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/configure" element={<Configure />} />
-            <Route path="/output" element={<Output />} />
-            {/* Mobile full-screen drill route (Pattern B, <768px) */}
-            <Route path="/output/drill/:name" element={<DrillPage />} />
-            <Route path="/example" element={<Example />} />
+            <Route path="/configure" element={<Suspense fallback={null}><ConfigureV2 /></Suspense>} />
+            <Route path="/output" element={<Suspense fallback={null}><OutputV2 /></Suspense>} />
             <Route path="/examples" element={<Examples />} />
             <Route path="/about" element={<About />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/changelog" element={<Changelog />} />
-            {/* v2 preview: hidden routes, not linked from the nav until Phase 5 */}
-            <Route path="/v2/configure" element={<Suspense fallback={null}><ConfigureV2 /></Suspense>} />
-            <Route path="/v2/output" element={<Suspense fallback={null}><OutputV2 /></Suspense>} />
+            <Route path="/v2/configure" element={<KeepQuery to="/configure" />} />
+            <Route path="/v2/output" element={<KeepQuery to="/output" />} />
+            {/* Retired v1 routes */}
+            <Route path="/output/drill/:name" element={<Navigate to="/configure" replace />} />
+            <Route path="/example" element={<Navigate to="/examples" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

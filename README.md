@@ -2,47 +2,38 @@
 
 **Part of [AI Risk Practice](https://airiskpractice.org) — free, open-source AI risk literacy.**
 
-The AI Governance Baseline is a free, browser-based governance profiler. Describe your AI system in five questions; get a tailored risk and control profile mapped to applicable regulatory frameworks.
+The AI Governance Baseline is a free, browser-based tool for AI governance leads, from a one-person team to an enterprise. Describe one AI use case by its intended purpose, your role and its impact, and get a starting baseline: its EU AI Act classification, a governance tier, the requirements that apply (crosswalked to ISO/IEC and NIST), your first five actions, and the open questions to escalate.
 
 **Live:** [baseline.airiskpractice.org](https://baseline.airiskpractice.org)
 
-**Status: v2 rebuild in progress.** The live site (v1) stays up and free to use, but its EU AI Act classification has known errors (see below). Don't rely on it to decide whether a system is prohibited or high-risk. v2 replaces v1 in place when it ships.
-
 ---
 
-## v2: what's changing and why
+## What it does
 
-A [first-principles review](./docs/first-principles-review.md) found that v1 classifies systems by *technology*, while the EU AI Act, ISO/IEC 42001/23894 and NIST AI RMF all start from *intended purpose, role and impact*. As a result, v1 gets the EU AI Act classification wrong in common cases. For example, it shows fraud detection as high-risk, misses that workplace emotion recognition is prohibited, and loses credit scoring as high-risk when the scorer is an LLM.
-
-v2 is built around:
-
-- **Purpose-first classification.** Steps through the prohibited-practice screen, Annex I, Annex III, the Art. 6(3) exemption, Art. 50 transparency and roles, with a "because" trace behind every result.
-- **A governance tier (1–4).** Comes from a published impact × autonomy matrix and tells you how much governance a use case needs, whether or not the EU AI Act applies.
-- **Requirements by role and lifecycle gate.** EU AI Act articles crosswalked to ISO/IEC 42001 and NIST AI RMF, each with the artefact it produces.
-- **"Unsure" answers become open questions** with stated conservative assumptions, never an empty result.
-- **A global core** (EU AI Act, ISO/IEC, NIST) with optional country packs (GDPR, UK, AU).
-
-| Phase | Status |
-|---|---|
-| 1. Spec, purpose catalogue, tier matrix, golden scenarios | **Done**: [classification spec](./docs/v2/classification-spec.md), [`src/v2/`](./src/v2/), verified against the Official Journal text of Reg. (EU) 2024/1689 and 2026/1744 |
-| 2. Classification engine | **Done**: [`src/v2/engine/`](./src/v2/engine/), passes all golden scenarios |
-| 3. Requirements library (EU AI Act + ISO/IEC + NIST crosswalk) | In progress |
-| 4. Questionnaire and output UX | In progress |
-| 5. Release: v2 replaces v1 | Planned |
-
----
-
-## What v1 does (live site)
-
-- **Governance roadmap** — controls laid out by function (Risk · Legal · Tech · Procurement) and lifecycle phase, mandatory items flagged
-- **Key dates** — upcoming and recently commenced obligations for your configuration
-- **Regulatory panel** — applicable framework citations (EU AI Act, NIST AI RMF, ISO 42001, AU Privacy Act, APRA CPS 230, UK GDPR, OWASP and more) with article numbers, effective dates, and links to primary sources
-- **Risks panel** — top 7 ranked risks for your configuration, each linking to the AI Risk Practice knowledge base
-- **Controls panel** — specific controls with owner, effort, and framework references
-- **Actions panel** — 5 prioritised next steps with owners and effort estimates
-- **Shareable URL** — the full configuration is encoded in the URL; share it with your team
+- **EU AI Act classification.** Works through Art. 2 scope, Art. 5 prohibitions, Annex I, Annex III and the Art. 6(3) exemption, Art. 50 transparency, and your role (provider, deployer, importer or distributor, including Art. 25 role shifts). A "because" trace shows the answers and articles behind every result.
+- **Governance tier (1–4).** Comes from a published matrix of worst plausible harm × autonomy, raised for vulnerable people and sensitive data, with EU high-risk as a floor. It applies whether or not the EU AI Act does.
+- **Requirements by lifecycle gate.** Each has an owner, an effort rating, the artefact it produces, and references to the EU AI Act, ISO/IEC 42001, 23894 and 42005, and the NIST AI RMF and Generative AI Profile.
+- **First five actions,** ordered by dependency rather than effort.
+- **Open questions.** Every "Unsure" answer becomes a question to escalate, with the cautious assumption used meanwhile. Blocking ones come first.
+- **Shareable URL and exports.** The answers live in the link. Export as Markdown, JSON or CSV.
 
 No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), as on the other AI Risk Practice sites.
+
+---
+
+## How it's built, and why
+
+Version 2 (October 2026) replaced the original tool after a [first-principles review](./docs/first-principles-review.md). The review found that v1 classified systems by *technology*, while the EU AI Act, ISO/IEC 42001/23894 and the NIST AI RMF all start from *intended purpose, role and impact*.
+
+| Piece | Where |
+|---|---|
+| Classification spec and verification register (checked against the Official Journal text of Reg. (EU) 2024/1689 and 2026/1744) | [`docs/v2/classification-spec.md`](./docs/v2/classification-spec.md) |
+| Purpose catalogue, Art. 5 screen, EU obligations, tier matrix, requirements library | [`src/v2/data/`](./src/v2/data/) |
+| Classification engine (pure functions) | [`src/v2/engine/`](./src/v2/engine/) |
+| Golden legal scenarios, each citing its provision | [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json) |
+| Questionnaire, output page and exports | [`src/v2/ui/`](./src/v2/ui/) |
+
+**Scope:** the core is the EU AI Act plus ISO/IEC and NIST. Optional country packs (GDPR, UK, Australia) are planned. ISO/IEC standards are paywalled, so they are cited by clause and control number with original paraphrase only.
 
 ---
 
@@ -52,7 +43,7 @@ No login. No signup. Your answers never leave the browser: everything is compute
 |---|---|---|
 | Knowledge base | [library.airiskpractice.org](https://library.airiskpractice.org) | 32 AI risk entries, four depth layers each |
 | Training | [app.airiskpractice.org](https://app.airiskpractice.org) | Choose-your-own-adventure AI risk scenarios, at home and at work |
-| **Baseline** (this) | [baseline.airiskpractice.org](https://baseline.airiskpractice.org) | Tailored governance profile for your system |
+| **Baseline** (this) | [baseline.airiskpractice.org](https://baseline.airiskpractice.org) | Governance baseline for an AI use case |
 
 ---
 
@@ -77,11 +68,10 @@ No login. No signup. Your answers never leave the browser: everything is compute
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-The most valuable contributions now are to v2:
-- corrections to the [classification spec](./docs/v2/classification-spec.md);
-- new edge-case scenarios in [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json), each citing the provision it relies on.
-
-v1 data files in `src/data/` take fixes only.
+The most valuable contributions are:
+- corrections to the [classification spec](./docs/v2/classification-spec.md) or the ISO/IEC and NIST crosswalk, citing the primary text;
+- new edge-case scenarios in [`src/v2/golden/scenarios.json`](./src/v2/golden/scenarios.json), each citing the provision it relies on;
+- country packs.
 
 ---
 

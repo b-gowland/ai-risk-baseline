@@ -7,7 +7,7 @@ import { isComplete } from '../flow.js'
 import {
   statusLabel, scopeLabel, roleLabel, basesLabels, keyDates, tierInfo, tierExpectations,
   openQuestionText, hasRequirements, requirementsByGate, obligationsByRole, firstActions, formatDate,
-  purposeById, midSentence,
+  purposeById, midSentence, sourceLabel, sourceUrl,
 } from '../present.js'
 import { buildExportModel, toMarkdown, toCsv } from '../export.js'
 import styles from './OutputV2.module.css'
@@ -43,21 +43,24 @@ export default function OutputV2() {
   const [copied, setCopied] = useState(false)
 
   if (!decoded || !decoded.answers.purpose) {
+    // Links shared from v1 (before October 2026) carry st/ctx/juris params that v2 cannot map.
+    const legacy = ['st', 'ctx', 'juris'].some(k => searchParams.has(k))
     return (
       <>
         <V2Disclaimer />
         <div className={styles.empty}>
-          <p className={styles.eyebrow}>Use-case baseline · v2 preview</p>
-          <h1 className={styles.emptyTitle}>No answers yet</h1>
+          <p className={styles.eyebrow}>Use-case baseline</p>
+          <h1 className={styles.emptyTitle}>{legacy ? 'This link is from the earlier version' : 'No answers yet'}</h1>
+          {legacy && <p className={styles.lead}>The Baseline now classifies AI use cases by intended purpose, role and impact, so results from the earlier version can't be converted. Please answer the new questions; it takes a few minutes.</p>}
           <p className={styles.lead}>Answer a few questions about one AI use case to get its EU AI Act classification, governance tier and first actions.</p>
-          <Link to="/v2/configure" className={styles.btnPrimary}>Start the questionnaire</Link>
+          <Link to="/configure" className={styles.btnPrimary}>Start the questionnaire</Link>
         </div>
       </>
     )
   }
 
   const { answers, name } = decoded
-  const editHref = `/v2/configure${toSearch(answers, name)}`
+  const editHref = `/configure${toSearch(answers, name)}`
   const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
   const blocking = result.open_questions.filter(q => q.blocking)
   const tone = STATUS_TONE[result.status] || 'neutral'
@@ -89,7 +92,7 @@ export default function OutputV2() {
       <div className={styles.page}>
         <div className={styles.inner}>
           <header className={styles.header}>
-            <p className={styles.eyebrow}>Use-case baseline · v2 preview</p>
+            <p className={styles.eyebrow}>Use-case baseline</p>
             <h1 className={styles.title}>{name || 'Your AI use case'}</h1>
             <p className={styles.lead}>{purpose}</p>
             <div className={`${styles.headerActions} no-print`}>
@@ -306,7 +309,7 @@ function Requirement({ r }) {
         <p className={styles.sources}>
           {r.sources.map((s, i) => (
             <span key={i} className={styles.source}>
-              {s.url ? <a href={s.url} target="_blank" rel="noopener noreferrer">{s.framework} {s.ref}</a> : `${s.framework} ${s.ref}`}
+              {sourceUrl(s) ? <a href={sourceUrl(s)} target="_blank" rel="noopener noreferrer">{sourceLabel(s)}</a> : sourceLabel(s)}
             </span>
           ))}
         </p>

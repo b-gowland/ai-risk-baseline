@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Check URLs in regulatory-mappings.json
+      - name: Check source URLs in the v2 requirements library
         id: check
         run: node scripts/check-source-urls.js
         continue-on-error: true

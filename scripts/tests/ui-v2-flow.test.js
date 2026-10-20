@@ -93,12 +93,21 @@ test('every engine open-question gate has escalation text', () => {
 
 test('fallback first actions: at most 5, blocking questions first', () => {
   const s = SUITE.scenarios.find(x => x.id === 'G47');
-  const r = classify({ ...SUITE.defaults, ...s.answers }, { today });
+  const r = { ...classify({ ...SUITE.defaults, ...s.answers }, { today }), requirements: undefined, actions: undefined };
   const a = firstActions(r);
   assert.equal(a.derived, true);
   assert.ok(a.items.length > 0 && a.items.length <= 5);
   assert.match(a.items[0].title, /^Resolve:/);
   assert.deepEqual(a.items.map(x => x.rank), a.items.map((_, i) => i + 1));
+});
+
+test('engine actions lead with the classification record and blocking questions', () => {
+  const s = SUITE.scenarios.find(x => x.id === 'G47');
+  const a = firstActions(classify({ ...SUITE.defaults, ...s.answers }, { today }));
+  assert.equal(a.derived, false);
+  assert.ok(a.items.length > 0 && a.items.length <= 5);
+  assert.equal(a.items[0].requirement_id, 'uc.classification_record');
+  assert.match(a.items[0].title, /^Resolve/);
 });
 
 test('result.actions and result.requirements are used when present', () => {
@@ -135,4 +144,13 @@ test('basis labels: purpose unsure still names a basis', () => {
   const r = classify({ purpose: 'unsure' }, { today });
   assert.equal(r.status, 'high_risk');
   assert.ok(basesLabels(r).length >= 1);
+});
+
+test('basis labels: a prohibited system shows only its Art. 5 basis', () => {
+  for (const s of SUITE.scenarios.filter(x => x.expect.status === 'prohibited')) {
+    const r = classify({ ...SUITE.defaults, ...s.answers }, { today });
+    const labels = basesLabels(r);
+    assert.equal(labels.length, 1, s.id);
+    assert.match(labels[0], /^Art\. 5/, s.id);
+  }
 });
