@@ -146,7 +146,7 @@ test('ISO content: no requirement reproduces long ISO text (paraphrase only)', (
 function checkShape(r, where) {
   for (const q of r.requirements) {
     assert.deepEqual(
-      Object.keys(q).filter(k => k !== 'existing').sort(),
+      Object.keys(q).filter(k => k !== 'existing' && k !== 'pack').sort(),
       ['artefact', 'effective_from', 'effort', 'gate', 'id', 'level', 'owners', 'sources', 'summary', 'title', 'why'],
       `${where} ${q.id}`,
     );

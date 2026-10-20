@@ -30,6 +30,12 @@
       "question": "Does any of these apply exclusively?"
     },
     {
+      "id": "other_jurisdictions",
+      "type": "multi",
+      "values": ["uk", "au", "other"],
+      "question": "Besides the EU, where does the system affect people? (adds country packs; none is a valid answer)"
+    },
+    {
       "id": "role",
       "type": "multi",
       "values": ["build_own_use", "build_supply", "deploy_vendor", "put_name_on_or_substantially_modify", "repurpose_to_high_risk", "import_or_distribute", "gpai_model_provider", "unsure"],

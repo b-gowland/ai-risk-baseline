@@ -1,0 +1,128 @@
+{
+  "id": "au",
+  "title": "Australia",
+  "version": "1.0.0",
+  "_note": "Country pack: Privacy Act 1988 (Cth) and the Australian Privacy Principles, including the automated-decision transparency rules added by the Privacy and Other Legislation Amendment Act 2024, OAIC guidance on AI, and the National AI Centre's Guidance for AI Adoption. Added when the user selects Australia. Privacy requirements apply to APP entities: most organisations with annual turnover above A$3 million, Australian Government agencies, and some smaller businesses (for example health service providers). Checked on 2026-10-20.",
+  "frameworks": {
+    "au_privacy_act": {
+      "title": "Privacy Act 1988 (Cth) and the Australian Privacy Principles",
+      "url": "https://www.legislation.gov.au/C2004A03712/latest/text",
+      "last_verified": "2026-10-20",
+      "source_note": "Federal Register of Legislation checked on 2026-10-20. The small business threshold (annual turnover of A$3 million or less) confirmed on the OAIC small business page."
+    },
+    "au_pola_2024": {
+      "title": "Privacy and Other Legislation Amendment Act 2024 (No. 128, 2024)",
+      "url": "https://www.legislation.gov.au/C2024A00128",
+      "last_verified": "2026-10-20",
+      "source_note": "As-made text checked on 2026-10-20: Schedule 1 Part 15 inserts APP 1.7-1.9 (automated decisions in privacy policies) and commences on 10 December 2026 (commencement table item 7). It applies to decisions made after commencement, whenever the data was collected (item 89). An APP 1.7 breach can attract an infringement notice (s 13K, item 87)."
+    },
+    "oaic_ai": {
+      "title": "OAIC guidance on privacy and AI",
+      "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-the-use-of-commercially-available-ai-products",
+      "last_verified": "2026-10-20",
+      "source_note": "Regulator guidance on using commercially available AI products and on developing and training generative AI models. Not law, but how the OAIC expects the APPs to apply to AI. Checked on 2026-10-20."
+    },
+    "au_ai_guidance": {
+      "title": "Guidance for AI Adoption (National AI Centre)",
+      "url": "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance",
+      "last_verified": "2026-10-20",
+      "source_note": "Voluntary national guidance (October 2025) that replaced the Voluntary AI Safety Standard. Six essential practices checked on ai.gov.au on 2026-10-20: decide who is accountable; understand impacts and plan accordingly; measure and manage risks; share essential information; test and monitor; maintain human control."
+    }
+  },
+  "requirements": [
+    {
+      "id": "au.ai_guidance",
+      "title": "Apply the six essential practices (Guidance for AI Adoption)",
+      "summary": "Use the national guidance as your baseline for responsible AI in Australia: decide who is accountable, understand impacts and plan accordingly, measure and manage risks, share essential information, test and monitor, and maintain human control. It is voluntary, but it is the government's reference point.",
+      "level": "org",
+      "gate": "classify",
+      "applies": { "jurisdiction": ["au"] },
+      "artefact": "Gap check of your AI governance against the six essential practices, with owners for any gaps.",
+      "owners": ["risk"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "au_ai_guidance", "ref": "Essential practices 1-6" }
+      ]
+    },
+    {
+      "id": "au.collection_use",
+      "title": "Collection, use and accuracy of personal information (APPs 3, 6, 10)",
+      "summary": "Entering personal information into an AI system is a use or disclosure, so it must fit the purpose it was collected for or an APP 6 exception. Information the system infers or generates about people, including errors, is a new collection. Sensitive information, including biometric information, generally needs consent. Take reasonable steps to keep outputs accurate.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["au"] }, { "personal_data": true } ] },
+      "artefact": "Record of the purposes and APP 6 basis for each use of personal information in the system, consent records for sensitive information, and accuracy controls for outputs.",
+      "owners": ["legal", "tech"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "au_privacy_act", "ref": "APP 3" },
+        { "framework": "au_privacy_act", "ref": "APP 6" },
+        { "framework": "au_privacy_act", "ref": "APP 10" },
+        { "framework": "oaic_ai", "ref": "Commercially available AI products" }
+      ]
+    },
+    {
+      "id": "au.transparency",
+      "title": "Privacy policy and collection notices covering AI (APPs 1 and 5)",
+      "summary": "Update your privacy policy and collection notices to describe how AI uses personal information, and make it clear when people are dealing with an AI system rather than a person.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["au"] }, { "personal_data": true } ] },
+      "artefact": "Updated privacy policy and collection notices, and AI disclosure on public-facing tools.",
+      "owners": ["legal"],
+      "effort": "Low",
+      "sources": [
+        { "framework": "au_privacy_act", "ref": "APP 1" },
+        { "framework": "au_privacy_act", "ref": "APP 5" },
+        { "framework": "oaic_ai", "ref": "Commercially available AI products" }
+      ]
+    },
+    {
+      "id": "au.automated_decisions_policy",
+      "title": "Automated decisions in your privacy policy (APP 1.7-1.9)",
+      "summary": "From 10 December 2026 your privacy policy must say what kinds of personal information computer programs use, and what kinds of decisions they make alone or substantially support, where those decisions could significantly affect people's rights or interests. Decision support is caught as well as fully automated decisions, and it applies to decisions made after that date, whenever the data was collected.",
+      "level": "use_case",
+      "gate": "pre_deploy",
+      "applies": { "all": [ { "jurisdiction": ["au"] }, { "personal_data": true }, { "significant_decision": true } ] },
+      "artefact": "Privacy policy section listing the kinds of personal information used and the kinds of decisions made or substantially supported by computer programs, kept current as systems change.",
+      "owners": ["legal"],
+      "effort": "Low",
+      "effective_from": "2026-12-10",
+      "sources": [
+        { "framework": "au_privacy_act", "ref": "APP 1.7-1.9" },
+        { "framework": "au_pola_2024", "ref": "Schedule 1, Part 15" }
+      ]
+    },
+    {
+      "id": "au.pia",
+      "title": "Privacy impact assessment (OAIC expectation)",
+      "summary": "The OAIC expects a privacy impact assessment before adopting or building AI that handles personal information, and treats decisions with legal or similarly significant effects as likely to be high privacy risk. Do it as part of due diligence, and repeat it when the use changes.",
+      "level": "use_case",
+      "gate": "design",
+      "applies": { "all": [ { "jurisdiction": ["au"] }, { "personal_data": true }, { "any": [ { "tier_min": 2 }, { "data": ["special_category", "biometric", "children"] } ] } ] },
+      "artefact": "Privacy impact assessment for the AI use case, with the risks found and the responses.",
+      "owners": ["legal", "risk"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "oaic_ai", "ref": "Commercially available AI products" },
+        { "framework": "oaic_ai", "ref": "Developing and training generative AI models", "url": "https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/guidance-on-privacy-and-developing-and-training-generative-ai-models" }
+      ]
+    },
+    {
+      "id": "au.security_breach",
+      "title": "Security, overseas disclosure and data breaches (APPs 8, 11; NDB scheme)",
+      "summary": "Protect personal information the system holds or produces, check where the AI vendor stores and processes it before it goes overseas, and include the system in your Notifiable Data Breaches response.",
+      "level": "use_case",
+      "gate": "operate",
+      "applies": { "all": [ { "jurisdiction": ["au"] }, { "personal_data": true } ] },
+      "artefact": "Security assessment of the AI product or system (including hosting location), the overseas-disclosure basis, and the system's place in the data breach response plan.",
+      "owners": ["tech", "procurement"],
+      "effort": "Medium",
+      "sources": [
+        { "framework": "au_privacy_act", "ref": "APP 8" },
+        { "framework": "au_privacy_act", "ref": "APP 11" },
+        { "framework": "au_privacy_act", "ref": "Part IIIC (Notifiable Data Breaches)", "url": "https://www.oaic.gov.au/privacy/notifiable-data-breaches" }
+      ]
+    }
+  ]
+}
