@@ -22,9 +22,9 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          router: ['react-router-dom'],
+        manualChunks(id) {
+          if (/[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) return 'react'
+          if (/[\\/]node_modules[\\/](react-router|react-router-dom)[\\/]/.test(id)) return 'router'
         },
       },
     },
