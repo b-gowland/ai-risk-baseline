@@ -54,7 +54,7 @@ Version 2 (October 2026) replaced the original tool after a [first-principles re
 - React Router DOM (BrowserRouter + 404.html SPA fallback)
 - Plain CSS with design tokens from the AI Risk Practice design system
 - No backend. No database. URL state only.
-- Deployed on GitHub Pages
+- Deployed on Cloudflare Pages from GitHub Actions (since 17 Nov 2026)
 
 ---
 

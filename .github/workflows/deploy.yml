@@ -1,18 +1,31 @@
-name: Deploy to GitHub Pages
+name: Check and deploy
+
+# Checks run on every pull request and push. A push to main also deploys to
+# Cloudflare Pages (project ai-risk-baseline), which serves
+# baseline.airiskpractice.org since the move off GitHub Pages on 17 Nov 2026.
+#
+# Deploying needs two repository secrets: CLOUDFLARE_API_TOKEN (a token with
+# the "Cloudflare Pages: Edit" permission) and CLOUDFLARE_ACCOUNT_ID. Until
+# they exist the deploy job says so and stops without failing the run.
+#
+# Cloudflare Pages serves index.html for unknown paths when the build has no
+# 404.html, which is what BrowserRouter needs. The old GitHub Pages 404.html
+# redirect is gone; App.jsx still accepts ?redirect= for old links.
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
+  group: deploy-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -40,24 +53,37 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Copy 404.html to dist
-        run: cp public/404.html dist/404.html
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: "./dist"
-
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://baseline.airiskpractice.org/
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+      - name: Check for Cloudflare credentials
+        id: creds
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID is not set, so nothing was deployed. Add both as repository secrets."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v7
+        if: steps.creds.outputs.ok == 'true'
+      - uses: actions/setup-node@v7
+        if: steps.creds.outputs.ok == 'true'
+        with:
+          node-version: "24"
+          cache: "npm"
+      - if: steps.creds.outputs.ok == 'true'
+        run: npm ci
+      - if: steps.creds.outputs.ok == 'true'
+        run: npm run build
+      - name: Publish to Cloudflare Pages
+        if: steps.creds.outputs.ok == 'true'
+        run: npx --yes wrangler@4 pages deploy dist --project-name=ai-risk-baseline --branch=main --commit-dirty=true
