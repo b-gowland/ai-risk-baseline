@@ -32,6 +32,7 @@
 .wordmark em {
   color: var(--auth-accent);
   font-style: italic;
+  font-family: var(--font-serif);
 }
 
 .product {

@@ -13,9 +13,10 @@ name: Check and deploy
 # so no installed package can read it, and Wrangler is pinned to an exact
 # version.
 #
-# Cloudflare Pages serves index.html for unknown paths when the build has no
-# 404.html, which is what BrowserRouter needs. The old GitHub Pages 404.html
-# redirect is gone; App.jsx still accepts ?redirect= for old links.
+# The build has a 404.html, so Cloudflare Pages serves it with status 404 for
+# unknown paths. Each app route is rewritten to the app shell in
+# public/_redirects (scripts/tests/hosting.test.js keeps the two in step).
+# App.jsx still accepts ?redirect= for links from the GitHub Pages days.
 
 on:
   push:

@@ -23,9 +23,9 @@
 }
 
 .alert {
-  background: #FFFBEB;
-  border: 0.5px solid #FCD34D;
-  border-left: 3px solid #D97706;
+  background: var(--auth-accent-bg);
+  border: 0.5px solid var(--auth-border);
+  border-left: 3px solid var(--auth-accent);
   border-radius: var(--radius-md);
   padding: var(--space-5) var(--space-6);
   margin-bottom: var(--space-10);
@@ -33,7 +33,7 @@
 
 .alertText {
   font-size: var(--text-base);
-  color: #78350F;
+  color: var(--color-amber-dark);
   line-height: 1.7;
   font-weight: 500;
 }
@@ -61,6 +61,22 @@
   color: var(--auth-text-muted);
   line-height: 1.7;
   margin-bottom: var(--space-3);
+}
+
+.list {
+  margin: 0 0 var(--space-4) var(--space-5);
+  font-size: var(--text-base);
+  color: var(--auth-text-muted);
+  line-height: 1.7;
+}
+
+.list li {
+  margin-bottom: var(--space-2);
+}
+
+.list code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
 }
 
 .text:last-child {

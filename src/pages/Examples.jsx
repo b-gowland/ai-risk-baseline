@@ -7,7 +7,7 @@
 
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
-import { trackEvent } from '../utils/analytics.js'
+import { trackEvent, events } from '../utils/analytics.js'
 import { classify } from '../v2/engine/classify.js'
 import { toSearch } from '../v2/ui/url-state.js'
 import { statusLabel, roleLabel } from '../v2/ui/present.js'
@@ -80,7 +80,7 @@ const CARDS = EXAMPLES.map(ex => {
 
 export default function Examples() {
   useEffect(() => {
-    trackEvent(`examples_gallery_viewed`)
+    trackEvent(events.EXAMPLES_GALLERY_VIEWED)
   }, [])
 
   return (
@@ -116,7 +116,7 @@ export default function Examples() {
                   <Link
                     to={ex.url}
                     className={styles.viewBtn}
-                    onClick={() => trackEvent(`example_viewed`, { example_id: ex.scenario })}
+                    onClick={() => trackEvent(events.EXAMPLE_VIEWED, { example_id: ex.scenario })}
                   >
                     View example →
                   </Link>

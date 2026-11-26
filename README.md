@@ -18,7 +18,7 @@ The AI Governance Baseline is a free, browser-based tool for AI governance leads
 - **Country packs.** GDPR, UK and Australian data protection requirements, each by lifecycle gate with its sources.
 - **Shareable URL and exports.** The answers live in the link. Export as Markdown, JSON or CSV.
 
-No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), as on the other AI Risk Practice sites.
+No login. No signup. Your answers never leave the browser: everything is computed client-side and stored only in the URL. Cookieless, aggregate analytics (Plausible), on a Plausible site shared with the practice scenarios and the reference library. The three events Baseline sends are listed on the [Disclaimer](https://baseline.airiskpractice.org/disclaimer) page. Fonts are self-hosted, so no request goes to Google.
 
 ---
 
@@ -42,8 +42,8 @@ Version 2 (October 2026) replaced the original tool after a [first-principles re
 
 | Tool | URL | Purpose |
 |---|---|---|
-| Knowledge base | [library.airiskpractice.org](https://library.airiskpractice.org) | 32 AI risk entries, four depth layers each |
-| Training | [app.airiskpractice.org](https://app.airiskpractice.org) | Choose-your-own-adventure AI risk scenarios, at home and at work |
+| Reference library | [library.airiskpractice.org](https://library.airiskpractice.org) | 32 AI risk entries, four depth layers each |
+| Practice scenarios | [app.airiskpractice.org](https://app.airiskpractice.org) | Short situations where AI could go wrong, at home and at work |
 | **Baseline** (this) | [baseline.airiskpractice.org](https://baseline.airiskpractice.org) | Governance baseline for an AI use case |
 
 ---
@@ -51,10 +51,12 @@ Version 2 (October 2026) replaced the original tool after a [first-principles re
 ## Tech stack
 
 - React 19 + Vite
-- React Router DOM (BrowserRouter + 404.html SPA fallback)
-- Plain CSS with design tokens from the AI Risk Practice design system
+- React Router DOM (BrowserRouter, real paths)
+- Plain CSS with design tokens shared with the practice scenarios app (`src/styles/tokens.css`): Archivo, Newsreader and IBM Plex Mono, self-hosted via `@fontsource`
 - No backend. No database. URL state only.
-- Deployed on Cloudflare Pages from GitHub Actions (since 17 Nov 2026)
+- Deployed on Cloudflare Pages from GitHub Actions (since 17 Nov 2026). `public/_redirects` rewrites each app route to the app shell; any other path gets `public/404.html` with status 404. `public/_headers` sets the security headers and the Content-Security-Policy.
+
+Before pushing, run `npm run validate`, `npm test` and `npm run build` (see [CLAUDE.md](./CLAUDE.md) for the full list, including the local Cloudflare emulator check).
 
 ---
 

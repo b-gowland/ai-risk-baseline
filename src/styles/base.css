@@ -109,3 +109,29 @@ code, pre, .mono {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* Skip link: hidden above the page until it receives keyboard focus.
+ * Same pattern as the practice scenarios app (Shell.module.css .skipLink). */
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 1000;
+  padding: var(--space-3) var(--space-4);
+  background: var(--auth-bg-raised);
+  color: var(--auth-text-primary);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-4)));
+  transition: transform 120ms ease-out;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  text-decoration: none;
+}
+
+/* The main element takes focus only from the skip link: no ring needed. */
+main[tabindex="-1"]:focus {
+  outline: none;
+}

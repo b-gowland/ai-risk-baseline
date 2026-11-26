@@ -5,3 +5,6 @@ dist/
 .env
 .env.*
 reports/
+
+# Cloudflare local emulator state (wrangler pages dev)
+.wrangler/
