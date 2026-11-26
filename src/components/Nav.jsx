@@ -39,7 +39,7 @@ export default function Nav() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Knowledge base ↗
+            Reference library ↗
           </a>
           <a
             href="https://app.airiskpractice.org"
@@ -47,7 +47,7 @@ export default function Nav() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Training ↗
+            Practice scenarios ↗
           </a>
         </nav>
 

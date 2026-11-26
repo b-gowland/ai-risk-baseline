@@ -1,22 +1,34 @@
-/* tokens.css — AI Risk Practice design system tokens
- * Source: DESIGN.md v1.0 (authoritative register)
- * Do not edit without updating DESIGN.md first.
+/* tokens.css: AI Risk Practice design tokens for the Baseline.
+ *
+ * Colours and fonts follow the practice scenarios app (ai-risk-training,
+ * src/index.css :root) so the free sites read as one family: warm paper
+ * ground, near-black ink, one rust accent, Archivo for the interface,
+ * Newsreader italic for accents, IBM Plex Mono for labels. The fonts are
+ * self-hosted (@fontsource packages imported in src/main.jsx), so no request
+ * goes to Google.
+ *
+ * Every text colour here holds at least 4.5:1 on --auth-bg and
+ * --auth-bg-subtle. The old amber #D97706 (3.19:1) is no longer used.
+ * The token names are kept from the first register so the page CSS does
+ * not change.
  */
 
 :root {
   /* ── Brand colour — appears in both registers identically ── */
-  --color-amber:        #D97706;
-  --color-amber-light:  #FEF3C7;
-  --color-amber-dark:   #92400E;
+  --color-amber:        #b0512b;   /* app --amber: 4.9:1 on the ground; not for text on --color-amber-light */
+  --color-amber-light:  #f7ece5;   /* app --amber-wash */
+  --color-amber-dark:   #8a3d1f;   /* app --amber-deep */
 
   /* ── Authoritative register colours ── */
-  --auth-bg:            #FFFFFF;
-  --auth-bg-subtle:     #FAFAFA;
-  --auth-text-primary:  #0F0F0F;
-  --auth-text-muted:    #555555;
-  --auth-text-faint:    #999999;
-  --auth-border:        #EBEBEB;
-  --auth-border-strong: #CCCCCC;
+  --auth-bg:            #fbf8f2;   /* app --ground */
+  --auth-bg-raised:     #ffffff;   /* app --ground-raised */
+  --auth-bg-subtle:     #f4f2ee;   /* app --ground-sunk */
+  --auth-text-primary:  #1c1a16;   /* app --ink */
+  --auth-text:          var(--auth-text-primary);
+  --auth-text-muted:    #4f4a41;   /* app --ink-soft */
+  --auth-text-faint:    #6f685c;   /* app --ink-faint: 5.2:1 on the ground, 4.9:1 on subtle */
+  --auth-border:        #ded8ca;   /* app --rule */
+  --auth-border-strong: #bdb6a8;   /* app --rule-firm */
   --auth-accent:        var(--color-amber);
   --auth-accent-bg:     var(--color-amber-light);
 
@@ -47,9 +59,10 @@
   --text-2xl:  32px;
 
   /* ── Typography ── */
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
-  --font-mono:    'Space Mono', 'Courier New', monospace;
+  --font-heading: 'Archivo Variable', 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:    'Archivo Variable', 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif:   'Newsreader Variable', 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ── Semantic colours ── */
   --color-mandatory-bg:     #FEF2F2;

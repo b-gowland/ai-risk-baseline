@@ -71,7 +71,10 @@ Standard PR flow. The questionnaire, output page and exports are in `src/v2/ui/`
 `npm test` checks:
 - every golden scenario against the engine;
 - the requirements library and the first-actions ordering;
-- the UI's pure functions (URL state, exports).
+- the UI's pure functions (URL state, exports);
+- that every app route has a rewrite in `public/_redirects`, and the CSP header is in place;
+- that the analytics events in the code match the list on the Disclaimer page;
+- that the text colours in `src/styles/tokens.css` hold 4.5:1 contrast.
 
 ---
 

@@ -1,0 +1,17 @@
+# AI Governance Baseline
+
+> A free, open-source tool from AI Risk Practice. Describe one AI use case by its intended purpose, your role and its impact, and get a starting baseline: its EU AI Act classification, a governance tier (1 to 4), the requirements that apply by lifecycle gate (crosswalked to ISO/IEC 42001, 23894 and 42005 and the NIST AI RMF), your first five actions, and the open questions to escalate. Everything runs in the browser; answers are kept only in the URL. Not legal advice. Code Apache 2.0, content CC BY 4.0.
+
+## Pages
+
+- [Assess a use case](https://baseline.airiskpractice.org/configure): the questionnaire
+- [Worked examples](https://baseline.airiskpractice.org/examples): finished baselines for credit scoring, fraud detection, a customer-service chatbot, CV screening, radiology triage, welfare eligibility, workplace emotion recognition and an early idea
+- [About](https://baseline.airiskpractice.org/about): how the classification and the tier work
+- [Disclaimer and privacy](https://baseline.airiskpractice.org/disclaimer): limits of the tool, and the analytics it sends
+- [Changelog](https://baseline.airiskpractice.org/changelog): what changed and when
+
+## Also
+
+- [Reference library](https://library.airiskpractice.org/): AI risks with controls, mapped to the EU AI Act, NIST AI RMF, ISO/IEC 42001 and OWASP
+- [Practice scenarios](https://app.airiskpractice.org/): short situations where AI could go wrong, at home and at work
+- [Source](https://github.com/b-gowland/ai-risk-baseline)

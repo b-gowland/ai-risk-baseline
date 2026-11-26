@@ -7,6 +7,7 @@ import About from './pages/About.jsx'
 import Disclaimer from './pages/Disclaimer.jsx'
 import Changelog from './pages/Changelog.jsx'
 import Examples from './pages/Examples.jsx'
+import NotFound from './pages/NotFound.jsx'
 // The questionnaire and output pages load on demand, keeping the landing page light
 const ConfigureV2 = lazy(() => import('./v2/ui/pages/ConfigureV2.jsx'))
 const OutputV2 = lazy(() => import('./v2/ui/pages/OutputV2.jsx'))
@@ -17,20 +18,15 @@ function KeepQuery({ to }) {
   return <Navigate to={`${to}${search}`} replace />
 }
 
-// Handle 404.html redirect for GitHub Pages BrowserRouter
+// Keeps old links of the form /?redirect=%2Fabout working. They were made by
+// the GitHub Pages 404.html trick used before the move to Cloudflare Pages
+// (17 Nov 2026). Cloudflare now serves each route directly (public/_redirects)
+// and a real 404 for anything else (public/404.html).
 //
-// Sequence on a direct URL hit to a non-root path (e.g. /about):
-//   1. GitHub Pages has no file at /about → serves public/404.html
-//   2. 404.html does window.location.replace('/?redirect=%2Fabout')
-//   3. Browser loads / → React mounts → this handler fires
-//   4. We navigate client-side to the requested path. NO window.location.reload()
-//      — that would re-fetch the path from the server, get 404.html again, and
-//      loop. navigate() updates the URL via the History API and lets <Routes>
-//      pick the correct page in the same tick.
-//
-// Redirect param is validated to start with a single '/' (same-origin only).
-// Rejects: absolute URLs (https://evil.com), protocol-relative (//evil.com),
-// javascript: URIs, and anything else that could be used as an open-redirect.
+// We navigate client-side, with no reload. The redirect param must be a
+// same-origin path: it must start with a single '/'. Absolute URLs
+// (https://evil.example), protocol-relative ones (//evil.example), javascript:
+// URIs and anything else that could make an open redirect are dropped.
 function RedirectHandler() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -52,13 +48,27 @@ function RedirectHandler() {
   return null;
 }
 
+// Point the canonical link at the page being shown, without the query string
+// (on /output the query holds the user's answers).
+const SITE = `https://baseline.airiskpractice.org`
+function Canonical() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const link = document.querySelector('link[rel="canonical"]')
+    if (link) link.setAttribute(`href`, SITE + pathname)
+  }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <BrowserRouter basename="/">
       <RedirectHandler />
+      <Canonical />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <a href="#main-content" className="skip-link">Skip to main content</a>
         <Nav />
-        <main style={{ flex: 1 }}>
+        <main id="main-content" tabIndex={-1} style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/configure" element={<Suspense fallback={null}><ConfigureV2 /></Suspense>} />
@@ -72,7 +82,8 @@ export default function App() {
             {/* Retired v1 routes */}
             <Route path="/output/drill/:name" element={<Navigate to="/configure" replace />} />
             <Route path="/example" element={<Navigate to="/examples" replace />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* Every route above needs a line in public/_redirects. */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

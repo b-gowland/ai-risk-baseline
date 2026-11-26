@@ -182,7 +182,7 @@ export default function About() {
               rel="noopener noreferrer"
               className={styles.suiteItem}
             >
-              <span className={styles.suiteName}>Knowledge Base ↗</span>
+              <span className={styles.suiteName}>Reference library ↗</span>
               <span className={styles.suiteDesc}>32 AI risk entries with four depth layers, mapped to frameworks</span>
             </a>
             <a
@@ -191,8 +191,8 @@ export default function About() {
               rel="noopener noreferrer"
               className={styles.suiteItem}
             >
-              <span className={styles.suiteName}>Training Scenarios ↗</span>
-              <span className={styles.suiteDesc}>32 branching scenarios across 4 personas, ~6 hours of content</span>
+              <span className={styles.suiteName}>Practice scenarios ↗</span>
+              <span className={styles.suiteDesc}>Short situations where AI could go wrong, at home and at work. Free, no login.</span>
             </a>
           </div>
         </section>

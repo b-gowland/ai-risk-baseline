@@ -40,7 +40,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Knowledge base ↗
+            Reference library ↗
           </a>
           <a
             href="https://app.airiskpractice.org"
@@ -48,7 +48,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Training scenarios ↗
+            Practice scenarios ↗
           </a>
         </nav>
       </div>

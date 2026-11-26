@@ -1,0 +1,27 @@
+# Cloudflare Pages rewrites for the single-page app.
+#
+# The build has a 404.html, so Cloudflare serves it, with status 404, for any
+# path that is not a file. Each route the app handles (src/App.jsx) is
+# rewritten here to the app shell with status 200. Add a line when you add a
+# route; a test (scripts/tests/routes.test.js) checks the two match.
+/configure          /  200
+/output             /  200
+/examples           /  200
+/about              /  200
+/disclaimer         /  200
+/changelog          /  200
+
+# Old addresses the app forwards: the v2 preview period and retired v1 pages.
+/v2/configure       /  200
+/v2/output          /  200
+/example            /  200
+/output/drill/*     /  200
+
+# The same pages with a trailing slash, as some sites and mail clients link
+# them, go to the address without one.
+/configure/         /configure   301
+/output/            /output      301
+/examples/          /examples    301
+/about/             /about       301
+/disclaimer/        /disclaimer  301
+/changelog/         /changelog   301

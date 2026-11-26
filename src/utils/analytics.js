@@ -1,45 +1,29 @@
 /**
- * Plausible Analytics wrapper
- * Matches the ai-risk-training pattern — no-op when Plausible not loaded.
+ * Plausible Analytics wrapper. A no-op when Plausible has not loaded.
  *
- * Events updated for Trust & Freshness Layer (May 22, 2026):
- * - source_cite_opened: (?) provenance icon activated — props: item_type (regulatory/control/risk)
- * - inaccuracy_report_clicked: "Report an inaccuracy" link clicked — props: item_type, item_id
- * - changelog_viewed: /changelog page loaded
- * - freshness_pill_clicked: freshness pill in config summary clicked
- *
- * Pattern B IA events (May 2026):
- * - drill_opened: replaces tab_viewed as primary navigation event
- * - drill_focus_set: when a specific focus= param is set within a drill
- * - drill_export_with_rail: Print/PDF triggered with "Include open drill" checked
- * - tab_viewed: retained for legacy ?tab= rewrite compatibility only
+ * The Plausible site (airiskpractice.org) is shared with the practice
+ * scenarios app and the reference library. These are the only custom events
+ * the Baseline sends. The privacy section of /disclaimer lists each one, and
+ * scripts/tests/privacy-claims.test.js checks the list, the code and that
+ * page against each other. Add an event here, use it, and list it there.
  */
 
 export function trackEvent(name, props) {
   if (typeof window !== `undefined` && window.plausible) {
-    window.plausible(name, { props })
+    window.plausible(name, props ? { props } : undefined)
   }
 }
 
 export const events = {
-  BASELINE_STARTED:    `baseline_started`,
-  BASELINE_COMPLETED:  `baseline_completed`,
-  EXAMPLE_VIEWED:      `example_viewed`,
-  URL_COPIED:          `url_copied`,
-  MARKDOWN_COPIED:     `markdown_copied`,
-  PDF_PRINTED:         `pdf_printed`,
-  TAB_VIEWED:          `tab_viewed`,           // legacy — used only during ?tab= rewrite
-  MAP_CONTROL_CLICKED: `map_control_clicked`,
-  MAP_EXPORT:          `map_export`,
-  DRILL_OPENED:        `drill_opened`,          // Pattern B primary nav event
-  DRILL_FOCUS_SET:     `drill_focus_set`,       // drill + focus= deep-link
-  DRILL_EXPORT_RAIL:   `drill_export_with_rail`, // print with rail included
-  // Trust & Freshness Layer (FR-101)
-  SOURCE_CITE_OPENED:        `source_cite_opened`,       // props: item_type
-  INACCURACY_REPORT_CLICKED: `inaccuracy_report_clicked`, // props: item_type, item_id
-  CHANGELOG_VIEWED:          `changelog_viewed`,
-  FRESHNESS_PILL_CLICKED:    `freshness_pill_clicked`,
-  // Worked examples gallery
-  EXAMPLES_GALLERY_VIEWED:   `examples_gallery_viewed`,
-  EXAMPLE_VIEWED:            `example_viewed`,            // props: example_id
+  EXAMPLES_GALLERY_VIEWED: `examples_gallery_viewed`, // /examples opened
+  EXAMPLE_VIEWED:          `example_viewed`,          // a worked example opened; props: example_id
+  CHANGELOG_VIEWED:        `changelog_viewed`,        // /changelog opened
+}
+
+// The only event properties sent, by event. example_id is a scenario id such
+// as G09, never anything the user typed.
+export const eventProps = {
+  [events.EXAMPLES_GALLERY_VIEWED]: [],
+  [events.EXAMPLE_VIEWED]:          [`example_id`],
+  [events.CHANGELOG_VIEWED]:        [],
 }

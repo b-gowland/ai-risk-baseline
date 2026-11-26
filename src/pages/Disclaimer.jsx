@@ -75,7 +75,7 @@ export default function Disclaimer() {
             share the URL with can see the answers it contains.
           </p>
           <p className={styles.text}>
-            Like the other AI Risk Practice sites, Baseline uses{` `}
+            Baseline uses{` `}
             <a
               href="https://plausible.io/data-policy"
               target="_blank"
@@ -86,8 +86,23 @@ export default function Disclaimer() {
             </a>
             , which sets no cookies and stores no IP address or persistent visitor
             identifier. It records the page path (not your answers in the URL), referrer,
-            country, and browser and device type, plus anonymous events such as which
-            worked example was opened. We publish only aggregates and never sell or share data.
+            country, and browser and device type. We publish only aggregates and never sell
+            or share data.
+          </p>
+          <p className={styles.text}>
+            The Plausible site is shared with the other two free AI Risk Practice sites, the
+            practice scenarios (app.airiskpractice.org) and the reference library
+            (library.airiskpractice.org), so their visits are counted together. Besides page
+            views, Baseline sends exactly three events:
+          </p>
+          <ul className={styles.list}>
+            <li><code>examples_gallery_viewed</code>: the worked examples page was opened.</li>
+            <li><code>example_viewed</code>: a worked example was opened, with its <code>example_id</code> (such as G09).</li>
+            <li><code>changelog_viewed</code>: the changelog was opened.</li>
+          </ul>
+          <p className={styles.text}>
+            No event carries your answers or anything you type. Fonts are served from this
+            site, so no request goes to Google or any other third party apart from Plausible.
           </p>
         </section>
 

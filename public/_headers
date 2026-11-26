@@ -8,8 +8,14 @@ https://:project.pages.dev/*
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 
+# The Content-Security-Policy allows scripts from this site and plausible.io
+# only (the Plausible stub lives in public/plausible-init.js, not inline).
+# Fonts are self-hosted, so no Google hosts. Inline styles are allowed because
+# React sets style attributes. There is no frame-ancestors: embedding the
+# Baseline in another page stays allowed, as for the practice scenarios app.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://plausible.io; object-src 'none'; base-uri 'none'; form-action 'none'
