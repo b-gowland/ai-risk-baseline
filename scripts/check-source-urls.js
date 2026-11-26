@@ -76,6 +76,14 @@ export async function checkSource(source, options = {}) {
   }
 }
 
+// Only these establish that a source link needs fixing. Blocked (401/403: the
+// site refuses automated checkers, as ISO and OAIC do), rate-limited, timed-out
+// and network results are listed for a manual check but don't fail the run, or
+// the job would be red every month with nothing to fix.
+export const FAILING_CATEGORIES = ['broken', 'redirect_error', 'invalid_url', 'http_error'];
+export const exitCodeFor = (results) =>
+  results.some(r => FAILING_CATEGORIES.includes(r.category)) ? 1 : 0;
+
 const cell = (value) => String(value ?? '').replace(/[\r\n]+/g, ' ').replace(/\|/g, '\\|');
 export function renderReport(results) {
   const attention = results.filter(r => r.category !== 'healthy');
@@ -83,6 +91,8 @@ export function renderReport(results) {
     `Checked ${results.length} unique URLs; ${attention.length} need attention.`, '',
     'Broken means HTTP 404/410. Blocked means HTTP 401/403. Timeouts, network errors and '
       + 'temporary server/rate-limit failures do not establish that a link is broken.', '',
+    'Only broken links, redirect errors, invalid URLs and unexpected HTTP errors fail the run. '
+      + 'Check blocked links by hand in a browser.', '',
     '| Outcome | Source URL | References | HTTP | Attempts | Final URL / detail |',
     '|---|---|---|---|---|---|'];
   for (const r of attention) lines.push(`| ${cell(r.category)} | ${cell(r.url)} | `
@@ -101,7 +111,7 @@ export async function run(output = 'reports/url-health') {
   await fs.writeFile(`${output}.json`, JSON.stringify({ checkedAt: new Date().toISOString(), results }, null, 2));
   await fs.writeFile(`${output}.md`, renderReport(results));
   console.log(renderReport(results));
-  return results.some(r => r.category !== 'healthy') ? 1 : 0;
+  return exitCodeFor(results);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -77,6 +77,8 @@ jobs:
               });
             }
 
-      - name: Fail run when source links need attention
+      # The checker exits 1 only for links that need fixing (scripts/check-source-urls.js,
+      # FAILING_CATEGORIES); blocked or temporary results are reported, not failed.
+      - name: Fail run when source links need fixing
         if: steps.check.outcome == 'failure'
         run: exit 1

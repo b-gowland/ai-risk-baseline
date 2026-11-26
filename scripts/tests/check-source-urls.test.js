@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { checkSource, collectSources, renderReport } from '../check-source-urls.js';
+import { checkSource, collectSources, exitCodeFor, renderReport } from '../check-source-urls.js';
 
 async function serverFor(t, handler) {
   const server = http.createServer(handler);
@@ -83,4 +83,17 @@ test('report includes outcomes, references and final redirect destination', () =
   assert.match(report, /framework, mapping/);
   assert.match(report, /https:\/\/example.org\/gone/);
   assert.match(report, /HTTP 401\/403/);
+});
+
+test('only links that need fixing fail the run; blocked and temporary ones are reported', () => {
+  const r = (category) => ({ url: `https://x.example/${category}`, contexts: ['c'], category, attempts: 1 });
+  for (const ok of ['healthy', 'blocked', 'transient', 'timeout', 'network_error']) {
+    assert.equal(exitCodeFor([r('healthy'), r(ok)]), 0, `${ok} must not fail the run`);
+  }
+  for (const bad of ['broken', 'redirect_error', 'invalid_url', 'http_error']) {
+    assert.equal(exitCodeFor([r('blocked'), r(bad)]), 1, `${bad} must fail the run`);
+  }
+  const report = renderReport([r('blocked')]);
+  assert.match(report, /blocked/);
+  assert.match(report, /Check blocked links by hand/);
 });
