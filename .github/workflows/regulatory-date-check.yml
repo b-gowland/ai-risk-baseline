@@ -1,8 +1,7 @@
 name: Regulatory Date Check
 
+# Schedule removed 28 Nov 2026: the Baseline is retired. Can still be run by hand.
 on:
-  schedule:
-    - cron: "0 9 1,15 * *"  # 1st and 15th of every month at 09:00 UTC
   workflow_dispatch:
 
 permissions:

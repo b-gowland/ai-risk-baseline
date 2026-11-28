@@ -1,0 +1,6 @@
+# The Governance Baseline was retired on 28 Nov 2026. Every address goes to the
+# EU AI Act Service Desk's official Compliance Checker (European Commission).
+# The destination has its own query string so Cloudflare drops the visitor's:
+# Baseline answers lived in the URL, and they must not be passed to another site.
+# (Checked in wrangler pages dev 4.163.0 on 28 Nov 2026.)
+/*    https://ai-act-service-desk.ec.europa.eu/en/eu-ai-act-compliance-checker?from=retired    301
