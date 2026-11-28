@@ -1,5 +1,9 @@
 # AI Governance Baseline: notes for Claude
 
+**Retired on 28 Nov 2026, to be archived.** The site only redirects
+(`retired/`) to the EU AI Act Service Desk's Compliance Checker. Don't add
+content; see the README.
+
 Free, open-source governance profiler (baseline.airiskpractice.org). Describe
 one AI use case by purpose, role and impact; get its EU AI Act classification,
 a governance tier, requirements crosswalked to ISO/IEC and NIST, first actions

@@ -1,10 +1,12 @@
 # AI Governance Baseline
 
+> **Retired on 28 November 2026.** The Baseline is no longer maintained and no longer online. Every baseline.airiskpractice.org address now redirects to the European Commission's [EU AI Act Compliance Checker](https://ai-act-service-desk.ec.europa.eu/en/eu-ai-act-compliance-checker). The code stays here, archived, under its licence. Its legal content is dated November 2026 and may be out of date.
+
 **Part of [AI Risk Practice](https://airiskpractice.org) — free, open-source AI risk literacy.**
 
 The AI Governance Baseline is a free, browser-based tool for AI governance leads, from a one-person team to an enterprise. Describe one AI use case by its intended purpose, your role and its impact, and get a starting baseline: its EU AI Act classification, a governance tier, the requirements that apply (crosswalked to ISO/IEC and NIST), your first five actions, and the open questions to escalate.
 
-**Live:** [baseline.airiskpractice.org](https://baseline.airiskpractice.org)
+**Live:** no longer; the address redirects (see the notice above).
 
 ---
 
